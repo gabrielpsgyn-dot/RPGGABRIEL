@@ -6,3 +6,7 @@ compatibility_date = "2025-08-01"
 binding = "DB"
 database_name = "ghosts_saltmarsh_rpg"
 database_id = "3e55ab92-f431-41c6-845a-dfb689fff782"
+
+[assets]
+directory = "../public"
+binding = "ASSETS"
