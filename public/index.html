@@ -404,7 +404,189 @@
     @media print{
       body{background:#fff}.app{display:block}.sidebar,.topbar,.actions,.image-tools,.footer-note{display:none!important}.main{padding:0}.sheet-wrap{max-width:none}.sheet-page{display:block!important;box-shadow:none;border-radius:0;border:0;margin:0;min-height:100vh;page-break-after:always;background:#fff;padding:10mm}.sheet-page:before,.sheet-page:after{display:none}.grid.p1{grid-template-columns:1.05fr 1.2fr 1.15fr}.grid.p2{grid-template-columns:1.05fr 1.55fr}.grid.p3{grid-template-columns:1fr 1fr 1fr}input,textarea,select{background:#fff!important}textarea{min-height:auto}.huge-textarea{min-height:310px}.big-textarea{min-height:160px}
     }
-  </style>
+  
+/* FIX ABERTURA V6 - alto contraste e leitura mobile */
+body.menu-open{
+  background:#090b10 !important;
+}
+
+body.menu-open .menu-screen{
+  min-height:100vh !important;
+  padding:12px !important;
+  background:
+    linear-gradient(180deg, rgba(5,8,13,.94), rgba(10,13,20,.98)),
+    radial-gradient(circle at top, rgba(124,72,38,.28), transparent 42%) !important;
+  color:#f8f1df !important;
+}
+
+body.menu-open .menu-shell{
+  max-width:980px !important;
+  margin:0 auto !important;
+  display:grid !important;
+  gap:12px !important;
+}
+
+body.menu-open .campaign-hero{
+  background:#121722 !important;
+  border:1px solid #d8bd8b !important;
+  box-shadow:0 14px 40px rgba(0,0,0,.45) !important;
+  border-radius:18px !important;
+  padding:16px !important;
+  color:#f8f1df !important;
+}
+
+body.menu-open .campaign-hero h1{
+  color:#fff7df !important;
+  text-shadow:none !important;
+  font-size:clamp(28px, 9vw, 48px) !important;
+  line-height:1 !important;
+  margin:6px 0 8px !important;
+}
+
+body.menu-open .campaign-hero p,
+body.menu-open .campaign-kicker{
+  color:#e6d6b8 !important;
+  text-shadow:none !important;
+  line-height:1.35 !important;
+}
+
+body.menu-open .menu-grid{
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:12px !important;
+}
+
+body.menu-open .menu-panel{
+  background:#f6efe0 !important;
+  color:#21170f !important;
+  border:2px solid #d8bd8b !important;
+  border-radius:16px !important;
+  padding:14px !important;
+  box-shadow:0 12px 34px rgba(0,0,0,.35) !important;
+}
+
+body.menu-open .menu-panel h2{
+  color:#21170f !important;
+  font-size:20px !important;
+  margin:0 0 10px !important;
+  text-shadow:none !important;
+}
+
+body.menu-open .campaign-note{
+  background:#fff9ea !important;
+  color:#241b14 !important;
+  border:1px solid #c9ad7a !important;
+  border-radius:12px !important;
+  padding:10px !important;
+  margin-bottom:8px !important;
+  line-height:1.35 !important;
+}
+
+body.menu-open .campaign-note b{
+  color:#5a2d12 !important;
+}
+
+body.menu-open .menu-character-list{
+  display:grid !important;
+  gap:8px !important;
+}
+
+body.menu-open .menu-char-card,
+body.menu-open .menu-empty{
+  width:100% !important;
+  background:#fffaf0 !important;
+  color:#241b14 !important;
+  border:2px solid #c9ad7a !important;
+  border-radius:14px !important;
+  padding:12px !important;
+  text-align:left !important;
+  box-shadow:none !important;
+}
+
+body.menu-open .menu-char-card.active{
+  background:#2f1f14 !important;
+  color:#fff7df !important;
+  border-color:#f0cf89 !important;
+}
+
+body.menu-open .menu-char-card b{
+  color:inherit !important;
+  font-size:17px !important;
+}
+
+body.menu-open .menu-char-card span{
+  color:inherit !important;
+  opacity:.88 !important;
+}
+
+body.menu-open .menu-char-meta{
+  display:flex !important;
+  gap:6px !important;
+  flex-wrap:wrap !important;
+  margin-top:8px !important;
+}
+
+body.menu-open .pill{
+  background:#3b2a1d !important;
+  color:#fff7df !important;
+  border:1px solid #d8bd8b !important;
+  border-radius:999px !important;
+  padding:4px 8px !important;
+  font-style:normal !important;
+  font-size:11px !important;
+}
+
+body.menu-open .menu-actions{
+  display:grid !important;
+  grid-template-columns:1fr !important;
+  gap:8px !important;
+  margin-top:10px !important;
+}
+
+body.menu-open .btn{
+  min-height:44px !important;
+  border-radius:12px !important;
+  font-weight:800 !important;
+}
+
+body.menu-open .btn.ghost{
+  color:#fff7df !important;
+  background:#3a2a20 !important;
+}
+
+@media (max-width:780px){
+  body.menu-open .menu-screen{
+    padding:8px !important;
+  }
+
+  body.menu-open .menu-grid{
+    grid-template-columns:1fr !important;
+  }
+
+  body.menu-open .campaign-hero{
+    padding:12px !important;
+    border-radius:14px !important;
+  }
+
+  body.menu-open .campaign-hero h1{
+    font-size:32px !important;
+  }
+
+  body.menu-open .campaign-hero p{
+    font-size:13px !important;
+  }
+
+  body.menu-open .menu-panel{
+    padding:10px !important;
+    border-radius:14px !important;
+  }
+
+  body.menu-open .menu-panel h2{
+    font-size:17px !important;
+  }
+}
+/* FIM FIX ABERTURA V6 */
+</style>
 </head>
 <body class="menu-open">
   <section class="menu-screen" id="menuScreen" aria-label="Menu da campanha">
@@ -1717,4 +1899,5 @@ function loadStore(){
   </script>
 </body>
 </html>
+
 
