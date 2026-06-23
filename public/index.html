@@ -1,9 +1,9 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ghosts of Saltmarsh - Ficha Online V5 Senha Padrão</title>
+  <title>Ghosts of Saltmarsh - Ficha Online V5 Senha PadrÃ£o</title>
   <style>
     :root{
       --bg:#17130f;
@@ -158,12 +158,12 @@
 
 
     /* V2 MOBILE-FIRST
-       A ficha continua completa, mas a experiência principal agora é o celular:
+       A ficha continua completa, mas a experiÃªncia principal agora Ã© o celular:
        - ficha aparece antes do painel lateral
        - abas rolam horizontalmente
-       - botões principais ficam fixos no rodapé
-       - campos têm altura de toque confortável
-       - tabelas e magias não quebram a tela
+       - botÃµes principais ficam fixos no rodapÃ©
+       - campos tÃªm altura de toque confortÃ¡vel
+       - tabelas e magias nÃ£o quebram a tela
     */
     @media (max-width:780px){
       html,body{min-height:100%;background:#17130f;overflow-x:hidden}
@@ -263,7 +263,7 @@
 
 
 
-    /* V3.2 COMPACTA — regra principal: gastar o mínimo de espaço possível no celular. */
+    /* V3.2 COMPACTA â€” regra principal: gastar o mÃ­nimo de espaÃ§o possÃ­vel no celular. */
     :root{--radius:12px}
     .compact-hint{display:none}
     .panel.compact-panel{padding:7px}
@@ -410,9 +410,9 @@
   <section class="menu-screen" id="menuScreen" aria-label="Menu da campanha">
     <div class="menu-shell">
       <div class="campaign-hero">
-        <p class="campaign-kicker">Ghosts of Saltmarsh • Saltmarsh • Thalassyr</p>
+        <p class="campaign-kicker">Ghosts of Saltmarsh â€¢ Saltmarsh â€¢ Thalassyr</p>
         <h1>Ghosts of Saltmarsh</h1>
-        <p>Clique no personagem e digite a senha padrão da mesa. O jogador não precisa configurar endpoint, token ou código de usuário.</p>
+        <p>Clique no personagem e digite a senha padrÃ£o da mesa. O jogador nÃ£o precisa configurar endpoint, token ou cÃ³digo de usuÃ¡rio.</p>
       </div>
 
       <div class="menu-grid">
@@ -426,12 +426,12 @@
         </div>
 
         <div class="menu-panel">
-          <h2>Entrada com senha padrão</h2>
+          <h2>Entrada com senha padrÃ£o</h2>
           <div class="campaign-note">
-            <b>Fluxo do jogador:</b> clicar no personagem → digitar a senha padrão da mesa → entrar na ficha. Depois disso a ficha salva localmente e tenta sincronizar online.
+            <b>Fluxo do jogador:</b> clicar no personagem â†’ digitar a senha padrÃ£o da mesa â†’ entrar na ficha. Depois disso a ficha salva localmente e tenta sincronizar online.
           </div>
           <div class="campaign-note">
-            <b>Tom:</b> cidade costeira, segredos antigos, maré como presságio, corrupção crescente e pistas escondidas em Thalassyr.
+            <b>Tom:</b> cidade costeira, segredos antigos, marÃ© como pressÃ¡gio, corrupÃ§Ã£o crescente e pistas escondidas em Thalassyr.
           </div>
           <div class="menu-actions">
             <button class="btn" id="menuContinueBtn">Entrar no personagem selecionado</button>
@@ -441,19 +441,19 @@
         </div>
 
         <div class="menu-panel">
-          <h2>Mestre / Configuração</h2>
+          <h2>Mestre / ConfiguraÃ§Ã£o</h2>
           <div class="campaign-note">
-            <b>Para o jogador comum, ignore isto.</b> A configuração fica aqui só para preparar o deploy. Em produção, o endpoint deve ficar fixo no código ou no mesmo domínio do Worker.
+            <b>Para o jogador comum, ignore isto.</b> A configuraÃ§Ã£o fica aqui sÃ³ para preparar o deploy. Em produÃ§Ã£o, o endpoint deve ficar fixo no cÃ³digo ou no mesmo domÃ­nio do Worker.
           </div>
           <details class="master-config">
-            <summary>Configuração avançada</summary>
+            <summary>ConfiguraÃ§Ã£o avanÃ§ada</summary>
             <div class="online-config" style="margin-top:8px">
               <div>
                 <span class="small-label">Endpoint da API</span>
                 <input class="side-input" id="menuApiBaseInput" placeholder="https://sua-api.workers.dev" />
               </div>
               <div>
-                <span class="small-label">Código da mesa</span>
+                <span class="small-label">CÃ³digo da mesa</span>
                 <input class="side-input" id="menuPlayerIdInput" placeholder="mesa-saltmarsh" />
               </div>
               <div>
@@ -477,12 +477,12 @@
     </div>
   </section>
 
-  <div class="password-modal hidden" id="passwordModal" role="dialog" aria-modal="true" aria-label="Senha padrão da mesa">
+  <div class="password-modal hidden" id="passwordModal" role="dialog" aria-modal="true" aria-label="Senha padrÃ£o da mesa">
     <div class="password-card">
       <h2>Senha da mesa</h2>
       <div class="password-target" id="passwordTargetName">Personagem</div>
-      <p>Digite a senha padrão para abrir este personagem. A senha real é validada pela API online; no teste local, use a senha de desenvolvimento configurada no código.</p>
-      <label>Senha padrão</label>
+      <p>Digite a senha padrÃ£o para abrir este personagem. A senha real Ã© validada pela API online; no teste local, use a senha de desenvolvimento configurada no cÃ³digo.</p>
+      <label>Senha padrÃ£o</label>
       <input id="passwordInput" type="password" autocomplete="current-password" placeholder="Senha da mesa" />
       <div class="password-actions">
         <button class="btn ghost" id="passwordCancelBtn">Cancelar</button>
@@ -494,11 +494,11 @@
   <div class="app">
     <aside class="sidebar">
       <div class="brand">
-        <div class="brand-mark">≈</div>
+        <div class="brand-mark">â‰ˆ</div>
         <div>
           <h1>Ghosts of Saltmarsh</h1>
-          <p>Ficha Online V5 - senha padrão</p>
-          <div class="brand-campaign">Ghosts of Saltmarsh • Thalassyr • marés • corrupção • facções</div>
+          <p>Ficha Online V5 - senha padrÃ£o</p>
+          <div class="brand-campaign">Ghosts of Saltmarsh â€¢ Thalassyr â€¢ marÃ©s â€¢ corrupÃ§Ã£o â€¢ facÃ§Ãµes</div>
         </div>
       </div>
 
@@ -538,11 +538,11 @@
       <div class="topbar">
         <div class="topbar-inner">
           <div class="topbar-tools">
-            <button class="btn ghost small" id="backToMenuBtn">← Personagens</button><div class="sheet-mode-note">Tela de informações do personagem</div>
+            <button class="btn ghost small" id="backToMenuBtn">â† Personagens</button><div class="sheet-mode-note">Tela de informaÃ§Ãµes do personagem</div>
           </div>
           <div class="tabs" id="tabs">
             <button class="tab active" data-tab="page1">1. Ficha</button>
-            <button class="tab" data-tab="page2">2. História</button>
+            <button class="tab" data-tab="page2">2. HistÃ³ria</button>
             <button class="tab" data-tab="page3">3. Magias</button>
             <button class="tab" data-tab="campaign">4. Campanha</button>
             <button class="tab" data-tab="json">JSON</button>
@@ -565,12 +565,12 @@
                 </div>
               </div>
               <div class="header-grid">
-                <div class="field"><label>Classe e nível</label><input data-path="meta.classeNivel" /></div>
+                <div class="field"><label>Classe e nÃ­vel</label><input data-path="meta.classeNivel" /></div>
                 <div class="field"><label>Antecedente</label><input data-path="meta.antecedente" /></div>
                 <div class="field"><label>Nome do jogador</label><input data-path="meta.nomeJogador" /></div>
-                <div class="field"><label>Raça</label><input data-path="meta.raca" /></div>
+                <div class="field"><label>RaÃ§a</label><input data-path="meta.raca" /></div>
                 <div class="field"><label>Alinhamento</label><input data-path="meta.alinhamento" /></div>
-                <div class="field"><label>Pontos de experiência</label><input data-path="meta.experiencia" type="number" min="0" /></div>
+                <div class="field"><label>Pontos de experiÃªncia</label><input data-path="meta.experiencia" type="number" min="0" /></div>
               </div>
             </div>
 
@@ -579,14 +579,14 @@
                 <div class="panel">
                   <h3>Atributos</h3>
                   <div id="abilityList" class="ability-list"></div>
-                  <div class="calc-note">Atributo editável. Modificador: vazio = automático; preenchido = manual.</div>
+                  <div class="calc-note">Atributo editÃ¡vel. Modificador: vazio = automÃ¡tico; preenchido = manual.</div>
                 </div>
 
                 <div class="panel">
-                  <h3>Inspiração / Proficiência</h3>
+                  <h3>InspiraÃ§Ã£o / ProficiÃªncia</h3>
                   <div class="subgrid" style="grid-template-columns:1fr 1fr">
-                    <label class="inline"><input type="checkbox" data-path="meta.inspiracao" /> Inspiração</label>
-                    <div class="field"><label>Bônus de proficiência</label><input data-path="meta.bonusProficiencia" type="number" /></div>
+                    <label class="inline"><input type="checkbox" data-path="meta.inspiracao" /> InspiraÃ§Ã£o</label>
+                    <div class="field"><label>BÃ´nus de proficiÃªncia</label><input data-path="meta.bonusProficiencia" type="number" /></div>
                   </div>
                 </div>
 
@@ -596,18 +596,18 @@
                 </div>
 
                 <div class="panel">
-                  <h3>Perícias</h3>
+                  <h3>PerÃ­cias</h3>
                   <div id="skillsList" class="check-list"></div>
                 </div>
 
                 <div class="panel">
                   <h3>Sabedoria passiva</h3>
-                  <div class="field"><label>Sabedoria passiva (Percepção)</label><input data-path="proficiencias.sabedoriaPassiva" /></div>
+                  <div class="field"><label>Sabedoria passiva (PercepÃ§Ã£o)</label><input data-path="proficiencias.sabedoriaPassiva" /></div>
                   <div class="calc-note" id="passiveCalc">Calculado: -</div>
                 </div>
 
                 <div class="panel">
-                  <h3>Outras proficiências & idiomas</h3>
+                  <h3>Outras proficiÃªncias & idiomas</h3>
                   <textarea data-path="proficiencias.outras" class="big-textarea"></textarea>
                 </div>
               </div>
@@ -626,13 +626,13 @@
                 <div class="panel">
                   <h3>Pontos de vida</h3>
                   <div class="hp-box">
-                    <div class="field"><label>Pontos de vida máximos</label><input data-path="vida.maximos" type="number" /></div>
+                    <div class="field"><label>Pontos de vida mÃ¡ximos</label><input data-path="vida.maximos" type="number" /></div>
                   </div>
                   <div class="hp-box">
                     <div class="field"><label>Pontos de vida atuais</label><input data-path="vida.atuais" type="number" /></div>
                   </div>
                   <div class="hp-box">
-                    <div class="field"><label>Pontos de vida temporários</label><input data-path="vida.temporarios" type="number" /></div>
+                    <div class="field"><label>Pontos de vida temporÃ¡rios</label><input data-path="vida.temporarios" type="number" /></div>
                   </div>
                   <div class="stat-row">
                     <div class="field"><label>Total</label><input data-path="vida.dadoVidaTotal" /></div>
@@ -647,10 +647,10 @@
                 </div>
 
                 <div class="panel">
-                  <h3>Ataques & conjuração</h3>
+                  <h3>Ataques & conjuraÃ§Ã£o</h3>
                   <div style="overflow:auto">
                     <table>
-                      <thead><tr><th>Nome</th><th>Bônus ataque</th><th>Dano / tipo</th></tr></thead>
+                      <thead><tr><th>Nome</th><th>BÃ´nus ataque</th><th>Dano / tipo</th></tr></thead>
                       <tbody id="attacksBody"></tbody>
                     </table>
                   </div>
@@ -672,14 +672,14 @@
               <div class="grid">
                 <div class="panel">
                   <h3>Personalidade</h3>
-                  <div class="field"><label>Traços de personalidade</label><textarea data-path="personalidade.tracos"></textarea></div>
+                  <div class="field"><label>TraÃ§os de personalidade</label><textarea data-path="personalidade.tracos"></textarea></div>
                   <div class="field"><label>Ideais</label><textarea data-path="personalidade.ideais"></textarea></div>
-                  <div class="field"><label>Vínculos</label><textarea data-path="personalidade.vinculos"></textarea></div>
+                  <div class="field"><label>VÃ­nculos</label><textarea data-path="personalidade.vinculos"></textarea></div>
                   <div class="field"><label>Fraquezas</label><textarea data-path="personalidade.fraquezas"></textarea></div>
                 </div>
 
                 <div class="panel">
-                  <h3>Características & talentos</h3>
+                  <h3>CaracterÃ­sticas & talentos</h3>
                   <textarea data-path="caracteristicasTalentos.principais" class="huge-textarea"></textarea>
                 </div>
               </div>
@@ -709,31 +709,31 @@
             <div class="grid p2">
               <div class="grid">
                 <div class="panel">
-                  <h3>Aparência do personagem</h3>
+                  <h3>AparÃªncia do personagem</h3>
                   <div class="image-box" id="portraitBox"><span class="micro">Imagem do personagem opcional</span></div>
                   <div class="image-tools">
                     <button class="btn secondary small" data-image-action="upload" data-image-path="descricao.aparenciaImagem">Enviar imagem</button>
                     <button class="btn danger small" data-image-action="remove" data-image-path="descricao.aparenciaImagem">Remover</button>
                   </div>
-                  <textarea data-path="descricao.aparenciaTexto" class="big-textarea" placeholder="Descrição da aparência"></textarea>
+                  <textarea data-path="descricao.aparenciaTexto" class="big-textarea" placeholder="DescriÃ§Ã£o da aparÃªncia"></textarea>
                   <input type="file" id="hiddenImageInput" accept="image/*" hidden />
                 </div>
 
                 <div class="panel">
-                  <h3>História do personagem</h3>
+                  <h3>HistÃ³ria do personagem</h3>
                   <textarea data-path="descricao.historia" class="huge-textarea"></textarea>
                 </div>
               </div>
 
               <div class="grid">
                 <div class="panel">
-                  <h3>Aliados & organizações</h3>
-                  <div class="field"><label>Aliados e organizações</label><textarea data-path="descricao.aliadosOrganizacoes" class="big-textarea"></textarea></div>
+                  <h3>Aliados & organizaÃ§Ãµes</h3>
+                  <div class="field"><label>Aliados e organizaÃ§Ãµes</label><textarea data-path="descricao.aliadosOrganizacoes" class="big-textarea"></textarea></div>
                   <div class="subgrid" style="grid-template-columns:1.3fr .9fr;gap:12px">
-                    <div class="field"><label>Nome do símbolo</label><input data-path="descricao.simboloNome" /></div>
+                    <div class="field"><label>Nome do sÃ­mbolo</label><input data-path="descricao.simboloNome" /></div>
                     <div>
-                      <label>Símbolo</label>
-                      <div class="image-box" id="symbolBox" style="min-height:130px"><span class="micro">Imagem / brasão</span></div>
+                      <label>SÃ­mbolo</label>
+                      <div class="image-box" id="symbolBox" style="min-height:130px"><span class="micro">Imagem / brasÃ£o</span></div>
                       <div class="image-tools">
                         <button class="btn secondary small" data-image-action="upload" data-image-path="descricao.simboloImagem">Enviar</button>
                         <button class="btn danger small" data-image-action="remove" data-image-path="descricao.simboloImagem">Remover</button>
@@ -743,7 +743,7 @@
                 </div>
 
                 <div class="panel">
-                  <h3>Características e talentos adicionais</h3>
+                  <h3>CaracterÃ­sticas e talentos adicionais</h3>
                   <textarea data-path="descricao.caracteristicasAdicionais" class="big-textarea"></textarea>
                 </div>
 
@@ -766,12 +766,12 @@
                 </div>
               </div>
               <div class="header-grid">
-                <div class="field"><label>Atributo de conjuração</label><select data-path="magia.atributoConjuracao" id="spellAbilitySelect"></select></div>
+                <div class="field"><label>Atributo de conjuraÃ§Ã£o</label><select data-path="magia.atributoConjuracao" id="spellAbilitySelect"></select></div>
                 <div class="field"><label>CD para evitar suas magias</label><input data-path="magia.cdMagias" /></div>
-                <div class="field"><label>Modificador de ataque mágico</label><input data-path="magia.modificadorAtaqueMagico" /></div>
+                <div class="field"><label>Modificador de ataque mÃ¡gico</label><input data-path="magia.modificadorAtaqueMagico" /></div>
               </div>
             </div>
-            <div class="calc-note" id="spellCalc" style="margin-bottom:12px">Cálculo mágico sugerido: -</div>
+            <div class="calc-note" id="spellCalc" style="margin-bottom:12px">CÃ¡lculo mÃ¡gico sugerido: -</div>
             <div class="grid p3" id="spellGrid"></div>
           </div>
         </section>
@@ -783,50 +783,50 @@
               <div class="ribbon">
                 <div>
                   <label>Marca da campanha</label>
-                  <input data-path="campanha.marcaCampanha" placeholder="Ex.: Sussurro da Maré, Olho Velado, Juramento do Porto" style="font-size:22px;font-weight:900;background:#fffaf0;margin-top:6px" />
+                  <input data-path="campanha.marcaCampanha" placeholder="Ex.: Sussurro da MarÃ©, Olho Velado, Juramento do Porto" style="font-size:22px;font-weight:900;background:#fffaf0;margin-top:6px" />
                 </div>
               </div>
               <div class="header-grid">
-                <div class="field"><label>Maré atual</label><select data-path="campanha.mareAtual"><option value="">Selecione</option><option>Maré baixa</option><option>Maré alta</option><option>Maré morta</option><option>Maré de tempestade</option><option>Névoa costeira</option></select></div>
-                <div class="field"><label>Facção / interesse</label><input data-path="campanha.faccao" placeholder="Conselho, contrabandistas, templo, marinheiros..." /></div>
+                <div class="field"><label>MarÃ© atual</label><select data-path="campanha.mareAtual"><option value="">Selecione</option><option>MarÃ© baixa</option><option>MarÃ© alta</option><option>MarÃ© morta</option><option>MarÃ© de tempestade</option><option>NÃ©voa costeira</option></select></div>
+                <div class="field"><label>FacÃ§Ã£o / interesse</label><input data-path="campanha.faccao" placeholder="Conselho, contrabandistas, templo, marinheiros..." /></div>
                 <div class="field"><label>Segredo ativo</label><input data-path="campanha.segredoAtivo" placeholder="Algo que o personagem esconde" /></div>
                 <div class="field"><label>Frase-chave</label><input data-path="campanha.fraseChave" placeholder="Ex.: Respira primeiro. Age depois." /></div>
-                <div class="field"><label>Presságio</label><input data-path="campanha.pressagioCurto" placeholder="Sinal, sonho ou mau agouro" /></div>
-                <div class="field"><label>Relíquia / item de trama</label><input data-path="campanha.reliquia" /></div>
+                <div class="field"><label>PressÃ¡gio</label><input data-path="campanha.pressagioCurto" placeholder="Sinal, sonho ou mau agouro" /></div>
+                <div class="field"><label>RelÃ­quia / item de trama</label><input data-path="campanha.reliquia" /></div>
               </div>
             </div>
 
             <div class="grid p2">
               <div class="grid">
                 <div class="campaign-block">
-                  <h3>Corrupção e Marés</h3>
-                  <div class="field campaign-meter"><label>Nível de corrupção</label><input data-path="campanha.corrupcao" type="range" min="0" max="10" step="1" /><input data-path="campanha.corrupcao" type="number" min="0" max="10" /></div>
+                  <h3>CorrupÃ§Ã£o e MarÃ©s</h3>
+                  <div class="field campaign-meter"><label>NÃ­vel de corrupÃ§Ã£o</label><input data-path="campanha.corrupcao" type="range" min="0" max="10" step="1" /><input data-path="campanha.corrupcao" type="number" min="0" max="10" /></div>
                   <div class="sea-grid">
-                    <label class="inline"><input type="checkbox" data-path="campanha.marcadoPelaMare" /> Marcado pela maré</label>
+                    <label class="inline"><input type="checkbox" data-path="campanha.marcadoPelaMare" /> Marcado pela marÃ©</label>
                     <label class="inline"><input type="checkbox" data-path="campanha.ouviuThalassyr" /> Ouviu Thalassyr</label>
                     <label class="inline"><input type="checkbox" data-path="campanha.viuRitual" /> Viu o ritual</label>
                   </div>
-                  <div class="field"><label>Efeito atual da corrupção</label><textarea data-path="campanha.efeitoCorrupcao"></textarea></div>
+                  <div class="field"><label>Efeito atual da corrupÃ§Ã£o</label><textarea data-path="campanha.efeitoCorrupcao"></textarea></div>
                 </div>
 
                 <div class="campaign-block">
-                  <h3>Thalassyr / Cifra das Marés</h3>
-                  <div class="field"><label>Palavras, runas ou símbolos conhecidos</label><textarea data-path="campanha.cifraMares" class="big-textarea" placeholder="A Cifra das Marés fica aqui como mecânica/pista, não como nome da campanha."></textarea></div>
+                  <h3>Thalassyr / Cifra das MarÃ©s</h3>
+                  <div class="field"><label>Palavras, runas ou sÃ­mbolos conhecidos</label><textarea data-path="campanha.cifraMares" class="big-textarea" placeholder="A Cifra das MarÃ©s fica aqui como mecÃ¢nica/pista, nÃ£o como nome da campanha."></textarea></div>
                   <div class="field"><label>Pistas decifradas</label><textarea data-path="campanha.pistasDecifradas" class="big-textarea"></textarea></div>
                 </div>
               </div>
 
               <div class="grid">
                 <div class="campaign-block">
-                  <h3>Vínculos de Saltmarsh</h3>
-                  <div class="field"><label>Relação com a cidade</label><textarea data-path="campanha.vinculoSaltmarsh" class="big-textarea" placeholder="Quem conhece, quem deve, quem teme, onde mora, profissão, reputação..."></textarea></div>
+                  <h3>VÃ­nculos de Saltmarsh</h3>
+                  <div class="field"><label>RelaÃ§Ã£o com a cidade</label><textarea data-path="campanha.vinculoSaltmarsh" class="big-textarea" placeholder="Quem conhece, quem deve, quem teme, onde mora, profissÃ£o, reputaÃ§Ã£o..."></textarea></div>
                   <div class="field"><label>Aliados, rivais e contatos de campanha</label><textarea data-path="campanha.aliadosRivais" class="big-textarea"></textarea></div>
                 </div>
 
                 <div class="campaign-block">
                   <h3>Ritual antigo sob a cidade</h3>
                   <div class="field"><label>O que o personagem sabe</label><textarea data-path="campanha.ritualAntigo" class="big-textarea"></textarea></div>
-                  <div class="field"><label>Sonhos, presságios e consequências</label><textarea data-path="campanha.sonhosPressagios" class="big-textarea"></textarea></div>
+                  <div class="field"><label>Sonhos, pressÃ¡gios e consequÃªncias</label><textarea data-path="campanha.sonhosPressagios" class="big-textarea"></textarea></div>
                 </div>
               </div>
             </div>
@@ -843,7 +843,7 @@
                 <button class="btn" id="applyJsonBtn">Aplicar JSON editado</button>
                 <button class="btn secondary" id="copyJsonBtn">Copiar JSON</button>
               </div>
-              <p class="micro">Use com cuidado. Esta área mostra exatamente o que será salvo/exportado.</p>
+              <p class="micro">Use com cuidado. Esta Ã¡rea mostra exatamente o que serÃ¡ salvo/exportado.</p>
             </div>
           </div>
         </section>
@@ -861,14 +861,14 @@
     const TOKEN_KEY = 'ficha_online_rpg_v1.apiToken';
     const PASSWORD_SESSION_KEY = 'ficha_online_rpg_v1.sessionPassword';
     const CAMPAIGN_ID = 'ghosts-of-saltmarsh';
-    const DEFAULT_API_BASE = ''; // Em produção: coloque aqui o URL do Worker se o HTML ficar em outro domínio.
+    const DEFAULT_API_BASE = 'https://ficharpg.gabrielgpsgyn.workers.dev'; // Em produÃ§Ã£o: coloque aqui o URL do Worker se o HTML ficar em outro domÃ­nio.
     const LOCAL_DEV_PASSWORD = 'saltmarsh'; // Apenas para teste local. A senha real deve ficar no Worker como RPG_DEFAULT_PASSWORD.
 
     const abilities = [
-      ['forca','Força','For'],
+      ['forca','ForÃ§a','For'],
       ['destreza','Destreza','Des'],
-      ['constituicao','Constituição','Con'],
-      ['inteligencia','Inteligência','Int'],
+      ['constituicao','ConstituiÃ§Ã£o','Con'],
+      ['inteligencia','InteligÃªncia','Int'],
       ['sabedoria','Sabedoria','Sab'],
       ['carisma','Carisma','Car']
     ];
@@ -878,21 +878,21 @@
       ['adestrarAnimais','Adestrar Animais','sabedoria','Sab'],
       ['arcanismo','Arcanismo','inteligencia','Int'],
       ['atletismo','Atletismo','forca','For'],
-      ['atuacao','Atuação','carisma','Car'],
-      ['enganacao','Enganação','carisma','Car'],
+      ['atuacao','AtuaÃ§Ã£o','carisma','Car'],
+      ['enganacao','EnganaÃ§Ã£o','carisma','Car'],
       ['furtividade','Furtividade','destreza','Des'],
-      ['historia','História','inteligencia','Int'],
-      ['intimidacao','Intimidação','carisma','Car'],
-      ['intuicao','Intuição','sabedoria','Sab'],
-      ['investigacao','Investigação','inteligencia','Int'],
+      ['historia','HistÃ³ria','inteligencia','Int'],
+      ['intimidacao','IntimidaÃ§Ã£o','carisma','Car'],
+      ['intuicao','IntuiÃ§Ã£o','sabedoria','Sab'],
+      ['investigacao','InvestigaÃ§Ã£o','inteligencia','Int'],
       ['lidarComAnimais','Lidar com Animais','sabedoria','Sab'],
       ['medicina','Medicina','sabedoria','Sab'],
       ['natureza','Natureza','inteligencia','Int'],
-      ['percepcao','Percepção','sabedoria','Sab'],
-      ['persuasao','Persuasão','carisma','Car'],
-      ['prestigitacao','Prestidigitação','destreza','Des'],
-      ['religiao','Religião','inteligencia','Int'],
-      ['sobrevivencia','Sobrevivência','sabedoria','Sab']
+      ['percepcao','PercepÃ§Ã£o','sabedoria','Sab'],
+      ['persuasao','PersuasÃ£o','carisma','Car'],
+      ['prestigitacao','PrestidigitaÃ§Ã£o','destreza','Des'],
+      ['religiao','ReligiÃ£o','inteligencia','Int'],
+      ['sobrevivencia','SobrevivÃªncia','sabedoria','Sab']
     ];
 
     const state = {
@@ -1081,7 +1081,7 @@
     async function rawApiFetch(path, options={}, includePassword=true){
       persistOnlineSettings();
       const base = getApiBase();
-      if(!base) throw new Error('API não configurada.');
+      if(!base) throw new Error('API nÃ£o configurada.');
       const res = await fetch(base + path, {
         ...options,
         headers: {...apiHeaders(includePassword), ...(options.headers || {})}
@@ -1138,7 +1138,7 @@
 
     async function loadPublicCharacterList(silent=true){
       const base = getApiBase();
-      if(!base){ if(!silent) toast('API não configurada.'); return false; }
+      if(!base){ if(!silent) toast('API nÃ£o configurada.'); return false; }
       try{
         const data = await publicApiFetch('/api/public/characters?campaignId=' + encodeURIComponent(CAMPAIGN_ID), {method:'GET'});
         const cards = Array.isArray(data.characters) ? data.characters : [];
@@ -1148,7 +1148,7 @@
         updateOnlineBadge(cards.length ? `Lista online: ${cards.length} personagem(ns).` : 'Nenhum personagem online ainda.', true);
         return true;
       }catch(err){
-        if(!silent) toast('Não consegui atualizar a lista online: ' + err.message);
+        if(!silent) toast('NÃ£o consegui atualizar a lista online: ' + err.message);
         updateOnlineBadge('Usando lista local. ' + err.message);
         return false;
       }
@@ -1176,7 +1176,7 @@
       const input = $('#passwordInput');
       const pwd = input ? input.value.trim() : '';
       if(!id){ toast('Selecione um personagem.'); return; }
-      if(!pwd){ toast('Digite a senha padrão.'); return; }
+      if(!pwd){ toast('Digite a senha padrÃ£o.'); return; }
       setSessionPassword(pwd);
       try{
         if(getApiBase()){
@@ -1190,13 +1190,13 @@
             saveStore(false);
           }
         }else if(pwd !== LOCAL_DEV_PASSWORD){
-          throw new Error('Senha padrão inválida.');
+          throw new Error('Senha padrÃ£o invÃ¡lida.');
         }
         closePasswordModal();
         enterCharacter(id);
       }catch(err){
         setSessionPassword('');
-        toast('Não abriu: ' + err.message);
+        toast('NÃ£o abriu: ' + err.message);
       }
     }
 
@@ -1318,7 +1318,7 @@ function loadStore(){
     }
 
     function scheduleSave(){
-      state.status = 'Alterações pendentes...';
+      state.status = 'AlteraÃ§Ãµes pendentes...';
       renderStatus();
       clearTimeout(state.autosaveTimer);
       state.autosaveTimer = setTimeout(()=>saveStore(false), 650);
@@ -1341,11 +1341,11 @@ function loadStore(){
         <div class="ability">
           <label>${label}</label>
           <div class="ability-controls">
-            <button class="attr-step" type="button" data-ability-step="${key}" data-step="-1" aria-label="Diminuir ${label}">−</button>
+            <button class="attr-step" type="button" data-ability-step="${key}" data-step="-1" aria-label="Diminuir ${label}">âˆ’</button>
             <input class="score" data-path="atributos.${key}.valor" type="number" inputmode="numeric" />
             <button class="attr-step" type="button" data-ability-step="${key}" data-step="1" aria-label="Aumentar ${label}">+</button>
           </div>
-          <div class="mod-box"><span>mod</span><input class="mod-input" data-path="atributos.${key}.modificadorManual" data-calc-mod="${key}" type="number" inputmode="numeric" placeholder="+0" title="Deixe vazio para calcular automático" /></div>
+          <div class="mod-box"><span>mod</span><input class="mod-input" data-path="atributos.${key}.modificadorManual" data-calc-mod="${key}" type="number" inputmode="numeric" placeholder="+0" title="Deixe vazio para calcular automÃ¡tico" /></div>
         </div>
       `).join('');
 
@@ -1390,10 +1390,10 @@ function loadStore(){
         const count = level <= 5 ? 12 : 8;
         return `
           <div class="spell-section">
-            <div class="spell-title"><div class="spell-level">${level}</div><input data-path="magia.niveis.${level}.titulo" placeholder="Círculo ${level}" /></div>
+            <div class="spell-title"><div class="spell-level">${level}</div><input data-path="magia.niveis.${level}.titulo" placeholder="CÃ­rculo ${level}" /></div>
             <div class="slots">
-              <div class="field"><label>Total de espaços</label><input data-path="magia.niveis.${level}.espacosTotais" /></div>
-              <div class="field"><label>Espaços usados</label><input data-path="magia.niveis.${level}.espacosUsados" /></div>
+              <div class="field"><label>Total de espaÃ§os</label><input data-path="magia.niveis.${level}.espacosTotais" /></div>
+              <div class="field"><label>EspaÃ§os usados</label><input data-path="magia.niveis.${level}.espacosUsados" /></div>
             </div>
             ${Array.from({length:count}, (_,i) => `<div class="spell-row"><input type="checkbox" data-path="magia.niveis.${level}.magias.${i}.preparada" /><input type="text" data-path="magia.niveis.${level}.magias.${i}.nome" placeholder="Nome da magia" /></div>`).join('')}
           </div>
@@ -1407,7 +1407,7 @@ function loadStore(){
       if(c.meta.classeNivel) parts.push(c.meta.classeNivel);
       if(c.meta.raca) parts.push(c.meta.raca);
       if(c.campanha && c.campanha.faccao) parts.push(c.campanha.faccao);
-      return parts.join(' • ') || 'Sem classe definida';
+      return parts.join(' â€¢ ') || 'Sem classe definida';
     }
 
     function renderCharacterList(){
@@ -1432,8 +1432,8 @@ function loadStore(){
             <b>${escapeHtml(c.meta.nomePersonagem || 'Sem nome')}</b>
             <span>${escapeHtml(characterSubtitle(c))}</span>
             <div class="menu-char-meta">
-              <em class="pill">≈ ${escapeHtml((c.campanha && c.campanha.mareAtual) || 'sem maré')}</em>
-              <em class="pill">corrupção ${escapeHtml((c.campanha && c.campanha.corrupcao) || 0)}/10</em>
+              <em class="pill">â‰ˆ ${escapeHtml((c.campanha && c.campanha.mareAtual) || 'sem marÃ©')}</em>
+              <em class="pill">corrupÃ§Ã£o ${escapeHtml((c.campanha && c.campanha.corrupcao) || 0)}/10</em>
               <em class="pill">${escapeHtml((c.campanha && c.campanha.marcaCampanha) || 'sem marca')}</em>
             </div>
           </button>
@@ -1460,9 +1460,9 @@ function loadStore(){
     function renderImages(){
       const c = activeChar();
       const portrait = getByPath(c, 'descricao.aparenciaImagem');
-      $('#portraitBox').innerHTML = portrait ? `<img src="${portrait}" alt="Aparência do personagem" />` : '<span class="micro">Imagem do personagem opcional</span>';
+      $('#portraitBox').innerHTML = portrait ? `<img src="${portrait}" alt="AparÃªncia do personagem" />` : '<span class="micro">Imagem do personagem opcional</span>';
       const symbol = getByPath(c, 'descricao.simboloImagem');
-      $('#symbolBox').innerHTML = symbol ? `<img src="${symbol}" alt="Símbolo" />` : '<span class="micro">Imagem / brasão</span>';
+      $('#symbolBox').innerHTML = symbol ? `<img src="${symbol}" alt="SÃ­mbolo" />` : '<span class="micro">Imagem / brasÃ£o</span>';
     }
 
     function renderCalculations(){
@@ -1489,9 +1489,9 @@ function loadStore(){
       const spellAbility = c.magia.atributoConjuracao;
       if(spellAbility){
         const spellMod = getAbilityMod(c, spellAbility);
-        $('#spellCalc').textContent = `Sugerido: CD ${8 + prof + spellMod} | Ataque mágico ${fmt(prof + spellMod)}.`;
+        $('#spellCalc').textContent = `Sugerido: CD ${8 + prof + spellMod} | Ataque mÃ¡gico ${fmt(prof + spellMod)}.`;
       }else{
-        $('#spellCalc').textContent = 'Cálculo mágico sugerido: selecione o atributo de conjuração.';
+        $('#spellCalc').textContent = 'CÃ¡lculo mÃ¡gico sugerido: selecione o atributo de conjuraÃ§Ã£o.';
       }
     }
 
@@ -1566,7 +1566,7 @@ function loadStore(){
     function duplicateCharacter(){
       const c = activeChar(); if(!c) return;
       const copy = JSON.parse(JSON.stringify(c));
-      copy.id = uid(); copy.createdAt = now(); copy.updatedAt = now(); copy.meta.nomePersonagem = (copy.meta.nomePersonagem || 'Personagem') + ' - cópia';
+      copy.id = uid(); copy.createdAt = now(); copy.updatedAt = now(); copy.meta.nomePersonagem = (copy.meta.nomePersonagem || 'Personagem') + ' - cÃ³pia';
       state.characters.push(copy); state.activeId = copy.id; saveStore(false); rerenderAll(); toast('Personagem duplicado.');
     }
 
@@ -1576,7 +1576,7 @@ function loadStore(){
       state.characters = state.characters.filter(x => x.id !== c.id);
       if(!state.characters.length) state.characters.push(makeCharacter());
       state.activeId = state.characters[0].id;
-      saveStore(false); rerenderAll(); toast('Personagem excluído.');
+      saveStore(false); rerenderAll(); toast('Personagem excluÃ­do.');
     }
 
     function exportJson(){
@@ -1600,7 +1600,7 @@ function loadStore(){
           state.characters.push(imported);
           state.activeId = imported.id;
           saveStore(false); rerenderAll(); toast('Ficha importada.');
-        }catch(err){ toast('JSON inválido.'); console.error(err); }
+        }catch(err){ toast('JSON invÃ¡lido.'); console.error(err); }
       };
       reader.readAsText(file);
     }
@@ -1620,13 +1620,13 @@ function loadStore(){
           if(idx >= 0) state.characters[idx] = normalizeCharacter(data.character);
         }
         state.status = 'Salvo online em ' + new Date().toLocaleTimeString('pt-BR');
-        updateOnlineBadge('Último salvamento online concluído.', true);
+        updateOnlineBadge('Ãšltimo salvamento online concluÃ­do.', true);
         renderStatus(); saveStore(false); toast('Ficha salva online.');
       }catch(err){
         console.error(err);
         state.status = 'Falha no online. Backup local preservado.'; renderStatus(); saveStore(false);
         updateOnlineBadge('Falha no online: ' + err.message);
-        toast('Não consegui salvar online. Mantive o backup local.');
+        toast('NÃ£o consegui salvar online. Mantive o backup local.');
       }
     }
 
@@ -1636,11 +1636,11 @@ function loadStore(){
         const idx = state.characters.findIndex(c => c.id === state.activeId);
         if(idx >= 0){ edited.id = state.activeId; state.characters[idx] = edited; }
         saveStore(false); rerenderAll(); toast('JSON aplicado.');
-      }catch(err){ toast('JSON inválido.'); console.error(err); }
+      }catch(err){ toast('JSON invÃ¡lido.'); console.error(err); }
     }
 
     function copyJson(){
-      navigator.clipboard.writeText($('#jsonView').value).then(()=>toast('JSON copiado.')).catch(()=>toast('Não foi possível copiar.'));
+      navigator.clipboard.writeText($('#jsonView').value).then(()=>toast('JSON copiado.')).catch(()=>toast('NÃ£o foi possÃ­vel copiar.'));
     }
 
     function handleImageAction(btn){
@@ -1655,7 +1655,7 @@ function loadStore(){
 
     function handleImageFile(file){
       if(!file || !state.pendingImagePath) return;
-      if(file.size > 800000){ toast('Imagem muito grande. Use uma imagem menor para não estourar o armazenamento local.'); return; }
+      if(file.size > 800000){ toast('Imagem muito grande. Use uma imagem menor para nÃ£o estourar o armazenamento local.'); return; }
       const reader = new FileReader();
       reader.onload = () => {
         const c = activeChar(); if(!c) return;
@@ -1707,7 +1707,7 @@ function loadStore(){
     $('#menuPushOnlineBtn').addEventListener('click', pushAllOnline);
     ['menuApiBaseInput','menuPlayerIdInput','menuApiTokenInput'].forEach(id => {
       const el = $('#' + id);
-      if(el) el.addEventListener('change', () => { persistOnlineSettings(); updateOnlineBadge('Configuração online salva.'); });
+      if(el) el.addEventListener('change', () => { persistOnlineSettings(); updateOnlineBadge('ConfiguraÃ§Ã£o online salva.'); });
     });
 
     buildStaticDynamicUI();
@@ -1717,3 +1717,4 @@ function loadStore(){
   </script>
 </body>
 </html>
+
