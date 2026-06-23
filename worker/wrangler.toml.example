@@ -1,0 +1,14 @@
+name = "ghosts-saltmarsh-rpg-api"
+main = "worker.js"
+compatibility_date = "2025-08-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "ghosts_saltmarsh_rpg"
+database_id = "COLE_AQUI_O_DATABASE_ID"
+
+# Configure a senha padrão da mesa como secret:
+# npx wrangler secret put RPG_DEFAULT_PASSWORD
+
+# Token admin opcional para o mestre:
+# npx wrangler secret put RPG_API_TOKEN

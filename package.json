@@ -1,0 +1,15 @@
+{
+  "name": "ghosts-saltmarsh-ficha-online",
+  "version": "5.0.0",
+  "private": true,
+  "description": "Ficha online mobile para Ghosts of Saltmarsh com senha padrão e API Cloudflare Worker + D1.",
+  "scripts": {
+    "worker:deploy": "cd worker && wrangler deploy",
+    "d1:create": "cd worker && wrangler d1 create ghosts_saltmarsh_rpg",
+    "d1:schema": "cd worker && wrangler d1 execute ghosts_saltmarsh_rpg --file=../schema/schema-d1-rpg.sql",
+    "pages:note": "echo 'No Cloudflare Pages, use public como pasta de saída/build output.'"
+  },
+  "devDependencies": {
+    "wrangler": "latest"
+  }
+}
