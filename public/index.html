@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPG Gabriel - Ficha Online V12.1</title>
+  <title>RPG Gabriel - Ficha Online V12.3</title>
   <style>
     :root{
       --bg:#090b10;
@@ -161,6 +161,74 @@
       .score{font-size:22px}
       .topbar-row{grid-template-columns:auto 1fr}
       .sheet-note{font-size:12px}
+    }
+
+
+    .hp-stepper{
+      display:grid;
+      grid-template-columns:34px 1fr 34px;
+      gap:5px;
+      align-items:center;
+    }
+    .hp-step-btn{
+      min-height:34px;
+      height:34px;
+      border:0;
+      border-radius:10px;
+      background:#3a2a1d;
+      color:#fff4dc;
+      font-size:18px;
+      font-weight:950;
+      line-height:1;
+    }
+    .hp-stepper input{
+      text-align:center;
+      font-weight:900;
+    }
+    @media(max-width:900px){
+      .hp-stepper{
+        grid-template-columns:30px 1fr 30px;
+        gap:4px;
+      }
+      .hp-step-btn{
+        min-height:30px;
+        height:30px;
+        font-size:16px;
+      }
+    }
+
+
+    .stat-stepper{
+      display:grid;
+      grid-template-columns:34px 1fr 34px;
+      gap:5px;
+      align-items:center;
+    }
+    .stat-step-btn{
+      min-height:34px;
+      height:34px;
+      border:0;
+      border-radius:10px;
+      background:#3a2a1d;
+      color:#fff4dc;
+      font-size:18px;
+      font-weight:950;
+      line-height:1;
+    }
+    .stat-stepper input{
+      text-align:center;
+      font-weight:900;
+    }
+    @media(max-width:900px){
+      .stat-stepper{
+        grid-template-columns:30px 1fr 30px;
+        gap:4px;
+      }
+      .stat-step-btn{
+        min-height:30px;
+        height:30px;
+        font-size:16px;
+      }
     }
 
     /* UIX V12 - Mobile limpo */
@@ -342,10 +410,31 @@
                 </div>
               </div>
               <div class="dash-inputs">
-                <div class="field"><label>Vida atual</label><input data-path="vida.atuais" type="number"></div>
+                <div class="field hp-stepper-field">
+                  <label>Vida atual</label>
+                  <div class="hp-stepper">
+                    <button type="button" class="hp-step-btn" data-hp-step="-1">-</button>
+                    <input data-path="vida.atuais" type="number">
+                    <button type="button" class="hp-step-btn" data-hp-step="1">+</button>
+                  </div>
+                </div>
                 <div class="field"><label>Vida máxima</label><input data-path="vida.maximos" type="number"></div>
-                <div class="field"><label>Nível</label><input data-path="meta.nivel" type="number" min="1" max="20"></div>
-                <div class="field"><label>Corrupção</label><input data-path="campanha.corrupcao" type="number" min="0" max="10"></div>
+                <div class="field stat-stepper-field">
+                  <label>Nível</label>
+                  <div class="stat-stepper">
+                    <button type="button" class="stat-step-btn" data-level-step="-1">-</button>
+                    <input data-path="meta.nivel" type="number" min="1" max="20">
+                    <button type="button" class="stat-step-btn" data-level-step="1">+</button>
+                  </div>
+                </div>
+                <div class="field stat-stepper-field">
+                  <label>Corrupção</label>
+                  <div class="stat-stepper">
+                    <button type="button" class="stat-step-btn" data-corr-step="-1">-</button>
+                    <input data-path="campanha.corrupcao" type="number" min="0" max="10">
+                    <button type="button" class="stat-step-btn" data-corr-step="1">+</button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -1028,6 +1117,42 @@
           setByPath(c,path,num(getByPath(c,path))+delta);
           renderForm(); saveLocal(false); return;
         }
+        const hpStep=e.target.closest('[data-hp-step]');
+        if(hpStep){
+          const c=activeChar(); if(!c) return;
+          const delta=num(hpStep.dataset.hpStep);
+          const current=num(getByPath(c,'vida.atuais'));
+          const maximum=num(getByPath(c,'vida.maximos'));
+          let next=current + delta;
+          if(next < 0) next = 0;
+          if(maximum > 0 && next > maximum) next = maximum;
+          setByPath(c,'vida.atuais',next);
+          renderDashboard(); renderCalcs(); saveLocal(false); renderForm();
+          return;
+        }
+
+        const levelStep=e.target.closest('[data-level-step]');
+        if(levelStep){
+          const c=activeChar(); if(!c) return;
+          const delta=num(levelStep.dataset.levelStep);
+          let next=num(getByPath(c,'meta.nivel') || 1) + delta;
+          next = clamp(next, 1, 20);
+          setByPath(c,'meta.nivel',next);
+          renderDashboard(); renderCalcs(); saveLocal(false); renderForm();
+          return;
+        }
+
+        const corrStep=e.target.closest('[data-corr-step]');
+        if(corrStep){
+          const c=activeChar(); if(!c) return;
+          const delta=num(corrStep.dataset.corrStep);
+          let next=num(getByPath(c,'campanha.corrupcao') || 0) + delta;
+          next = clamp(next, 0, 10);
+          setByPath(c,'campanha.corrupcao',next);
+          renderDashboard(); renderCalcs(); saveLocal(false); renderForm();
+          return;
+        }
+
         const tab=e.target.closest('.tab');
         if(tab){
           $all('.tab').forEach(x=>x.classList.remove('active')); tab.classList.add('active');
@@ -1070,6 +1195,6 @@
     renderForm();
     refreshOnline();
   </script>
-<!-- RPGGABRIEL V12.1 FIX PRINTBTN -->
+<!-- RPGGABRIEL V12.3 LEVEL CORRUPTION STEPPER -->
 </body>
 </html>
