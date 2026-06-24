@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPG Gabriel - Ficha Online</title>
+  <title>RPG Gabriel - Ficha Online V12</title>
   <style>
     :root{
       --bg:#090b10;
@@ -162,6 +162,109 @@
       .topbar-row{grid-template-columns:auto 1fr}
       .sheet-note{font-size:12px}
     }
+
+    /* UIX V12 - Mobile limpo */
+    .compact-save{
+      display:flex;
+      justify-content:flex-end;
+      margin-top:6px;
+    }
+    .save-online-small{
+      min-height:34px;
+      padding:7px 12px;
+      border-radius:999px;
+      font-size:12px;
+      width:auto;
+      justify-self:end;
+    }
+    .sheet{
+      padding-top:8px;
+    }
+    .dash{
+      position:relative;
+      margin-top:0;
+      margin-bottom:8px;
+      border-radius:16px;
+      box-shadow:0 6px 18px rgba(36,27,20,.12);
+    }
+    .dash-title{
+      font-size:13px;
+      letter-spacing:.04em;
+    }
+    .ability-list{
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:7px;
+    }
+    .ability{
+      padding:8px 6px;
+      background:linear-gradient(180deg,#fff7e8,#ead8b8);
+      border-radius:14px;
+    }
+    .ability-name{
+      font-size:11px;
+      letter-spacing:.03em;
+      color:#3a2a1d;
+    }
+    .ability-controls{
+      grid-template-columns:30px 1fr 30px;
+      gap:5px;
+    }
+    .ability-controls button{
+      min-height:34px;
+      height:34px;
+      border-radius:10px;
+      font-size:18px;
+      line-height:1;
+      background:#3a2a1d;
+      color:#fff4dc;
+      border:0;
+    }
+    .score{
+      min-height:38px;
+      height:38px;
+      font-size:24px;
+      border:2px solid #7c4826;
+      background:#fffdf8;
+      border-radius:12px;
+      padding:2px;
+    }
+    .mod-line{
+      grid-template-columns:30px 1fr;
+      margin-top:5px;
+    }
+    .mod-line span{
+      font-size:9px;
+      color:#5a4634;
+    }
+    .mod-line input{
+      min-height:28px;
+      height:28px;
+      font-size:13px;
+      border-radius:9px;
+    }
+    @media(max-width:900px){
+      .topbar{padding:6px 8px;}
+      .tabs{gap:5px;}
+      .tab{padding:7px 10px;font-size:12px;}
+      .top-actions.compact-save{grid-template-columns:1fr;}
+      .sheet-note{font-size:11px;}
+      .dash{padding:8px;}
+      .dash-title{font-size:12px;margin-bottom:6px;}
+      .dash-inputs label{font-size:9px;}
+      .dash-inputs input{min-height:30px;height:30px;font-size:13px;}
+      .panel{padding:8px;margin-bottom:7px;}
+      .panel h3{font-size:14px;margin-bottom:6px;}
+      .ability-list{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:6px;}
+      .ability-name{font-size:10px;}
+      .score{font-size:22px;}
+      .check-row{font-size:12px;grid-template-columns:20px 38px 1fr;}
+    }
+    @media(max-width:380px){
+      .ability-list{grid-template-columns:1fr !important;}
+      .dash-grid{grid-template-columns:66px 1fr;}
+      .bar-row{grid-template-columns:58px 1fr 44px;}
+    }
+
   </style>
 </head>
 <body class="menu-open">
@@ -200,37 +303,21 @@
     <div class="topbar">
       <div class="topbar-row">
         <button class="btn ghost small" id="backToMenuBtn">Personagens</button>
-        <div class="sheet-note">Tela de informações do personagem</div>
+        <div class="sheet-note">Ficha online do personagem</div>
       </div>
-      <div class="top-actions">
-        <button class="btn secondary" id="printBtn">Imprimir / PDF</button>
-        <button class="btn" id="saveNowBtn">Salvar agora</button>
+      <div class="top-actions compact-save">
+        <button class="btn save-online-small" id="saveNowBtn">Salvar online</button>
       </div>
       <div class="tabs">
         <button class="tab active" data-tab="sheetPage">Ficha</button>
         <button class="tab" data-tab="storyPage">História</button>
         <button class="tab" data-tab="spellsPage">Magias</button>
         <button class="tab" data-tab="campaignPage">Campanha</button>
-        <button class="tab" data-tab="jsonPage">JSON</button>
       </div>
     </div>
 
     <section class="sheet">
       <div class="page active" id="sheetPage">
-        <div class="header-grid">
-          <div class="name-box">
-            <label>Nome do personagem</label>
-            <input data-path="meta.nomePersonagem" placeholder="Nome do personagem">
-          </div>
-          <div class="header-fields">
-            <div class="field"><label>Classe e nível</label><input data-path="meta.classeNivel"></div>
-            <div class="field"><label>Antecedente</label><input data-path="meta.antecedente"></div>
-            <div class="field"><label>Nome do jogador</label><input data-path="meta.nomeJogador"></div>
-            <div class="field"><label>Raça</label><input data-path="meta.raca"></div>
-            <div class="field"><label>Alinhamento</label><input data-path="meta.alinhamento"></div>
-            <div class="field"><label>Pontos de experiência</label><input data-path="meta.experiencia" type="number"></div>
-          </div>
-        </div>
 
         <div class="dash">
           <div class="dash-title">Status do personagem</div>
@@ -263,6 +350,21 @@
             </div>
           </div>
         </div>
+        <div class="header-grid">
+          <div class="name-box">
+            <label>Nome do personagem</label>
+            <input data-path="meta.nomePersonagem" placeholder="Nome do personagem">
+          </div>
+          <div class="header-fields">
+            <div class="field"><label>Classe e nível</label><input data-path="meta.classeNivel"></div>
+            <div class="field"><label>Antecedente</label><input data-path="meta.antecedente"></div>
+            <div class="field"><label>Nome do jogador</label><input data-path="meta.nomeJogador"></div>
+            <div class="field"><label>Raça</label><input data-path="meta.raca"></div>
+            <div class="field"><label>Alinhamento</label><input data-path="meta.alinhamento"></div>
+            <div class="field"><label>Pontos de experiência</label><input data-path="meta.experiencia" type="number"></div>
+          </div>
+        </div>
+
 
         <div class="grid-main">
           <div>
@@ -453,17 +555,6 @@
         </div>
       </div>
 
-      <div class="page" id="jsonPage">
-        <div class="panel">
-          <h3>JSON da ficha</h3>
-          <textarea class="json-box" id="jsonBox"></textarea>
-          <div class="menu-actions">
-            <button class="btn" id="copyJsonBtn">Atualizar JSON</button>
-            <button class="btn secondary" id="applyJsonBtn">Aplicar JSON editado</button>
-            <button class="btn secondary" id="downloadJsonBtn">Baixar JSON</button>
-          </div>
-        </div>
-      </div>
     </section>
   </main>
 
@@ -703,7 +794,7 @@
       renderCalcs();
       renderImages();
       renderMenu();
-      $('#jsonBox').value = JSON.stringify(c,null,2);
+      const jsonBox = $('#jsonBox'); if(jsonBox) jsonBox.value = JSON.stringify(c,null,2);
     }
 
     function renderDashboard(){
@@ -965,12 +1056,12 @@
       $('#importJsonBtn').onclick=()=>{
         const input=document.createElement('input'); input.type='file'; input.accept='.json,application/json'; input.onchange=e=>{ const f=e.target.files[0]; if(f) importJsonFile(f); }; input.click();
       };
-      $('#copyJsonBtn').onclick=()=>{ $('#jsonBox').value=JSON.stringify(activeChar(),null,2); toast('JSON atualizado.'); };
-      $('#applyJsonBtn').onclick=()=>{
+      const copyJsonBtn = $('#copyJsonBtn'); if(copyJsonBtn) copyJsonBtn.onclick=()=>{ $('#jsonBox').value=JSON.stringify(activeChar(),null,2); toast('JSON atualizado.'); };
+      const applyJsonBtn = $('#applyJsonBtn'); if(applyJsonBtn) applyJsonBtn.onclick=()=>{
         try{ const c=normalize(JSON.parse($('#jsonBox').value)); const idx=state.characters.findIndex(x=>x.id===c.id); if(idx>=0) state.characters[idx]=c; else state.characters.push(c); state.activeId=c.id; saveLocal(true); renderForm(); toast('JSON aplicado.'); }
         catch(e){ toast('JSON inválido.'); }
       };
-      $('#downloadJsonBtn').onclick=exportJson;
+      const downloadJsonBtn = $('#downloadJsonBtn'); if(downloadJsonBtn) downloadJsonBtn.onclick=exportJson;
     }
 
     renderStatic();
