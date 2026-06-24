@@ -1,0 +1,37 @@
+{
+  "project": "RPGGABRIEL",
+  "campaign": {
+    "name": "Ghosts of Saltmarsh",
+    "campaignId": "ghosts-of-saltmarsh",
+    "setting": "Saltmarsh",
+    "secret_system": "Thalassyr",
+    "secret_mechanic": "Cifra das Marés",
+    "primary_extra_meter": "Corrupção"
+  },
+  "online": {
+    "site_and_api": "https://ficharpg.gabrielgpsgyn.workers.dev",
+    "worker_name": "ficharpg",
+    "d1_database_name": "ghosts_saltmarsh_rpg",
+    "d1_binding": "DB",
+    "default_password_secret": "RPG_DEFAULT_PASSWORD",
+    "default_password_value_for_table": "JOGADOR"
+  },
+  "ux_rules": {
+    "mobile_first": true,
+    "compact_vertical_space": true,
+    "opening_screen": "character selection only",
+    "character_screen": [
+      "Ficha",
+      "História",
+      "Magias",
+      "Campanha",
+      "JSON"
+    ],
+    "must_have_dashboard": [
+      "Vida",
+      "Nível",
+      "Corrupção",
+      "Imagem do personagem"
+    ]
+  }
+}
