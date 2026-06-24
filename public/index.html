@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPG Gabriel - Ficha Online V16.4</title>
+  <title>RPG Gabriel - Ficha Online V16.5</title>
   <style>
     :root{
       --bg:#090b10;
@@ -609,6 +609,34 @@
       .linked-skills{font-size:10px}
     }
 
+
+    .auto-mod-line{
+      display:grid;
+      grid-template-columns:auto 1fr;
+      gap:8px;
+      align-items:center;
+    }
+    .auto-mod-value{
+      display:block;
+      min-height:36px;
+      border:1px solid rgba(36,27,20,.22);
+      border-radius:10px;
+      padding:7px 10px;
+      text-align:center;
+      background:#f7ead1;
+      color:#241810;
+      font-size:18px;
+      font-weight:950;
+      line-height:1.1;
+    }
+    .auto-mod-hint{
+      font-size:10px;
+      color:#745e45;
+      margin-top:3px;
+      font-weight:700;
+      text-align:center;
+    }
+
   </style>
 </head>
 <body class="menu-open">
@@ -1113,7 +1141,11 @@
     function num(v){ const n = Number(v); return Number.isFinite(n) ? n : 0; }
     function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
     function fmt(n){ n = num(n); return n >= 0 ? '+' + n : String(n); }
-    function attrMod(score){ return Math.floor((num(score)-10)/2); }
+    function attrMod(score){
+      const n = Number(score);
+      const value = Number.isFinite(n) ? n : 10;
+      return Math.floor((value - 10) / 2);
+    }
     function toast(msg){ const el=$('#toast'); el.textContent=msg; el.classList.add('show'); clearTimeout(el._t); el._t=setTimeout(()=>el.classList.remove('show'),2600); }
 
     function getByPath(obj,path){
@@ -1174,12 +1206,19 @@
       });
       return out;
     }
-    function normalize(c){ const b=makeCharacter(); const m=deepMerge(b,c||{}); m.id=(c&&c.id)||b.id; m.campaignId=m.campaignId||CAMPAIGN_ID; return m; }
+    function normalize(c){
+      const b=makeCharacter();
+      const m=deepMerge(b,c||{});
+      m.id=(c&&c.id)||b.id;
+      m.campaignId=m.campaignId||CAMPAIGN_ID;
+      abilities.forEach(([k])=>{
+        if(m.atributos && m.atributos[k]) m.atributos[k].modificadorManual = '';
+      });
+      return m;
+    }
     function activeChar(){ return state.characters.find(c=>c.id===state.activeId) || null; }
 
     function getMod(c,k){
-      const manual = getByPath(c,'atributos.'+k+'.modificadorManual');
-      if(manual !== '' && manual !== null && manual !== undefined) return num(manual);
       return attrMod(getByPath(c,'atributos.'+k+'.valor'));
     }
     function profBonus(c){ return num(getByPath(c,'meta.bonusProficiencia') || 0); }
@@ -1193,7 +1232,7 @@
             <input class="score" data-path="atributos.${k}.valor" type="number">
             <button type="button" data-attr-step="${k}" data-delta="1">+</button>
           </div>
-          <div class="mod-line"><span>Mod</span><input data-path="atributos.${k}.modificadorManual" data-mod-input="${k}" placeholder="+0"></div>
+          <div class="mod-line auto-mod-line"><span>Mod</span><strong class="auto-mod-value" data-mod-input="${k}">+0</strong></div>
         </div>
       `).join('');
 
@@ -1708,7 +1747,7 @@
         const formula = $(`[data-save-formula="${k}"]`); if(formula) formula.textContent = calcFormulaText(c,k,proficient);
         const abilityMod = $(`[data-skill-ability-mod="${k}"]`); if(abilityMod) abilityMod.textContent = fmt(getMod(c,k));
         const modInput = $(`[data-mod-input="${k}"]`);
-        if(modInput && !modInput.value) modInput.placeholder = fmt(getMod(c,k));
+        if(modInput) modInput.textContent = fmt(getMod(c,k));
       });
       skills.forEach(([k,label,ability])=>{
         const total = calcSkillBonus(c,k);
