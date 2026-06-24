@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPG Gabriel - Ficha Online V12</title>
+  <title>RPG Gabriel - Ficha Online V12.1</title>
   <style>
     :root{
       --bg:#090b10;
@@ -1036,24 +1036,24 @@
         const imgBtn=e.target.closest('[data-img-action]');
         if(imgBtn){ handleImage(imgBtn); return; }
       });
-      $('#newCharacterBtn').onclick=()=>{ const c=makeCharacter(); state.characters.push(c); state.activeId=c.id; saveLocal(true); renderForm(); };
-      $('#deleteCharacterBtn').onclick=()=>{ if(state.characters.length<=1){toast('Mantenha pelo menos um personagem.');return;} state.characters=state.characters.filter(c=>c.id!==state.activeId); state.activeId=state.characters[0].id; saveLocal(true); renderForm(); };
-      $('#enterSelectedBtn').onclick=()=>openPassword(state.activeId);
-      $('#refreshOnlineBtn').onclick=refreshOnline;
-      $('#backToMenuBtn').onclick=()=>{ document.body.classList.add('menu-open'); renderMenu(); };
-      $('#printBtn').onclick=()=>window.print();
-      $('#saveNowBtn').onclick=saveOnline;
-      $('#cancelPasswordBtn').onclick=()=>$('#passwordModal').classList.add('hidden');
-      $('#confirmPasswordBtn').onclick=confirmPassword;
-      $('#passwordInput').addEventListener('keydown',e=>{ if(e.key==='Enter') confirmPassword(); });
-      $('#imageInput').onchange=e=>{
+      const newCharacterBtn = $('#newCharacterBtn'); if(newCharacterBtn) newCharacterBtn.onclick=()=>{ const c=makeCharacter(); state.characters.push(c); state.activeId=c.id; saveLocal(true); renderForm(); };
+      const deleteCharacterBtn = $('#deleteCharacterBtn'); if(deleteCharacterBtn) deleteCharacterBtn.onclick=()=>{ if(state.characters.length<=1){toast('Mantenha pelo menos um personagem.');return;} state.characters=state.characters.filter(c=>c.id!==state.activeId); state.activeId=state.characters[0].id; saveLocal(true); renderForm(); };
+      const enterSelectedBtn = $('#enterSelectedBtn'); if(enterSelectedBtn) enterSelectedBtn.onclick=()=>openPassword(state.activeId);
+      const refreshOnlineBtn = $('#refreshOnlineBtn'); if(refreshOnlineBtn) refreshOnlineBtn.onclick=refreshOnline;
+      const backToMenuBtn = $('#backToMenuBtn'); if(backToMenuBtn) backToMenuBtn.onclick=()=>{ document.body.classList.add('menu-open'); renderMenu(); };
+      const printBtn = $('#printBtn'); if(printBtn) printBtn.onclick=()=>window.print();
+      const saveNowBtn = $('#saveNowBtn'); if(saveNowBtn) saveNowBtn.onclick=saveOnline;
+      const cancelPasswordBtn = $('#cancelPasswordBtn'); if(cancelPasswordBtn) cancelPasswordBtn.onclick=()=>$('#passwordModal').classList.add('hidden');
+      const confirmPasswordBtn = $('#confirmPasswordBtn'); if(confirmPasswordBtn) confirmPasswordBtn.onclick=confirmPassword;
+      const passwordInput = $('#passwordInput'); if(passwordInput) passwordInput.addEventListener('keydown',e=>{ if(e.key==='Enter') confirmPassword(); });
+      const imageInput = $('#imageInput'); if(imageInput) imageInput.onchange=e=>{
         const file=e.target.files && e.target.files[0]; if(!file) return;
         resizeImage(file, data=>{
           const c=activeChar(); setByPath(c,state.imagePath,data); saveLocal(true); renderForm();
         });
         e.target.value='';
       };
-      $('#importJsonBtn').onclick=()=>{
+      const importJsonBtn = $('#importJsonBtn'); if(importJsonBtn) importJsonBtn.onclick=()=>{
         const input=document.createElement('input'); input.type='file'; input.accept='.json,application/json'; input.onchange=e=>{ const f=e.target.files[0]; if(f) importJsonFile(f); }; input.click();
       };
       const copyJsonBtn = $('#copyJsonBtn'); if(copyJsonBtn) copyJsonBtn.onclick=()=>{ $('#jsonBox').value=JSON.stringify(activeChar(),null,2); toast('JSON atualizado.'); };
@@ -1070,5 +1070,6 @@
     renderForm();
     refreshOnline();
   </script>
+<!-- RPGGABRIEL V12.1 FIX PRINTBTN -->
 </body>
 </html>
