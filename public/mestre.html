@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Página do Mestre - RPG Gabriel V15.1 Magias</title>
+  <title>Página do Mestre - RPG Gabriel V16 Magias</title>
   <style>
     :root{
       --bg:#080b10;
@@ -117,7 +117,7 @@
         <h1>Página do Mestre</h1>
         <div class="subtitle">Controle de personagens, vida, corrupção, nível, magias e informações rápidas da mesa.</div>
       </div>
-      <a class="btn secondary" href="/?v=15_1">Abrir ficha do jogador</a>
+      <a class="btn secondary" href="/?v=16">Abrir ficha do jogador</a>
     </div>
 
     <section class="login">
@@ -546,7 +546,7 @@
         if(nivel !== '') params.set('nivel', $('#spellLevel').value);
         if(classe) params.set('classe', $('#spellClass').value);
         if(tipo) params.set('tipo_uso', $('#spellUse').value);
-        params.set('limit', '80');
+        params.set('limit', '500');
 
         const data = await apiFetch('/api/magias?' + params.toString(), {method:'GET'});
         const magias = data.magias || [];

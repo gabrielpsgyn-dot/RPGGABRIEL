@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPG Gabriel - Ficha Online V15.1 Manual</title>
+  <title>RPG Gabriel - Ficha Online V16</title>
   <style>
     :root{
       --bg:#090b10;
@@ -333,6 +333,87 @@
       .bar-row{grid-template-columns:58px 1fr 44px;}
     }
 
+
+    .spellbook-panel{margin-bottom:10px}
+    .spellbook-tools{
+      display:grid;
+      grid-template-columns:1.4fr .55fr .8fr auto;
+      gap:8px;
+      align-items:end;
+    }
+    .spellbook-status{
+      margin:8px 0;
+      color:#6b5944;
+      font-size:12px;
+      font-weight:750;
+    }
+    .spellbank-results,.my-spellbook-list{
+      display:grid;
+      gap:8px;
+    }
+    .spellbank-card,.my-spell-card{
+      border:1px solid #c8a66d;
+      background:#fffaf0;
+      border-radius:12px;
+      padding:10px;
+      display:grid;
+      gap:7px;
+    }
+    .spellbank-card-head,.my-spell-card-head{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:8px;
+      align-items:start;
+    }
+    .spellbank-card b,.my-spell-card b{
+      font-size:15px;
+      color:#21170d;
+    }
+    .spell-tags{
+      display:flex;
+      gap:5px;
+      flex-wrap:wrap;
+      color:#4e3d2b;
+      font-size:11px;
+      font-weight:800;
+    }
+    .spell-tag{
+      border-radius:999px;
+      background:#ead7b3;
+      padding:3px 7px;
+    }
+    .spell-desc-preview{
+      font-size:12px;
+      color:#5e4c38;
+      line-height:1.35;
+      max-height:48px;
+      overflow:hidden;
+    }
+    .my-spell-actions{
+      display:grid;
+      grid-template-columns:110px 1fr auto auto;
+      gap:7px;
+      align-items:end;
+    }
+    .my-spell-actions .field{margin:0}
+    .spell-use-result{
+      font-size:12px;
+      color:#3d2c1c;
+      background:#f2e2c2;
+      border-radius:9px;
+      padding:6px 8px;
+      min-height:32px;
+    }
+    @media(max-width:900px){
+      .spellbook-tools{grid-template-columns:1fr 1fr}
+      .spellbook-tools .field:first-child{grid-column:1/-1}
+      .my-spell-actions{grid-template-columns:1fr 1fr}
+      .spellbank-card-head,.my-spell-card-head{grid-template-columns:1fr}
+    }
+    @media(max-width:460px){
+      .spellbook-tools,.my-spell-actions{grid-template-columns:1fr}
+    }
+
   </style>
 </head>
 <body class="menu-open">
@@ -614,6 +695,51 @@
           <div class="field"><label>CD das magias</label><input data-path="magia.cdMagias"></div>
           <div class="field"><label>Ataque mágico</label><input data-path="magia.modificadorAtaqueMagico"></div>
         </div>
+
+        <div class="panel spellbook-panel">
+          <h3>Grimório do personagem</h3>
+          <div class="spellbook-tools">
+            <div class="field"><label>Buscar no banco</label><input id="spellSearchInput" placeholder="Ex.: Bola de Fogo"></div>
+            <div class="field"><label>Nível</label>
+              <select id="spellLevelFilter">
+                <option value="">Todos</option>
+                <option value="0">Truque</option>
+                <option value="1">1º</option>
+                <option value="2">2º</option>
+                <option value="3">3º</option>
+                <option value="4">4º</option>
+                <option value="5">5º</option>
+                <option value="6">6º</option>
+                <option value="7">7º</option>
+                <option value="8">8º</option>
+                <option value="9">9º</option>
+              </select>
+            </div>
+            <div class="field"><label>Classe</label>
+              <select id="spellClassFilter">
+                <option value="">Todas</option>
+                <option>Bardo</option>
+                <option>Bruxo</option>
+                <option>Clérigo</option>
+                <option>Druida</option>
+                <option>Feiticeiro</option>
+                <option>Mago</option>
+                <option>Paladino</option>
+                <option>Patrulheiro</option>
+              </select>
+            </div>
+            <button class="btn secondary" id="spellBankSearchBtn">Buscar magias</button>
+          </div>
+          <div class="spellbook-status" id="spellBankStatus">Use a busca para adicionar magias ao personagem.</div>
+          <div class="spellbank-results" id="spellBankResults"></div>
+        </div>
+
+        <div class="panel spellbook-panel">
+          <h3>Magias escolhidas</h3>
+          <p class="sheet-note">Aqui o jogador usa a magia e consome o espaço. Truque não gasta espaço.</p>
+          <div id="mySpellbookList" class="my-spellbook-list"></div>
+        </div>
+
         <div class="spell-grid" id="spellGrid"></div>
       </div>
 
@@ -871,6 +997,251 @@
 
     function escapeHtml(s){ return String(s ?? '').replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m])); }
 
+
+    function ensureSpellbook(c){
+      c.magia = c.magia || {};
+      if(!Array.isArray(c.magia.grimorio)) c.magia.grimorio = [];
+      c.magia.niveis = c.magia.niveis || {};
+      for(let i=1;i<=9;i++){
+        c.magia.niveis[i] = c.magia.niveis[i] || {};
+        if(c.magia.niveis[i].espacosTotais == null) c.magia.niveis[i].espacosTotais = '';
+        if(c.magia.niveis[i].espacosUsados == null) c.magia.niveis[i].espacosUsados = '';
+      }
+      return c.magia.grimorio;
+    }
+
+    function spellLevelLabel(n){
+      n = num(n);
+      return n === 0 ? 'Truque' : n + 'º nível';
+    }
+
+    function spellShort(text, max=180){
+      text = String(text || '').replace(/\s+/g,' ').trim();
+      return text.length > max ? text.slice(0,max) + '...' : text;
+    }
+
+    function spellSlotOptions(minLevel){
+      minLevel = num(minLevel);
+      if(minLevel <= 0) return '<option value="0">Truque</option>';
+      let out = '';
+      for(let i=minLevel;i<=9;i++) out += `<option value="${i}">${i}º círculo</option>`;
+      return out;
+    }
+
+    function findUseFormula(spell, slot){
+      slot = num(slot);
+      if(!spell) return '';
+      if(slot <= 0) return spell.formula_dado_base || 'sem rolagem';
+      const usos = Array.isArray(spell.usos_espaco) ? spell.usos_espaco : [];
+      const exact = usos.find(u=>num(u.espaco_usado)===slot);
+      if(exact) return exact.formula_dado || spell.formula_dado_base || 'sem rolagem';
+      return spell.formula_dado_base || 'sem rolagem';
+    }
+
+    async function searchSpellBank(){
+      const q = ($('#spellSearchInput') && $('#spellSearchInput').value.trim()) || '';
+      const nivel = ($('#spellLevelFilter') && $('#spellLevelFilter').value) || '';
+      const classe = ($('#spellClassFilter') && $('#spellClassFilter').value) || '';
+
+      const params = new URLSearchParams();
+      params.set('limit','500');
+      if(q) params.set('q',q);
+      if(nivel !== '') params.set('nivel',nivel);
+      if(classe) params.set('classe',classe);
+
+      const status = $('#spellBankStatus');
+      const box = $('#spellBankResults');
+      if(status) status.textContent = 'Buscando magias...';
+
+      try{
+        const data = await apiFetch('/api/magias?' + params.toString(), {method:'GET'}, true);
+        const magias = data.magias || [];
+        if(status) status.textContent = `${magias.length} magia(s) carregada(s)` + (data.total ? ` de ${data.total}` : '') + '.';
+        if(box) box.innerHTML = magias.map(m=>`
+          <div class="spellbank-card">
+            <div class="spellbank-card-head">
+              <div>
+                <b>${escapeHtml(m.nome_pt || m.nome || 'Magia')}</b>
+                <div class="spell-tags">
+                  <span class="spell-tag">${escapeHtml(spellLevelLabel(m.nivel))}</span>
+                  <span class="spell-tag">${escapeHtml(m.escola || '-')}</span>
+                  <span class="spell-tag">${escapeHtml(m.classes || 'sem classe')}</span>
+                </div>
+              </div>
+              <button class="btn small" data-add-bank-spell="${escapeHtml(m.slug)}">Adicionar</button>
+            </div>
+            <div class="spell-desc-preview">${escapeHtml(spellShort(m.descricao_pt || ''))}</div>
+          </div>
+        `).join('') || '<div class="spellbook-status">Nenhuma magia encontrada.</div>';
+      }catch(e){
+        if(status) status.textContent = 'Erro ao buscar magias: ' + e.message;
+      }
+    }
+
+    async function addBankSpell(slug){
+      const c = activeChar(); if(!c) return;
+      const book = ensureSpellbook(c);
+
+      if(book.some(s=>s.slug===slug)){
+        toast('Essa magia já está no personagem.');
+        return;
+      }
+
+      try{
+        const data = await apiFetch('/api/magias/' + encodeURIComponent(slug), {method:'GET'}, true);
+        const m = data.magia;
+        if(!m){ toast('Magia não encontrada.'); return; }
+
+        book.push({
+          slug:m.slug,
+          nome_pt:m.nome_pt,
+          nivel:num(m.nivel),
+          escola:m.escola || '',
+          classes:m.classes || '',
+          ritual:!!m.ritual,
+          concentracao:!!m.concentracao,
+          tempo_conjuracao:m.tempo_conjuracao || '',
+          alcance:m.alcance || '',
+          componentes:m.componentes || '',
+          duracao:m.duracao || '',
+          descricao_pt:m.descricao_pt || '',
+          tipo_uso:m.tipo_uso || '',
+          exige_ataque:!!m.exige_ataque,
+          tipo_ataque:m.tipo_ataque || '',
+          exige_resistencia:!!m.exige_resistencia,
+          atributo_resistencia:m.atributo_resistencia || '',
+          atributo_soma:m.atributo_soma || 'nenhum',
+          formula_dado_base:m.formula_dado_base || '',
+          tipo_dano_padrao:m.tipo_dano_padrao || '',
+          usos_espaco:data.usos_espaco || [],
+          escala_personagem:data.escala_personagem || [],
+          preparada:true,
+          adicionadaEm:now()
+        });
+
+        renderSpellbookUI();
+        saveLocal(false);
+        await saveOnline();
+        toast('Magia adicionada ao personagem.');
+      }catch(e){
+        toast('Erro ao adicionar magia: ' + e.message);
+      }
+    }
+
+    async function removeBookSpell(slug){
+      const c = activeChar(); if(!c) return;
+      const book = ensureSpellbook(c);
+      c.magia.grimorio = book.filter(s=>s.slug !== slug);
+      renderSpellbookUI();
+      saveLocal(false);
+      await saveOnline();
+      toast('Magia removida.');
+    }
+
+    async function useBookSpell(slug){
+      const c = activeChar(); if(!c) return;
+      const book = ensureSpellbook(c);
+      const spell = book.find(s=>s.slug===slug);
+      if(!spell) return;
+
+      const select = document.querySelector(`[data-use-slot="${CSS.escape(slug)}"]`);
+      const slot = select ? num(select.value) : num(spell.nivel);
+
+      if(num(spell.nivel) <= 0 || slot <= 0){
+        const result = document.querySelector(`[data-use-result="${CSS.escape(slug)}"]`);
+        if(result) result.textContent = 'Truque usado. Não consome espaço.';
+        toast('Truque usado.');
+        return;
+      }
+
+      const levelData = c.magia.niveis[slot] = c.magia.niveis[slot] || {};
+      const total = num(levelData.espacosTotais);
+      const used = num(levelData.espacosUsados);
+
+      if(total > 0 && used >= total){
+        toast(`Sem espaços disponíveis de ${slot}º círculo.`);
+        return;
+      }
+
+      levelData.espacosUsados = used + 1;
+
+      const formula = findUseFormula(spell, slot);
+      const result = document.querySelector(`[data-use-result="${CSS.escape(slug)}"]`);
+      if(result) result.textContent = `Usou espaço de ${slot}º círculo. Rolagem: ${formula || 'sem rolagem'}.`;
+
+      renderSpellbookUI();
+      saveLocal(false);
+      await saveOnline();
+      toast(`Magia usada. Espaço de ${slot}º círculo consumido.`);
+    }
+
+    async function recoverSpellSlot(level){
+      const c = activeChar(); if(!c) return;
+      ensureSpellbook(c);
+      const d = c.magia.niveis[level] = c.magia.niveis[level] || {};
+      d.espacosUsados = Math.max(0, num(d.espacosUsados) - 1);
+      renderSpellbookUI();
+      saveLocal(false);
+      await saveOnline();
+      toast(`Espaço de ${level}º círculo recuperado.`);
+    }
+
+    function renderSpellbookUI(){
+      const c = activeChar();
+      const list = $('#mySpellbookList');
+      if(!c || !list) return;
+
+      const book = ensureSpellbook(c).slice().sort((a,b)=>num(a.nivel)-num(b.nivel) || String(a.nome_pt).localeCompare(String(b.nome_pt)));
+
+      list.innerHTML = book.map(s=>{
+        const minLevel = num(s.nivel);
+        const defaultSlot = minLevel <= 0 ? 0 : minLevel;
+        const slotInfo = minLevel <= 0 ? 'Truque' : `Espaço mínimo: ${minLevel}º`;
+        return `
+          <div class="my-spell-card">
+            <div class="my-spell-card-head">
+              <div>
+                <b>${escapeHtml(s.nome_pt || 'Magia')}</b>
+                <div class="spell-tags">
+                  <span class="spell-tag">${escapeHtml(spellLevelLabel(s.nivel))}</span>
+                  <span class="spell-tag">${escapeHtml(s.escola || '-')}</span>
+                  <span class="spell-tag">${escapeHtml(s.tipo_uso || 'uso')}</span>
+                  ${s.exige_resistencia ? `<span class="spell-tag">Resistência ${escapeHtml(s.atributo_resistencia || '')}</span>` : ''}
+                  ${s.exige_ataque ? `<span class="spell-tag">Ataque mágico</span>` : ''}
+                </div>
+              </div>
+              <button class="btn danger small" data-remove-book-spell="${escapeHtml(s.slug)}">Remover</button>
+            </div>
+            <div class="spell-desc-preview">${escapeHtml(spellShort(s.descricao_pt || '', 240))}</div>
+            <div class="my-spell-actions">
+              <div class="field">
+                <label>Usar como</label>
+                <select data-use-slot="${escapeHtml(s.slug)}">
+                  ${spellSlotOptions(minLevel)}
+                </select>
+              </div>
+              <div class="spell-use-result" data-use-result="${escapeHtml(s.slug)}">${escapeHtml(slotInfo)} • ${escapeHtml(s.formula_dado_base || 'sem rolagem')}</div>
+              <button class="btn green" data-use-book-spell="${escapeHtml(s.slug)}">Usar magia</button>
+              <button class="btn secondary" data-detail-bank-spell="${escapeHtml(s.slug)}">Ver detalhes</button>
+            </div>
+          </div>
+        `;
+      }).join('') || '<div class="spellbook-status">Nenhuma magia escolhida ainda. Busque uma magia acima e clique em Adicionar.</div>';
+    }
+
+    async function showBankSpellDetail(slug){
+      try{
+        const data = await apiFetch('/api/magias/' + encodeURIComponent(slug), {method:'GET'}, true);
+        const m = data.magia;
+        if(!m) return;
+        const usos = (data.usos_espaco || []).map(u=>`Espaço ${u.espaco_usado}: ${u.formula_dado || 'sem rolagem'}`).join(' | ');
+        alert(`${m.nome_pt}\n${spellLevelLabel(m.nivel)} de ${m.escola || '-'}\n\n${m.descricao_pt || ''}\n\n${usos}`);
+      }catch(e){
+        toast('Erro ao abrir detalhes: ' + e.message);
+      }
+    }
+
+
     function renderForm(){
       const c=activeChar();
       if(!c) return;
@@ -885,6 +1256,7 @@
       renderImages();
       renderMenu();
       const jsonBox = $('#jsonBox'); if(jsonBox) jsonBox.value = JSON.stringify(c,null,2);
+      renderSpellbookUI();
     }
 
     function renderDashboard(){
@@ -1122,6 +1494,7 @@
         renderCalcs();
       }
 
+      renderSpellbookUI();
       if(showToast) toast('Ficha atualizada pelo mestre.');
     }
 
@@ -1254,6 +1627,18 @@
           return;
         }
 
+        const addBank=e.target.closest('[data-add-bank-spell]');
+        if(addBank){ addBankSpell(addBank.dataset.addBankSpell); return; }
+
+        const removeBook=e.target.closest('[data-remove-book-spell]');
+        if(removeBook){ removeBookSpell(removeBook.dataset.removeBookSpell); return; }
+
+        const useBook=e.target.closest('[data-use-book-spell]');
+        if(useBook){ useBookSpell(useBook.dataset.useBookSpell); return; }
+
+        const detailSpell=e.target.closest('[data-detail-bank-spell]');
+        if(detailSpell){ showBankSpellDetail(detailSpell.dataset.detailBankSpell); return; }
+
         const tab=e.target.closest('.tab');
         if(tab){
           $all('.tab').forEach(x=>x.classList.remove('active')); tab.classList.add('active');
@@ -1288,6 +1673,8 @@
         catch(e){ toast('JSON inválido.'); }
       };
       const downloadJsonBtn = $('#downloadJsonBtn'); if(downloadJsonBtn) downloadJsonBtn.onclick=exportJson;
+      const spellBankSearchBtn = $('#spellBankSearchBtn'); if(spellBankSearchBtn) spellBankSearchBtn.onclick=searchSpellBank;
+      const spellSearchInput = $('#spellSearchInput'); if(spellSearchInput) spellSearchInput.addEventListener('keydown', e=>{ if(e.key==='Enter') searchSpellBank(); });
     }
 
     renderStatic();
@@ -1297,6 +1684,6 @@
     refreshOnline();
     startOnlineSync();
   </script>
-<!-- RPGGABRIEL V15.1 MAGIAS MANUAIS -->
+<!-- RPGGABRIEL V16 SPELLBOOK MAGIAS MANUAIS -->
 </body>
 </html>

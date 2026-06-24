@@ -18,7 +18,7 @@ export default {
         return json({
           ok: true,
           app: "Ghosts of Saltmarsh - Ficha Online API",
-          version: "1.3.1-magias-manuais-reset",
+          version: "1.4.0-spellbook-player",
           loginMode: "character_click_standard_password",
           time: new Date().toISOString()
         });
@@ -363,7 +363,7 @@ async function listMagias(request, env, url) {
   const classe = String(url.searchParams.get("classe") || "").trim();
   const tipoUso = String(url.searchParams.get("tipo_uso") || url.searchParams.get("tipo") || "").trim();
   const nivelRaw = url.searchParams.get("nivel");
-  const limit = Math.max(1, Math.min(200, Number(url.searchParams.get("limit") || 80)));
+  const limit = Math.max(1, Math.min(1000, Number(url.searchParams.get("limit") || 500)));
 
   const where = [];
   const binds = [];
@@ -423,9 +423,16 @@ async function listMagias(request, env, url) {
     LIMIT ?
   `).bind(...binds, limit).all();
 
+  const totalRow = await env.DB.prepare(`
+    SELECT COUNT(*) AS total
+    FROM magias m
+    ${sqlWhere}
+  `).bind(...binds).first();
+
   return json({
     ok: true,
     count: (result.results || []).length,
+    total: Number(totalRow && totalRow.total ? totalRow.total : 0),
     filters: { q, classe, tipo_uso: tipoUso, nivel: nivelRaw, limit },
     magias: (result.results || []).map(spellPublic)
   });
