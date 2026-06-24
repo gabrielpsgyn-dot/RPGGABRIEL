@@ -3,25 +3,25 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mesa do Mestre - V17</title>
+  <title>Mesa do Mestre - V17.1</title>
   <style>
     :root{
-      --wood-dark:#211109;
-      --wood-1:#3b2112;
-      --wood-2:#5d351b;
-      --wood-3:#7b4b26;
-      --paper:#ead9b8;
-      --paper-light:#f7ead0;
-      --paper-dark:#d7bd91;
-      --ink:#2a170b;
-      --muted:#70573b;
-      --line:#8a643b;
-      --gold:#b88133;
-      --gold-light:#e2bd76;
-      --blood:#8e2f29;
-      --blood-light:#c35a4e;
-      --heal:#496b40;
-      --blue:#496980;
+      --wood-dark:#160b05;
+      --wood-1:#2a1609;
+      --wood-2:#4b2b14;
+      --wood-3:#6b431f;
+      --paper:#e6d0a6;
+      --paper-light:#f3e3bf;
+      --paper-dark:#c6a675;
+      --ink:#241205;
+      --muted:#654726;
+      --line:#6f461f;
+      --gold:#a96f24;
+      --gold-light:#d7ae62;
+      --blood:#7c2520;
+      --blood-light:#ad4c41;
+      --heal:#425f31;
+      --blue:#40586b;
       --shadow:0 18px 38px rgba(0,0,0,.30);
       --r-xl:26px;
       --r-lg:20px;
@@ -35,9 +35,10 @@
       font-family:var(--ui);
       color:var(--ink);
       background:
-        radial-gradient(circle at 18% 8%, rgba(255,232,175,.10), transparent 28%),
-        radial-gradient(circle at 86% 4%, rgba(255,232,175,.06), transparent 22%),
-        repeating-linear-gradient(90deg, var(--wood-dark) 0 14px, var(--wood-1) 14px 31px, var(--wood-2) 31px 50px, var(--wood-3) 50px 66px);
+        radial-gradient(circle at 18% 6%, rgba(215,174,98,.13), transparent 30%),
+        radial-gradient(circle at 86% 0%, rgba(230,208,166,.08), transparent 24%),
+        linear-gradient(90deg, rgba(0,0,0,.18), transparent 20%, transparent 80%, rgba(0,0,0,.18)),
+        repeating-linear-gradient(90deg, #1a0d06 0 34px, #241207 34px 38px, #3a210f 38px 82px, #4b2b14 82px 86px);
     }
     button,input,select,textarea{font:inherit}
     button{cursor:pointer}
@@ -72,17 +73,17 @@
       min-width:0;
     }
     .seal{
-      width:68px;height:68px;border-radius:22px;
+      width:56px;height:56px;border-radius:18px;
       display:grid;place-items:center;
       background:radial-gradient(circle at 32% 25%, #ffe1a3, #b67a2d 72%);
       color:#261306;
-      font-size:24px;
+      font-size:20px;
       font-weight:950;
       box-shadow:inset 0 1px 0 rgba(255,255,255,.62),0 10px 20px rgba(0,0,0,.25);
       flex:0 0 auto;
     }
     h1,h2,h3{margin:0}
-    h1{font-size:30px;letter-spacing:.3px}
+    h1{font-size:26px;letter-spacing:.3px}
     .subtitle{margin-top:5px;color:var(--muted);font-size:14px}
     .login{
       display:grid;
@@ -340,6 +341,224 @@
       box-shadow:var(--shadow);opacity:0;transform:translateY(8px);transition:.18s ease;pointer-events:none;max-width:340px;
     }
     .toast.show{opacity:1;transform:translateY(0)}
+
+    .compact-combat-card{
+      background:
+        radial-gradient(circle at 0 0, rgba(215,174,98,.16), transparent 30%),
+        linear-gradient(180deg,#2b1609,#1c0e05);
+      border-color:#7c4f27;
+    }
+    .compact-combat{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 420px 230px;
+      gap:12px;
+      padding:12px;
+      align-items:stretch;
+    }
+    .compact-target,.compact-actions,.compact-order{
+      background:rgba(243,227,191,.075);
+      border:1px solid rgba(215,174,98,.26);
+      border-radius:18px;
+      padding:10px;
+      min-width:0;
+    }
+    .compact-title-row{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      margin-bottom:8px;
+    }
+    .compact-title-row h2{
+      color:#f0d39c;
+      font-size:19px;
+      text-shadow:0 1px 0 rgba(0,0,0,.35);
+    }
+    .compact-combat .turn-banner{
+      border:0;
+      padding:0;
+      min-height:0;
+      background:transparent;
+      display:block;
+    }
+    .compact-combat .turn-head{
+      grid-template-columns:52px 1fr;
+      gap:10px;
+    }
+    .compact-combat .turn-head .avatar{
+      width:52px;
+      height:52px;
+      border-radius:14px;
+    }
+    .compact-combat .turn-kicker{
+      font-size:10px;
+      color:#d7ae62;
+    }
+    .compact-combat .turn-name{
+      font-size:20px;
+      color:#f3e3bf;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .compact-combat .turn-meta{
+      font-size:12px;
+      color:#caa66f;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .compact-combat .bar-row{
+      grid-template-columns:62px 1fr 62px;
+      gap:8px;
+      font-size:12px;
+    }
+    .compact-combat .track{
+      height:10px;
+    }
+    .compact-combat .mini-stats{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:6px;
+      margin-top:8px;
+    }
+    .compact-combat .stat{
+      padding:6px 4px;
+      border-radius:11px;
+      background:rgba(243,227,191,.10);
+      color:#f3e3bf;
+    }
+    .compact-combat .stat span{
+      color:#d0ad77;
+      font-size:9px;
+    }
+    .compact-combat .stat b{
+      color:#f3e3bf;
+      font-size:15px;
+    }
+    .compact-actions{
+      display:grid;
+      gap:8px;
+      align-content:start;
+    }
+    .compact-actions .turn-controls{
+      grid-template-columns:repeat(3,1fr);
+      gap:6px;
+    }
+    .damage-line{
+      display:grid;
+      grid-template-columns:74px repeat(3,1fr);
+      gap:6px;
+    }
+    .damage-line input{
+      min-height:34px;
+      padding:7px 8px;
+      border-radius:10px;
+    }
+    .compact-quick{
+      grid-template-columns:repeat(4,1fr);
+      gap:6px;
+    }
+    .compact-cond{
+      gap:6px;
+    }
+    .compact-cond .cond{
+      min-height:30px;
+      padding:5px 8px;
+      font-size:11px;
+      border-color:rgba(215,174,98,.35);
+      color:#d6bb88;
+      background:rgba(0,0,0,.12);
+    }
+    .compact-cond .cond.active{
+      background:#c89b58;
+      color:#211109;
+    }
+    .compact-order{
+      padding:8px;
+      max-height:245px;
+      overflow:auto;
+    }
+    .compact-order-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+      margin-bottom:6px;
+      color:#e6d0a6;
+    }
+    .compact-order-head strong{
+      font-size:14px;
+    }
+    .compact-order-head small{
+      color:#caa66f;
+      font-size:11px;
+    }
+    .compact-order .rank-list{
+      gap:4px;
+    }
+    .compact-order .rank-item{
+      grid-template-columns:24px 1fr 34px;
+      gap:6px;
+      padding:5px 6px;
+      border-radius:10px;
+      background:rgba(243,227,191,.08);
+      border-color:rgba(215,174,98,.20);
+      color:#f3e3bf;
+    }
+    .compact-order .rank-item.active{
+      background:linear-gradient(180deg,#d7ae62,#9b6729);
+      color:#1b0d04;
+      box-shadow:none;
+    }
+    .compact-order .rank-number{
+      width:22px;
+      height:22px;
+      border-radius:7px;
+      font-size:11px;
+      background:#130903;
+      color:#e6d0a6;
+    }
+    .compact-order .rank-item.active .rank-number{
+      background:#1b0d04;
+      color:#f3e3bf;
+    }
+    .compact-order .rank-name{
+      font-size:12px;
+      line-height:1.1;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .compact-order .rank-meta{
+      display:none;
+    }
+    .compact-order .rank-ini{
+      font-size:13px;
+      text-align:right;
+    }
+    .board{
+      background:
+        radial-gradient(circle at 50% 0%, rgba(215,174,98,.18), transparent 34%),
+        linear-gradient(180deg,#d2b17a,#b88e55);
+      border-color:#3b2112;
+    }
+    .column{
+      background:rgba(255,244,221,.34);
+      border-color:rgba(82,47,20,.38);
+    }
+    .person-card,.local-card{
+      background:
+        linear-gradient(180deg,rgba(255,255,255,.20),transparent 20%),
+        linear-gradient(180deg,#efdcb4,#d3b278);
+      border-color:#6f461f;
+    }
+    .card.dark{
+      background:
+        radial-gradient(circle at 15% 0%, rgba(215,174,98,.15), transparent 28%),
+        linear-gradient(180deg,#2a1609,#170b04);
+    }
+
     @media(max-width:1460px){
       .columns{grid-template-columns:1fr}
       .cards{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
@@ -352,6 +571,8 @@
       .top{grid-template-columns:1fr}
       .login{grid-template-columns:1fr 1fr;min-width:0}
       .combat{grid-template-columns:1fr}
+      .compact-combat{grid-template-columns:1fr 260px}
+      .compact-order{grid-column:2;grid-row:1 / span 2}
       .summary{grid-template-columns:repeat(3,1fr)}
       .filters{grid-template-columns:1fr 1fr}
       .filters .field:first-child{grid-column:1/-1}
@@ -364,6 +585,9 @@
       .summary{grid-template-columns:repeat(2,1fr)}
       .mini-stats{grid-template-columns:repeat(2,1fr)}
       .turn-controls,.damage-buttons,.quick-row{grid-template-columns:1fr 1fr}
+      .compact-combat{grid-template-columns:1fr}
+      .compact-order{grid-column:auto;grid-row:auto;max-height:180px}
+      .damage-line{grid-template-columns:1fr 1fr}
       .detail-row{grid-template-columns:1fr}
     }
   </style>
@@ -375,7 +599,7 @@
       <div class="seal">DM</div>
       <div>
         <h1>Mesa do Mestre</h1>
-        <div class="subtitle">Visual medieval, ordem de turno ranqueada e controle de combate sem atrapalhar a mesa.</div>
+        <div class="subtitle">Visual compacta, medieval e com ordem de turno discreta.</div>
       </div>
     </div>
     <div class="login">
@@ -388,49 +612,45 @@
 
   <div class="main-grid">
     <main class="left">
-      <section class="card dark">
-        <div class="panel-header">
-          <h2>Combate</h2>
-          <span class="badge dark">turnos, alvo, dano e condições</span>
-        </div>
-        <div class="combat">
-          <div class="turn-banner" id="turnBanner"></div>
-          <div class="turn-actions">
-            <div class="field"><label style="color:#dfc393">Rodada / Turno</label>
-              <div class="turn-controls">
-                <button class="btn secondary" id="prevTurnBtn">← Anterior</button>
-                <button class="btn primary" id="nextTurnBtn">Próximo turno →</button>
-                <button class="btn ghost" id="resetRoundBtn">Nova rodada</button>
-              </div>
+      <section class="card dark compact-combat-card">
+        <div class="compact-combat">
+          <div class="compact-target">
+            <div class="compact-title-row">
+              <h2>Combate</h2>
+              <span class="badge dark" id="roundBadge">Rodada 1</span>
             </div>
-            <div class="turn-rank-note" id="turnNote">A ordem é gerada por iniciativa. Clique em um card ou item da ordem para selecionar.</div>
-            <div class="damage-panel">
-              <div class="field"><label style="color:#dfc393">Valor</label><input id="actionValue" type="number" min="0" value="1"></div>
-              <div class="field"><label style="color:#dfc393">Atalhos</label>
-                <div class="quick-row">
-                  <button class="btn small secondary" data-set-value="1">1</button>
-                  <button class="btn small secondary" data-set-value="5">5</button>
-                  <button class="btn small secondary" data-set-value="10">10</button>
-                  <button class="btn small secondary" data-set-value="20">20</button>
-                </div>
-              </div>
-            </div>
-            <div class="damage-buttons">
-              <button class="btn red" id="damageBtn">Dano</button>
-              <button class="btn green" id="healBtn">Cura</button>
-              <button class="btn blue" id="setHpBtn">Definir HP</button>
-            </div>
-            <div class="field"><label style="color:#dfc393">Condições</label><div class="cond-row" id="conditionButtons"></div></div>
+            <div id="turnBanner"></div>
           </div>
-        </div>
-      </section>
 
-      <section class="card order-card">
-        <div class="order-head">
-          <h2>Ordem de jogar</h2>
-          <span class="badge" id="roundBadge">Rodada 1</span>
+          <div class="compact-actions">
+            <div class="turn-controls">
+              <button class="btn small secondary" id="prevTurnBtn">← Anterior</button>
+              <button class="btn small primary" id="nextTurnBtn">Próximo →</button>
+              <button class="btn small ghost" id="resetRoundBtn">Nova rodada</button>
+            </div>
+            <div class="damage-line">
+              <input id="actionValue" type="number" min="0" value="1">
+              <button class="btn small red" id="damageBtn">Dano</button>
+              <button class="btn small green" id="healBtn">Cura</button>
+              <button class="btn small blue" id="setHpBtn">Definir HP</button>
+            </div>
+            <div class="quick-row compact-quick">
+              <button class="btn small secondary" data-set-value="1">1</button>
+              <button class="btn small secondary" data-set-value="5">5</button>
+              <button class="btn small secondary" data-set-value="10">10</button>
+              <button class="btn small secondary" data-set-value="20">20</button>
+            </div>
+            <div class="cond-row compact-cond" id="conditionButtons"></div>
+          </div>
+
+          <aside class="compact-order">
+            <div class="compact-order-head">
+              <strong>Ordem</strong>
+              <small id="turnNote">Iniciativa</small>
+            </div>
+            <div class="rank-list" id="turnOrderList"></div>
+          </aside>
         </div>
-        <div class="rank-list" id="turnOrderList"></div>
       </section>
 
       <section class="card">
