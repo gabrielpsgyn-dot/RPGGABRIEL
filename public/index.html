@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPG Gabriel - Ficha Online V16.2</title>
+  <title>RPG Gabriel - Ficha Online V16.3</title>
   <style>
     :root{
       --bg:#090b10;
@@ -627,10 +627,49 @@
             <input data-path="meta.nomePersonagem" placeholder="Nome do personagem">
           </div>
           <div class="header-fields">
-            <div class="field"><label>Classe e nível</label><input data-path="meta.classeNivel"></div>
+            <div class="field">
+              <label>Classe</label>
+              <select data-path="meta.classe" id="characterClassSelect">
+                <option value="">Escolher classe</option>
+                <option>Bárbaro</option>
+                <option>Bardo</option>
+                <option>Bruxo</option>
+                <option>Clérigo</option>
+                <option>Druida</option>
+                <option>Feiticeiro</option>
+                <option>Guerreiro</option>
+                <option>Ladino</option>
+                <option>Mago</option>
+                <option>Monge</option>
+                <option>Paladino</option>
+                <option>Patrulheiro</option>
+              </select>
+            </div>
+            <div class="field"><label>Nível</label><input data-path="meta.nivel" type="number" min="1" max="20"></div>
             <div class="field"><label>Antecedente</label><input data-path="meta.antecedente"></div>
             <div class="field"><label>Nome do jogador</label><input data-path="meta.nomeJogador"></div>
-            <div class="field"><label>Raça</label><input data-path="meta.raca"></div>
+            <div class="field">
+              <label>Raça / Linhagem</label>
+              <input data-path="meta.raca" list="raceOptions" placeholder="Escolher ou digitar">
+              <datalist id="raceOptions">
+                <option value="Anão"></option>
+                <option value="Elfo"></option>
+                <option value="Halfling"></option>
+                <option value="Humano"></option>
+                <option value="Draconato"></option>
+                <option value="Gnomo"></option>
+                <option value="Meio-Elfo"></option>
+                <option value="Meio-Orc"></option>
+                <option value="Tiefling"></option>
+                <option value="Aasimar"></option>
+                <option value="Genasi"></option>
+                <option value="Goliath"></option>
+                <option value="Tabaxi"></option>
+                <option value="Tritão"></option>
+                <option value="Kobold"></option>
+                <option value="Orc"></option>
+              </datalist>
+            </div>
             <div class="field"><label>Alinhamento</label><input data-path="meta.alinhamento"></div>
             <div class="field"><label>Pontos de experiência</label><input data-path="meta.experiencia" type="number"></div>
           </div>
@@ -905,6 +944,38 @@
     const API_BASE = location.origin;
     const CAMPAIGN_ID = 'ghosts-of-saltmarsh';
 
+
+    const ALL_CLASSES = ['Bárbaro','Bardo','Bruxo','Clérigo','Druida','Feiticeiro','Guerreiro','Ladino','Mago','Monge','Paladino','Patrulheiro'];
+    const SPELL_CLASSES = ['Bardo','Bruxo','Clérigo','Druida','Feiticeiro','Mago','Paladino','Patrulheiro'];
+    const CLASS_ALIASES = {
+      'barbaro':'Bárbaro',
+      'bárbaro':'Bárbaro',
+      'bard':'Bardo',
+      'bardo':'Bardo',
+      'warlock':'Bruxo',
+      'bruxo':'Bruxo',
+      'clerigo':'Clérigo',
+      'clérigo':'Clérigo',
+      'cleric':'Clérigo',
+      'druida':'Druida',
+      'druid':'Druida',
+      'feiticeiro':'Feiticeiro',
+      'sorcerer':'Feiticeiro',
+      'guerreiro':'Guerreiro',
+      'fighter':'Guerreiro',
+      'ladino':'Ladino',
+      'rogue':'Ladino',
+      'mago':'Mago',
+      'wizard':'Mago',
+      'monge':'Monge',
+      'monk':'Monge',
+      'paladino':'Paladino',
+      'paladin':'Paladino',
+      'patrulheiro':'Patrulheiro',
+      'ranger':'Patrulheiro'
+    };
+
+
     const abilities = [
       ['forca','Força','For'],
       ['destreza','Destreza','Des'],
@@ -979,7 +1050,7 @@
         schemaVersion: 11,
         createdAt: now(),
         updatedAt: now(),
-        meta:{nomePersonagem:'Novo Personagem',classeNivel:'',nivel:1,antecedente:'',nomeJogador:'',raca:'',alinhamento:'',experiencia:0,inspiracao:false,bonusProficiencia:2},
+        meta:{nomePersonagem:'Novo Personagem',classe:'',nivel:1,classeNivel:'',nivel:1,antecedente:'',nomeJogador:'',raca:'',alinhamento:'',experiencia:0,inspiracao:false,bonusProficiencia:2},
         atributos: blankAbilities(),
         pericias: blankSkills(),
         vida:{maximos:'',atuais:'',temporarios:'',dadoVidaTotal:'',dadoVida:'',dadoVidaUsado:''},
@@ -1170,6 +1241,7 @@
       if(!panel || !btn) return;
       panel.classList.toggle('spellbank-collapsed', !open);
       btn.textContent = open ? 'Fechar busca' : 'Abrir busca';
+      if(open) applyDefaultSpellClassFilter(false);
     }
 
     function toggleSpellBank(){
@@ -1182,6 +1254,7 @@
       setSpellBankOpen(true);
       const q = ($('#spellSearchInput') && $('#spellSearchInput').value.trim()) || '';
       const nivel = ($('#spellLevelFilter') && $('#spellLevelFilter').value) || '';
+      applyDefaultSpellClassFilter(false);
       const classe = ($('#spellClassFilter') && $('#spellClassFilter').value) || '';
 
       const params = new URLSearchParams();
@@ -1383,9 +1456,77 @@
     }
 
 
+
+    function normalizeTextKey(v){
+      return String(v || '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g,'')
+        .toLowerCase()
+        .trim();
+    }
+
+    function normalizeClassName(value){
+      const original = String(value || '').trim();
+      if(!original) return '';
+      const clean = normalizeTextKey(original);
+      if(CLASS_ALIASES[clean]) return CLASS_ALIASES[clean];
+      for(const cls of ALL_CLASSES){
+        const key = normalizeTextKey(cls);
+        if(clean === key || clean.includes(key)) return cls;
+      }
+      return original;
+    }
+
+    function ensureClassLevelData(c){
+      if(!c || !c.meta) return;
+      const old = String(c.meta.classeNivel || '').trim();
+
+      if(!c.meta.classe && old){
+        c.meta.classe = normalizeClassName(old);
+      }
+
+      if(!c.meta.nivel && old){
+        const levelMatch = old.match(/\b(1[0-9]|20|[1-9])\b/);
+        if(levelMatch) c.meta.nivel = Number(levelMatch[1]);
+      }
+
+      if(c.meta.classe) c.meta.classe = normalizeClassName(c.meta.classe);
+
+      if(!c.meta.nivel) c.meta.nivel = 1;
+      c.meta.nivel = clamp(num(c.meta.nivel), 1, 20);
+
+      c.meta.classeNivel = [c.meta.classe || '', c.meta.nivel ? 'nível ' + c.meta.nivel : '']
+        .filter(Boolean)
+        .join(' — ');
+    }
+
+    function getCharacterSpellClass(c){
+      ensureClassLevelData(c);
+      const cls = normalizeClassName(c && c.meta ? c.meta.classe : '');
+      return SPELL_CLASSES.includes(cls) ? cls : '';
+    }
+
+    function applyDefaultSpellClassFilter(force=false){
+      const select = $('#spellClassFilter');
+      const c = activeChar();
+      if(!select || !c) return;
+
+      const cls = getCharacterSpellClass(c);
+      if(!cls) return;
+
+      const hasOption = Array.from(select.options).some(o => o.value === cls || o.textContent === cls);
+      if(!hasOption) return;
+
+      if(force || !select.dataset.manualClassFilter){
+        select.value = cls;
+      }
+    }
+
+
     function renderForm(){
       const c=activeChar();
       if(!c) return;
+      ensureClassLevelData(c);
       $all('[data-path]').forEach(el=>{
         const path=el.dataset.path;
         const val=getByPath(c,path);
@@ -1398,6 +1539,7 @@
       renderMenu();
       const jsonBox = $('#jsonBox'); if(jsonBox) jsonBox.value = JSON.stringify(c,null,2);
       renderSpellbookUI();
+      applyDefaultSpellClassFilter(false);
     }
 
     function renderDashboard(){
@@ -1496,7 +1638,7 @@
           state.characters.push(normalize({
             id:card.id,
             campaignId:CAMPAIGN_ID,
-            meta:{nomePersonagem:card.name||'Personagem',classeNivel:card.classeNivel||'',raca:card.raca||''},
+            meta:{nomePersonagem:card.name||'Personagem',classe:normalizeClassName(card.classe||card.classeNivel||''),nivel:card.nivel||'',classeNivel:card.classeNivel||'',raca:card.raca||''},
             campanha:{mareAtual:card.mareAtual||'',faccao:card.faccao||'',marcaCampanha:card.marcaCampanha||'',corrupcao:card.corrupcao||0}
           }));
         });
@@ -1712,6 +1854,11 @@
         if(!el.dataset.path) return;
         const c=activeChar(); if(!c) return;
         setByPath(c, el.dataset.path, el.type==='checkbox' ? el.checked : el.value);
+        if(el.dataset.path === 'meta.classe' || el.dataset.path === 'meta.nivel' || el.dataset.path === 'meta.classeNivel'){
+          ensureClassLevelData(c);
+          const sf = $('#spellClassFilter');
+          if(sf){ delete sf.dataset.manualClassFilter; applyDefaultSpellClassFilter(true); }
+        }
         renderDashboard(); renderCalcs(); scheduleSave();
       });
       document.addEventListener('change', e=>{
@@ -1819,6 +1966,7 @@
       const downloadJsonBtn = $('#downloadJsonBtn'); if(downloadJsonBtn) downloadJsonBtn.onclick=exportJson;
       const spellBankSearchBtn = $('#spellBankSearchBtn'); if(spellBankSearchBtn) spellBankSearchBtn.onclick=searchSpellBank;
       const toggleSpellBankBtn = $('#toggleSpellBankBtn'); if(toggleSpellBankBtn) toggleSpellBankBtn.onclick=toggleSpellBank;
+      const spellClassFilter = $('#spellClassFilter'); if(spellClassFilter) spellClassFilter.addEventListener('change', ()=>{ spellClassFilter.dataset.manualClassFilter = '1'; });
       const spellSearchInput = $('#spellSearchInput'); if(spellSearchInput) spellSearchInput.addEventListener('keydown', e=>{ if(e.key==='Enter') searchSpellBank(); });
       document.addEventListener('change', e=>{ const slot=e.target.closest('[data-use-slot]'); if(slot) updateSpellUsePreview(slot.dataset.useSlot); });
     }

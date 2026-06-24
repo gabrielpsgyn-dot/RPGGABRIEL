@@ -1,0 +1,79 @@
+{
+  "versao": "V16.3",
+  "objetivo": "Base inicial para separar classe, nivel e raca. Futuramente recebera progressao por nivel, habilidades e espacos de magia.",
+  "classes": [
+    {
+      "nome": "Bárbaro",
+      "conjurador": false
+    },
+    {
+      "nome": "Bardo",
+      "conjurador": true
+    },
+    {
+      "nome": "Bruxo",
+      "conjurador": true
+    },
+    {
+      "nome": "Clérigo",
+      "conjurador": true
+    },
+    {
+      "nome": "Druida",
+      "conjurador": true
+    },
+    {
+      "nome": "Feiticeiro",
+      "conjurador": true
+    },
+    {
+      "nome": "Guerreiro",
+      "conjurador": false
+    },
+    {
+      "nome": "Ladino",
+      "conjurador": false
+    },
+    {
+      "nome": "Mago",
+      "conjurador": true
+    },
+    {
+      "nome": "Monge",
+      "conjurador": false
+    },
+    {
+      "nome": "Paladino",
+      "conjurador": true
+    },
+    {
+      "nome": "Patrulheiro",
+      "conjurador": true
+    }
+  ],
+  "racas": [
+    "Anão",
+    "Elfo",
+    "Halfling",
+    "Humano",
+    "Draconato",
+    "Gnomo",
+    "Meio-Elfo",
+    "Meio-Orc",
+    "Tiefling",
+    "Aasimar",
+    "Genasi",
+    "Goliath",
+    "Tabaxi",
+    "Tritão",
+    "Kobold",
+    "Orc"
+  ],
+  "proximos_campos": [
+    "habilidades_por_nivel",
+    "espacos_magia_por_classe_nivel",
+    "subclasses",
+    "proficiencias",
+    "tracos_raciais"
+  ]
+}
