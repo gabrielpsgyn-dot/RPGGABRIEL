@@ -8,7 +8,7 @@ export default {
 
     try {
       if (!env.DB) {
-        return json({ ok: false, error: "Binding DB nÃ£o configurado no Worker." }, 500);
+        return json({ ok: false, error: "Binding DB não configurado no Worker." }, 500);
       }
 
       const path = url.pathname.replace(/\/+$/, "") || "/";
@@ -31,8 +31,8 @@ export default {
         });
       }
 
-      // Lista pÃºblica: mostra sÃ³ os cards de personagens para o jogador clicar.
-      // NÃ£o entrega a ficha completa sem senha.
+      // Lista pública: mostra só os cards de personagens para o jogador clicar.
+      // Não entrega a ficha completa sem senha.
       if (method === "GET" && path === "/api/public/characters") {
         return listPublicCharacters(request, env, url);
       }
@@ -52,7 +52,7 @@ export default {
         if (method === "DELETE") return deleteCharacter(request, env, url, id);
       }
 
-      return json({ ok: false, error: "Rota nÃ£o encontrada." }, 404);
+      return json({ ok: false, error: "Rota não encontrada." }, 404);
     } catch (err) {
       return json({ ok: false, error: err && err.message ? err.message : String(err) }, 500);
     }
@@ -83,7 +83,7 @@ function checkAuth(request, env) {
   // Token admin opcional para o mestre.
   if (env.RPG_API_TOKEN && (bearer === env.RPG_API_TOKEN || apiKey === env.RPG_API_TOKEN)) return null;
 
-  // Senha padrÃ£o da mesa. Configure como secret no Cloudflare:
+  // Senha padrão da mesa. Configure como secret no Cloudflare:
   // npx wrangler secret put RPG_DEFAULT_PASSWORD
   const expectedPassword = String(env.RPG_DEFAULT_PASSWORD || env.RPG_PASSWORD || "saltmarsh").trim();
   const suppliedPassword = String(
@@ -93,7 +93,7 @@ function checkAuth(request, env) {
   ).trim();
 
   if (expectedPassword && suppliedPassword === expectedPassword) return null;
-  return json({ ok: false, error: "Senha padrÃ£o invÃ¡lida ou ausente." }, 401);
+  return json({ ok: false, error: "Senha padrão inválida ou ausente." }, 401);
 }
 
 function getPlayerId(request, url) {
@@ -193,7 +193,7 @@ async function getCharacter(request, env, url, id) {
     WHERE id = ? AND campaign_id = ? AND deleted_at IS NULL
   `).bind(id, campaignId).first();
 
-  if (!row) return json({ ok: false, error: "Personagem nÃ£o encontrado." }, 404);
+  if (!row) return json({ ok: false, error: "Personagem não encontrado." }, 404);
   return json({ ok: true, character: safeParseCharacter(row) });
 }
 
