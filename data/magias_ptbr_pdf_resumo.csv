@@ -1,0 +1,362 @@
+﻿nome_pt;slug;nivel;escola;ritual;concentracao;tempo_conjuracao;alcance;componentes;duracao;tipo_uso;exige_ataque;tipo_ataque;exige_resistencia;atributo_resistencia;formula_dado_base;tipo_dano_padrao;pagina_pdf
+Acalmar Emoções;acalmar-emocoes;2;encantamento;0;1;1 ação;18 metros;V, S;Concentração, até 1 minuto;controle;0;;1;CAR;;;7
+Adivinhação;adivinhacao;4;adivinhação;1;0;1 ação;Pessoal;V, S, M (incenso e uma oferenda apropriada para sacrifício à sua religião, juntos valendo, no mínimo, 25 po, consumidos pela magia);Instantânea;invocacao;0;;0;;;;7
+Ajuda;ajuda;2;abjuração;0;0;1 ação;9 metros;V, S, M (uma pequena fita de tecido branco);8 horas;invocacao;0;;0;;;;7
+Alarme;alarme;1;abjuração;1;0;1 minuto;9 metros;V, S, M (um pequeno sino e um pequeno fio de prata);8 horas;utilidade;0;;0;;;;7
+Aliado Planar;aliado-planar;6;conjuração;0;0;10 minutos;18 metros;V, S;Instantânea;invocacao;0;;0;;;;7
+Aljava Veloz;aljava-veloz;5;transmutação;0;1;1 ação bônus;Toque;V, S, M (uma aljava contendo, pelo menos, uma munição);Concentração, até 1 minuto;utilidade;0;;0;;;;8
+Alterar Forma;alterar-forma;9;transmutação;0;1;1 ação;Pessoal;V, S, M (uma argola de jade valendo, no mínimo, 1.500 po, que você deve colocar na sua cabeça antes de conjurar a magia);Concentração, até 1 hora;dano;0;;0;;;;8
+Alterar-Se;alterar-se;2;transmutação;0;1;1 ação;Pessoal;V, S;Concentração, até 1 hora;dano;0;;0;;1d6;concussão;8
+Amizade;amizade;0;encantamento;0;1;1 ação;Pessoal;S, M (uma pequena quantidade de maquiagem aplicada ao rosto durante a conjuração da magia);Concentração, até 1 minuto;utilidade;0;;0;;;;8
+Amizade Animal;amizade-animal;1;encantamento;0;0;1 ação;9 metros;V, S, M (um punhado de comida);24 horas;controle;0;;1;SAB;;;9
+Ampliar Plantas;ampliar-plantas;3;transmutação;0;0;1 ação ou 8 horas;45 metros;V, S;Instantânea;invocacao;0;;0;;;;9
+Âncora Planar;ancora-planar;5;abjuração;0;0;1 hora;18 metros;V, S, M (uma joia valendo, no mínimo, 1.000 po, consumida pela magia);24 horas;defesa;0;;1;CAR;;;9
+Andar na Água;andar-na-agua;3;transmutação;1;0;1 ação;9 metros;V, S, M (uma rolha);1 hora;dano;0;;0;;;;9
+Animar Mortos;animar-mortos;3;necromancia;0;0;1 minuto;3 metros;V, S, M (uma gota de sangue, um pedaço de carne e uma punhado de pó de osso);Instantânea;cura;0;;0;;;;9
+Animar Objetos;animar-objetos;5;transmutação;0;1;1 ação;36 metros;V, S;Concentração, até 1 minuto;dano;0;;0;;1d4;concussão;10
+Antipatia/Simpatia;antipatia-simpatia;8;encantamento;0;0;1 hora;18 metros;V, S, M (ou um pedaço de alume embebido em vinagre para o efeito de antipatia, ou uma gota de mel para o efeito de simpatia);10 dias;dano;0;;1;SAB;;;10
+Aprimorar Habilidade;aprimorar-habilidade;2;transmutação;0;1;1 ação;Toque;V, S, M (pelo ou penas de uma besta);Concentração, até 1 hora;dano;0;;0;;2d6;;11
+Aprisionamento;aprisionamento;9;abjuração;0;0;1 minuto;9 metros;V, S, M (um pergaminho de representação ou uma estatueta esculpida para se parecer com o alvo e um componente especial, que varia de acordo com a versão da magia que você escolher, valendo, no mínimo, 500 po por Dado de Vida);Até ser dissipada;defesa;0;;1;SAB;;;11
+Arca Secreta de Leomund;arca-secreta-de-leomund;4;conjuração;0;0;1 ação;Toque;V, S, M (um baú requintado, de 90 cm por 60 cm por 60 cm, construído com materiais raros valendo, no mínimo, 5.000 po e uma réplica Miúda feita do mesmo material valendo, no mínimo, 50 po);Instantânea;invocacao;0;;0;;;;11
+Área Escorregadia;area-escorregadia;1;conjuração;0;0;1 ação;18 metros;V, S, M (um pouco de pele de porco ou manteiga);1 minuto;defesa;0;;1;DES;;;12
+Arma Elemental;arma-elemental;3;transmutação;0;1;1 ação;Toque;V, S;Concentração, até 1 hora;dano;0;;0;;1d4;;12
+Arma Espiritual;arma-espiritual;2;evocação;0;0;1 ação bônus;18 metros;V, S;1 minuto;dano;1;corpo_a_corpo_magico;0;;1d8;energia;12
+Arma Mágica;arma-magica;2;transmutação;0;1;1 ação bônus;Toque;V, S;Concentração, até 1 hora;dano;0;;0;;;;12
+Armadura Arcana;armadura-arcana;1;abjuração;0;0;1 ação;Toque;V, S, M (um pedaço de couro curado);8 horas;defesa;0;;0;;;;12
+Armadura de Agathys;armadura-de-agathys;1;abjuração;0;0;1 ação;Pessoal;V, S, M (um copo de água);1 hora;dano;0;;0;;;frio;12
+Arrombar;arrombar;2;transmutação;0;0;1 ação;18 metros;V;Instantânea;dano;0;;0;;;;12
+Assassino Fantasmagórico;assassino-fantasmagorico;4;ilusão;0;1;1 ação;36 metros;V, S;Concentração, até 1 minuto;dano;0;;1;SAB;4d10;psíquico;12
+Ataque Certeiro;ataque-certeiro;0;adivinhação;0;1;1 ação;9 metros;S;Concentração, até 1 rodada;utilidade;0;;0;;;;13
+Ataque Visual;ataque-visual;6;necromancia;0;1;1 ação;Pessoal;V, S;Concentração, até 1 minuto;dano;0;;1;SAB;;;13
+Augúrio;augurio;2;adivinhação;1;0;1 minuto;Pessoal;V, S, M (varetas, ossos ou objetos similarmente marcados valendo, no mínimo, 25 po);Instantânea;invocacao;0;;0;;;;13
+Aumentar/Reduzir;aumentar-reduzir;2;transmutação;0;1;1 ação;9 metros;V, S, M (um pouco de pó de ferro);Concentração, até 1 minuto;dano;0;;1;CON;1d4;;13
+Aura de Pureza;aura-de-pureza;4;abjuração;0;1;1 ação;Pessoal (9 metros de raio);V;Concentração, até 10 minutos;dano;0;;0;;;venenoso;13
+Aura de Vida;aura-de-vida;4;abjuração;0;1;1 ação;Pessoal (9 metros de raio);V;Concentração, até 10 minutos;cura;0;;0;;;necrótico;14
+Aura de Vitalidade;aura-de-vitalidade;3;evocação;0;1;1 ação;Pessoal (9 metros de raio);V;Concentração, até 1 minuto;cura;0;;0;;2d6;;14
+Aura Mágica de Nystul;aura-magica-de-nystul;2;ilusão;0;0;1 ação;Toque;V, S, M (um pequeno quadrado de seda);24 horas;invocacao;0;;0;;;;14
+Aura Sagrada;aura-sagrada;8;abjuração;0;1;1 ação;Pessoal;V, S, M (um minúsculo relicário valendo, no mínimo, 1.000 po, contendo uma relíquia sagrada, como um pedaço de tecido do robe de um santo ou um pedaço de pergaminho de um texto religioso);Concentração, até 1 minuto;defesa;0;;1;CON;;;14
+Auxílio Divino;auxilio-divino;1;evocação;0;1;1 ação bônus;Pessoal;V, S;Concentração, até 1 minuto;dano;0;;0;;1d4;radiante;14
+Banimento;banimento;4;abjuração;0;1;1 ação;9 metros;V, S, M (um item desagradável ao alvo);Concentração, até 1 minuto;defesa;0;;1;CAR;;;14
+Banquete de Heróis;banquete-de-herois;6;conjuração;0;0;10 minutos;9 metros;V, S, M (uma tigela encrustada de gemas valendo, no mínimo, 1.000 po, que é consumida pela magia);Instantânea;controle;0;;0;;2d10;;14
+Barreira de Lâminas;barreira-de-laminas;6;evocação;0;1;1 ação;24 metros;V, S;Concentração, até 10 minutos;dano;0;;1;DES;6d10;cortante;15
+Bênção;bencao;1;encantamento;0;1;1 ação;9 metros;V, S, M (um borrifo de água benta);Concentração, até 1 minuto;defesa;0;;0;;;;15
+Boca Encantada;boca-encantada;2;ilusão;1;0;1 minuto;9 metros;V, S, M (um pedaço de favo de mel e pó de jade valendo, no mínimo, 10 po, consumidos pela magia);Até ser dissipada;utilidade;0;;0;;;;15
+Bola de Fogo;bola-de-fogo;3;evocação;0;0;1 ação;45 metros;V, S, M (uma minúscula bola de guano de morcego e enxofre);Instantânea;dano;0;;1;DES;8d6;fogo;15
+Bola de Fogo Controlável;bola-de-fogo-controlavel;7;evocação;0;1;1 ação;45 metros;V, S, M (uma minúscula bola de guano de morcego e enxofre);Concentração, até 1 minuto;dano;0;;1;DES;12d6;;15
+Bom Fruto;bom-fruto;1;transmutação;0;0;1 ação;Toque;V, S, M (um raminho de visco);Instantânea;utilidade;0;;0;;;;16
+Bordão Místico;bordao-mistico;0;transmutação;0;0;1 ação bônus;Toque;V, S, M (visco, uma folha de trevo e uma clava ou bordão);1 minuto;dano;0;;0;;;;16
+Braços de Hadar;bracos-de-hadar;1;conjuração;0;0;1 ação;Pessoal (3 metros de raio);V, S;Instantânea;dano;0;;1;FOR;2d6;necrótico;16
+Bruxaria;bruxaria;1;encantamento;0;1;1 ação bônus;18 metros;V, S, M (o olho petrificado de um tritão);Concentração, até 1 hora;dano;0;;0;;1d6;necrótico;17
+Caminhar em Árvores;caminhar-em-arvores;5;conjuração;0;1;1 ação;Pessoal;V, S;Concentração, até 1 minuto;utilidade;0;;0;;;;17
+Caminhar no Vento;caminhar-no-vento;6;transmutação;0;0;1 minuto;9 metros;V, S, M (fogo e água benta);8 horas;dano;0;;0;;;concussão;17
+Campo Antimagia;campo-antimagia;8;abjuração;0;1;1 ação;Pessoal (3 metros de raio);V, S, M (um punhado de pó de ferro ou limalhas de ferro);Concentração, até 1 hora;dano;0;;0;;;;17
+Cão Fiel de Mordenkainen;cao-fiel-de-mordenkainen;4;conjuração;0;0;1 ação;9 metros;V, S, M (um minúsculo apito de prata, um pedaço de osso e um fio);8 horas;dano;0;;0;;4d8;perfurante;18
+Cativar;cativar;2;encantamento;0;0;1 ação;18 metros;V, S;1 minuto;controle;0;;1;SAB;;;18
+Carne para Pedra;carne-para-pedra;6;transmutação;0;1;1 ação;18 metros;V, S, M (uma pitada de cal, água e terra);Concentração, até 1 minuto;controle;0;;1;CON;;;18
+Cegueira/Surdez;cegueira-surdez;2;necromancia;0;0;1 ação;9 metros;V;1 minuto;defesa;0;;1;CON;;;18
+Chama Contínua;chama-continua;2;evocação;0;0;1 ação;Toque;V, S, M (pó de rubi no valor de 50 po, consumido pela magia);Até ser dissipada;utilidade;0;;0;;;;18
+Chama Sagrada;chama-sagrada;0;evocação;0;0;1 ação;18 metros;V, S;Instantânea;dano;0;;1;DES;1d8;radiante;18
+Chicote de Espinhos;chicote-de-espinhos;0;transmutação;0;0;1 ação;9 metros;V, S, M (um muda de uma planta com espinhos);Instantânea;dano;1;corpo_a_corpo_magico;0;;1d6;perfurante;18
+Chuva de Meteoros;chuva-de-meteoros;9;evocação;0;0;1 ação;1,5 quilômetro;V, S;Instantânea;dano;0;;1;DES;20d6;concussão;19
+Círculo da Morte;circulo-da-morte;6;necromancia;0;0;1 ação;45 metros;V, S, M (o pó de uma pérola negra esmagada valendo, no mínimo, 500 po);Instantânea;dano;0;;1;CON;8d6;necrótico;19
+Círculo de Poder;circulo-de-poder;5;abjuração;0;1;1 ação;Pessoal (9 metros de raio);V;Concentração, até 10 minutos;dano;0;;0;;;;19
+Círculo de Teletransporte;circulo-de-teletransporte;5;conjuração;0;0;1 minuto;3 metros;V, M (giz e tintas raros infundidos com pedras preciosas no valor de 50 po, consumidos pela magia);1 rodada;invocacao;0;;0;;;;19
+Círculo Mágico;circulo-magico;3;abjuração;0;0;1 minuto;3 metros;V, S, M (água benta ou pó de prata e ferro valendo, no mínimo, 100 po, consumidos pela magia);1 hora;defesa;0;;1;CAR;;;19
+Clarividência;clarividencia;3;adivinhação;0;1;10 minutos;1,5 quilômetro;V, S, M (um foco valendo, no mínimo, 100 po, também um chifre cravejado de joias para ouvir ou um olho de vidro para ver);Concentração, até 10 minutos;invocacao;0;;0;;;;19
+Clone;clone;8;necromancia;0;0;1 hora;Toque;V, S, M (um diamante valendo, no mínimo, 1.000 po e, no mínimo 3 centímetros cúbicos de carne da criatura que será clonada, consumida pela magia, e um receptáculo valendo, no mínimo, 2.000 po que tenha uma tampa selada e seja grande o suficiente para comportar uma criatura Média, como uma urna enorme, um caixão, um cisto cheio de lama no solo ou um recipiente de cristal cheio de água salgada);Instantânea;utilidade;0;;0;;;;20
+Coluna de Chamas;coluna-de-chamas;5;evocação;0;0;1 ação;18 metros;V, S, M (uma pitada de enxofre);Instantânea;dano;0;;1;DES;4d6;fogo;20
+Comando;comando;1;encantamento;0;0;1 ação;18 metros;V;1 rodada;defesa;0;;1;SAB;;;20
+Compreender Idiomas;compreender-idiomas;1;adivinhação;1;0;1 ação;Pessoal;V, S, M (um pitada de fuligem e sal);1 hora;utilidade;0;;0;;;;20
+Compulsão;compulsao;4;encantamento;0;1;1 ação;9 metros;V, S;Concentração, até 1 minuto;defesa;0;;1;SAB;;;20
+Comunhão;comunhao;5;adivinhação;1;0;1 minuto;Pessoal;V, S, M (incenso e um frasco de água benta ou profana);1 minuto;invocacao;0;;0;;;;21
+Comunhão com a Natureza;comunhao-com-a-natureza;5;adivinhação;1;0;1 minuto;Pessoal;V, S;Instantânea;utilidade;0;;0;;;;21
+Cone de Frio;cone-de-frio;5;evocação;0;0;1 ação;Pessoal (cone de 18 metros);V, S, M (um pequeno cristal ou cone de vidro);Instantânea;dano;0;;1;CON;8d8;frio;21
+Confusão;confusao;4;encantamento;0;1;1 ação;27 metros;V, S, M (três cascas de noz);Concentração, até 1 minuto;defesa;0;;1;SAB;;;21
+Conhecimento Lendário;conhecimento-lendario;5;adivinhação;0;0;10 minutos;Pessoal;V, S, M (incenso valendo, no mínimo, 250 po, consumido pela magia e quatro tiras de marfim valendo, no mínimo, 50 po cada);Instantânea;utilidade;0;;0;;;;21
+Conjurar Animais;conjurar-animais;3;conjuração;0;1;1 ação;18 metros;V, S;Concentração, até 1 hora;invocacao;0;;0;;;;22
+Conjurar Celestial;conjurar-celestial;7;conjuração;0;1;1 minuto;27 metros;V, S;Concentração, até 1 hora;invocacao;0;;0;;;;22
+Conjurar Elementais Menores;conjurar-elementais-menores;4;conjuração;0;1;1 minuto;27 metros;V, S;Concentração, até 1 hora;invocacao;0;;0;;;;22
+Conjurar Elemental;conjurar-elemental;5;conjuração;0;1;1 minuto;27 metros;V, S, M (incenso aceso para ar, argila mole para terra, enxofre e fósforo para fogo ou água e areia para água);Concentração, até 1 hora;invocacao;0;;0;;;;22
+Conjurar Fada;conjurar-fada;6;conjuração;0;1;1 minuto;27 metros;V, S;Concentração, até 1 hora;invocacao;0;;0;;;;22
+Conjurar Rajada;conjurar-rajada;3;conjuração;0;0;1 ação;Pessoal (cone de 18 metros);V, S, M (uma munição ou arma de arremesso);Instantânea;dano;0;;1;DES;3d8;;23
+Conjurar Saraivada;conjurar-saraivada;5;conjuração;0;0;1 ação;45 metros;V, S, M (uma munição ou arma de arremesso);Instantânea;dano;0;;1;DES;8d8;;23
+Conjurar Seres da Floresta;conjurar-seres-da-floresta;4;conjuração;0;1;1 ação;18 metros;V, S, M (um fruto sagrado por criatura invocada);Concentração, até 1 hora;invocacao;0;;0;;;;23
+Consagrar;consagrar;5;evocação;0;0;24 horas;Toque;V, S, M (ervas, óleos e incenso valendo, no mínimo, 1.000 po, consumidos pela magia);Até ser dissipada;dano;0;;1;CAR;;;23
+Consertar;consertar;0;transmutação;0;0;1 minuto;Toque;V, S, M (dois ímãs);Instantânea;dano;0;;0;;;;24
+Constrição;constricao;1;conjuração;0;1;1 ação;27 metros;V, S;Concentração, até 1 minuto;controle;0;;1;FOR;;;24
+Contato Extraplanar;contato-extraplanar;5;adivinhação;1;0;1 minuto;Pessoal;V;1 minuto;dano;0;;1;INT;6d6;psíquico;24
+Contramágica;contramagica;3;abjuração;0;0;1 reação, que você realiza quando vê uma criatura a até 18 metros conjurando uma magia;18 metros;S;Instantânea;invocacao;0;;0;;;;24
+Contingência;contingencia;6;evocação;0;0;10 minutos;Pessoal;V, S, M (uma estátua sua esculpida em marfim e decorada com gemas valendo, no mínimo, 1.500 po);10 dias;invocacao;0;;0;;;;24
+Controlar a Água;controlar-a-agua;4;transmutação;0;1;1 ação;90 metros;V, S, M (uma gota de água e uma pitada de poeira);Concentração, até 10 minutos;dano;0;;1;FOR;2d8;concussão;25
+Controlar o Clima;controlar-o-clima;8;transmutação;0;1;10 minutos;Pessoal (7,5 quilômetros de raio);V, S, M (incenso aceso e pedaços de terra e madeira misturados em água);Concentração, até 8 horas;invocacao;0;;0;;1d4;;25
+Convocar Familiar;convocar-familiar;1;conjuração;1;0;1 hora;3 metros;V, S, M (carvão, incenso e ervas no valor de 10 po, que devem ser consumidos pelo fogo em um braseiro de bronze);Instantânea;invocacao;0;;0;;;;25
+Convocar Montaria;convocar-montaria;2;conjuração;0;0;10 minutos;9 metros;V, S;Instantânea;invocacao;0;;0;;;;26
+Convocar Relâmpagos;convocar-relampagos;3;conjuração;0;1;1 ação;36 metros;V, S;Concentração, até 10 minutos;dano;0;;1;DES;3d10;elétrico;26
+Coroa da Loucura;coroa-da-loucura;2;encantamento;0;1;1 ação;36 metros;V, S;Concentração, até 1 minuto;cura;0;;1;SAB;;;26
+Cordão de Flechas;cordao-de-flechas;2;transmutação;0;0;1 ação;1,5 metro;V, S, M (quatro ou mais flechas ou virotes);8 horas;dano;0;;1;DES;1d6;perfurante;26
+Corrente de Relâmpagos;corrente-de-relampagos;6;evocação;0;0;1 ação;45 metros;"V, S, M (um pouco de pelo; um pedaço de âmbar, vidro ou um bastão de cristal; e três pinos de prata)";Instantânea;dano;0;;1;DES;10d8;elétrico;27
+Crescer Espinhos;crescer-espinhos;2;transmutação;0;1;1 ação;45 metros;V, S, M (sete espinhos afiados ou sete gravetos, todos com uma ponta afiada);Concentração, até 10 minutos;dano;0;;0;;2d4;perfurante;27
+Criação;criacao;5;ilusão;0;0;1 minuto;9 metros;V, S, M (um pequeno pedaço de material do mesmo tipo do item que você planeja criar);Especial;invocacao;0;;0;;;;27
+Criar Alimentos;criar-alimentos;3;conjuração;0;0;1 ação;9 metros;V, S;Instantânea;utilidade;0;;0;;;;27
+Criar Chamas;criar-chamas;0;conjuração;0;0;1 ação;Pessoal;V, S;10 minutos;dano;1;distancia_magico;0;;1d8;fogo;27
+Criar Mortos-Vivos;criar-mortos-vivos;6;necromancia;0;0;1 minuto;3 metros;V, S, M (um pote de barro cheio de terra de sepultura, um pote de barro cheio de água salobra, e uma ônix negra no valor de 150 po, para cada corpo);Instantânea;cura;0;;0;;;;27
+Criar Ou Destruir Água;criar-ou-destruir-agua;1;transmutação;0;0;1 ação;9 metros;V, S, M (uma gota de água se estiver criando ou alguns grãos de areia se estiver destruindo);Instantânea;invocacao;0;;0;;;;28
+Criar Passagem;criar-passagem;5;transmutação;0;0;1 ação;9 metros;V, S, M (algumas sementes de gergelim);1 hora;utilidade;0;;0;;;;28
+Cúpula Antivida;cupula-antivida;5;abjuração;0;1;1 ação;Pessoal (3 metros de raio);V, S;Concentração, até 1 hora;invocacao;0;;0;;;;28
+Cura Completa;cura-completa;6;evocação;0;0;1 ação;18 metros;V, S;Instantânea;cura;0;;0;;;;28
+Cura Completa em Massa;cura-completa-em-massa;9;evocação;0;0;1 ação;18 metros;V, S;Instantânea;cura;0;;0;;;;28
+Curar Ferimentos;curar-ferimentos;1;evocação;0;0;1 ação;Toque;V, S;Instantânea;cura;0;;0;;1d8;;28
+Curar Ferimentos em Massa;curar-ferimentos-em-massa;5;evocação;0;0;1 ação;18 metros;V, S;Instantânea;cura;0;;0;;3d8;;29
+Dança Irresistível de Otto;danca-irresistivel-de-otto;6;encantamento;0;1;1 ação;9 metros;V;Concentração, até 1 minuto;controle;0;;1;SAB;;;29
+Dedo da Morte;dedo-da-morte;7;necromancia;0;0;1 ação;18 metros;V, S;Instantânea;dano;0;;1;CON;7d8;necrótico;29
+Desejo;desejo;9;conjuração;0;0;1 ação;Pessoal;V;Instantânea;dano;0;;0;;1d10;necrótico;29
+Desintegrar;desintegrar;6;transmutação;0;0;1 ação;18 metros;V, S, M (um ímã e uma pitada de poeira);Instantânea;dano;0;;1;DES;10d6;energia;30
+Despedaçar;despedacar;2;evocação;0;0;1 ação;18 metros;V, S, M (uma lasca de mica);Instantânea;dano;0;;1;CON;3d8;trovejante;30
+Despertar;despertar;5;transmutação;0;0;8 horas;Toque;V, S, M (uma ágata valendo, no mínimo, 1.000 po que será consumida pela magia);Instantânea;controle;0;;0;;;;30
+Despistar;despistar;5;ilusão;0;1;1 ação;Pessoal;S;Concentração, até 1 hora;invocacao;0;;0;;;;30
+Destruição Banidora;destruicao-banidora;5;abjuração;0;1;1 ação bônus;Pessoal;V;Concentração, até 1 minuto;dano;0;;0;;5d6;energia;30
+Destruição Cegante;destruicao-cegante;3;evocação;0;1;1 ação bônus;Pessoal;V;Concentração, até 1 minuto;dano;0;;1;CON;3d8;radiante;31
+Destruição Colérica;destruicao-colerica;1;evocação;0;1;1 ação bônus;Pessoal;V;Concentração, até 1 minuto;dano;0;;1;SAB;1d6;psíquico;31
+Destruição Estonteante;destruicao-estonteante;4;evocação;0;1;1 ação bônus;Pessoal;V;Concentração, até 1 minuto;dano;0;;1;SAB;4d6;psíquico;31
+Destruição Lancinante;destruicao-lancinante;1;evocação;0;1;1 ação bônus;Pessoal;V;Concentração, até 1 minuto;dano;0;;1;CON;1d6;fogo;31
+Destruição Trovejante;destruicao-trovejante;1;evocação;0;1;1 ação bônus;Pessoal;V;Concentração, até 1 minuto;dano;0;;1;FOR;2d6;trovejante;31
+Detectar o Bem e Mal;detectar-o-bem-e-mal;1;adivinhação;0;1;1 ação;Pessoal;V, S;Concentração, até 10 minutos;utilidade;0;;0;;;;31
+Detectar Magia;detectar-magia;1;adivinhação;1;1;1 ação;Pessoal;V, S;Concentração, até 10 minutos;utilidade;0;;0;;;;31
+Detectar Pensamentos;detectar-pensamentos;2;adivinhação;0;1;1 ação;Pessoal;V, S, M (um pedaço de cobre);Concentração, até 1 minuto;cura;0;;1;SAB;;;31
+Detectar Veneno e Doença;detectar-veneno-e-doenca;1;adivinhação;1;1;1 ação;Pessoal;V, S, M (uma folha de teixo);Concentração, até 10 minutos;utilidade;0;;0;;;;32
+Dificultar Detecção;dificultar-deteccao;3;abjuração;0;0;1 ação;Toque;V, S, M (um pouco de pó de diamante valendo 25 po polvilhado sobre o alvo, consumido pela magia);8 horas;utilidade;0;;0;;;;32
+Disco Flutuante de Tenser;disco-flutuante-de-tenser;1;conjuração;1;0;1 ação;9 metros;V, S, M (uma gota de mercúrio);1 hora;utilidade;0;;0;;;;32
+Disfarçar-Se;disfarcar-se;1;ilusão;0;0;1 ação;Pessoal;V, S;1 hora;defesa;0;;0;;;;32
+Dissipar Magia;dissipar-magia;3;abjuração;0;0;1 ação;36 metros;V, S;Instantânea;invocacao;0;;0;;;;32
+Dissipar o Bem e Mal;dissipar-o-bem-e-mal;5;abjuração;0;1;1 ação;Pessoal;V, S, M (água benta ou pó de prata e ferro);Concentração, até 1 minuto;controle;1;corpo_a_corpo_magico;1;CAR;;;33
+Doença Plena;doenca-plena;6;necromancia;0;0;1 ação;18 metros;V, S;Instantânea;dano;0;;1;CON;14d6;necrótico;33
+Dominar Besta;dominar-besta;4;encantamento;0;1;1 ação;18 metros;V, S;Concentração, até 1 minuto;dano;0;;1;SAB;;;33
+Dominar Monstro;dominar-monstro;8;encantamento;0;1;1 ação;18 metros;V, S;Concentração, até 1 hora;dano;0;;1;SAB;;;33
+Dominar Pessoa;dominar-pessoa;5;encantamento;0;1;1 ação;18 metros;V, S;Concentração, até 1 minuto;dano;0;;1;SAB;;;34
+Druidismo;druidismo;0;transmutação;0;0;1 ação;9 metros;V, S;Instantânea;utilidade;0;;0;;;;34
+Duelo Compelido;duelo-compelido;1;encantamento;0;1;1 ação bônus;9 metros;V;Concentração, até 1 minuto;dano;0;;1;SAB;;;34
+Encarnação Fantasmagórica;encarnacao-fantasmagorica;9;ilusão;0;1;1 ação;36 metros;V, S;Concentração, até 1 minuto;dano;0;;1;SAB;4d10;psíquico;34
+Encontrar Armadilhas;encontrar-armadilhas;2;adivinhação;0;0;1 ação;36 metros;V, S;Instantânea;utilidade;0;;0;;;;34
+Encontrar o Caminho;encontrar-o-caminho;6;adivinhação;0;1;1 minuto;Pessoal;V, S, M (um conjunto de ferramentas de adivinhação – como ossos, bastões de marfim, dentes ou runas esculpidas – no valor de 100 po e um objeto do lugar que você deseja encontrar);Concentração, até 1 dia;utilidade;0;;0;;;;34
+Enfeitiçar Pessoa;enfeiticar-pessoa;1;encantamento;0;0;1 ação;9 metros;V, S;1 hora;controle;0;;1;SAB;;;35
+Enfraquecer Intelecto;enfraquecer-intelecto;8;encantamento;0;0;1 ação;45 metros;V, S, M (um punhado de barro, cristal, vidro ou esferas minerais);Instantânea;cura;0;;1;INT;4d6;psíquico;35
+Enviar Mensagem;enviar-mensagem;3;evocação;0;0;1 ação;Ilimitado;V, S, M (um pequeno e fino pedaço de fio de cobre);1 rodada;utilidade;0;;0;;;;35
+Escrita Ilusória;escrita-ilusoria;1;ilusão;1;0;1 minuto;Toque;S, M (uma tinta à base de chumbo valendo, no mínimo, 10 po, que é consumida pela magia);10 dias;utilidade;0;;0;;;;35
+Escudo Arcano;escudo-arcano;1;abjuração;0;0;1 reação, que você faz quando é atingido por um ataque ou alvo da magia mísseis mágicos;Pessoal;V, S;1 rodada;dano;0;;0;;;;35
+Escudo da Fé;escudo-da-fe;1;abjuração;0;1;1 ação bônus;18 metros;V, S, M (um pequeno pergaminho com alguns textos sagrados escritos nele);Concentração, até 10 minutos;defesa;0;;0;;;;35
+Escudo de Fogo;escudo-de-fogo;4;evocação;0;0;1 ação;Pessoal;V, S, M (um pouco de fósforo ou um vaga-lume);10 minutos;dano;0;;0;;2d8;frio;36
+Escuridão;escuridao;2;evocação;0;1;1 ação;18 metros;V, M (pelo de morcego e uma gota de piche ou pedaço de carvão);Concentração, até 10 minutos;utilidade;0;;0;;;;36
+Esfera Congelante de Otiluke;esfera-congelante-de-otiluke;6;evocação;0;0;1 ação;90 metros;V, S, M (uma pequena esfera de cristal);Instantânea;dano;0;;1;CON;10d6;frio;36
+Esfera Flamejante;esfera-flamejante;2;conjuração;0;1;1 ação;18 metros;V, S, M (um pouco de seco, uma pitada de enxofre e uma camada de pó de ferro);Concentração, até 1 minuto;dano;0;;1;DES;2d6;fogo;36
+Esfera Resiliente de Otiluke;esfera-resiliente-de-otiluke;4;evocação;0;1;1 ação;9 metros;V, S, M (uma peça hemisférica de cristal transparente e uma peça hemisférica que combine de goma arábica);Concentração, até 1 minuto;dano;0;;1;DES;;;36
+Espada de Mordenkainen;espada-de-mordenkainen;7;evocação;0;1;1 ação;18 metros;V, S, M (espada de platina em miniatura com cabo e pomo de cobre e zinco valendo, no mínimo, 250 po);Concentração, até 1 minuto;dano;1;magico;0;;3d10;energia;37
+Espíritos Guardiões;espiritos-guardioes;3;conjuração;0;1;1 ação;Pessoal (4,5 metros de raio);V, S, M (um símbolo sagrado);Concentração, até 10 minutos;dano;0;;1;SAB;3d8;necrótico;37
+Espirro Ácido;espirro-acido;0;conjuração;0;0;1 ação;18 metros;V, S;Instantânea;dano;0;;1;DES;1d6;ácido;37
+Esquentar Metal;esquentar-metal;2;transmutação;0;1;1 ação;18 metros;V, S, M (um pedaço de ferro e uma chama);Concentração, até 1 minuto;dano;0;;1;CON;2d8;fogo;38
+Estabilizar;estabilizar;0;necromancia;0;0;1 ação;Toque;V, S;Instantânea;utilidade;0;;0;;;;38
+Explosão Solar;explosao-solar;8;evocação;0;0;1 ação;45 metros;V, S, M (fogo e um pedaço de pedra do sol);Instantânea;dano;0;;1;CON;12d6;radiante;38
+Fabricar;fabricar;4;transmutação;0;0;10 minutos;36 metros;V, S;Instantânea;controle;0;;0;;;;38
+Falar com Animais;falar-com-animais;1;adivinhação;1;0;1 ação;Pessoal;V, S;10 minutos;utilidade;0;;0;;;;38
+Falar com os Mortos;falar-com-os-mortos;3;necromancia;0;0;1 ação;3 metros;V, S, M (incenso aceso);10 minutos;utilidade;0;;0;;;;38
+Falar com Plantas;falar-com-plantas;1;adivinhação;1;0;1 ação;Pessoal (9 metros de raio);V, S;10 minutos;controle;0;;0;;;;38
+Flecha Ácida de Melf;flecha-acida-de-melf;2;evocação;0;0;1 ação;36 metros;V, S, M (folha de ruibarbo em pó e o estômago de uma víbora);Instantânea;dano;1;distancia_magico;0;;4d4;ácido;39
+Flecha Relampejante;flecha-relampejante;3;transmutação;0;1;1 ação bônus;Pessoal;V, S;Concentração, até 1 minuto;dano;0;;1;DES;4d8;elétrico;39
+Fogo das Fadas;fogo-das-fadas;1;evocação;0;1;1 ação;18 metros;V;Concentração, até 1 minuto;defesa;0;;1;DES;;;39
+Fome de Hadar;fome-de-hadar;3;conjuração;0;1;1 ação;45 metros;V, S, M (um tentáculo de polvo em conserva);Concentração, até 1 minuto;dano;0;;1;DES;2d6;ácido;39
+Força Fantasmagórica;forca-fantasmagorica;2;ilusão;0;1;1 ação;18 metros;V, S, M (um pouco de lã);Concentração, até 1 minuto;cura;0;;1;INT;1d6;psíquico;39
+Forjar Morte;forjar-morte;3;necromancia;1;0;1 ação;Toque;V, S, M (uma pitada de terra de cemitério);1 hora;dano;0;;0;;;psíquico;40
+Forma Etérea;forma-eterea;7;transmutação;0;0;1 ação;Pessoal;V, S;até 8 horas;dano;0;;0;;;energia;40
+Forma Gasosa;forma-gasosa;3;transmutação;0;1;1 ação;Toque;V, S, M (um pouco de gaze e um pouco de fumaça);Concentração, até 1 hora;dano;0;;0;;;;40
+Formas Animais;formas-animais;8;transmutação;0;1;1 ação;9 metros;V, S;Concentração, até 24 horas;dano;0;;0;;;;40
+Glifo de Vigilância;glifo-de-vigilancia;3;abjuração;0;0;1 hora;Toque;V, S, M (incenso e pó de diamante valendo, no mínimo, 200 po, consumidos pela magia);Até ser dissipada ou ativada;dano;0;;1;DES;5d8;ácido;41
+Globo de Invulnerabilidade;globo-de-invulnerabilidade;6;abjuração;0;1;1 ação;Pessoal (3 metros de raio);V, S, M (uma perola de vidro ou cristal que se despedaça quando a magia termina);Concentração, até 1 minuto;invocacao;0;;0;;;;41
+Globos de Luz;globos-de-luz;0;evocação;0;1;1 ação;36 metros;V, S, M (um pouco de fósforo ou wychwood ou um inseto luminoso);Concentração, até 1 minuto;utilidade;0;;0;;;;41
+Golpe Constritor;golpe-constritor;1;conjuração;0;1;1 ação bônus;Pessoal;V;Concentração, até 1 minuto;dano;0;;1;FOR;1d6;perfurante;41
+Guardião da Fé;guardiao-da-fe;4;conjuração;0;0;1 ação;9 metros;V;8 horas;dano;0;;1;DES;;radiante;42
+Heroísmo;heroismo;1;encantamento;0;1;1 ação;Toque;V, S;Concentração, até 1 minuto;controle;0;;0;;;;42
+Identificação;identificacao;1;adivinhação;1;0;1 minuto;Toque;V, S, M (uma perola valendo, no mínimo, 100 po e uma pena de coruja);Instantânea;utilidade;0;;0;;;;42
+Idiomas;idiomas;3;adivinhação;0;0;1 ação;Toque;V, M (uma pequena estátua de argila de um zigurate);1 hora;utilidade;0;;0;;;;42
+Ilusão Menor;ilusao-menor;0;ilusão;0;0;1 ação;9 metros;V, M (um pouco de lã);1 minuto;invocacao;0;;0;;;;42
+Ilusão Programada;ilusao-programada;6;ilusão;0;0;1 ação;36 metros;V, S, M (um pouco de lã e pó de jade valendo, no mínimo, 25 po);Até ser dissipada;utilidade;0;;0;;;;42
+Imagem Maior;imagem-maior;3;ilusão;0;1;1 ação;36 metros;V, S, M (um pedaço de lã);Concentração, até 10 minutos;dano;0;;0;;;trovejante;44
+Imagem Silenciosa;imagem-silenciosa;1;ilusão;0;1;1 ação;18 metros;V, S, M (um pouco de lã);Concentração, até 10 minutos;utilidade;0;;0;;;;44
+Imobilizar Monstro;imobilizar-monstro;5;encantamento;0;1;1 ação;27 metros;V, S, M (uma pequena peça de ferro reta);Concentração, até 1 minuto;defesa;0;;1;SAB;;;44
+Imobilizar Pessoa;imobilizar-pessoa;2;encantamento;0;1;1 ação;18 metros;V, S, M (uma pequena peça de ferro reta);Concentração, até 1 minuto;defesa;0;;1;SAB;;;44
+Infligir Ferimentos;infligir-ferimentos;1;necromancia;0;0;1 ação;Toque;V, S;Instantânea;dano;1;corpo_a_corpo_magico;0;;3d10;necrótico;44
+Inseto Gigante;inseto-gigante;4;transmutação;0;1;1 ação;9 metros;V, S;Concentração, até 10 minutos;utilidade;0;;0;;;;44
+Inverter a Gravidade;inverter-a-gravidade;7;transmutação;0;1;1 ação;30 metros;V, S, M (um ímã e limalhas de ferro);Concentração, até 1 minuto;defesa;0;;1;DES;;;45
+Invisibilidade;invisibilidade;2;ilusão;0;1;1 ação;Toque;V, S, M (uma pestana envolta em goma-arábica);Concentração, até 1 hora;invocacao;0;;0;;;;45
+Invisibilidade Maior;invisibilidade-maior;4;ilusão;0;1;1 ação;Toque;V, S;Concentração, até 1 minuto;utilidade;0;;0;;;;45
+Invocação Instantânea de Drawmij;invocacao-instantanea-de-drawmij;6;conjuração;1;0;1 minuto;Toque;V, S, M (uma safira no valor de 1.000 po);Até ser dissipada;invocacao;0;;0;;;;45
+Isolamento;isolamento;7;transmutação;0;0;1 ação;Toque;V, S, M (um composto de pós de diamante, esmeralda, rubi e safira valendo, no mínimo, 5.000 po, consumidos pela magia);Até ser dissipada;dano;0;;0;;;;45
+Labirinto;labirinto;8;conjuração;0;1;1 ação;18 metros;V, S;Concentração, até 10 minutos;utilidade;0;;0;;;;45
+Lâmina Flamejante;lamina-flamejante;2;evocação;0;1;1 ação bônus;Pessoal;V, S, M (folha de sumagre);Concentração, até 10 minutos;dano;0;;0;;3d6;fogo;45
+Lentidão;lentidao;3;transmutação;0;1;1 ação;36 metros;V, S, M (uma gota de melaço);Concentração, até 1 minuto;controle;0;;1;SAB;;;46
+Leque Cromático;leque-cromatico;1;ilusão;0;0;1 ação;Pessoal (cone de 4,5 metros);V, S, M (um punhado de pó ou areia nas cores vermelha, amarela e azul);1 rodada;invocacao;0;;0;;6d10;;46
+Levitação;levitacao;2;transmutação;0;1;1 ação;18 metros;V, S, M (uma pequena presilha de couro ou um pedaço de fio dourado dobrado em forma de copo com uma haste longa em uma extremidade);Concentração, até 10 minutos;defesa;0;;1;CON;;;46
+Ligação Telepática de Rary;ligacao-telepatica-de-rary;5;adivinhação;1;0;1 ação;9 metros;V, S, M (pedaços de cascas de ovos de dois tipos diferentes de criatura);1 hora;utilidade;0;;0;;;;46
+Limpar a Mente;limpar-a-mente;8;abjuração;0;0;1 ação;Toque;V, S;24 horas;dano;0;;0;;;psíquico;46
+Localizar Animais Ou Plantas;localizar-animais-ou-plantas;2;adivinhação;1;0;1 ação;Pessoal;V, S, M (um pouco de pelo de um cão de caça);Instantânea;utilidade;0;;0;;;;46
+Localizar Criatura;localizar-criatura;4;adivinhação;0;1;1 ação;Pessoal;V, S, M (um pouco de pelo de um cão de caça);Concentração, até 1 hora;utilidade;0;;0;;;;47
+Localizar Objeto;localizar-objeto;2;adivinhação;0;1;1 ação;Pessoal;V, S, M (um galho bifurcado);Concentração, até 10 minutos;utilidade;0;;0;;;;47
+Loquacidade;loquacidade;8;transmutação;0;0;1 ação;Pessoal;V;1 hora;utilidade;0;;0;;;;47
+Lufada de Vento;lufada-de-vento;2;evocação;0;1;1 ação;Pessoal (linha de 18 metros);V, S, M (uma semente de legume);Concentração, até 1 minuto;defesa;0;;1;FOR;;;47
+Luz;luz;0;evocação;0;0;1 ação;Toque;V, M (um vaga-lume ou musgo fosforescente);1 hora;utilidade;0;;0;;;;47
+Luz do Dia;luz-do-dia;3;evocação;0;0;1 ação;18 metros;V, S;1 hora;utilidade;0;;0;;;;47
+Malogro;malogro;4;necromancia;0;0;1 ação;9 metros;V, S;Instantânea;dano;0;;0;;8d8;necrótico;47
+Mansão Magnífica de Mordenkainen;mansao-magnifica-de-mordenkainen;7;conjuração;0;0;1 minuto;90 metros;V, S, M (um portal em miniatura esculpido em marfim, um pedaço de mármore polido e uma pequena colher de prata, cada item valendo, no mínimo, 5 po);24 horas;utilidade;0;;0;;;;48
+Manto do Cruzado;manto-do-cruzado;3;evocação;0;1;1 ação;Pessoal;V;Concentração, até 1 minuto;dano;0;;0;;1d4;radiante;48
+Mão de Bigby;mao-de-bigby;5;evocação;0;1;1 ação;36 metros;V, S, M (uma casca de ovo e uma luva de couro de cobra);Concentração, até 1 minuto;dano;1;corpo_a_corpo_magico;0;;2d6;concussão;48
+Mãos Flamejantes;maos-flamejantes;1;evocação;0;0;1 ação;Pessoal (cone de 4,5 metros);V, S;Instantânea;dano;0;;1;DES;3d6;fogo;48
+Mãos Mágicas;maos-magicas;0;conjuração;0;0;1 ação;9 metros;V, S;1 minuto;invocacao;0;;0;;;;49
+Marca da Punição;marca-da-punicao;2;evocação;0;1;1 ação bônus;Pessoal;V;Concentração, até 1 minuto;dano;0;;0;;2d6;radiante;49
+Marca do Caçador;marca-do-cacador;1;adivinhação;0;1;1 ação bônus;27 metros;V;Concentração, até 1 hora;dano;0;;0;;1d6;;49
+Medo;medo;3;ilusão;0;1;1 ação;Pessoal (cone de 9 metros);V, S, M (uma pena branca ou o coração de uma galinha);Concentração, até 1 minuto;controle;0;;1;SAB;;;50
+Mensageiro Animal;mensageiro-animal;2;encantamento;1;0;1 ação;9 metros;V, S, M (um punhado de comida);24 horas;invocacao;0;;0;;;;50
+Mensagem;mensagem;0;transmutação;0;0;1 ação;36 metros;V, S, M (um pedaço curto de fio de cobre);1 rodada;invocacao;0;;0;;;;50
+Mesclar-Se às Rochas;mesclar-se-as-rochas;3;transmutação;1;0;1 ação;Toque;V, S;8 horas;dano;0;;0;;6d6;concussão;50
+Metamorfose;metamorfose;4;transmutação;0;1;1 ação;18 metros;V, S, M (um casulo de lagarta);Concentração, até 1 hora;dano;0;;1;SAB;;;50
+Metamorfose Verdadeira;metamorfose-verdadeira;9;transmutação;0;1;1 ação;9 metros;V, S, M (uma gota de mercúrio, uma porção de goma arábica e um pouco de fumaça);Concentração, até 1 hora;dano;0;;1;CON;;;51
+Miragem;miragem;7;ilusão;0;0;10 minutos;Visão;V, S;10 dias;utilidade;0;;0;;;;51
+Missão;missao;5;encantamento;0;0;1 minuto;18 metros;V;30 dias;dano;0;;1;SAB;5d6;psíquico;51
+Mísseis Mágicos;misseis-magicos;1;evocação;0;0;1 ação;36 metros;V, S;Instantânea;dano;0;;0;;1d4;energia;51
+Modificar Memória;modificar-memoria;5;encantamento;0;1;1 ação;9 metros;V, S;Concentração, até 1 minuto;dano;0;;1;SAB;;;52
+Moldar Rochas;moldar-rochas;4;transmutação;0;0;1 ação;Toque;V, S, M (barro mole, que deve ser trabalhado aproximadamente com a forma desejada para o objeto de pedra);Instantânea;utilidade;0;;0;;;;52
+Montaria Fantasmagórica;montaria-fantasmagorica;3;ilusão;1;0;1 minuto;9 metros;V, S;1 hora;dano;0;;0;;;;52
+Mover Terra;mover-terra;6;transmutação;0;1;1 ação;36 metros;V, S, M (uma lâmina de ferro e uma pequena sacola contendo uma mistura de solos – argila, barro e areia);Concentração, até 2 horas;dano;0;;0;;;;52
+Movimentação Livre;movimentacao-livre;4;abjuração;0;0;1 ação;Toque;V, S, M (uma fita de couro, enrolada no braço ou apêndice similar);1 hora;utilidade;0;;0;;;;53
+Muralha de Energia;muralha-de-energia;5;evocação;0;1;1 ação;36 metros;V, S, M (um pouco de pó feito de uma gema transparente esmagada);Concentração, até 10 minutos;dano;0;;0;;;;53
+Muralha de Espinhos;muralha-de-espinhos;6;conjuração;0;1;1 ação;36 metros;V, S, M (um punhado de espinhos);Concentração, até 10 minutos;dano;0;;1;DES;7d8;perfurante;53
+Muralha de Fogo;muralha-de-fogo;4;evocação;0;1;1 ação;36 metros;V, S, M (um pequeno pedaço de fósforo);Concentração, até 1 minuto;dano;0;;1;DES;5d8;fogo;53
+Muralha de Gelo;muralha-de-gelo;6;evocação;0;1;1 ação;36 metros;V, S, M (um pequeno pedaço de quartzo);Concentração, até 10 minutos;dano;0;;1;DES,CON;10d6;frio;53
+Muralha de Pedra;muralha-de-pedra;5;conjuração;0;1;1 ação;36 metros;V, S, M (um pequeno bloco de granito);Concentração, até 10 minutos;defesa;0;;1;DES;;;55
+Muralha de Vento;muralha-de-vento;3;evocação;0;1;1 ação;36 metros;V, S, M (um leque minúsculo e uma pena de origem exótica);Concentração, até 1 minuto;dano;0;;1;FOR;3d8;concussão;55
+Muralha Prismática;muralha-prismatica;9;abjuração;0;0;1 ação;18 metros;V, S;10 minutos;dano;0;;1;DES,CON,SAB;10d6;ácido;55
+Nevasca;nevasca;3;conjuração;0;1;1 ação;45 metros;V, S, M (um punhado de poeira e algumas gotas de água);Concentração, até 1 minuto;defesa;0;;1;DES,CON;;;56
+Névoa Fétida;nevoa-fetida;3;conjuração;0;1;1 ação;27 metros;V, S, M (um ovo podre ou várias folhas de repolho);Concentração, até 1 minuto;defesa;0;;1;CON;;;56
+Névoa Mortal;nevoa-mortal;5;conjuração;0;1;1 ação;36 metros;V, S;Concentração, até 10 minutos;dano;0;;1;CON;5d8;venenoso;56
+Névoa Obscurecente;nevoa-obscurecente;1;conjuração;0;1;1 ação;36 metros;V, S;Concentração, até 1 hora;invocacao;0;;0;;;;56
+Nublar;nublar;2;ilusão;0;1;1 ação;Pessoal;V;Concentração, até 1 minuto;utilidade;0;;0;;;;56
+Nuvem de Adagas;nuvem-de-adagas;2;conjuração;0;1;1 ação;18 metros;V, S, M (uma lasca de vidro);Concentração, até 1 minuto;dano;0;;0;;4d4;cortante;57
+Nuvem Incendiária;nuvem-incendiaria;8;conjuração;0;1;1 ação;45 metros;V, S;Concentração, até 1 minuto;dano;0;;1;DES;10d8;fogo;57
+Olho Arcano;olho-arcano;4;adivinhação;0;1;1 ação;9 metros;V, S, M (um punhado de pelo de morcego);Concentração, até 1 hora;utilidade;0;;0;;;;57
+Onda Destrutiva;onda-destrutiva;5;evocação;0;0;1 ação;Pessoal (9 metros de raio);V;Instantânea;dano;0;;1;CON;5d5;radiante;58
+Onda Trovejante;onda-trovejante;1;evocação;0;0;1 ação;Pessoal (cubo de 4,5 metros);V, S;Instantânea;dano;0;;1;CON;2d8;trovejante;58
+Oração Curativa;oracao-curativa;2;evocação;0;0;10 minutos;9 metros;V;Instantânea;cura;0;;0;;2d8;;58
+Orbe Cromática;orbe-cromatica;1;evocação;0;0;1 ação;27 metros;V, S, M (um diamante valendo, no mínimo, 50 po);Instantânea;dano;1;distancia_magico;0;;3d8;;58
+Orientação;orientacao;0;adivinhação;0;1;1 ação;Toque;V, S;Concentração, até 1 minuto;utilidade;0;;0;;;;58
+Padrão Hipnótico;padrao-hipnotico;3;ilusão;0;1;1 ação;36 metros;S, M (uma vareta brilhante de incenso ou um frasco de cristal cheio de material fosforescente);Concentração, até 1 minuto;dano;0;;1;SAB;;;58
+Palavra Curativa;palavra-curativa;1;evocação;0;0;1 ação bônus;18 metros;V;Instantânea;cura;0;;0;;1d4;;58
+Palavra Curativa em Massa;palavra-curativa-em-massa;3;evocação;0;0;1 ação bônus;18 metros;V;Instantânea;cura;0;;0;;1d4;;58
+Palavra de Poder Atordoar;palavra-de-poder-atordoar;8;encantamento;0;0;1 ação;18 metros;V;Instantânea;defesa;0;;1;CON;;;59
+Palavra de Poder Curar;palavra-de-poder-curar;9;evocação;0;0;1 ação;Toque;V, S;Instantânea;cura;0;;0;;;;59
+Palavra de Poder Matar;palavra-de-poder-matar;9;encantamento;0;0;1 ação;18 metros;V;Instantânea;utilidade;0;;0;;;;59
+Palavra de Recordação;palavra-de-recordacao;6;conjuração;0;0;1 ação;1,5 metro;V;Instantânea;invocacao;0;;0;;;;59
+Palavra Divina;palavra-divina;7;evocação;0;0;1 ação bônus;9 metros;V;Instantânea;defesa;0;;1;CAR;;;59
+Parar o Tempo;parar-o-tempo;9;transmutação;0;0;1 ação;Pessoal;V;Instantânea;utilidade;0;;0;;1d4;;59
+Passo Nebuloso;passo-nebuloso;2;conjuração;0;0;1 ação bônus;Pessoal;V;Instantânea;utilidade;0;;0;;;;59
+Passos Longos;passos-longos;1;transmutação;0;0;1 ação;Toque;V, S, M (um pouco de barro);1 hora;invocacao;0;;0;;;;59
+Passos sem Pegadas;passos-sem-pegadas;2;abjuração;0;1;1 ação;Pessoal;V, S, M (cinzas de uma folha de visco queimada e um ramo de pinheiro);Concentração, até 1 hora;utilidade;0;;0;;;;60
+Patas de Aranha;patas-de-aranha;2;transmutação;0;1;1 ação;Toque;V, S, M (uma gota de betume e uma aranha);Concentração, até 1 hora;utilidade;0;;0;;;;60
+Pele de Árvore;pele-de-arvore;2;transmutação;0;1;1 ação;Toque;V, S, M (um pedaço de casca de carvalho);Concentração, até 1 hora;defesa;0;;0;;;;60
+Pele de Pedra;pele-de-pedra;4;abjuração;0;1;1 ação;Toque;V, S, M (pó de diamante no valor de 100 po, consumido pela magia);Concentração, até 1 hora;dano;0;;0;;;concussão;60
+Pequena Cabana de Leomund;pequena-cabana-de-leomund;3;evocação;1;0;1 minuto;Pessoal (hemisfério de 3 metros de raio);V, S, M (uma pequena conta de cristal);8 horas;utilidade;0;;0;;;;60
+Perdição;perdicao;1;encantamento;0;1;1 ação;9 metros;V, S, M (uma gota de sangue);Concentração, até 1 minuto;defesa;0;;1;CAR;;;61
+Piscar;piscar;3;transmutação;0;0;1 ação;Pessoal;V, S;1 minuto;utilidade;0;;0;;;;61
+Porta Dimensional;porta-dimensional;4;conjuração;0;0;1 ação;150 metros;V;Instantânea;dano;0;;0;;4d6;energia;61
+Portal;portal;9;conjuração;0;1;1 ação;18 metros;V, S, M (um diamante valendo, no mínimo, 5.000 po);Concentração, até 1 minuto;invocacao;0;;0;;;;61
+Portal Arcano;portal-arcano;6;conjuração;0;1;1 ação;150 metros;V, S;Concentração, até 10 minutos;utilidade;0;;0;;;;61
+Praga;praga;5;necromancia;0;0;1 ação;Toque;V, S;7 dias;cura;0;;1;CON;;;62
+Praga de Insetos;praga-de-insetos;5;conjuração;0;1;1 ação;90 metros;V, S, M (alguns grãos de açúcar, alguns miolos de grão e uma mancha de gordura);Concentração, até 10 minutos;dano;0;;1;CON;4d10;perfurante;62
+Prestidigitação;prestidigitacao;0;transmutação;0;0;1 ação;3 metros;V, S;Até 1 hora;invocacao;0;;0;;;;63
+Prisão de Energia;prisao-de-energia;7;evocação;0;0;1 ação;30 metros;V, S, M (pó de rubi no valor de 1.500 po);1 hora;defesa;0;;1;CAR;;;63
+Proibição;proibicao;6;abjuração;1;0;10 minutos;Toque;V, S, M (uma borrifada de água benta, incensos raros e pó de rubi valendo, no mínimo, 1.000 po);1 dia;dano;0;;0;;5d6;radiante;63
+Projeção Astral;projecao-astral;9;necromancia;0;0;1 hora;3 metros;V, S, M (para cada criatura que você afetar com essa magia, você deve fornecer um jacinto valendo, no mínimo, 1.000 po e uma barra de prata com ornamentos esculpidos valendo, no mínimo, 100 po, todos consumidos pela magia);Especial;dano;0;;0;;;;63
+Projetar Imagem;projetar-imagem;7;ilusão;0;1;1 ação;750 quilômetros;V, S, M (uma pequena réplica sua feita com materiais valendo, no mínimo, 5 po);Concentração, até 1 dia;dano;0;;0;;;;64
+Proteção contra a Morte;protecao-contra-a-morte;4;abjuração;0;0;1 ação;Toque;V, S;8 horas;dano;0;;0;;;;64
+Proteção contra Energia;protecao-contra-energia;3;abjuração;0;1;1 ação;Toque;V, S;Concentração, até 1 hora;dano;0;;0;;;;64
+Proteção contra Lâminas;protecao-contra-laminas;0;abjuração;0;0;1 ação;Pessoal;V, S;1 rodada;dano;0;;0;;;concussão;64
+Proteção contra o Bem e Mal;protecao-contra-o-bem-e-mal;1;abjuração;0;1;1 ação;Toque;V, S, M (água benta ou pó de prata e ferro, consumidos pela magia);Concentração, até 10 minutos;defesa;0;;0;;;;64
+Proteção contra Veneno;protecao-contra-veneno;2;abjuração;0;0;1 ação;Toque;V, S;1 hora;dano;0;;0;;;venenoso;64
+Proteger Fortaleza;proteger-fortaleza;6;abjuração;0;0;10 minutos;Toque;V, S, M (incenso aceso, uma porção de enxofre e óleo, uma corda amarrada, uma porção de sangue de tribulo brutal e um pequeno bastão de prata valendo, no mínimo, 10 po);24 horas;invocacao;0;;0;;;;65
+Purificar Alimentos;purificar-alimentos;1;transmutação;1;0;1 ação;3 metros;V, S;Instantânea;utilidade;0;;0;;;;65
+Queda Suave;queda-suave;1;transmutação;0;0;1 reação, que você realiza quando você ou uma criatura a até 18 metros cair;18 metros;V, M (uma pequena pena ou penugem similar);1 minuto;dano;0;;0;;;;65
+Raio Adoecente;raio-adoecente;1;necromancia;0;0;1 ação;18 metros;V, S;Instantânea;dano;1;distancia_magico;1;CON;2d8;venenoso;65
+Raio Ardente;raio-ardente;2;evocação;0;0;1 ação;36 metros;V, S;Instantânea;dano;1;distancia_magico;0;;2d6;fogo;65
+Raio de Bruxa;raio-de-bruxa;1;evocação;0;1;1 ação;9 metros;V, S, M (um galho de uma árvore que tenha sido atingida por um relâmpago);Concentração, até 1 minuto;dano;1;distancia_magico;0;;1d12;elétrico;65
+Raio de Fogo;raio-de-fogo;0;evocação;0;0;1 ação;36 metros;V, S;Instantânea;dano;1;distancia_magico;0;;1d10;fogo;66
+Raio de Gelo;raio-de-gelo;0;evocação;0;0;1 ação;18 metros;V, S;Instantânea;dano;1;distancia_magico;0;;1d8;frio;66
+Raio do Enfraquecimento;raio-do-enfraquecimento;2;necromancia;0;1;1 ação;18 metros;V, S;Concentração, até 1 minuto;dano;1;distancia_magico;1;CON;;;66
+Raio Guiador;raio-guiador;1;evocação;0;0;1 ação;36 metros;V, S;1 rodada;dano;1;distancia_magico;0;;4d6;radiante;66
+Raio Lunar;raio-lunar;2;evocação;0;1;1 ação;36 metros;V, S, M (várias sementes de qualquer planta lunar e um pedaço de feldspato opalescente);Concentração, até 1 minuto;dano;0;;1;CON;2d10;radiante;67
+Raio Solar;raio-solar;6;evocação;0;1;1 ação;Pessoal (linha de 18 metros);V, S, M (uma lente de aumento);Concentração, até 1 minuto;dano;0;;1;CON;6d8;radiante;67
+Rajada de Veneno;rajada-de-veneno;0;conjuração;0;0;1 ação;3 metros;V, S;Instantânea;dano;0;;1;CON;1d12;venenoso;67
+Rajada Mística;rajada-mistica;0;evocação;0;0;1 ação;36 metros;V, S;Instantânea;dano;1;distancia_magico;0;;1d10;energia;67
+Rajada Prismática;rajada-prismatica;7;evocação;0;0;1 ação;Pessoal (cone de 18 metros);V, S;Instantânea;dano;0;;1;DES,CON,SAB;10d6;ácido;67
+Recipiente Arcano;recipiente-arcano;6;necromancia;0;0;1 minuto;Pessoal;V, S, M (uma gema, cristal, relicário ou algum outro tipo de recipiente ornamental valendo, no mínimo, 500 po);Até ser dissipada;defesa;0;;1;CAR;;;69
+Recuo Acelerado;recuo-acelerado;1;transmutação;0;1;1 ação bônus;Pessoal;V, S;Concentração, até 10 minutos;utilidade;0;;0;;;;69
+Reencarnação;reencarnacao;5;transmutação;0;0;1 hora;Toque;V, S, M (óleos e unguentos raros valendo, no mínimo, 1.000 po, consumidos pela magia);Instantânea;utilidade;0;;0;;;;69
+Reflexos;reflexos;2;ilusão;0;0;1 ação;Pessoal;V, S;1 minuto;dano;0;;0;;;;69
+Regeneração;regeneracao;7;transmutação;0;0;1 minuto;Toque;V, S, M (uma conta de oração e água benta);1 hora;cura;0;;0;;4d8;;70
+Relâmpago;relampago;3;evocação;0;0;1 ação;Pessoal (linha de 30 metros);V, S, M (um pouco de pelo e uma haste de âmbar, cristal ou vidro);Instantânea;dano;0;;1;DES;8d6;elétrico;70
+Remover Maldição;remover-maldicao;3;abjuração;0;0;1 ação;Toque;V, S;Instantânea;utilidade;0;;0;;;;70
+Repouso Tranquilo;repouso-tranquilo;2;necromancia;1;0;1 ação;Toque;V, S, M (uma pitada de sal e uma peça de cobre colocada em cada um dos olhos do corpo, que devem permanecer ai pela duração);10 dias;utilidade;0;;0;;;;70
+Repreensão Infernal;repreensao-infernal;1;evocação;0;0;1 reação, que você faz em resposta ao sofre dano de uma criatura a até 18 metros de você e que você possa ver;18 metros;V, S;Instantânea;dano;0;;1;DES;2d10;fogo;70
+Resistência;resistencia;0;abjuração;0;1;1 ação;Toque;V, S, M (um manto em miniatura);Concentração, até 1 minuto;defesa;0;;0;;;;70
+Respirar na Água;respirar-na-agua;3;transmutação;1;0;1 ação;9 metros;V, S, M (um pedaço de cana ou palha);24 horas;utilidade;0;;0;;;;70
+Ressurreição;ressurreicao;7;necromancia;0;0;1 hora;Toque;V, S, M (um diamante valendo, no mínimo, 1.000 po, consumido pela magia);Instantânea;cura;0;;0;;;;70
+Ressurreição Verdadeira;ressurreicao-verdadeira;9;necromancia;0;0;1 hora;Toque;V, S, M (um borrifo de água benta e diamantes valendo, no mínimo, 25.000 po, consumidos pela magia);Instantânea;cura;0;;0;;;;71
+Restauração Maior;restauracao-maior;5;abjuração;0;0;1 ação;Toque;V, S, M (pó de diamante valendo, no mínimo, 100 po, consumido pela magia);Instantânea;utilidade;0;;0;;;;71
+Restauração Menor;restauracao-menor;2;abjuração;0;0;1 ação;Toque;V, S;Instantânea;controle;0;;0;;;;71
+Reviver os Mortos;reviver-os-mortos;5;necromancia;0;0;1 hora;Toque;V, S, M (um diamante valendo, no mínimo, 500 po, consumido pela magia);Instantânea;cura;0;;0;;;;71
+Revivificar;revivificar;3;necromancia;0;0;1 ação;Toque;V, S, M (um diamante no valor de 300 po, consumido pela magia);Instantânea;utilidade;0;;0;;;;71
+Riso Histérico de Tasha;riso-histerico-de-tasha;1;encantamento;0;1;1 ação;9 metros;V, S, M (pequenas tortas e uma pena que é balançada no ar);Concentração, até 1 minuto;dano;0;;1;SAB;;;71
+Rogar Maldição;rogar-maldicao;3;necromancia;0;1;1 ação;Toque;V, S;Concentração, até 1 minuto;dano;0;;1;SAB;1d8;necrótico;71
+Salto;salto;1;transmutação;0;0;1 ação;Toque;V, S, M (uma perna de gafanhoto);1 minuto;utilidade;0;;0;;;;72
+Santuário;santuario;1;abjuração;0;0;1 ação bônus;9 metros;V, S, M (um pequeno espelho de prata);1 minuto;dano;0;;1;SAB;;;72
+Santuário Particular de Mordenkainen;santuario-particular-de-mordenkainen;4;abjuração;0;0;10 minutos;36 metros;V, S, M (uma folha de chumbo, um pedaço de vidro opaco, um chumaço de algodão ou pano e pó de crisólita);24 horas;cura;0;;0;;;;72
+Saraivada de Espinhos;saraivada-de-espinhos;1;conjuração;0;1;1 ação bônus;Pessoal;V;Concentração, até 1 minuto;dano;0;;1;DES;1d10;perfurante;72
+Semiplano;semiplano;8;conjuração;0;0;1 ação;18 metros;V;1 hora;utilidade;0;;0;;;;72
+Sentido Bestial;sentido-bestial;2;adivinhação;1;1;1 ação;Toque;S;Concentração, até 1 hora;utilidade;0;;0;;;;73
+Servo Invisível;servo-invisivel;1;conjuração;1;0;1 ação;18 metros;V, S, M (um pedaço de barbante e um pouco de madeira);1 hora;utilidade;0;;0;;;;73
+Sexto Sentido;sexto-sentido;9;adivinhação;0;0;1 minuto;Toque;V, S, M (uma pena de colibri);8 horas;defesa;0;;0;;;;73
+Silêncio;silencio;2;ilusão;1;1;1 ação;36 metros;V, S;Concentração, até 10 minutos;dano;0;;0;;;trovejante;73
+Símbolo;simbolo;7;abjuração;0;0;1 minuto;Toque;V, S, M (mercúrio, fósforo e pó de diamante e opala, com um valor total de, no mínimo, 1.000 po, consumidos pela magia);Até ser dissipada ou ativada;cura;0;;1;CON,INT,SAB,CAR;10d10;necrótico;73
+Similaridade;similaridade;5;ilusão;0;0;1 ação;9 metros;V, S;8 horas;defesa;0;;1;CAR;;;74
+Simulacro;simulacro;7;ilusão;0;0;12 horas;Toque;"V, S, M (neve ou gelo em quantidade suficiente para fazer uma cópia em tamanho real da criatura duplicada; algum cabelo, recortes de unha ou outro pedaço do corpo da criatura, colocado dentro da neve ou gelo; e pó de rubi no valor de 1.500 po, polvilhado sobre a duplicata e consumido pela magia)";Até ser dissipada;dano;0;;0;;;;74
+Sinal de Esperança;sinal-de-esperanca;3;abjuração;0;1;1 ação;9 metros;V, S;Concentração, até 1 minuto;cura;0;;0;;;;74
+Sonho;sonho;5;ilusão;0;0;1 minuto;Especial;V, S, M (um punhado de areia, um pouco de tinta e uma pena de escrita arrancada de um pássaro adormecido);8 horas;dano;0;;1;SAB;3d6;psíquico;74
+Sono;sono;1;encantamento;0;0;1 ação;36 metros;V, S, M (um punhado de areia fina, pétalas de rosas ou um grilo);1 minuto;dano;0;;0;;5d8;;75
+Sugestão;sugestao;2;encantamento;0;1;1 ação;9 metros;V, M (uma língua de cobra e, ou um pedaço de favo de mel ou uma gota de azeite doce);Concentração, até 8 horas;dano;0;;1;SAB;;;75
+Sugestão em Massa;sugestao-em-massa;6;encantamento;0;0;1 ação;18 metros;V, M (uma língua de cobra e, ou um pedaço de favo de mel ou uma gota de azeite doce);24 horas;dano;0;;1;SAB;;;75
+Sussurros Dissonantes;sussurros-dissonantes;1;encantamento;0;0;1 ação;18 metros;V;Instantânea;dano;0;;1;SAB;3d6;psíquico;75
+Taumaturgia;taumaturgia;0;transmutação;0;0;1 ação;9 metros;V;Até 1 minuto;invocacao;0;;0;;;;76
+Teia;teia;2;conjuração;0;1;1 ação;18 metros;V, S, M (um pedaço de teia de aranha);Concentração, até 1 hora;dano;0;;1;DES;2d4;fogo;76
+Telecinésia;telecinesia;5;transmutação;0;1;1 ação;18 metros;V, S;Concentração, até 10 minutos;controle;0;;0;;;;76
+Telepatia;telepatia;8;adivinhação;0;0;1 ação;Ilimitado;V, S, M (um par de anéis de prata unidos);24 horas;utilidade;0;;0;;;;76
+Teletransporte;teletransporte;7;conjuração;0;0;1 ação;3 metros;V;Instantânea;dano;0;;0;;1d10;energia;78
+Teletransporte por Árvores;teletransporte-por-arvores;6;conjuração;0;0;1 ação;3 metros;V, S;1 rodada;utilidade;0;;0;;;;78
+Tempestade da Vingança;tempestade-da-vinganca;9;conjuração;0;1;1 ação;Visão;V, S;Concentração, até 1 minuto;dano;0;;1;DES,CON;2d6;ácido;78
+Tempestade de Fogo;tempestade-de-fogo;7;evocação;0;0;1 ação;45 metros;V, S;Instantânea;dano;0;;1;DES;7d10;fogo;79
+Tempestade de Gelo;tempestade-de-gelo;4;evocação;0;0;1 ação;90 metros;V, S, M (um pouco de poeira e algumas gotas de água);Instantânea;dano;0;;1;DES;2d8;concussão;79
+Tentáculos Negros de Evard;tentaculos-negros-de-evard;4;conjuração;0;1;1 ação;27 metros;V, S, M (um pedaço de tentáculo de um polvo gigante ou lula gigante);Concentração, até 1 minuto;dano;0;;1;DES;3d6;concussão;79
+Terremoto;terremoto;8;evocação;0;1;1 ação;150 metros;V, S, M (um pouco de poeira, uma pedra e um pedaço de barro);Concentração, até 1 minuto;dano;0;;1;DES,CON;1d6;concussão;79
+Terreno Alucinógeno;terreno-alucinogeno;4;ilusão;0;0;10 minutos;90 metros;V, S, M (uma pedra, um galho e um pouco de planta verde);24 horas;utilidade;0;;0;;;;79
+Toque Arrepiante;toque-arrepiante;0;necromancia;0;0;1 ação;36 metros;V, S;1 rodada;dano;1;distancia_magico;0;;1d8;necrótico;80
+Toque Chocante;toque-chocante;0;evocação;0;0;1 ação;Toque;V, S;Instantânea;dano;1;corpo_a_corpo_magico;0;;1d8;elétrico;80
+Toque Vampírico;toque-vampirico;3;necromancia;0;1;1 ação;Pessoal;V, S;Concentração, até 1 minuto;cura;1;corpo_a_corpo_magico;0;;3d6;necrótico;80
+Tranca Arcana;tranca-arcana;2;abjuração;0;0;1 ação;Toque;V, S, M (pó de ouro valendo, no mínimo, 25 po, consumido pela magia);Até ser dissipada;invocacao;0;;0;;;;80
+Truque de Corda;truque-de-corda;2;transmutação;0;0;1 ação;Toque;V, S, M (pó de extrato de milho e um laço de pergaminho trançado);1 hora;utilidade;0;;0;;;;80
+Tsunami;tsunami;8;conjuração;0;1;1 minuto;Visão;V, S;Concentração, até 6 rodadas;dano;0;;1;FOR;6d10;concussão;80
+Velocidade;velocidade;3;transmutação;0;1;1 ação;18 metros;V, S, M (uma raspa de raiz de alcaçuz);Concentração, até 1 minuto;defesa;0;;0;;;;81
+Ver o Invisível;ver-o-invisivel;2;adivinhação;0;0;1 ação;Pessoal;V, S, M (um pouco de talco e um pó de prata polvilhado);1 hora;utilidade;0;;0;;;;81
+Viagem Planar;viagem-planar;7;conjuração;0;0;1 ação;Toque;V, S, M (uma haste metálica bifurcada valendo, no mínimo, 250 po, sintonizada com um plano de existência em particular);Instantânea;defesa;1;corpo_a_corpo_magico;1;CAR;;;81
+Vidência;videncia;5;adivinhação;0;1;10 minutos;Pessoal;V, S, M (um foco valendo, no mínimo, 1.000 po, como uma bola de cristal, espelho de prata ou fonte cheia de água benta);Concentração, até 10 minutos;defesa;0;;1;SAB;;;81
+Vínculo Protetor;vinculo-protetor;2;abjuração;0;0;1 ação;Toque;V, S, M (um par de anéis de platina valendo, no mínimo, 50 po cada, que você e o alvo devem usar pela duração);1 hora;dano;0;;0;;;;81
+Vinha Esmagadora;vinha-esmagadora;4;conjuração;0;1;1 ação bônus;9 metros;V, S;Concentração, até 1 minuto;defesa;0;;1;DES;;;82
+Visão da Verdade;visao-da-verdade;6;adivinhação;0;0;1 ação;Toque;"V, S, M (unguento para os olhos no valor de 25 po; ele é feito de pó de cogumelo, açafrão e gordura; e é consumido pela magia)";1 hora;utilidade;0;;0;;;;82
+Visão no Escuro;visao-no-escuro;2;transmutação;0;0;1 ação;Toque;V, S, M (ou um pedaço de cenoura seca ou uma ágata);8 horas;utilidade;0;;0;;;;82
+Vitalidade Falsa;vitalidade-falsa;1;necromancia;0;0;1 ação;Pessoal;V, S, M (uma pequena quantidade de álcool ou bebidas destiladas);1 hora;invocacao;0;;0;;1d4;;82
+Voo;voo;3;transmutação;0;1;1 ação;Toque;V, S, M (uma pena da asa de qualquer pássaro);Concentração, até 10 minutos;invocacao;0;;0;;;;82
+Zombaria Viciosa;zombaria-viciosa;0;encantamento;0;0;1 ação;18 metros;V;Instantânea;dano;0;;1;SAB;1d4;psíquico;82
+Zona da Verdade;zona-da-verdade;2;encantamento;0;0;1 ação;18 metros;V, S;10 minutos;defesa;0;;1;CAR;;;82

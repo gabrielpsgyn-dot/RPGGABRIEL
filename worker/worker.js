@@ -18,7 +18,7 @@ export default {
         return json({
           ok: true,
           app: "Ghosts of Saltmarsh - Ficha Online API",
-          version: "1.2.0-change-watch",
+          version: "1.3.0-magias-manuais",
           loginMode: "character_click_standard_password",
           time: new Date().toISOString()
         });
@@ -35,6 +35,15 @@ export default {
 
       if (method === "GET" && path === "/api/characters") {
         return listCharacters(request, env, url);
+      }
+
+      if (method === "GET" && path === "/api/magias") {
+        return listMagias(request, env, url);
+      }
+
+      const magiaMatch = path.match(/^\/api\/magias\/([^/]+)$/);
+      if (magiaMatch && method === "GET") {
+        return getMagia(request, env, url, decodeURIComponent(magiaMatch[1]));
       }
 
       const changeMatch = path.match(/^\/api\/characters\/([^/]+)\/changes$/);
@@ -252,6 +261,148 @@ async function deleteCharacter(request, env, url, id) {
   return json({ ok: true, deletedId: id });
 }
 
+
+
+function parseBoolFlag(value) {
+  return value === 1 || value === "1" || value === true;
+}
+
+function spellPublic(row) {
+  return {
+    id: row.id,
+    nome_pt: row.nome_pt,
+    slug: row.slug,
+    nivel: row.nivel,
+    nivel_label: row.nivel === 0 ? "Truque" : row.nivel + "º nível",
+    escola: row.escola,
+    ritual: Number(row.ritual || 0),
+    concentracao: Number(row.concentracao || 0),
+    tempo_conjuracao: row.tempo_conjuracao,
+    alcance: row.alcance,
+    componentes: row.componentes,
+    duracao: row.duracao,
+    descricao_pt: row.descricao_pt,
+    tipo_uso: row.tipo_uso,
+    exige_ataque: Number(row.exige_ataque || 0),
+    tipo_ataque: row.tipo_ataque,
+    exige_resistencia: Number(row.exige_resistencia || 0),
+    atributo_resistencia: row.atributo_resistencia,
+    atributo_soma: row.atributo_soma,
+    formula_dado_base: row.formula_dado_base,
+    tipo_dano_padrao: row.tipo_dano_padrao,
+    pagina_pdf: row.pagina_pdf,
+    fonte: row.fonte,
+    classes: row.classes ? String(row.classes).split(",").map(s => s.trim()).filter(Boolean) : []
+  };
+}
+
+async function listMagias(request, env, url) {
+  const q = String(url.searchParams.get("q") || "").trim();
+  const classe = String(url.searchParams.get("classe") || "").trim();
+  const tipoUso = String(url.searchParams.get("tipo_uso") || url.searchParams.get("tipo") || "").trim();
+  const nivelRaw = url.searchParams.get("nivel");
+  const limit = Math.max(1, Math.min(200, Number(url.searchParams.get("limit") || 80)));
+
+  const where = [];
+  const binds = [];
+
+  if (q) {
+    where.push("(m.nome_pt LIKE ? OR m.descricao_pt LIKE ? OR m.escola LIKE ?)");
+    binds.push("%" + q + "%", "%" + q + "%", "%" + q + "%");
+  }
+
+  if (classe) {
+    where.push("m.id IN (SELECT magia_id FROM magia_classes WHERE classe = ?)");
+    binds.push(classe);
+  }
+
+  if (tipoUso) {
+    where.push("m.tipo_uso = ?");
+    binds.push(tipoUso);
+  }
+
+  if (nivelRaw !== null && nivelRaw !== "") {
+    where.push("m.nivel = ?");
+    binds.push(Number(nivelRaw));
+  }
+
+  const sqlWhere = where.length ? "WHERE " + where.join(" AND ") : "";
+
+  const result = await env.DB.prepare(`
+    SELECT
+      m.id,
+      m.nome_pt,
+      m.slug,
+      m.nivel,
+      m.escola,
+      m.ritual,
+      m.concentracao,
+      m.tempo_conjuracao,
+      m.alcance,
+      m.componentes,
+      m.duracao,
+      m.descricao_pt,
+      m.tipo_uso,
+      m.exige_ataque,
+      m.tipo_ataque,
+      m.exige_resistencia,
+      m.atributo_resistencia,
+      m.atributo_soma,
+      m.formula_dado_base,
+      m.tipo_dano_padrao,
+      m.pagina_pdf,
+      m.fonte,
+      GROUP_CONCAT(mc.classe, ', ') AS classes
+    FROM magias m
+    LEFT JOIN magia_classes mc ON mc.magia_id = m.id
+    ${sqlWhere}
+    GROUP BY m.id
+    ORDER BY m.nivel ASC, m.nome_pt COLLATE NOCASE ASC
+    LIMIT ?
+  `).bind(...binds, limit).all();
+
+  return json({
+    ok: true,
+    count: (result.results || []).length,
+    filters: { q, classe, tipo_uso: tipoUso, nivel: nivelRaw, limit },
+    magias: (result.results || []).map(spellPublic)
+  });
+}
+
+async function getMagia(request, env, url, slug) {
+  const row = await env.DB.prepare(`
+    SELECT
+      m.*,
+      GROUP_CONCAT(mc.classe, ', ') AS classes
+    FROM magias m
+    LEFT JOIN magia_classes mc ON mc.magia_id = m.id
+    WHERE m.slug = ?
+    GROUP BY m.id
+  `).bind(slug).first();
+
+  if (!row) return json({ ok: false, error: "Magia não encontrada." }, 404);
+
+  const usos = await env.DB.prepare(`
+    SELECT espaco_usado, formula_dado, soma, tipo_resultado, tipo_dano, observacao
+    FROM magia_uso_espaco
+    WHERE magia_id = ?
+    ORDER BY espaco_usado ASC
+  `).bind(row.id).all();
+
+  const escalas = await env.DB.prepare(`
+    SELECT nivel_personagem_min, formula_dado, soma, tipo_resultado, tipo_dano, observacao
+    FROM magia_escala_personagem
+    WHERE magia_id = ?
+    ORDER BY nivel_personagem_min ASC
+  `).bind(row.id).all();
+
+  return json({
+    ok: true,
+    magia: spellPublic(row),
+    usos_espaco: usos.results || [],
+    escala_personagem: escalas.results || []
+  });
+}
 
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));

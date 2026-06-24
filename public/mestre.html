@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Página do Mestre - RPG Gabriel V14</title>
+  <title>Página do Mestre - RPG Gabriel V15 Magias</title>
   <style>
     :root{
       --bg:#080b10;
@@ -87,6 +87,18 @@
     .toast{position:fixed;left:16px;right:16px;bottom:16px;background:#05070b;border:1px solid #44566d;color:#fff;border-radius:14px;padding:13px;text-align:center;opacity:0;transform:translateY(10px);pointer-events:none;transition:.2s;z-index:99}
     .toast.show{opacity:1;transform:none}
     .empty{padding:28px;text-align:center;color:#c9d3df}
+
+    .spell-db-panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:12px;margin-bottom:14px}
+    .spell-filters{display:grid;grid-template-columns:1fr 120px 150px 150px auto;gap:8px;align-items:end}
+    .spell-results{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:10px;margin-top:10px;max-height:520px;overflow:auto;padding-right:4px}
+    .spell-db-card{background:#111b28;border:1px solid #33445c;border-radius:13px;padding:10px}
+    .spell-db-head{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+    .spell-db-name{font-size:17px;font-weight:950}
+    .spell-db-desc{color:#dce6f1;margin-top:8px;line-height:1.35;max-height:145px;overflow:auto;white-space:pre-wrap;font-size:13px}
+    .spell-db-meta{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}
+    .spell-db-tag{background:#263449;border:1px solid #3b4d66;border-radius:999px;padding:3px 7px;color:#eaf1f7;font-size:11px;font-weight:850}
+    @media(max-width:980px){.spell-filters{grid-template-columns:1fr 1fr}.spell-filters .btn{grid-column:1/-1}}
+
     @media(max-width:980px){
       .grid{grid-template-columns:1fr}
       .summary{grid-template-columns:repeat(2,1fr)}
@@ -105,7 +117,7 @@
         <h1>Página do Mestre</h1>
         <div class="subtitle">Controle de personagens, vida, corrupção, nível, magias e informações rápidas da mesa.</div>
       </div>
-      <a class="btn secondary" href="/?v=14">Abrir ficha do jogador</a>
+      <a class="btn secondary" href="/?v=15">Abrir ficha do jogador</a>
     </div>
 
     <section class="login">
@@ -123,6 +135,63 @@
       <div class="box"><b id="sumCorr">0</b><span>Corrupção alta</span></div>
       <div class="box"><b id="sumSpells">0</b><span>Magias listadas</span></div>
     </section>
+
+
+    <section class="spell-db-panel">
+      <h2 style="margin:0 0 10px">Banco de magias manual</h2>
+      <div class="spell-filters">
+        <div>
+          <label>Buscar magia</label>
+          <input id="spellSearch" placeholder="Nome, descrição ou escola">
+        </div>
+        <div>
+          <label>Nível</label>
+          <select id="spellLevel">
+            <option value="">Todos</option>
+            <option value="0">Truque</option>
+            <option value="1">1º</option>
+            <option value="2">2º</option>
+            <option value="3">3º</option>
+            <option value="4">4º</option>
+            <option value="5">5º</option>
+            <option value="6">6º</option>
+            <option value="7">7º</option>
+            <option value="8">8º</option>
+            <option value="9">9º</option>
+          </select>
+        </div>
+        <div>
+          <label>Classe</label>
+          <select id="spellClass">
+            <option value="">Todas</option>
+            <option>Bardo</option>
+            <option>Bruxo</option>
+            <option>Clérigo</option>
+            <option>Druida</option>
+            <option>Feiticeiro</option>
+            <option>Mago</option>
+            <option>Paladino</option>
+            <option>Patrulheiro</option>
+          </select>
+        </div>
+        <div>
+          <label>Uso</label>
+          <select id="spellUse">
+            <option value="">Todos</option>
+            <option value="dano">Dano</option>
+            <option value="cura">Cura</option>
+            <option value="controle">Controle</option>
+            <option value="defesa">Defesa</option>
+            <option value="utilidade">Utilidade</option>
+            <option value="invocacao">Invocação</option>
+          </select>
+        </div>
+        <button class="btn blue" id="spellSearchBtn">Buscar magias</button>
+      </div>
+      <div id="spellDbStatus" class="subtitle" style="margin-top:8px">Use a senha da mesa para buscar no banco.</div>
+      <div id="spellDbResults" class="spell-results"></div>
+    </section>
+
 
     <div class="grid">
       <aside class="sidebar">
@@ -455,7 +524,102 @@
       }catch(e){ toast(e.message); }
     }
 
+
+    function spellLabelLevel(n){
+      n = Number(n);
+      return n === 0 ? 'Truque' : n + 'º nível';
+    }
+
+    function shortText(text, max=360){
+      text = String(text || '');
+      return text.length <= max ? text : text.slice(0, max) + '...';
+    }
+
+    async function loadSpellDb(){
+      try{
+        const q = encodeURIComponent($('#spellSearch')?.value || '');
+        const nivel = encodeURIComponent($('#spellLevel')?.value || '');
+        const classe = encodeURIComponent($('#spellClass')?.value || '');
+        const tipo = encodeURIComponent($('#spellUse')?.value || '');
+        const params = new URLSearchParams();
+        if(q) params.set('q', $('#spellSearch').value);
+        if(nivel !== '') params.set('nivel', $('#spellLevel').value);
+        if(classe) params.set('classe', $('#spellClass').value);
+        if(tipo) params.set('tipo_uso', $('#spellUse').value);
+        params.set('limit', '80');
+
+        const data = await apiFetch('/api/magias?' + params.toString(), {method:'GET'});
+        const magias = data.magias || [];
+        $('#spellDbStatus').textContent = magias.length + ' magia(s) encontrada(s).';
+
+        $('#spellDbResults').innerHTML = magias.map(m=>`
+          <article class="spell-db-card">
+            <div class="spell-db-head">
+              <div>
+                <div class="spell-db-name">${escapeHtml(m.nome_pt)}</div>
+                <div class="spell-db-meta">
+                  <span class="spell-db-tag">${escapeHtml(spellLabelLevel(m.nivel))}</span>
+                  <span class="spell-db-tag">${escapeHtml(m.escola || '-')}</span>
+                  ${m.ritual ? '<span class="spell-db-tag">Ritual</span>' : ''}
+                  ${m.concentracao ? '<span class="spell-db-tag">Concentração</span>' : ''}
+                  ${m.tipo_uso ? `<span class="spell-db-tag">${escapeHtml(m.tipo_uso)}</span>` : ''}
+                </div>
+              </div>
+              <button class="btn small secondary" data-open-spell="${escapeHtml(m.slug)}">Detalhes</button>
+            </div>
+            <div class="spell-db-meta">
+              <span class="spell-db-tag">Tempo: ${escapeHtml(m.tempo_conjuracao || '-')}</span>
+              <span class="spell-db-tag">Alcance: ${escapeHtml(m.alcance || '-')}</span>
+              <span class="spell-db-tag">Comp.: ${escapeHtml(m.componentes || '-')}</span>
+              ${m.formula_dado_base ? `<span class="spell-db-tag">Dado: ${escapeHtml(m.formula_dado_base)}</span>` : ''}
+              ${m.tipo_dano_padrao ? `<span class="spell-db-tag">Tipo: ${escapeHtml(m.tipo_dano_padrao)}</span>` : ''}
+              ${m.atributo_resistencia ? `<span class="spell-db-tag">Res.: ${escapeHtml(m.atributo_resistencia)}</span>` : ''}
+            </div>
+            <div class="spell-db-desc">${escapeHtml(shortText(m.descricao_pt || ''))}</div>
+            <div class="classes" style="padding:8px 0 0">Classes: ${escapeHtml((m.classes || []).join(', ') || '-')}</div>
+          </article>
+        `).join('') || '<div class="empty">Nenhuma magia encontrada.</div>';
+      }catch(e){
+        $('#spellDbStatus').textContent = 'Erro ao buscar magias: ' + e.message;
+        $('#spellDbResults').innerHTML = '';
+      }
+    }
+
+    async function openSpellDetail(slug){
+      try{
+        const data = await apiFetch('/api/magias/'+encodeURIComponent(slug), {method:'GET'});
+        const m = data.magia;
+        if(!m) return;
+
+        const usos = (data.usos_espaco || []).map(u =>
+          `Espaço ${u.espaco_usado}: ${u.formula_dado || 'sem rolagem'}${u.tipo_resultado ? ' / '+u.tipo_resultado : ''}${u.tipo_dano ? ' / '+u.tipo_dano : ''}`
+        ).join('\\n');
+
+        const escala = (data.escala_personagem || []).map(u =>
+          `Nv. ${u.nivel_personagem_min}: ${u.formula_dado || 'sem rolagem'}${u.tipo_resultado ? ' / '+u.tipo_resultado : ''}${u.tipo_dano ? ' / '+u.tipo_dano : ''}`
+        ).join('\\n');
+
+        alert(
+          m.nome_pt + '\\n' +
+          spellLabelLevel(m.nivel) + ' de ' + (m.escola || '-') + '\\n\\n' +
+          'Tempo: ' + (m.tempo_conjuracao || '-') + '\\n' +
+          'Alcance: ' + (m.alcance || '-') + '\\n' +
+          'Componentes: ' + (m.componentes || '-') + '\\n' +
+          'Duração: ' + (m.duracao || '-') + '\\n' +
+          'Classes: ' + ((m.classes || []).join(', ') || '-') + '\\n\\n' +
+          (m.descricao_pt || '') +
+          (usos ? '\\n\\nUso por espaço:\\n' + usos : '') +
+          (escala ? '\\n\\nEscala por personagem:\\n' + escala : '')
+        );
+      }catch(e){
+        toast('Erro ao abrir magia: ' + e.message);
+      }
+    }
+
     document.addEventListener('click', e=>{
+      const spellOpen=e.target.closest('[data-open-spell]');
+      if(spellOpen){ openSpellDetail(spellOpen.dataset.openSpell); return; }
+
       const select=e.target.closest('[data-select]');
       if(select){ state.selectedId=select.dataset.select; renderAll(); return; }
 
@@ -484,8 +648,10 @@
       }
     });
 
-    $('#loadBtn').onclick=loadCharacters;
+    $('#loadBtn').onclick=async()=>{ await loadCharacters(); await loadSpellDb(); };
     $('#refreshBtn').onclick=loadCharacters;
+    $('#spellSearchBtn').onclick=loadSpellDb;
+    ['spellSearch','spellLevel','spellClass','spellUse'].forEach(id=>{ const el=$('#'+id); if(el) el.addEventListener('keydown',e=>{ if(e.key==='Enter') loadSpellDb(); }); if(el && el.tagName==='SELECT') el.addEventListener('change',loadSpellDb); });
     $('#masterPassword').value = localStorage.getItem(PASS_KEY) || '';
 
     document.addEventListener('click', e=>{
@@ -496,7 +662,7 @@
       if(e.target.id === 'reloadSelected') reloadSelected();
     });
 
-    if($('#masterPassword').value) loadCharacters();
+    if($('#masterPassword').value){ loadCharacters(); loadSpellDb(); }
   </script>
 </body>
 </html>

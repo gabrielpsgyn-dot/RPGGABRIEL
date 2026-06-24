@@ -1,0 +1,846 @@
+﻿classe;nivel_lista;nome_pt;slug;pagina_lista;nome_lista
+Bardo;0;Amizade;amizade;1;Amizade
+Bardo;0;Ataque Certeiro;ataque-certeiro;1;Ataque Certeiro
+Bardo;0;Consertar;consertar;1;Consertar
+Bardo;0;Globos de Luz;globos-de-luz;1;Globos de Luz
+Bardo;0;Ilusão Menor;ilusao-menor;1;Ilusão Menor
+Bardo;0;Luz;luz;1;Luz
+Bardo;0;Mãos Mágicas;maos-magicas;1;Mãos Mágicas
+Bardo;0;Mensagem;mensagem;1;Mensagem
+Bardo;0;Prestidigitação;prestidigitacao;1;Prestidigitação
+Bardo;0;Proteção contra Lâminas;protecao-contra-laminas;1;Proteção contra Lâminas
+Bardo;0;Zombaria Viciosa;zombaria-viciosa;1;Zombaria Viciosa
+Bardo;1;Amizade Animal;amizade-animal;1;Amizade animal
+Bardo;1;Compreender Idiomas;compreender-idiomas;1;Compreender Idiomas
+Bardo;1;Curar Ferimentos;curar-ferimentos;1;Curar Ferimentos
+Bardo;1;Detectar Magia;detectar-magia;1;Detectar Magia
+Bardo;1;Disfarçar-Se;disfarcar-se;1;Disfarçar-se
+Bardo;1;Enfeitiçar Pessoa;enfeiticar-pessoa;1;Enfeitiçar Pessoa
+Bardo;1;Escrita Ilusória;escrita-ilusoria;1;Escrita Ilusória
+Bardo;1;Falar com Animais;falar-com-animais;1;Falar com Animais
+Bardo;1;Fogo das Fadas;fogo-das-fadas;1;Fogo das Fadas
+Bardo;1;Heroísmo;heroismo;1;Heroísmo
+Bardo;1;Identificação;identificacao;1;Identificação
+Bardo;1;Imagem Silenciosa;imagem-silenciosa;1;Imagem Silenciosa
+Bardo;1;Onda Trovejante;onda-trovejante;1;Onda Trovejante
+Bardo;1;Queda Suave;queda-suave;1;Queda Suave
+Bardo;1;Palavra Curativa;palavra-curativa;1;Palavra Curativa
+Bardo;1;Passos Longos;passos-longos;1;Passos Longos
+Bardo;1;Perdição;perdicao;1;Perdição
+Bardo;1;Riso Histérico de Tasha;riso-histerico-de-tasha;1;Riso Histérico de Tasha
+Bardo;1;Servo Invisível;servo-invisivel;1;Servo Invisível
+Bardo;1;Sono;sono;1;Sono
+Bardo;1;Sussurros Dissonantes;sussurros-dissonantes;1;Sussurros Dissonantes
+Bardo;2;Acalmar Emoções;acalmar-emocoes;1;Acalmar Emoções
+Bardo;2;Aprimorar Habilidade;aprimorar-habilidade;1;Aprimorar Habilidade
+Bardo;2;Arrombar;arrombar;1;Arrombar
+Bardo;2;Boca Encantada;boca-encantada;1;Boca Encantada
+Bardo;2;Cativar;cativar;1;Cativar
+Bardo;2;Cegueira/Surdez;cegueira-surdez;1;Cegueira/Surdez
+Bardo;2;Coroa da Loucura;coroa-da-loucura;1;Coroa da Loucura
+Bardo;2;Esquentar Metal;esquentar-metal;1;Esquentar Metal
+Bardo;2;Despedaçar;despedacar;1;Despedaçar
+Bardo;2;Força Fantasmagórica;forca-fantasmagorica;1;Força Fantasmagórica
+Bardo;2;Detectar Pensamentos;detectar-pensamentos;1;Detectar Pensamentos
+Bardo;2;Imobilizar Pessoa;imobilizar-pessoa;1;Imobilizar Pessoa
+Bardo;2;Invisibilidade;invisibilidade;1;Invisibilidade
+Bardo;2;Localizar Animais Ou Plantas;localizar-animais-ou-plantas;1;Localizar Animais ou Plantas
+Bardo;2;Localizar Objeto;localizar-objeto;1;Localizar Objeto
+Bardo;2;Mensageiro Animal;mensageiro-animal;1;Mensageiro Animal
+Bardo;2;Nuvem de Adagas;nuvem-de-adagas;1;Nuvem de Adagas
+Bardo;2;Restauração Menor;restauracao-menor;1;Restauração Menor
+Bardo;2;Silêncio;silencio;1;Silêncio
+Bardo;2;Sugestão;sugestao;1;Sugestão
+Bardo;2;Ver o Invisível;ver-o-invisivel;1;Ver o Invisível
+Bardo;2;Zona da Verdade;zona-da-verdade;1;Zona da Verdade
+Bardo;3;Ampliar Plantas;ampliar-plantas;1;Ampliar Plantas
+Bardo;3;Clarividência;clarividencia;1;Clarividência
+Bardo;3;Dificultar Detecção;dificultar-deteccao;1;Dificultar Detecção
+Bardo;3;Dissipar Magia;dissipar-magia;1;Dissipar Magia
+Bardo;3;Enviar Mensagem;enviar-mensagem;1;Enviar Mensagem
+Bardo;3;Falar com os Mortos;falar-com-os-mortos;1;Falar com os Mortos
+Bardo;3;Falar com Plantas;falar-com-plantas;1;Falar com Plantas
+Bardo;3;Forjar Morte;forjar-morte;1;Forjar Morte
+Bardo;3;Glifo de Vigilância;glifo-de-vigilancia;1;Glifo de Vigilância
+Bardo;3;Idiomas;idiomas;1;Idiomas
+Bardo;3;Imagem Maior;imagem-maior;1;Imagem Maior
+Bardo;3;Medo;medo;1;Medo
+Bardo;3;Névoa Fétida;nevoa-fetida;1;Névoa Fétida
+Bardo;3;Padrão Hipnótico;padrao-hipnotico;1;Padrão Hipnótico
+Bardo;3;Pequena Cabana de Leomund;pequena-cabana-de-leomund;1;Pequena Cabana de Leomund
+Bardo;3;Rogar Maldição;rogar-maldicao;1;Rogar Maldição
+Bardo;4;Confusão;confusao;1;Confusão
+Bardo;4;Compulsão;compulsao;1;Compulsão
+Bardo;4;Movimentação Livre;movimentacao-livre;1;Movimentação Livre
+Bardo;4;Invisibilidade Maior;invisibilidade-maior;1;Invisibilidade Maior
+Bardo;4;Localizar Criatura;localizar-criatura;1;Localizar Criatura
+Bardo;4;Metamorfose;metamorfose;1;Metamorfose
+Bardo;4;Porta Dimensional;porta-dimensional;1;Porta Dimensional
+Bardo;4;Terreno Alucinógeno;terreno-alucinogeno;1;Terreno Alucinógeno
+Bardo;5;Âncora Planar;ancora-planar;1;Âncora Planar
+Bardo;5;Animar Objetos;animar-objetos;1;Animar Objetos
+Bardo;5;Círculo de Teletransporte;circulo-de-teletransporte;1;Círculo de Teletransporte
+Bardo;5;Conhecimento Lendário;conhecimento-lendario;1;Conhecimento Lendário
+Bardo;5;Curar Ferimentos em Massa;curar-ferimentos-em-massa;1;Curar Ferimentos em Massa
+Bardo;5;Despertar;despertar;1;Despertar
+Bardo;5;Despistar;despistar;1;Despistar
+Bardo;5;Dominar Pessoa;dominar-pessoa;1;Dominar Pessoa
+Bardo;5;Imobilizar Monstro;imobilizar-monstro;1;Imobilizar Monstro
+Bardo;5;Missão;missao;1;Missão
+Bardo;5;Modificar Memória;modificar-memoria;1;Modificar Memória
+Bardo;5;Restauração Maior;restauracao-maior;1;Restauração Maior
+Bardo;5;Reviver os Mortos;reviver-os-mortos;1;Reviver os Mortos
+Bardo;5;Similaridade;similaridade;1;Similaridade
+Bardo;5;Sonho;sonho;1;Sonho
+Bardo;5;Vidência;videncia;1;Vidência
+Bardo;6;Ataque Visual;ataque-visual;1;Ataque Visual
+Bardo;6;Dança Irresistível de Otto;danca-irresistivel-de-otto;1;Dança Irresistível de Otto
+Bardo;6;Encontrar o Caminho;encontrar-o-caminho;1;Encontrar o Caminho
+Bardo;6;Ilusão Programada;ilusao-programada;1;Ilusão Programada
+Bardo;6;Proteger Fortaleza;proteger-fortaleza;1;Proteger Fortaleza
+Bardo;6;Sugestão em Massa;sugestao-em-massa;1;Sugestão em Massa
+Bardo;6;Visão da Verdade;visao-da-verdade;1;Visão da Verdade
+Bardo;7;Espada de Mordenkainen;espada-de-mordenkainen;1;Espada de Mordenkainen
+Bardo;7;Forma Etérea;forma-eterea;1;Forma Etérea
+Bardo;7;Miragem;miragem;1;Miragem
+Bardo;7;Mansão Magnífica de Mordenkainen;mansao-magnifica-de-mordenkainen;1;Mansão Magnifica de Mordenkainen
+Bardo;7;Prisão de Energia;prisao-de-energia;1;Prisão de Energia
+Bardo;7;Projetar Imagem;projetar-imagem;1;Projetar Imagem
+Bardo;7;Regeneração;regeneracao;1;Regeneração
+Bardo;7;Ressurreição;ressurreicao;1;Ressurreição
+Bardo;7;Símbolo;simbolo;1;Símbolo
+Bardo;7;Teletransporte;teletransporte;1;Teletransporte
+Bardo;8;Dominar Monstro;dominar-monstro;1;Dominar Monstro
+Bardo;8;Enfraquecer Intelecto;enfraquecer-intelecto;1;Enfraquecer Intelecto
+Bardo;8;Limpar a Mente;limpar-a-mente;1;Limpar a Mente
+Bardo;8;Loquacidade;loquacidade;1;Loquacidade
+Bardo;8;Palavra de Poder Atordoar;palavra-de-poder-atordoar;1;Palavra de Poder Atordoar
+Bardo;9;Palavra de Poder Curar;palavra-de-poder-curar;1;Palavra de Poder Curar
+Bardo;9;Palavra de Poder Matar;palavra-de-poder-matar;1;Palavra de Poder Matar
+Bardo;9;Metamorfose Verdadeira;metamorfose-verdadeira;1;Metamorfose Verdadeira
+Bardo;9;Sexto Sentido;sexto-sentido;1;Sexto Sentido
+Bruxo;0;Amizade;amizade;2;Amizade
+Bruxo;0;Ataque Certeiro;ataque-certeiro;2;Ataque Certeiro
+Bruxo;0;Ilusão Menor;ilusao-menor;2;Ilusão Menor
+Bruxo;0;Mãos Mágicas;maos-magicas;2;Mãos Mágicas
+Bruxo;0;Prestidigitação;prestidigitacao;2;Prestidigitação
+Bruxo;0;Proteção contra Lâminas;protecao-contra-laminas;2;Proteção contra Lâminas
+Bruxo;0;Rajada de Veneno;rajada-de-veneno;2;Rajada de Veneno
+Bruxo;0;Rajada Mística;rajada-mistica;2;Rajada Mística
+Bruxo;0;Toque Arrepiante;toque-arrepiante;2;Toque Arrepiante
+Bruxo;1;Armadura de Agathys;armadura-de-agathys;2;Armadura de Agathys
+Bruxo;1;Braços de Hadar;bracos-de-hadar;2;Braços de Hadar
+Bruxo;1;Bruxaria;bruxaria;2;Bruxaria
+Bruxo;1;Compreender Idiomas;compreender-idiomas;2;Compreender Idiomas
+Bruxo;1;Enfeitiçar Pessoa;enfeiticar-pessoa;2;Enfeitiçar Pessoa
+Bruxo;1;Escrita Ilusória;escrita-ilusoria;2;Escrita ilusória
+Bruxo;1;Proteção contra o Bem e Mal;protecao-contra-o-bem-e-mal;2;Proteção contra o Bem e Mal
+Bruxo;1;Raio de Bruxa;raio-de-bruxa;2;Raio de Bruxa
+Bruxo;1;Recuo Acelerado;recuo-acelerado;2;Recuo Acelerado
+Bruxo;1;Repreensão Infernal;repreensao-infernal;2;Repreensão Infernal
+Bruxo;1;Servo Invisível;servo-invisivel;2;Servo Invisível
+Bruxo;2;Cativar;cativar;2;Cativar
+Bruxo;2;Coroa da Loucura;coroa-da-loucura;2;Coroa da Loucura
+Bruxo;2;Despedaçar;despedacar;2;Despedaçar
+Bruxo;2;Escuridão;escuridao;2;Escuridão
+Bruxo;2;Imobilizar Pessoa;imobilizar-pessoa;2;Imobilizar Pessoa
+Bruxo;2;Invisibilidade;invisibilidade;2;Invisibilidade
+Bruxo;2;Nuvem de Adagas;nuvem-de-adagas;2;Nuvem de Adagas
+Bruxo;2;Passo Nebuloso;passo-nebuloso;2;Passo Nebuloso
+Bruxo;2;Patas de Aranha;patas-de-aranha;2;Patas de Aranha
+Bruxo;2;Raio do Enfraquecimento;raio-do-enfraquecimento;2;Raio do Enfraquecimento
+Bruxo;2;Reflexos;reflexos;2;Reflexos
+Bruxo;2;Sugestão;sugestao;2;Sugestão
+Bruxo;3;Círculo Mágico;circulo-magico;2;Círculo Mágico
+Bruxo;3;Contramágica;contramagica;2;Contramágica
+Bruxo;3;Dissipar Magia;dissipar-magia;2;Dissipar Magia
+Bruxo;3;Fome de Hadar;fome-de-hadar;2;Fome de Hadar
+Bruxo;3;Forma Gasosa;forma-gasosa;2;Forma Gasosa
+Bruxo;3;Idiomas;idiomas;2;Idiomas
+Bruxo;3;Imagem Maior;imagem-maior;2;Imagem Maior
+Bruxo;3;Remover Maldição;remover-maldicao;2;Remover Maldição
+Bruxo;3;Medo;medo;2;Medo
+Bruxo;3;Padrão Hipnótico;padrao-hipnotico;2;Padrão Hipnótico
+Bruxo;3;Toque Vampírico;toque-vampirico;2;Toque Vampírico
+Bruxo;3;Voo;voo;2;Voo
+Bruxo;4;Banimento;banimento;2;Banimento
+Bruxo;4;Porta Dimensional;porta-dimensional;2;Porta Dimensional
+Bruxo;4;Malogro;malogro;2;Malogro
+Bruxo;4;Terreno Alucinógeno;terreno-alucinogeno;2;Terreno Alucinógeno
+Bruxo;5;Contato Extraplanar;contato-extraplanar;2;Contato Extraplanar
+Bruxo;5;Imobilizar Monstro;imobilizar-monstro;2;Imobilizar Monstro
+Bruxo;5;Sonho;sonho;2;Sonho
+Bruxo;5;Vidência;videncia;2;Vidência
+Bruxo;6;Ataque Visual;ataque-visual;2;Ataque Visual
+Bruxo;6;Círculo da Morte;circulo-da-morte;2;Círculo da Morte
+Bruxo;6;Conjurar Fada;conjurar-fada;2;Conjurar Fada
+Bruxo;6;Criar Mortos-Vivos;criar-mortos-vivos;2;Criar Mortos-Vivos
+Bruxo;6;Carne para Pedra;carne-para-pedra;2;Carne para Pedra
+Bruxo;6;Portal Arcano;portal-arcano;2;Portal Arcano
+Bruxo;6;Sugestão em Massa;sugestao-em-massa;2;Sugestão em Massa
+Bruxo;6;Visão da Verdade;visao-da-verdade;2;Visão da Verdade
+Bruxo;7;Dedo da Morte;dedo-da-morte;2;Dedo da Morte
+Bruxo;7;Forma Etérea;forma-eterea;2;Forma Etérea
+Bruxo;7;Prisão de Energia;prisao-de-energia;2;Prisão de Energia
+Bruxo;7;Viagem Planar;viagem-planar;2;Viagem Planar
+Bruxo;8;Dominar Monstro;dominar-monstro;2;Dominar Monstro
+Bruxo;8;Enfraquecer Intelecto;enfraquecer-intelecto;2;Enfraquecer o Intelecto
+Bruxo;8;Loquacidade;loquacidade;2;Loquacidade
+Bruxo;8;Palavra de Poder Atordoar;palavra-de-poder-atordoar;2;Palavra de Poder Atordoar
+Bruxo;8;Semiplano;semiplano;2;Semiplano
+Bruxo;9;Aprisionamento;aprisionamento;2;Aprisionamento
+Bruxo;9;Metamorfose Verdadeira;metamorfose-verdadeira;2;Metamorfose Verdadeira
+Bruxo;9;Palavra de Poder Matar;palavra-de-poder-matar;2;Palavra de Poder Matar
+Bruxo;9;Projeção Astral;projecao-astral;2;Projeção Astral
+Bruxo;9;Sexto Sentido;sexto-sentido;2;Sexto Sentido
+Clérigo;0;Chama Sagrada;chama-sagrada;2;Chama Sagrada
+Clérigo;0;Consertar;consertar;2;Consertar
+Clérigo;0;Estabilizar;estabilizar;2;Estabilizar
+Clérigo;0;Luz;luz;2;Luz
+Clérigo;0;Orientação;orientacao;2;Orientação
+Clérigo;0;Resistência;resistencia;2;Resistência
+Clérigo;0;Taumaturgia;taumaturgia;2;Taumaturgia
+Clérigo;1;Bênção;bencao;2;Bênção
+Clérigo;1;Comando;comando;2;Comando
+Clérigo;1;Criar Ou Destruir Água;criar-ou-destruir-agua;2;Criar ou Destruir Água
+Clérigo;1;Curar Ferimentos;curar-ferimentos;2;Curar Ferimentos
+Clérigo;1;Detectar Magia;detectar-magia;2;Detectar Magia
+Clérigo;1;Detectar o Bem e Mal;detectar-o-bem-e-mal;2;Detectar o Bem e Mal
+Clérigo;1;Detectar Veneno e Doença;detectar-veneno-e-doenca;2;Detectar Veneno e Doença
+Clérigo;1;Escudo da Fé;escudo-da-fe;2;Escudo da Fé
+Clérigo;1;Infligir Ferimentos;infligir-ferimentos;2;Infringir Ferimentos
+Clérigo;1;Palavra Curativa;palavra-curativa;2;Palavra Curativa
+Clérigo;1;Perdição;perdicao;2;Perdição
+Clérigo;1;Proteção contra o Bem e Mal;protecao-contra-o-bem-e-mal;2;Proteção contra o Bem e Mal
+Clérigo;1;Purificar Alimentos;purificar-alimentos;2;Purificar Alimentos
+Clérigo;1;Raio Guiador;raio-guiador;2;Raio Guiador
+Clérigo;1;Santuário;santuario;2;Santuário
+Clérigo;2;Acalmar Emoções;acalmar-emocoes;2;Acalmar Emoções
+Clérigo;2;Ajuda;ajuda;2;Ajuda
+Clérigo;2;Aprimorar Habilidade;aprimorar-habilidade;2;Aprimorar Habilidade
+Clérigo;2;Arma Espiritual;arma-espiritual;2;Arma Espiritual
+Clérigo;2;Augúrio;augurio;2;Augúrio
+Clérigo;2;Cegueira/Surdez;cegueira-surdez;2;Cegueira/Surdez
+Clérigo;2;Chama Contínua;chama-continua;2;Chama Continua
+Clérigo;2;Encontrar Armadilhas;encontrar-armadilhas;2;Encontrar Armadilhas
+Clérigo;2;Imobilizar Pessoa;imobilizar-pessoa;2;Imobilizar Pessoa
+Clérigo;2;Localizar Objeto;localizar-objeto;2;Localizar Objeto
+Clérigo;2;Oração Curativa;oracao-curativa;2;Oração Curativa
+Clérigo;2;Proteção contra Veneno;protecao-contra-veneno;2;Proteção contra Veneno
+Clérigo;2;Repouso Tranquilo;repouso-tranquilo;2;Repouso Tranquilo
+Clérigo;2;Restauração Menor;restauracao-menor;2;Restauração Menor
+Clérigo;2;Silêncio;silencio;2;Silêncio
+Clérigo;2;Vínculo Protetor;vinculo-protetor;2;Vínculo Protetor
+Clérigo;2;Zona da Verdade;zona-da-verdade;2;Zona da Verdade
+Clérigo;3;Andar na Água;andar-na-agua;2;Andar na Água
+Clérigo;3;Animar Mortos;animar-mortos;2;Animar mortos
+Clérigo;3;Círculo Mágico;circulo-magico;2;Círculo Mágico
+Clérigo;3;Clarividência;clarividencia;2;Clarividência
+Clérigo;3;Criar Alimentos;criar-alimentos;2;Criar Alimentos
+Clérigo;3;Dissipar Magia;dissipar-magia;2;Dissipar Magia
+Clérigo;3;Enviar Mensagem;enviar-mensagem;2;Enviar Mensagem
+Clérigo;3;Espíritos Guardiões;espiritos-guardioes;2;Espíritos Guardiões
+Clérigo;3;Falar com os Mortos;falar-com-os-mortos;2;Falar com os Mortos
+Clérigo;3;Forjar Morte;forjar-morte;2;Forjar Morte
+Clérigo;3;Glifo de Vigilância;glifo-de-vigilancia;2;Glifo de Vigilância
+Clérigo;3;Idiomas;idiomas;2;Idiomas
+Clérigo;3;Luz do Dia;luz-do-dia;2;Luz do Dia
+Clérigo;3;Mesclar-Se às Rochas;mesclar-se-as-rochas;2;Mesclar-se às Rochas
+Clérigo;3;Palavra Curativa em Massa;palavra-curativa-em-massa;2;Palavra Curativa em Massa
+Clérigo;3;Proteção contra Energia;protecao-contra-energia;2;Proteção contra Energia
+Clérigo;3;Rogar Maldição;rogar-maldicao;2;Rogar maldição
+Clérigo;3;Sinal de Esperança;sinal-de-esperanca;2;Sinal de Esperança
+Clérigo;3;Remover Maldição;remover-maldicao;2;Remover Maldição
+Clérigo;3;Revivificar;revivificar;2;Revivificar
+Clérigo;4;Adivinhação;adivinhacao;2;Adivinhação
+Clérigo;4;Banimento;banimento;2;Banimento
+Clérigo;4;Controlar a Água;controlar-a-agua;2;Controlar a Água
+Clérigo;4;Localizar Criatura;localizar-criatura;2;Localizar Criatura
+Clérigo;4;Guardião da Fé;guardiao-da-fe;2;Guardião da Fé
+Clérigo;4;Moldar Rochas;moldar-rochas;2;Moldar Rochas
+Clérigo;4;Movimentação Livre;movimentacao-livre;2;Movimentação Livre
+Clérigo;4;Proteção contra a Morte;protecao-contra-a-morte;2;Proteção contra a Morte
+Clérigo;5;Âncora Planar;ancora-planar;3;Âncora Planar
+Clérigo;5;Coluna de Chamas;coluna-de-chamas;3;Coluna de Chamas
+Clérigo;5;Comunhão;comunhao;3;Comunhão
+Clérigo;5;Conhecimento Lendário;conhecimento-lendario;3;Conhecimento Lendário
+Clérigo;5;Consagrar;consagrar;3;Consagrar
+Clérigo;5;Curar Ferimentos em Massa;curar-ferimentos-em-massa;3;Curar Ferimentos em Massa
+Clérigo;5;Dissipar o Bem e Mal;dissipar-o-bem-e-mal;3;Dissipar o Bem e Mal
+Clérigo;5;Missão;missao;3;Missão
+Clérigo;5;Praga;praga;3;Praga
+Clérigo;5;Praga de Insetos;praga-de-insetos;3;Praga de Insetos
+Clérigo;5;Restauração Maior;restauracao-maior;3;Restauração Maior
+Clérigo;5;Reviver os Mortos;reviver-os-mortos;3;Reviver os Mortos
+Clérigo;5;Vidência;videncia;3;Vidência
+Clérigo;6;Aliado Planar;aliado-planar;3;Aliado Planar
+Clérigo;6;Barreira de Lâminas;barreira-de-laminas;3;Barreira de Lâminas
+Clérigo;6;Criar Mortos-Vivos;criar-mortos-vivos;3;Criar Mortos-Vivos
+Clérigo;6;Cura Completa;cura-completa;3;Cura Completa
+Clérigo;6;Encontrar o Caminho;encontrar-o-caminho;3;Encontrar o Caminho
+Clérigo;6;Doença Plena;doenca-plena;3;Doença Plena
+Clérigo;6;Banquete de Heróis;banquete-de-herois;3;Banquete dos Heróis
+Clérigo;6;Palavra de Recordação;palavra-de-recordacao;3;Palavra de Recordação
+Clérigo;6;Proibição;proibicao;3;Proibição
+Clérigo;6;Visão da Verdade;visao-da-verdade;3;Visão da Verdade
+Clérigo;7;Conjurar Celestial;conjurar-celestial;3;Conjurar Celestial
+Clérigo;7;Forma Etérea;forma-eterea;3;Forma Etérea
+Clérigo;7;Palavra Divina;palavra-divina;3;Palavra Divina
+Clérigo;7;Regeneração;regeneracao;3;Regeneração
+Clérigo;7;Ressurreição;ressurreicao;3;Ressurreição
+Clérigo;7;Símbolo;simbolo;3;Símbolo
+Clérigo;7;Tempestade de Fogo;tempestade-de-fogo;3;Tempestade de Fogo
+Clérigo;7;Viagem Planar;viagem-planar;3;Viagem Planar
+Clérigo;8;Aura Sagrada;aura-sagrada;3;Aura Sagrada
+Clérigo;8;Campo Antimagia;campo-antimagia;3;Campo Antimagia
+Clérigo;8;Controlar o Clima;controlar-o-clima;3;Controlar o Clima
+Clérigo;8;Terremoto;terremoto;3;Terremoto
+Clérigo;9;Cura Completa em Massa;cura-completa-em-massa;3;Cura Completa em Massa
+Clérigo;9;Portal;portal;3;Portal
+Clérigo;9;Projeção Astral;projecao-astral;3;Projeção Astral
+Clérigo;9;Ressurreição Verdadeira;ressurreicao-verdadeira;3;Ressurreição Verdadeira
+Druida;0;Bordão Místico;bordao-mistico;3;Bordão Místico
+Druida;0;Chicote de Espinhos;chicote-de-espinhos;3;Chicote de Espinhos
+Druida;0;Consertar;consertar;3;Consertar
+Druida;0;Criar Chamas;criar-chamas;3;Criar Chamas
+Druida;0;Druidismo;druidismo;3;Druidismo
+Druida;0;Orientação;orientacao;3;Orientação
+Druida;0;Rajada de Veneno;rajada-de-veneno;3;Rajada de Veneno
+Druida;0;Resistência;resistencia;3;Resistência
+Druida;1;Amizade Animal;amizade-animal;3;Amizade Animal
+Druida;1;Bom Fruto;bom-fruto;3;Bom Fruto
+Druida;1;Constrição;constricao;3;Constrição
+Druida;1;Criar Ou Destruir Água;criar-ou-destruir-agua;3;Criar ou Destruir Água
+Druida;1;Curar Ferimentos;curar-ferimentos;3;Curar Ferimentos
+Druida;1;Detectar Magia;detectar-magia;3;Detectar Magia
+Druida;1;Detectar Veneno e Doença;detectar-veneno-e-doenca;3;Detectar Veneno e Doença
+Druida;1;Enfeitiçar Pessoa;enfeiticar-pessoa;3;Enfeitiçar Pessoa
+Druida;1;Falar com Animais;falar-com-animais;3;Falar com Animais
+Druida;1;Fogo das Fadas;fogo-das-fadas;3;Fogo das Fadas
+Druida;1;Névoa Obscurecente;nevoa-obscurecente;3;Névoa Obscurecente
+Druida;1;Onda Trovejante;onda-trovejante;3;Onda Trovejante
+Druida;1;Palavra Curativa;palavra-curativa;3;Palavra Curativa
+Druida;1;Passos Longos;passos-longos;3;Passos Longos
+Druida;1;Purificar Alimentos;purificar-alimentos;3;Purificar Alimentos
+Druida;1;Salto;salto;3;Salto
+Druida;2;Aprimorar Habilidade;aprimorar-habilidade;3;Aprimorar Habilidade
+Druida;2;Crescer Espinhos;crescer-espinhos;3;Crescer Espinhos
+Druida;2;Encontrar Armadilhas;encontrar-armadilhas;3;Encontrar Armadilhas
+Druida;2;Esfera Flamejante;esfera-flamejante;3;Esfera Flamejante
+Druida;2;Esquentar Metal;esquentar-metal;3;Esquentar Metal
+Druida;2;Imobilizar Pessoa;imobilizar-pessoa;3;Imobilizar Pessoa
+Druida;2;Lâmina Flamejante;lamina-flamejante;3;Lâmina Flamejante
+Druida;2;Localizar Animais Ou Plantas;localizar-animais-ou-plantas;3;Localizar Animais ou Plantas
+Druida;2;Localizar Objeto;localizar-objeto;3;Localizar Objeto
+Druida;2;Lufada de Vento;lufada-de-vento;3;Lufada de Vento
+Druida;2;Mensageiro Animal;mensageiro-animal;3;Mensageiro Animal
+Druida;2;Passos sem Pegadas;passos-sem-pegadas;3;Passos sem Pegadas
+Druida;2;Pele de Árvore;pele-de-arvore;3;Pele de Árvore
+Druida;2;Proteção contra Veneno;protecao-contra-veneno;3;Proteção contra Veneno
+Druida;2;Raio Lunar;raio-lunar;3;Raio Lunar
+Druida;2;Restauração Menor;restauracao-menor;3;Restauração Menor
+Druida;2;Sentido Bestial;sentido-bestial;3;Sentido Bestial
+Druida;2;Visão no Escuro;visao-no-escuro;3;Visão no Escuro
+Druida;3;Ampliar Plantas;ampliar-plantas;3;Ampliar Plantas
+Druida;3;Andar na Água;andar-na-agua;3;Andar na Água
+Druida;3;Conjurar Animais;conjurar-animais;3;Conjurar Animais
+Druida;3;Convocar Relâmpagos;convocar-relampagos;3;Convocar Relâmpagos
+Druida;3;Dissipar Magia;dissipar-magia;3;Dissipar Magia
+Druida;3;Falar com Plantas;falar-com-plantas;3;Falar com Plantas
+Druida;3;Forjar Morte;forjar-morte;3;Forjar Morte
+Druida;3;Luz do Dia;luz-do-dia;3;Luz do Dia
+Druida;3;Mesclar-Se às Rochas;mesclar-se-as-rochas;3;Mesclar-se às Rochas
+Druida;3;Muralha de Vento;muralha-de-vento;3;Muralha de Vento
+Druida;3;Nevasca;nevasca;3;Nevasca
+Druida;3;Proteção contra Energia;protecao-contra-energia;3;Proteção contra Energia
+Druida;3;Respirar na Água;respirar-na-agua;3;Respirar na Água
+Druida;4;Confusão;confusao;3;Confusão
+Druida;4;Conjurar Elementais Menores;conjurar-elementais-menores;3;Conjurar Elementais Menores
+Druida;4;Conjurar Seres da Floresta;conjurar-seres-da-floresta;3;Conjurar Seres da Floresta
+Druida;4;Controlar a Água;controlar-a-agua;3;Controlar a Água
+Druida;4;Dominar Besta;dominar-besta;3;Dominar Besta
+Druida;4;Inseto Gigante;inseto-gigante;3;Inseto Gigante
+Druida;4;Localizar Criatura;localizar-criatura;3;Localizar Criatura
+Druida;4;Malogro;malogro;3;Malogro
+Druida;4;Metamorfose;metamorfose;3;Metamorfose
+Druida;4;Moldar Rochas;moldar-rochas;3;Moldar Rochas
+Druida;4;Movimentação Livre;movimentacao-livre;3;Movimentação Livre
+Druida;4;Muralha de Fogo;muralha-de-fogo;3;Muralha de Fogo
+Druida;4;Pele de Pedra;pele-de-pedra;3;Pele de Pedra
+Druida;4;Tempestade de Gelo;tempestade-de-gelo;3;Tempestade de Gelo
+Druida;4;Terreno Alucinógeno;terreno-alucinogeno;3;Terreno Alucinógeno
+Druida;4;Vinha Esmagadora;vinha-esmagadora;3;Vinha Esmagadora
+Druida;5;Âncora Planar;ancora-planar;3;Âncora Planar
+Druida;5;Caminhar em Árvores;caminhar-em-arvores;3;Caminhar em Árvores
+Druida;5;Conjurar Elemental;conjurar-elemental;3;Conjurar Elemental
+Druida;5;Comunhão com a Natureza;comunhao-com-a-natureza;3;Comunhão com a Natureza
+Druida;5;Cúpula Antivida;cupula-antivida;3;Cúpula Antivida
+Druida;5;Curar Ferimentos em Massa;curar-ferimentos-em-massa;3;Curar Ferimentos em Massa
+Druida;5;Despertar;despertar;3;Despertar
+Druida;5;Missão;missao;3;Missão
+Druida;5;Muralha de Pedra;muralha-de-pedra;3;Muralha de Pedra
+Druida;5;Praga;praga;3;Praga
+Druida;5;Praga de Insetos;praga-de-insetos;3;Praga de Insetos
+Druida;5;Reencarnação;reencarnacao;3;Reencarnação
+Druida;5;Restauração Maior;restauracao-maior;3;Restauração Maior
+Druida;5;Vidência;videncia;3;Vidência
+Druida;6;Banquete de Heróis;banquete-de-herois;3;Banquete de Heróis
+Druida;6;Caminhar no Vento;caminhar-no-vento;3;Caminhar no Vento
+Druida;6;Conjurar Fada;conjurar-fada;3;Conjurar Fada
+Druida;6;Cura Completa;cura-completa;3;Cura Completa
+Druida;6;Encontrar o Caminho;encontrar-o-caminho;3;Encontrar o Caminho
+Druida;6;Mover Terra;mover-terra;3;Mover Terra
+Druida;6;Muralha de Espinhos;muralha-de-espinhos;3;Muralha de Espinhos
+Druida;6;Raio Solar;raio-solar;3;Raio Solar
+Druida;6;Teletransporte por Árvores;teletransporte-por-arvores;3;Teletransporte por Árvores
+Druida;7;Inverter a Gravidade;inverter-a-gravidade;3;Inverter a Gravidade
+Druida;7;Miragem;miragem;3;Miragem
+Druida;7;Regeneração;regeneracao;3;Regeneração
+Druida;7;Tempestade de Fogo;tempestade-de-fogo;3;Tempestade de Fogo
+Druida;7;Viagem Planar;viagem-planar;3;Viagem Planar
+Druida;8;Antipatia/Simpatia;antipatia-simpatia;3;Antipatia/Simpatia
+Druida;8;Controlar o Clima;controlar-o-clima;3;Controlar o Clima
+Druida;8;Enfraquecer Intelecto;enfraquecer-intelecto;3;Enfraquecer o Intelecto
+Druida;8;Explosão Solar;explosao-solar;3;Explosão Solar
+Druida;8;Formas Animais;formas-animais;4;Formas Animais
+Druida;8;Terremoto;terremoto;4;Terremoto
+Druida;8;Tsunami;tsunami;4;Tsunami
+Druida;9;Alterar Forma;alterar-forma;4;Alterar Forma
+Druida;9;Ressurreição Verdadeira;ressurreicao-verdadeira;4;Ressurreição Verdadeira
+Druida;9;Sexto Sentido;sexto-sentido;4;Sexto Sentido
+Druida;9;Tempestade da Vingança;tempestade-da-vinganca;4;Tempestade da Vingança
+Feiticeiro;0;Amizade;amizade;4;Amizade
+Feiticeiro;0;Ataque Certeiro;ataque-certeiro;4;Ataque Certeiro
+Feiticeiro;0;Consertar;consertar;4;Consertar
+Feiticeiro;0;Espirro Ácido;espirro-acido;4;Espirro Ácido
+Feiticeiro;0;Globos de Luz;globos-de-luz;4;Globos de Luz
+Feiticeiro;0;Ilusão Menor;ilusao-menor;4;Ilusão Menor
+Feiticeiro;0;Luz;luz;4;Luz
+Feiticeiro;0;Mãos Mágicas;maos-magicas;4;Mãos Mágicas
+Feiticeiro;0;Mensagem;mensagem;4;Mensagem
+Feiticeiro;0;Prestidigitação;prestidigitacao;4;Prestidigitação
+Feiticeiro;0;Proteção contra Lâminas;protecao-contra-laminas;4;Proteção contra Lâminas
+Feiticeiro;0;Raio de Fogo;raio-de-fogo;4;Raio de Fogo
+Feiticeiro;0;Raio de Gelo;raio-de-gelo;4;Raio de Gelo
+Feiticeiro;0;Rajada de Veneno;rajada-de-veneno;4;Rajada de Veneno
+Feiticeiro;0;Toque Arrepiante;toque-arrepiante;4;Toque Arrepiante
+Feiticeiro;0;Toque Chocante;toque-chocante;4;Toque Chocante
+Feiticeiro;1;Armadura Arcana;armadura-arcana;4;Armadura Arcana
+Feiticeiro;1;Compreender Idiomas;compreender-idiomas;4;Compreender Idiomas
+Feiticeiro;1;Detectar Magia;detectar-magia;4;Detectar Magia
+Feiticeiro;1;Disfarçar-Se;disfarcar-se;4;Disfarçar-se
+Feiticeiro;1;Enfeitiçar Pessoa;enfeiticar-pessoa;4;Enfeitiçar Pessoa
+Feiticeiro;1;Escudo Arcano;escudo-arcano;4;Escudo Arcano
+Feiticeiro;1;Imagem Silenciosa;imagem-silenciosa;4;Imagem Silenciosa
+Feiticeiro;1;Leque Cromático;leque-cromatico;4;Leque Cromático
+Feiticeiro;1;Mãos Flamejantes;maos-flamejantes;4;Mãos Flamejantes
+Feiticeiro;1;Mísseis Mágicos;misseis-magicos;4;Mísseis Mágicos
+Feiticeiro;1;Névoa Obscurecente;nevoa-obscurecente;4;Névoa Obscurecente
+Feiticeiro;1;Onda Trovejante;onda-trovejante;4;Onda Trovejante
+Feiticeiro;1;Orbe Cromática;orbe-cromatica;4;Orbe Cromática
+Feiticeiro;1;Queda Suave;queda-suave;4;Queda Suave
+Feiticeiro;1;Raio Adoecente;raio-adoecente;4;Raio Adoecente
+Feiticeiro;1;Raio de Bruxa;raio-de-bruxa;4;Raio de Bruxa
+Feiticeiro;1;Recuo Acelerado;recuo-acelerado;4;Recuo Acelerado
+Feiticeiro;1;Sono;sono;4;Sono
+Feiticeiro;1;Salto;salto;4;Salto
+Feiticeiro;1;Vitalidade Falsa;vitalidade-falsa;4;Vitalidade Falsa
+Feiticeiro;2;Alterar-Se;alterar-se;4;Alterar-se
+Feiticeiro;2;Aprimorar Habilidade;aprimorar-habilidade;4;Aprimorar Habilidade
+Feiticeiro;2;Arrombar;arrombar;4;Arrombar
+Feiticeiro;2;Aumentar/Reduzir;aumentar-reduzir;4;Aumentar/Reduzir
+Feiticeiro;2;Cegueira/Surdez;cegueira-surdez;4;Cegueira/Surdez
+Feiticeiro;2;Coroa da Loucura;coroa-da-loucura;4;Coroa da Loucura
+Feiticeiro;2;Despedaçar;despedacar;4;Despedaçar
+Feiticeiro;2;Detectar Pensamentos;detectar-pensamentos;4;Detectar Pensamentos
+Feiticeiro;2;Escuridão;escuridao;4;Escuridão
+Feiticeiro;2;Força Fantasmagórica;forca-fantasmagorica;4;Força Fantasmagórica
+Feiticeiro;2;Imobilizar Pessoa;imobilizar-pessoa;4;Imobilizar Pessoa
+Feiticeiro;2;Invisibilidade;invisibilidade;4;Invisibilidade
+Feiticeiro;2;Levitação;levitacao;4;Levitação
+Feiticeiro;2;Lufada de Vento;lufada-de-vento;4;Lufada de Vento
+Feiticeiro;2;Nublar;nublar;4;Nublar
+Feiticeiro;2;Nuvem de Adagas;nuvem-de-adagas;4;Nuvem de Adagas
+Feiticeiro;2;Passo Nebuloso;passo-nebuloso;4;Passo Nebuloso
+Feiticeiro;2;Patas de Aranha;patas-de-aranha;4;Patas de Aranha
+Feiticeiro;2;Raio Ardente;raio-ardente;4;Raio Ardente
+Feiticeiro;2;Reflexos;reflexos;4;Reflexos
+Feiticeiro;2;Sugestão;sugestao;4;Sugestão
+Feiticeiro;2;Teia;teia;4;Teia
+Feiticeiro;2;Visão no Escuro;visao-no-escuro;4;Visão no Escuro
+Feiticeiro;2;Ver o Invisível;ver-o-invisivel;4;Ver o Invisível
+Feiticeiro;3;Andar na Água;andar-na-agua;4;Andar na Água
+Feiticeiro;3;Bola de Fogo;bola-de-fogo;4;Bola de Fogo
+Feiticeiro;3;Clarividência;clarividencia;4;Clarividência
+Feiticeiro;3;Contramágica;contramagica;4;Contramágica
+Feiticeiro;3;Dissipar Magia;dissipar-magia;4;Dissipar Magia
+Feiticeiro;3;Forma Gasosa;forma-gasosa;4;Forma Gasosa
+Feiticeiro;3;Idiomas;idiomas;4;Idiomas
+Feiticeiro;3;Imagem Maior;imagem-maior;4;Imagem Maior
+Feiticeiro;3;Lentidão;lentidao;4;Lentidão
+Feiticeiro;3;Luz do Dia;luz-do-dia;4;Luz do Dia
+Feiticeiro;3;Medo;medo;4;Medo
+Feiticeiro;3;Nevasca;nevasca;4;Nevasca
+Feiticeiro;3;Névoa Fétida;nevoa-fetida;4;Névoa Fétida
+Feiticeiro;3;Padrão Hipnótico;padrao-hipnotico;4;Padrão Hipnótico
+Feiticeiro;3;Piscar;piscar;4;Piscar
+Feiticeiro;3;Proteção contra Energia;protecao-contra-energia;4;Proteção contra Energia
+Feiticeiro;3;Relâmpago;relampago;4;Relâmpago
+Feiticeiro;3;Respirar na Água;respirar-na-agua;4;Respirar na Água
+Feiticeiro;3;Velocidade;velocidade;4;Velocidade
+Feiticeiro;3;Voo;voo;4;Voo
+Feiticeiro;4;Banimento;banimento;4;Banimento
+Feiticeiro;4;Confusão;confusao;4;Confusão
+Feiticeiro;4;Dominar Besta;dominar-besta;4;Dominar Besta
+Feiticeiro;4;Invisibilidade Maior;invisibilidade-maior;4;Invisibilidade Maior
+Feiticeiro;4;Malogro;malogro;4;Malogro
+Feiticeiro;4;Metamorfose;metamorfose;4;Metamorfose
+Feiticeiro;4;Muralha de Fogo;muralha-de-fogo;4;Muralha de Fogo
+Feiticeiro;4;Pele de Pedra;pele-de-pedra;4;Pele de Pedra
+Feiticeiro;4;Porta Dimensional;porta-dimensional;4;Porta Dimensional
+Feiticeiro;4;Tempestade de Gelo;tempestade-de-gelo;4;Tempestade de Gelo
+Feiticeiro;5;Animar Objetos;animar-objetos;4;Animar Objetos
+Feiticeiro;5;Círculo de Teletransporte;circulo-de-teletransporte;4;Círculo de Teletransporte
+Feiticeiro;5;Cone de Frio;cone-de-frio;4;Cone de Frio
+Feiticeiro;5;Criação;criacao;4;Criação
+Feiticeiro;5;Dominar Pessoa;dominar-pessoa;4;Dominar Pessoa
+Feiticeiro;5;Imobilizar Monstro;imobilizar-monstro;4;Imobilizar Monstro
+Feiticeiro;5;Muralha de Pedra;muralha-de-pedra;4;Muralha de Pedra
+Feiticeiro;5;Névoa Mortal;nevoa-mortal;4;Névoa Mortal
+Feiticeiro;5;Praga de Insetos;praga-de-insetos;4;Praga de Insetos
+Feiticeiro;5;Similaridade;similaridade;4;Similaridade
+Feiticeiro;5;Telecinésia;telecinesia;4;Telecinésia
+Feiticeiro;6;Ataque Visual;ataque-visual;4;Ataque Visual
+Feiticeiro;6;Círculo da Morte;circulo-da-morte;4;Círculo da Morte
+Feiticeiro;6;Corrente de Relâmpagos;corrente-de-relampagos;4;Corrente de Relâmpagos
+Feiticeiro;6;Desintegrar;desintegrar;4;Desintegrar
+Feiticeiro;6;Globo de Invulnerabilidade;globo-de-invulnerabilidade;4;Globo de Invulnerabilidade
+Feiticeiro;6;Mover Terra;mover-terra;4;Mover Terra
+Feiticeiro;6;Portal Arcano;portal-arcano;4;Portal Arcano
+Feiticeiro;6;Raio Solar;raio-solar;4;Raio Solar
+Feiticeiro;6;Sugestão em Massa;sugestao-em-massa;4;Sugestão em Massa
+Feiticeiro;6;Visão da Verdade;visao-da-verdade;4;Visão da Verdade
+Feiticeiro;7;Bola de Fogo Controlável;bola-de-fogo-controlavel;4;Bola de Fogo Controlável
+Feiticeiro;7;Dedo da Morte;dedo-da-morte;4;Dedo da Morte
+Feiticeiro;7;Forma Etérea;forma-eterea;4;Forma Etérea
+Feiticeiro;7;Inverter a Gravidade;inverter-a-gravidade;4;Inverter a Gravidade
+Feiticeiro;7;Rajada Prismática;rajada-prismatica;4;Rajada Prismática
+Feiticeiro;7;Teletransporte;teletransporte;4;Teletransporte
+Feiticeiro;7;Tempestade de Fogo;tempestade-de-fogo;4;Tempestade de Fogo
+Feiticeiro;7;Viagem Planar;viagem-planar;4;Viagem Planar
+Feiticeiro;8;Dominar Monstro;dominar-monstro;4;Dominar Monstro
+Feiticeiro;8;Explosão Solar;explosao-solar;4;Explosão Solar
+Feiticeiro;8;Nuvem Incendiária;nuvem-incendiaria;4;Nuvem Incendiária
+Feiticeiro;8;Palavra de Poder Atordoar;palavra-de-poder-atordoar;4;Palavra de Poder Atordoar
+Feiticeiro;8;Terremoto;terremoto;4;Terremoto
+Feiticeiro;9;Chuva de Meteoros;chuva-de-meteoros;4;Chuva de Meteoros
+Feiticeiro;9;Desejo;desejo;4;Desejo
+Feiticeiro;9;Palavra de Poder Matar;palavra-de-poder-matar;4;Palavra de Poder Matar
+Feiticeiro;9;Parar o Tempo;parar-o-tempo;4;Parar o Tempo
+Feiticeiro;9;Portal;portal;4;Portal
+Mago;0;Amizade;amizade;4;Amizade
+Mago;0;Ataque Certeiro;ataque-certeiro;4;Ataque Certeiro
+Mago;0;Consertar;consertar;4;Consertar
+Mago;0;Espirro Ácido;espirro-acido;4;Espirro Ácido
+Mago;0;Globos de Luz;globos-de-luz;4;Globos de Luz
+Mago;0;Ilusão Menor;ilusao-menor;4;Ilusão Menor
+Mago;0;Luz;luz;4;Luz
+Mago;0;Mãos Mágicas;maos-magicas;4;Mãos Mágicas
+Mago;0;Mensagem;mensagem;4;Mensagem
+Mago;0;Prestidigitação;prestidigitacao;4;Prestidigitação
+Mago;0;Proteção contra Lâminas;protecao-contra-laminas;4;Proteção contra Lâminas
+Mago;0;Raio de Fogo;raio-de-fogo;4;Raio de Fogo
+Mago;0;Raio de Gelo;raio-de-gelo;5;Raio de Gelo
+Mago;0;Rajada de Veneno;rajada-de-veneno;5;Rajada de Veneno
+Mago;0;Toque Arrepiante;toque-arrepiante;5;Toque Arrepiante
+Mago;0;Toque Chocante;toque-chocante;5;Toque Chocante
+Mago;1;Alarme;alarme;5;Alarme
+Mago;1;Área Escorregadia;area-escorregadia;5;Área Escorregadia
+Mago;1;Armadura Arcana;armadura-arcana;5;Armadura Arcana
+Mago;1;Compreender Idiomas;compreender-idiomas;5;Compreender Idiomas
+Mago;1;Convocar Familiar;convocar-familiar;5;Convocar Familiar
+Mago;1;Detectar Magia;detectar-magia;5;Detectar Magia
+Mago;1;Disco Flutuante de Tenser;disco-flutuante-de-tenser;5;Disco Flutuante de Tenser
+Mago;1;Disfarçar-Se;disfarcar-se;5;Disfarçar-se
+Mago;1;Enfeitiçar Pessoa;enfeiticar-pessoa;5;Enfeitiçar Pessoa
+Mago;1;Escrita Ilusória;escrita-ilusoria;5;Escrita Ilusória
+Mago;1;Escudo Arcano;escudo-arcano;5;Escudo Arcano
+Mago;1;Identificação;identificacao;5;Identificação
+Mago;1;Imagem Silenciosa;imagem-silenciosa;5;Imagem Silenciosa
+Mago;1;Leque Cromático;leque-cromatico;5;Leque Cromático
+Mago;1;Mãos Flamejantes;maos-flamejantes;5;Mãos Flamejantes
+Mago;1;Mísseis Mágicos;misseis-magicos;5;Mísseis Mágicos
+Mago;1;Névoa Obscurecente;nevoa-obscurecente;5;Névoa Obscurecente
+Mago;1;Onda Trovejante;onda-trovejante;5;Onda Trovejante
+Mago;1;Orbe Cromática;orbe-cromatica;5;Orbe Cromática
+Mago;1;Passos Longos;passos-longos;5;Passos Longos
+Mago;1;Proteção contra o Bem e Mal;protecao-contra-o-bem-e-mal;5;Proteção contra o Bem e Mal
+Mago;1;Queda Suave;queda-suave;5;Queda Suave
+Mago;1;Raio Adoecente;raio-adoecente;5;Raio Adoecente
+Mago;1;Raio de Bruxa;raio-de-bruxa;5;Raio de Bruxa
+Mago;1;Recuo Acelerado;recuo-acelerado;5;Recuo Acelerado
+Mago;1;Riso Histérico de Tasha;riso-histerico-de-tasha;5;Riso Histérico de Tasha
+Mago;1;Salto;salto;5;Salto
+Mago;1;Servo Invisível;servo-invisivel;5;Servo Invisível
+Mago;1;Sono;sono;5;Sono
+Mago;1;Vitalidade Falsa;vitalidade-falsa;5;Vitalidade Falsa
+Mago;2;Alterar-Se;alterar-se;5;Alterar-se
+Mago;2;Arma Mágica;arma-magica;5;Arma Mágica
+Mago;2;Arrombar;arrombar;5;Arrombar
+Mago;2;Aumentar/Reduzir;aumentar-reduzir;5;Aumentar/Reduzir
+Mago;2;Aura Mágica de Nystul;aura-magica-de-nystul;5;Aura Mágica de Nystul
+Mago;2;Boca Encantada;boca-encantada;5;Boca Encantada
+Mago;2;Cegueira/Surdez;cegueira-surdez;5;Cegueira/Surdez
+Mago;2;Chama Contínua;chama-continua;5;Chama Continua
+Mago;2;Coroa da Loucura;coroa-da-loucura;5;Coroa da Loucura
+Mago;2;Despedaçar;despedacar;5;Despedaçar
+Mago;2;Detectar Pensamentos;detectar-pensamentos;5;Detectar Pensamentos
+Mago;2;Escuridão;escuridao;5;Escuridão
+Mago;2;Esfera Flamejante;esfera-flamejante;5;Esfera Flamejante
+Mago;2;Flecha Ácida de Melf;flecha-acida-de-melf;5;Flecha Ácida de Melf
+Mago;2;Força Fantasmagórica;forca-fantasmagorica;5;Força Fantasmagórica
+Mago;2;Imobilizar Pessoa;imobilizar-pessoa;5;Imobilizar Pessoa
+Mago;2;Invisibilidade;invisibilidade;5;Invisibilidade
+Mago;2;Levitação;levitacao;5;Levitação
+Mago;2;Localizar Objeto;localizar-objeto;5;Localizar Objeto
+Mago;2;Lufada de Vento;lufada-de-vento;5;Lufada de Vento
+Mago;2;Nublar;nublar;5;Nublar
+Mago;2;Nuvem de Adagas;nuvem-de-adagas;5;Nuvem de Adagas
+Mago;2;Passo Nebuloso;passo-nebuloso;5;Passo Nebuloso
+Mago;2;Patas de Aranha;patas-de-aranha;5;Patas de Aranha
+Mago;2;Raio Ardente;raio-ardente;5;Raio Ardente
+Mago;2;Raio do Enfraquecimento;raio-do-enfraquecimento;5;Raio do Enfraquecimento
+Mago;2;Reflexos;reflexos;5;Reflexos
+Mago;2;Repouso Tranquilo;repouso-tranquilo;5;Repouso Tranquilo
+Mago;2;Sugestão;sugestao;5;Sugestão
+Mago;2;Teia;teia;5;Teia
+Mago;2;Tranca Arcana;tranca-arcana;5;Tranca Arcana
+Mago;2;Truque de Corda;truque-de-corda;5;Truque de Corda
+Mago;2;Ver o Invisível;ver-o-invisivel;5;Ver o Invisível
+Mago;2;Visão no Escuro;visao-no-escuro;5;Visão no Escuro
+Mago;3;Animar Mortos;animar-mortos;5;Animar Mortos
+Mago;3;Bola de Fogo;bola-de-fogo;5;Bola de Fogo
+Mago;3;Círculo Mágico;circulo-magico;5;Círculo Mágico
+Mago;3;Clarividência;clarividencia;5;Clarividência
+Mago;3;Contramágica;contramagica;5;Contramágica
+Mago;3;Dificultar Detecção;dificultar-deteccao;5;Dificultar Detecção
+Mago;3;Dissipar Magia;dissipar-magia;5;Dissipar Magia
+Mago;3;Enviar Mensagem;enviar-mensagem;5;Enviar Mensagem
+Mago;3;Forjar Morte;forjar-morte;5;Forjar Morte
+Mago;3;Forma Gasosa;forma-gasosa;5;Forma Gasosa
+Mago;3;Glifo de Vigilância;glifo-de-vigilancia;5;Glifo de Vigilância
+Mago;3;Idiomas;idiomas;5;Idiomas
+Mago;3;Imagem Maior;imagem-maior;5;Imagem Maior
+Mago;3;Lentidão;lentidao;5;Lentidão
+Mago;3;Medo;medo;5;Medo
+Mago;3;Montaria Fantasmagórica;montaria-fantasmagorica;5;Montaria Fantasmagórica
+Mago;3;Nevasca;nevasca;5;Nevasca
+Mago;3;Névoa Fétida;nevoa-fetida;5;Névoa Fétida
+Mago;3;Padrão Hipnótico;padrao-hipnotico;5;Padrão Hipnótico
+Mago;3;Pequena Cabana de Leomund;pequena-cabana-de-leomund;5;Pequena Cabana de Leomund
+Mago;3;Piscar;piscar;5;Piscar
+Mago;3;Proteção contra Energia;protecao-contra-energia;5;Proteção contra Energia
+Mago;3;Relâmpago;relampago;5;Relâmpago
+Mago;3;Remover Maldição;remover-maldicao;5;Remover Maldição
+Mago;3;Respirar na Água;respirar-na-agua;5;Respirar na Água
+Mago;3;Rogar Maldição;rogar-maldicao;5;Rogar Maldição
+Mago;3;Toque Vampírico;toque-vampirico;5;Toque Vampírico
+Mago;3;Velocidade;velocidade;5;Velocidade
+Mago;3;Voo;voo;5;Voo
+Mago;4;Arca Secreta de Leomund;arca-secreta-de-leomund;5;Arca Secreta de Leomund
+Mago;4;Assassino Fantasmagórico;assassino-fantasmagorico;5;Assassino Fantasmagórico
+Mago;4;Banimento;banimento;5;Banimento
+Mago;4;Cão Fiel de Mordenkainen;cao-fiel-de-mordenkainen;5;Cão Fiel de Mordenkainen
+Mago;4;Confusão;confusao;5;Confusão
+Mago;4;Conjurar Elementais Menores;conjurar-elementais-menores;5;Conjurar Elementais Menores
+Mago;4;Controlar a Água;controlar-a-agua;5;Controlar a Água
+Mago;4;Escudo de Fogo;escudo-de-fogo;5;Escudo de Fogo
+Mago;4;Esfera Resiliente de Otiluke;esfera-resiliente-de-otiluke;5;Esfera Resiliente de Otiluke
+Mago;4;Fabricar;fabricar;5;Fabricar
+Mago;4;Invisibilidade Maior;invisibilidade-maior;5;Invisibilidade Maior
+Mago;4;Localizar Criatura;localizar-criatura;5;Localizar Criatura
+Mago;4;Malogro;malogro;5;Malogro
+Mago;4;Metamorfose;metamorfose;5;Metamorfose
+Mago;4;Moldar Rochas;moldar-rochas;5;Moldar Rochas
+Mago;4;Muralha de Fogo;muralha-de-fogo;5;Muralha de Fogo
+Mago;4;Olho Arcano;olho-arcano;5;Olho Arcano
+Mago;4;Pele de Pedra;pele-de-pedra;5;Pele de Pedra
+Mago;4;Porta Dimensional;porta-dimensional;5;Porta Dimensional
+Mago;4;Santuário Particular de Mordenkainen;santuario-particular-de-mordenkainen;5;Santuário Particular de Mordenkainen
+Mago;4;Tempestade de Gelo;tempestade-de-gelo;5;Tempestade de Gelo
+Mago;4;Tentáculos Negros de Evard;tentaculos-negros-de-evard;5;Tentáculos Negros de Evard
+Mago;4;Terreno Alucinógeno;terreno-alucinogeno;5;Terreno Alucinógeno
+Mago;5;Âncora Planar;ancora-planar;5;Âncora Planar
+Mago;5;Animar Objetos;animar-objetos;5;Animar Objetos
+Mago;5;Círculo de Teletransporte;circulo-de-teletransporte;5;Círculo de Teletransporte
+Mago;5;Cone de Frio;cone-de-frio;5;Cone de Frio
+Mago;5;Conhecimento Lendário;conhecimento-lendario;5;Conhecimento Lendário
+Mago;5;Conjurar Elemental;conjurar-elemental;5;Conjurar Elemental
+Mago;5;Contato Extraplanar;contato-extraplanar;5;Contato Extraplanar
+Mago;5;Criação;criacao;5;Criação
+Mago;5;Criar Passagem;criar-passagem;5;Criar Passagem
+Mago;5;Despistar;despistar;5;Despistar
+Mago;5;Dominar Pessoa;dominar-pessoa;5;Dominar Pessoa
+Mago;5;Imobilizar Monstro;imobilizar-monstro;5;Imobilizar Monstro
+Mago;5;Ligação Telepática de Rary;ligacao-telepatica-de-rary;5;Ligação Telepática de Rary
+Mago;5;Mão de Bigby;mao-de-bigby;5;Mão de Bigby
+Mago;5;Missão;missao;5;Missão
+Mago;5;Modificar Memória;modificar-memoria;5;Modificar Memória
+Mago;5;Muralha de Energia;muralha-de-energia;5;Muralha de Energia
+Mago;5;Muralha de Pedra;muralha-de-pedra;5;Muralha de Pedra
+Mago;5;Névoa Mortal;nevoa-mortal;5;Névoa Mortal
+Mago;5;Similaridade;similaridade;5;Similaridade
+Mago;5;Sonho;sonho;5;Sonho
+Mago;5;Telecinésia;telecinesia;5;Telecinésia
+Mago;5;Vidência;videncia;5;Vidência
+Mago;6;Ataque Visual;ataque-visual;5;Ataque Visual
+Mago;6;Carne para Pedra;carne-para-pedra;5;Carne para Pedra
+Mago;6;Círculo da Morte;circulo-da-morte;5;Círculo da Morte
+Mago;6;Contingência;contingencia;5;Contingência
+Mago;6;Corrente de Relâmpagos;corrente-de-relampagos;5;Corrente de Relâmpagos
+Mago;6;Criar Mortos-Vivos;criar-mortos-vivos;5;Criar Mortos-Vivos
+Mago;6;Dança Irresistível de Otto;danca-irresistivel-de-otto;5;Dança Irresistível de Otto
+Mago;6;Desintegrar;desintegrar;5;Desintegrar
+Mago;6;Esfera Congelante de Otiluke;esfera-congelante-de-otiluke;5;Esfera Congelante de Otiluke
+Mago;6;Globo de Invulnerabilidade;globo-de-invulnerabilidade;5;Globo de Invulnerabilidade
+Mago;6;Ilusão Programada;ilusao-programada;5;Ilusão Programada
+Mago;6;Invocação Instantânea de Drawmij;invocacao-instantanea-de-drawmij;5;Invocação Instantânea de Drawmij
+Mago;6;Mover Terra;mover-terra;5;Mover Terra
+Mago;6;Muralha de Gelo;muralha-de-gelo;5;Muralha de Gelo
+Mago;6;Portal Arcano;portal-arcano;5;Portal Arcano
+Mago;6;Proteger Fortaleza;proteger-fortaleza;5;Proteger Fortaleza
+Mago;6;Raio Solar;raio-solar;6;Raio Solar
+Mago;6;Recipiente Arcano;recipiente-arcano;6;Recipiente Arcano
+Mago;6;Sugestão em Massa;sugestao-em-massa;6;Sugestão em Massa
+Mago;6;Visão da Verdade;visao-da-verdade;6;Visão da Verdade
+Mago;7;Bola de Fogo Controlável;bola-de-fogo-controlavel;6;Bola de Fogo Controlável
+Mago;7;Dedo da Morte;dedo-da-morte;6;Dedo da Morte
+Mago;7;Espada de Mordenkainen;espada-de-mordenkainen;6;Espada de Mordenkainen
+Mago;7;Inverter a Gravidade;inverter-a-gravidade;6;Inverter a Gravidade
+Mago;7;Isolamento;isolamento;6;Isolamento
+Mago;7;Forma Etérea;forma-eterea;6;Forma Etérea
+Mago;7;Mansão Magnífica de Mordenkainen;mansao-magnifica-de-mordenkainen;6;Mansão Magnifica de Mordenkainen
+Mago;7;Miragem;miragem;6;Miragem
+Mago;7;Prisão de Energia;prisao-de-energia;6;Prisão de Energia
+Mago;7;Projetar Imagem;projetar-imagem;6;Projetar Imagem
+Mago;7;Rajada Prismática;rajada-prismatica;6;Rajada Prismática
+Mago;7;Símbolo;simbolo;6;Símbolo
+Mago;7;Simulacro;simulacro;6;Simulacro
+Mago;7;Teletransporte;teletransporte;6;Teletransporte
+Mago;7;Viagem Planar;viagem-planar;6;Viagem Planar
+Mago;8;Antipatia/Simpatia;antipatia-simpatia;6;Antipatia/Simpatia
+Mago;8;Campo Antimagia;campo-antimagia;6;Campo Antimagia
+Mago;8;Clone;clone;6;Clone
+Mago;8;Controlar o Clima;controlar-o-clima;6;Controlar o Clima
+Mago;8;Dominar Monstro;dominar-monstro;6;Dominar Monstro
+Mago;8;Enfraquecer Intelecto;enfraquecer-intelecto;6;Enfraquecer o Intelecto
+Mago;8;Explosão Solar;explosao-solar;6;Explosão Solar
+Mago;8;Labirinto;labirinto;6;Labirinto
+Mago;8;Limpar a Mente;limpar-a-mente;6;Limpar a Mente
+Mago;8;Nuvem Incendiária;nuvem-incendiaria;6;Nuvem Incendiária
+Mago;8;Palavra de Poder Atordoar;palavra-de-poder-atordoar;6;Palavra de Poder Atordoar
+Mago;8;Semiplano;semiplano;6;Semiplano
+Mago;8;Telepatia;telepatia;6;Telepatia
+Mago;9;Alterar Forma;alterar-forma;6;Alterar Forma
+Mago;9;Aprisionamento;aprisionamento;6;Aprisionamento
+Mago;9;Chuva de Meteoros;chuva-de-meteoros;6;Chuva de Meteoros
+Mago;9;Desejo;desejo;6;Desejo
+Mago;9;Encarnação Fantasmagórica;encarnacao-fantasmagorica;6;Encarnação Fantasmagórica
+Mago;9;Metamorfose Verdadeira;metamorfose-verdadeira;6;Metamorfose Verdadeira
+Mago;9;Muralha Prismática;muralha-prismatica;6;Muralha Prismática
+Mago;9;Palavra de Poder Matar;palavra-de-poder-matar;6;Palavra de Poder Matar
+Mago;9;Parar o Tempo;parar-o-tempo;6;Parar o Tempo
+Mago;9;Portal;portal;6;Portal
+Mago;9;Projeção Astral;projecao-astral;6;Projeção Astral
+Mago;9;Sexto Sentido;sexto-sentido;6;Sexto Sentido
+Paladino;1;Auxílio Divino;auxilio-divino;6;Auxílio Divino
+Paladino;1;Bênção;bencao;6;Bênção
+Paladino;1;Comando;comando;6;Comando
+Paladino;1;Curar Ferimentos;curar-ferimentos;6;Curar Ferimentos
+Paladino;1;Destruição Colérica;destruicao-colerica;6;Destruição Colérica
+Paladino;1;Destruição Lancinante;destruicao-lancinante;6;Destruição Lancinante
+Paladino;1;Destruição Trovejante;destruicao-trovejante;6;Destruição Trovejante
+Paladino;1;Detectar o Bem e Mal;detectar-o-bem-e-mal;6;Detectar o Bem e Mal
+Paladino;1;Detectar Magia;detectar-magia;6;Detectar Magia
+Paladino;1;Detectar Veneno e Doença;detectar-veneno-e-doenca;6;Detectar Veneno e Doença
+Paladino;1;Duelo Compelido;duelo-compelido;6;Duelo Compelido
+Paladino;1;Escudo da Fé;escudo-da-fe;6;Escudo da Fé
+Paladino;1;Heroísmo;heroismo;6;Heroísmo
+Paladino;1;Proteção contra o Bem e Mal;protecao-contra-o-bem-e-mal;6;Proteção contra o Bem e Mal
+Paladino;1;Purificar Alimentos;purificar-alimentos;6;Purificar Alimentos
+Paladino;2;Ajuda;ajuda;6;Ajuda
+Paladino;2;Arma Mágica;arma-magica;6;Arma Mágica
+Paladino;2;Convocar Montaria;convocar-montaria;6;Convocar Montaria
+Paladino;2;Localizar Objeto;localizar-objeto;6;Localizar Objeto
+Paladino;2;Marca da Punição;marca-da-punicao;6;Marca da Punição
+Paladino;2;Proteção contra Veneno;protecao-contra-veneno;6;Proteção contra Veneno
+Paladino;2;Restauração Menor;restauracao-menor;6;Restauração Menor
+Paladino;2;Zona da Verdade;zona-da-verdade;6;Zona da Verdade
+Paladino;3;Arma Elemental;arma-elemental;6;Arma Elemental
+Paladino;3;Aura de Vitalidade;aura-de-vitalidade;6;Aura de Vitalidade
+Paladino;3;Círculo Mágico;circulo-magico;6;Círculo Mágico
+Paladino;3;Criar Alimentos;criar-alimentos;6;Criar Alimentos
+Paladino;3;Destruição Cegante;destruicao-cegante;6;Destruição Cegante
+Paladino;3;Dissipar Magia;dissipar-magia;6;Dissipar Magia
+Paladino;3;Luz do Dia;luz-do-dia;6;Luz do Dia
+Paladino;3;Manto do Cruzado;manto-do-cruzado;6;Manto do Cruzado
+Paladino;3;Remover Maldição;remover-maldicao;6;Remover Maldição
+Paladino;3;Revivificar;revivificar;6;Revivificar
+Paladino;4;Aura de Pureza;aura-de-pureza;6;Aura de Pureza
+Paladino;4;Aura de Vida;aura-de-vida;6;Aura de Vida
+Paladino;4;Banimento;banimento;6;Banimento
+Paladino;4;Destruição Estonteante;destruicao-estonteante;6;Destruição Estonteante
+Paladino;4;Localizar Criatura;localizar-criatura;6;Localizar Criatura
+Paladino;4;Proteção contra a Morte;protecao-contra-a-morte;6;Proteção contra a Morte
+Paladino;5;Círculo de Poder;circulo-de-poder;6;Círculo de Poder
+Paladino;5;Destruição Banidora;destruicao-banidora;6;Destruição Banidora
+Paladino;5;Dissipar o Bem e Mal;dissipar-o-bem-e-mal;6;Dissipar o Bem e Mal
+Paladino;5;Missão;missao;6;Missão
+Paladino;5;Onda Destrutiva;onda-destrutiva;6;Onda Destrutiva
+Paladino;5;Reviver os Mortos;reviver-os-mortos;6;Reviver os Mortos
+Patrulheiro;1;Alarme;alarme;6;Alarme
+Patrulheiro;1;Amizade Animal;amizade-animal;6;Amizade Animal
+Patrulheiro;1;Bom Fruto;bom-fruto;6;Bom Fruto
+Patrulheiro;1;Curar Ferimentos;curar-ferimentos;6;Curar Ferimentos
+Patrulheiro;1;Detectar Magia;detectar-magia;6;Detectar Magia
+Patrulheiro;1;Detectar Veneno e Doença;detectar-veneno-e-doenca;6;Detectar Veneno e Doença
+Patrulheiro;1;Falar com Animais;falar-com-animais;6;Falar com Animais
+Patrulheiro;1;Golpe Constritor;golpe-constritor;6;Golpe Constritor
+Patrulheiro;1;Marca do Caçador;marca-do-cacador;6;Marca do Caçador
+Patrulheiro;1;Névoa Obscurecente;nevoa-obscurecente;6;Névoa Obscurecente
+Patrulheiro;1;Passos Longos;passos-longos;6;Passos Longos
+Patrulheiro;1;Salto;salto;6;Salto
+Patrulheiro;1;Saraivada de Espinhos;saraivada-de-espinhos;6;Saraivada de Espinhos
+Patrulheiro;2;Cordão de Flechas;cordao-de-flechas;6;Cordão de Flechas
+Patrulheiro;2;Crescer Espinhos;crescer-espinhos;6;Crescer Espinhos
+Patrulheiro;2;Encontrar Armadilhas;encontrar-armadilhas;6;Encontrar Armadilhas
+Patrulheiro;2;Localizar Animais Ou Plantas;localizar-animais-ou-plantas;6;Localizar Animais ou Plantas
+Patrulheiro;2;Localizar Objeto;localizar-objeto;6;Localizar Objeto
+Patrulheiro;2;Mensageiro Animal;mensageiro-animal;6;Mensageiro Animal
+Patrulheiro;2;Passos sem Pegadas;passos-sem-pegadas;6;Passos sem Pegadas
+Patrulheiro;2;Pele de Árvore;pele-de-arvore;6;Pele de Árvore
+Patrulheiro;2;Proteção contra Veneno;protecao-contra-veneno;6;Proteção contra Veneno
+Patrulheiro;2;Restauração Menor;restauracao-menor;6;Restauração Menor
+Patrulheiro;2;Sentido Bestial;sentido-bestial;6;Sentido Bestial
+Patrulheiro;2;Silêncio;silencio;6;Silêncio
+Patrulheiro;2;Visão no Escuro;visao-no-escuro;6;Visão no Escuro
+Patrulheiro;3;Ampliar Plantas;ampliar-plantas;6;Ampliar Plantas
+Patrulheiro;3;Andar na Água;andar-na-agua;6;Andar na Água
+Patrulheiro;3;Conjurar Animais;conjurar-animais;6;Conjurar Animais
+Patrulheiro;3;Conjurar Rajada;conjurar-rajada;6;Conjurar Rajada
+Patrulheiro;3;Dificultar Detecção;dificultar-deteccao;6;Dificultar Detecção
+Patrulheiro;3;Falar com Plantas;falar-com-plantas;6;Falar com Plantas
+Patrulheiro;3;Flecha Relampejante;flecha-relampejante;6;Flecha Relampejante
+Patrulheiro;3;Luz do Dia;luz-do-dia;6;Luz do Dia
+Patrulheiro;3;Muralha de Vento;muralha-de-vento;6;Muralha de Vento
+Patrulheiro;3;Proteção contra Energia;protecao-contra-energia;6;Proteção contra Energia
+Patrulheiro;3;Respirar na Água;respirar-na-agua;6;Respirar na Água
+Patrulheiro;4;Conjurar Seres da Floresta;conjurar-seres-da-floresta;6;Conjurar Seres da Floresta
+Patrulheiro;4;Localizar Criatura;localizar-criatura;6;Localizar Criatura
+Patrulheiro;4;Movimentação Livre;movimentacao-livre;6;Movimentação Livre
+Patrulheiro;4;Pele de Pedra;pele-de-pedra;6;Pele de Pedra
+Patrulheiro;4;Vinha Esmagadora;vinha-esmagadora;6;Vinha Esmagadora
+Patrulheiro;5;Aljava Veloz;aljava-veloz;6;Aljava Veloz
+Patrulheiro;5;Caminhar em Árvores;caminhar-em-arvores;6;Caminhar em Árvores
+Patrulheiro;5;Comunhão com a Natureza;comunhao-com-a-natureza;6;Comunhão com a Natureza
+Patrulheiro;5;Conjurar Saraivada;conjurar-saraivada;6;Conjurar Saraivada
