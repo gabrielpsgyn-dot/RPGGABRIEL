@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPG Gabriel - Ficha Online V16.1</title>
+  <title>RPG Gabriel - Ficha Online V16.2</title>
   <style>
     :root{
       --bg:#090b10;
@@ -464,6 +464,56 @@
       }
     }
 
+
+    .spell-slots-compact-title{
+      grid-column:1/-1;
+      border:1px solid #c8a66d;
+      background:#fff7e8;
+      border-radius:13px;
+      padding:9px;
+    }
+    .spell-slots-compact-title h3{margin:0 0 2px}
+    .spell-slots-used-grid{
+      grid-column:1/-1;
+      display:grid;
+      grid-template-columns:repeat(9,minmax(72px,1fr));
+      gap:7px;
+    }
+    .spell-slot-used-card{
+      border:1px solid #c8a66d;
+      background:#fffaf0;
+      border-radius:12px;
+      padding:7px;
+      display:grid;
+      gap:5px;
+      align-items:start;
+    }
+    .spell-slot-used-card .spell-level{
+      width:100%;
+      height:28px;
+      font-size:14px;
+    }
+    .spell-slot-used-card input{
+      text-align:center;
+      font-weight:900;
+      min-height:32px;
+      height:32px;
+    }
+    .spell-slot-used-card .small{
+      min-height:28px;
+      font-size:11px;
+      padding:5px;
+    }
+    .spell-use-result strong{
+      color:#21170d;
+    }
+    @media(max-width:900px){
+      .spell-slots-used-grid{grid-template-columns:repeat(3,1fr)}
+    }
+    @media(max-width:420px){
+      .spell-slots-used-grid{grid-template-columns:repeat(2,1fr)}
+    }
+
   </style>
 </head>
 <body class="menu-open">
@@ -795,7 +845,7 @@
 
         <div class="panel spellbook-panel">
           <h3>Magias escolhidas</h3>
-          <p class="sheet-note">Aqui o jogador usa a magia e consome o espaço. Truque não gasta espaço.</p>
+          <p class="sheet-note">Aqui aparecem as magias escolhidas e os dados mudam conforme o espaço selecionado.</p>
           <div id="mySpellbookList" class="my-spellbook-list"></div>
         </div>
 
@@ -1008,27 +1058,23 @@
 
       $('#spellAbility').innerHTML = '<option value="">Selecione</option>' + abilities.map(([k,label])=>`<option value="${k}">${label}</option>`).join('');
 
-      const cantrips = `
-        <div class="spell-section">
-          <div class="spell-title"><div class="spell-level">0</div><input value="Truques" readonly></div>
-          ${Array.from({length:8},(_,i)=>`<div class="spell-row" style="grid-template-columns:1fr"><input data-path="magia.truques.${i}.nome" placeholder="Truque"></div>`).join('')}
-        </div>
-      `;
       const levels = Array.from({length:9},(_,idx)=>{
         const level=idx+1;
-        const count = level <= 5 ? 12 : 8;
         return `
-          <div class="spell-section">
-            <div class="spell-title"><div class="spell-level">${level}</div><input data-path="magia.niveis.${level}.titulo" placeholder="Círculo ${level}"></div>
-            <div class="row-2">
-              <div class="field"><label>Total</label><input data-path="magia.niveis.${level}.espacosTotais"></div>
-              <div class="field"><label>Usados</label><input data-path="magia.niveis.${level}.espacosUsados"></div>
-            </div>
-            ${Array.from({length:count},(_,i)=>`<div class="spell-row"><input type="checkbox" data-path="magia.niveis.${level}.magias.${i}.preparada"><input data-path="magia.niveis.${level}.magias.${i}.nome" placeholder="Nome da magia"></div>`).join('')}
+          <div class="spell-slot-used-card">
+            <div class="spell-level">${level}</div>
+            <div class="field"><label>Usados</label><input data-path="magia.niveis.${level}.espacosUsados" placeholder="0"></div>
+            <button type="button" class="btn secondary small" data-recover-slot="${level}">-1 usado</button>
           </div>
         `;
       }).join('');
-      $('#spellGrid').innerHTML = cantrips + levels;
+      $('#spellGrid').innerHTML = `
+        <div class="spell-slots-compact-title">
+          <h3>Espaços usados</h3>
+          <p class="sheet-note">Mostra só quantos espaços já foram usados em cada círculo.</p>
+        </div>
+        <div class="spell-slots-used-grid">${levels}</div>
+      `;
     }
 
     function subtitle(c){
@@ -1096,6 +1142,27 @@
       if(exact) return exact.formula_dado || spell.formula_dado_base || 'sem rolagem';
       return spell.formula_dado_base || 'sem rolagem';
     }
+
+    function spellUsePreviewText(spell, slot){
+      slot = num(slot);
+      const formula = findUseFormula(spell, slot) || 'sem rolagem';
+      if(num(spell && spell.nivel) <= 0 || slot <= 0){
+        return `<strong>Truque</strong> • Dados: ${escapeHtml(formula)} • Não consome espaço`;
+      }
+      return `<strong>Espaço ${slot}º</strong> • Dados: ${escapeHtml(formula)}`;
+    }
+
+    function updateSpellUsePreview(slug){
+      const c = activeChar(); if(!c) return;
+      const book = ensureSpellbook(c);
+      const spell = book.find(s=>s.slug===slug);
+      if(!spell) return;
+      const select = document.querySelector(`[data-use-slot="${CSS.escape(slug)}"]`);
+      const result = document.querySelector(`[data-use-result="${CSS.escape(slug)}"]`);
+      const slot = select ? num(select.value) : num(spell.nivel);
+      if(result) result.innerHTML = spellUsePreviewText(spell, slot);
+    }
+
 
     function setSpellBankOpen(open){
       const panel = $('#spellBankPanel');
@@ -1224,7 +1291,7 @@
 
       if(num(spell.nivel) <= 0 || slot <= 0){
         const result = document.querySelector(`[data-use-result="${CSS.escape(slug)}"]`);
-        if(result) result.textContent = 'Truque usado. Não consome espaço.';
+        if(result) result.innerHTML = spellUsePreviewText(spell, slot) + ' • usado agora';
         toast('Truque usado.');
         return;
       }
@@ -1242,7 +1309,7 @@
 
       const formula = findUseFormula(spell, slot);
       const result = document.querySelector(`[data-use-result="${CSS.escape(slug)}"]`);
-      if(result) result.textContent = `Usou espaço de ${slot}º círculo. Rolagem: ${formula || 'sem rolagem'}.`;
+      if(result) result.innerHTML = `<strong>Usou espaço ${slot}º</strong> • Dados: ${escapeHtml(formula || 'sem rolagem')}`;
 
       renderSpellbookUI();
       saveLocal(false);
@@ -1271,7 +1338,6 @@
       list.innerHTML = book.map(s=>{
         const minLevel = num(s.nivel);
         const defaultSlot = minLevel <= 0 ? 0 : minLevel;
-        const slotInfo = minLevel <= 0 ? 'Truque' : `Espaço mínimo: ${minLevel}º`;
         return `
           <div class="my-spell-card">
             <div class="my-spell-card-head">
@@ -1295,7 +1361,7 @@
                   ${spellSlotOptions(minLevel)}
                 </select>
               </div>
-              <div class="spell-use-result" data-use-result="${escapeHtml(s.slug)}">${escapeHtml(slotInfo)} • ${escapeHtml(s.formula_dado_base || 'sem rolagem')}</div>
+              <div class="spell-use-result" data-use-result="${escapeHtml(s.slug)}">${spellUsePreviewText(s, defaultSlot)}</div>
               <button class="btn green" data-use-book-spell="${escapeHtml(s.slug)}">Usar magia</button>
               <button class="btn secondary" data-detail-bank-spell="${escapeHtml(s.slug)}">Ver detalhes</button>
             </div>
@@ -1702,6 +1768,9 @@
           return;
         }
 
+        const recover=e.target.closest('[data-recover-slot]');
+        if(recover){ recoverSpellSlot(num(recover.dataset.recoverSlot)); return; }
+
         const addBank=e.target.closest('[data-add-bank-spell]');
         if(addBank){ addBankSpell(addBank.dataset.addBankSpell); return; }
 
@@ -1751,6 +1820,7 @@
       const spellBankSearchBtn = $('#spellBankSearchBtn'); if(spellBankSearchBtn) spellBankSearchBtn.onclick=searchSpellBank;
       const toggleSpellBankBtn = $('#toggleSpellBankBtn'); if(toggleSpellBankBtn) toggleSpellBankBtn.onclick=toggleSpellBank;
       const spellSearchInput = $('#spellSearchInput'); if(spellSearchInput) spellSearchInput.addEventListener('keydown', e=>{ if(e.key==='Enter') searchSpellBank(); });
+      document.addEventListener('change', e=>{ const slot=e.target.closest('[data-use-slot]'); if(slot) updateSpellUsePreview(slot.dataset.useSlot); });
     }
 
     renderStatic();
@@ -1760,6 +1830,6 @@
     refreshOnline();
     startOnlineSync();
   </script>
-<!-- RPGGABRIEL V16.1 SPELLBANK COLLAPSIBLE -->
+<!-- RPGGABRIEL V16.2 SPELL SLOT UX -->
 </body>
 </html>
