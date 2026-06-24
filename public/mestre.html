@@ -3,398 +3,409 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mesa do Mestre - RPG Gabriel V16.8</title>
+  <title>Mesa do Mestre - RPG Gabriel V16.9</title>
   <style>
     :root{
-      --wood-1:#5a361d;
-      --wood-2:#7a4a25;
-      --wood-3:#3e2413;
-      --felt-1:#153a34;
-      --felt-2:#204d46;
-      --paper:#eee1c8;
-      --paper-2:#e2d1b2;
-      --ink:#2d1b0f;
-      --line:#8f6a44;
-      --gold:#c7a15c;
-      --gold-2:#f0cf8d;
-      --danger:#ba4b45;
-      --heal:#357f5c;
-      --blue:#4f7ea9;
-      --muted:#6d5a49;
-      --shadow:0 16px 36px rgba(0,0,0,.25);
-      --radius:20px;
+      --wood-900:#2a170d;
+      --wood-800:#3d2414;
+      --wood-700:#5d381e;
+      --wood-600:#7c4f27;
+      --wood-500:#a77644;
+      --felt-900:#102f2c;
+      --felt-800:#18413a;
+      --felt-700:#21574d;
+      --paper:#efe1c5;
+      --paper-2:#e4d4b6;
+      --paper-3:#d8c5a3;
+      --ink:#2b1a0f;
+      --muted:#6e5846;
+      --gold:#c89b58;
+      --gold-2:#ebc98f;
+      --red:#9b423a;
+      --red-2:#d77269;
+      --green:#3a7f61;
+      --green-2:#6bb28e;
+      --blue:#456d95;
+      --blue-2:#7da4cb;
+      --violet:#6f5398;
+      --shadow:0 18px 40px rgba(0,0,0,.28);
+      --r-xl:28px;
+      --r-lg:22px;
+      --r-md:16px;
+      --r-sm:12px;
       --ui:"Trebuchet MS", Inter, system-ui, sans-serif;
     }
     *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;font-family:var(--ui);color:var(--ink)}
     body{
-      margin:0;
-      min-height:100vh;
-      font-family:var(--ui);
-      color:var(--ink);
       background:
-        linear-gradient(135deg, rgba(255,255,255,.04), rgba(0,0,0,.08)),
-        repeating-linear-gradient(90deg, var(--wood-3) 0 12px, var(--wood-1) 12px 28px, var(--wood-2) 28px 44px);
+        radial-gradient(circle at top left, rgba(255,255,255,.08), transparent 32%),
+        radial-gradient(circle at top right, rgba(255,255,255,.05), transparent 24%),
+        repeating-linear-gradient(90deg, var(--wood-900) 0 12px, var(--wood-800) 12px 30px, var(--wood-700) 30px 48px),
+        linear-gradient(180deg, #2b180e, #120b07);
     }
     button,input,select,textarea{font:inherit}
     button{cursor:pointer}
-    .shell{max-width:1780px;margin:0 auto;padding:18px}
-    .tabletop{
-      display:grid;
-      grid-template-columns:minmax(0,1fr) 380px;
-      gap:16px;
-      align-items:start;
-    }
+    .shell{max-width:1820px;margin:0 auto;padding:16px}
+    .layout{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:16px;align-items:start}
     .left-col{display:grid;gap:16px;min-width:0}
-    .right-col{display:grid;gap:16px;position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto;padding-right:2px}
+    .right-col{display:grid;gap:16px;position:sticky;top:16px;align-self:start;max-height:calc(100vh - 32px);overflow:auto;padding-right:2px}
     .panel{
       background:linear-gradient(180deg,var(--paper),var(--paper-2));
-      border:2px solid #6f4a2d;
-      border-radius:var(--radius);
-      box-shadow:var(--shadow), inset 0 1px 0 rgba(255,255,255,.5);
+      border:2px solid #6f4a2d;border-radius:var(--r-xl);box-shadow:var(--shadow), inset 0 1px 0 rgba(255,255,255,.6);
       overflow:hidden;
     }
     .panel.dark{
-      background:linear-gradient(180deg,var(--felt-2),var(--felt-1));
-      color:#f7ecdb;
-      border-color:#1f1810;
-      box-shadow:var(--shadow), inset 0 0 0 2px rgba(255,255,255,.06);
+      background:linear-gradient(180deg, rgba(16,47,44,.98), rgba(24,65,58,.98));
+      color:#f6ead6;border-color:#1e140f;box-shadow:var(--shadow), inset 0 0 0 2px rgba(255,255,255,.05);
     }
-    .header{
-      padding:16px 18px;
-      display:grid;
-      grid-template-columns:1.1fr .9fr;
-      gap:16px;
-      align-items:stretch;
+    .panel-header{padding:14px 16px 0;display:flex;justify-content:space-between;align-items:center;gap:10px}
+    .panel-header h2{margin:0;font-size:24px;letter-spacing:.2px}
+    .section-body{padding:14px 16px 16px}
+    .badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;border:1px solid rgba(111,74,45,.25);background:#faefd9;color:#5c3a20;font-size:12px;font-weight:900}
+    .badge.dark{background:rgba(255,255,255,.09);border-color:rgba(240,207,141,.28);color:#f0e0c0}
+    .top-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;padding:16px}
+    .hero{
+      display:grid;grid-template-columns:72px 1fr;gap:14px;align-items:center;
+      border-radius:20px;padding:16px;background:linear-gradient(135deg, rgba(17,46,42,.98), rgba(33,87,77,.98));
+      color:#f7ebd6;border:2px solid rgba(235,201,143,.34);
     }
-    .brand-card{
-      background:linear-gradient(160deg, rgba(21,58,52,.95), rgba(32,77,70,.95));
-      color:#f7ecdb;
-      border:2px solid rgba(240,207,141,.45);
-      border-radius:18px;
-      padding:16px;
-      display:flex;gap:14px;align-items:center;
-      box-shadow:inset 0 0 0 1px rgba(255,255,255,.05);
-    }
-    .seal{
-      width:60px;height:60px;border-radius:18px;
-      background:radial-gradient(circle at 30% 30%, #f6d79a, #b9893f 70%);
-      color:#3a2410;font-weight:950;font-size:20px;display:grid;place-items:center;
-      box-shadow:0 10px 24px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.5);
-      flex:0 0 auto;
-    }
-    h1,h2,h3{margin:0}
-    h1{font-size:28px;letter-spacing:.4px}
-    .subtitle{margin-top:6px;color:#f0debf;font-size:14px;line-height:1.35}
-    .mini-note{font-size:12px;color:#bcae98;margin-top:5px}
-    .login-card{
-      border:2px solid #6f4a2d;border-radius:18px;padding:14px;background:rgba(255,248,236,.72);
-      display:grid;grid-template-columns:1fr auto auto auto;gap:10px;align-items:end;
-    }
+    .seal{width:72px;height:72px;border-radius:22px;display:grid;place-items:center;font-weight:950;font-size:26px;color:#31200f;background:radial-gradient(circle at 30% 30%, #f4d79d, #c08c44 72%);box-shadow:0 10px 26px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.55)}
+    .hero h1{margin:0;font-size:30px}
+    .hero p{margin:6px 0 0;font-size:14px;line-height:1.4;color:#f1dfbf}
+    .hero small{display:block;margin-top:7px;color:#d6c1a0}
+    .login-box{border-radius:20px;padding:14px;background:rgba(255,248,236,.75);border:2px solid #8c6b42;display:grid;grid-template-columns:1fr auto auto auto;gap:10px;align-items:end}
     .field{display:grid;gap:5px}
     .field label{font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-    input,select,textarea{
-      width:100%;min-height:42px;padding:10px 12px;border-radius:12px;
-      border:1px solid #a68860;background:#fffaf1;color:var(--ink);outline:none;
-    }
-    input:focus,select:focus,textarea:focus{border-color:#b47a35;box-shadow:0 0 0 3px rgba(180,122,53,.14)}
-    .btn{
-      min-height:42px;padding:10px 14px;border-radius:12px;border:1px solid transparent;
-      font-weight:900;letter-spacing:.2px;box-shadow:0 8px 18px rgba(0,0,0,.12);
-    }
-    .btn.primary{background:linear-gradient(180deg,#d9b46d,#b57b35);color:#2e1a0d}
-    .btn.secondary{background:#f6ecda;border-color:#a07b53;color:#59341a;box-shadow:none}
-    .btn.danger{background:linear-gradient(180deg,#db6b5d,#a33b35);color:#fff}
-    .btn.heal{background:linear-gradient(180deg,#57aa7b,#2f7a57);color:#fff}
-    .btn.info{background:linear-gradient(180deg,#7399bd,#456d96);color:#fff}
-    .btn.ghost{background:transparent;border-color:#a07b53;color:#6b4a2e;box-shadow:none}
-    .btn.small{min-height:34px;padding:7px 10px;border-radius:10px;font-size:12px}
-    .combat-strip{padding:12px 16px}
-    .combat-grid{display:grid;grid-template-columns:1.25fr 110px 1.35fr auto;gap:10px;align-items:end}
-    .target-box{
-      min-height:56px;display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:14px;
-      background:rgba(255,248,236,.12);border:1px solid rgba(240,207,141,.38);color:#fffaf1;
-    }
-    .target-dot{width:14px;height:14px;border-radius:999px;background:var(--gold-2);box-shadow:0 0 16px rgba(240,207,141,.7)}
-    .target-name{font-size:16px;font-weight:950}
-    .target-meta{font-size:12px;color:#d8c6aa}
+    input,select,textarea{width:100%;min-height:42px;padding:10px 12px;border-radius:12px;border:1px solid #a88b66;background:#fffaf1;color:var(--ink);outline:none}
+    textarea{min-height:90px;resize:vertical}
+    input:focus,select:focus,textarea:focus{border-color:#b57a35;box-shadow:0 0 0 3px rgba(181,122,53,.14)}
+    .btn{min-height:42px;padding:10px 14px;border-radius:12px;border:1px solid transparent;font-weight:900;letter-spacing:.2px;box-shadow:0 8px 18px rgba(0,0,0,.12)}
+    .btn.primary{background:linear-gradient(180deg,#dfbb77,#b67c35);color:#2a170d}
+    .btn.secondary{background:#f6ecd8;border-color:#9e7d54;color:#603a1e;box-shadow:none}
+    .btn.ghost{background:transparent;border-color:#9e7d54;color:#69462a;box-shadow:none}
+    .btn.red{background:linear-gradient(180deg,#da7168,#a23d37);color:#fff}
+    .btn.green{background:linear-gradient(180deg,#61b087,#31795b);color:#fff}
+    .btn.blue{background:linear-gradient(180deg,#86aad0,#4d739b);color:#fff}
+    .btn.small{min-height:34px;padding:7px 10px;font-size:12px;border-radius:10px}
+    .combat-stage{padding:16px;display:grid;gap:14px;position:relative}
+    .combat-stage:before{content:"";position:absolute;inset:16px;border-radius:22px;border:1px dashed rgba(235,201,143,.18);pointer-events:none}
+    .combat-stage-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:14px;position:relative}
+    .altar,.console,.initiative-strip{background:rgba(255,248,236,.08);border:1px solid rgba(235,201,143,.24);border-radius:22px;padding:14px}
+    .altar-head{display:grid;grid-template-columns:84px 1fr;gap:14px;align-items:center}
+    .altar-avatar{width:84px;height:84px;border-radius:24px;overflow:hidden;border:2px solid rgba(235,201,143,.35);background:rgba(255,255,255,.08);display:grid;place-items:center;text-align:center;color:#ead4ad;font-size:12px}
+    .altar-avatar img{width:100%;height:100%;object-fit:cover}
+    .altar-title{font-size:24px;font-weight:950;color:#fff8ea}
+    .altar-sub{font-size:14px;color:#d8c5a5;margin-top:4px}
+    .altar-bars{display:grid;gap:10px;margin-top:14px}
+    .bar-row{display:grid;grid-template-columns:90px 1fr auto;gap:10px;align-items:center;color:#f6ead6;font-weight:800}
+    .track{height:14px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(235,201,143,.18);overflow:hidden}
+    .fill{height:100%;border-radius:999px}
+    .fill.hp{background:linear-gradient(90deg,#4f9a74,#93cfb2)}
+    .fill.hp.low{background:linear-gradient(90deg,#c08a32,#f0cf83)}
+    .fill.hp.dead{background:linear-gradient(90deg,#a23d37,#d56e64)}
+    .fill.corr{background:linear-gradient(90deg,#6d5096,#ab88df)}
+    .altar-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+    .mini-stat{border-radius:16px;background:rgba(255,248,236,.08);border:1px solid rgba(235,201,143,.18);padding:10px;text-align:center}
+    .mini-stat span{display:block;font-size:10px;color:#d8c5a5;font-weight:900;text-transform:uppercase;letter-spacing:.08em}
+    .mini-stat b{display:block;margin-top:2px;color:#fff8ea;font-size:18px}
+    .conditions-panel{margin-top:12px;display:grid;gap:8px}
+    .conditions-row{display:flex;flex-wrap:wrap;gap:8px}
+    .cond-btn{min-height:34px;padding:7px 10px;border-radius:999px;border:1px solid rgba(235,201,143,.32);background:rgba(255,248,236,.08);color:#f0e0c0;font-weight:900}
+    .cond-btn.active{background:#e7c688;color:#2b1a0f;border-color:#d2ab62}
+    .console{display:grid;gap:12px;align-content:start}
+    .console-grid{display:grid;grid-template-columns:1fr 110px;gap:10px}
     .quick-values{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-    .action-buttons{display:grid;grid-template-columns:repeat(3,auto);gap:8px;justify-content:end}
-    .summary{display:grid;grid-template-columns:repeat(6,minmax(95px,1fr));gap:10px;padding:0 16px 16px}
-    .summary-box{
-      border-radius:16px;background:rgba(255,248,236,.72);border:1px solid rgba(111,74,45,.28);padding:12px;
-    }
-    .summary-box span{display:block;font-size:11px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
-    .summary-box b{display:block;font-size:28px;color:#60371b;margin-top:2px}
-    .section-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 16px 0}
-    .chip{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:6px 10px;font-size:12px;font-weight:900;border:1px solid rgba(111,74,45,.28);background:#faeed7;color:#614122}
-    .filters{padding:14px 16px 16px;display:grid;grid-template-columns:1fr 160px 180px auto;gap:10px;align-items:end}
-    .board-wrap{
-      background:linear-gradient(180deg, rgba(14,40,36,.97), rgba(18,55,49,.97));
-      border:2px solid #2a1b11;border-radius:26px;box-shadow:var(--shadow), inset 0 0 0 3px rgba(255,255,255,.04);
-      padding:16px;position:relative;
-    }
-    .board-wrap:before{
-      content:"";position:absolute;inset:14px;border-radius:18px;border:1px dashed rgba(240,207,141,.22);pointer-events:none;
-    }
-    .board-title{display:flex;justify-content:space-between;align-items:center;gap:10px;color:#f7ecdb;margin-bottom:14px;position:relative}
-    .board-title h2{font-size:24px;text-shadow:0 2px 0 rgba(0,0,0,.25)}
-    .board-title .chip{background:rgba(255,248,236,.1);border-color:rgba(240,207,141,.35);color:#f0dfbf}
-    .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:14px;position:relative}
-    .char-card{
-      background:linear-gradient(180deg,#f3e5cb,#e4d0ac);border:2px solid #8c6b42;border-radius:22px;padding:14px;min-height:290px;
-      box-shadow:0 10px 22px rgba(0,0,0,.16), inset 0 1px 0 rgba(255,255,255,.5);
-      display:grid;gap:10px;position:relative;color:#2d1b0f;
-    }
-    .char-card:before{
-      content:"";position:absolute;top:10px;right:10px;width:76px;height:76px;border-radius:50%;
-      background:radial-gradient(circle, rgba(111,74,45,.08), transparent 70%);pointer-events:none;
-    }
-    .char-card.selected{border-color:#bc863b;box-shadow:0 0 0 3px rgba(188,134,59,.24),0 16px 30px rgba(0,0,0,.22)}
-    .char-card.dead{border-color:#b04c46;background:linear-gradient(180deg,#ead0c7,#e0b3a5)}
-    .char-card.low{border-color:#bf8d39}
-    .char-head{display:grid;grid-template-columns:56px 1fr;gap:12px;align-items:center}
-    .avatar{width:56px;height:56px;border-radius:16px;border:2px solid #8c6b42;overflow:hidden;background:#f8f0dd;display:grid;place-items:center;font-size:11px;color:#614122;text-align:center}
+    .action-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+    .initiative-strip{position:relative}
+    .initiative-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px}
+    .ini-token{border-radius:18px;background:rgba(255,248,236,.08);border:1px solid rgba(235,201,143,.2);padding:10px;display:grid;grid-template-columns:38px 1fr auto;gap:8px;align-items:center;color:#f7ebd7;cursor:pointer}
+    .ini-token:hover{background:rgba(255,248,236,.12)}
+    .ini-index{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:rgba(255,248,236,.12);font-weight:950}
+    .summary-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;padding:0 16px 16px}
+    .summary-card{border-radius:18px;background:rgba(255,255,255,.42);border:1px solid rgba(111,74,45,.18);padding:12px}
+    .summary-card span{display:block;font-size:11px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+    .summary-card b{display:block;margin-top:2px;font-size:28px;color:#60371b}
+    .filters{display:grid;grid-template-columns:1fr 160px 180px auto;gap:10px;align-items:end}
+    .board-shell{background:linear-gradient(180deg, rgba(18,53,48,.97), rgba(12,37,33,.97));border:2px solid #24160f;border-radius:30px;padding:16px;box-shadow:var(--shadow), inset 0 0 0 2px rgba(255,255,255,.04)}
+    .board-head{display:flex;justify-content:space-between;align-items:center;gap:10px;color:#f7ead6;margin-bottom:12px}
+    .board-head h2{margin:0;font-size:25px;text-shadow:0 2px 0 rgba(0,0,0,.25)}
+    .columns{display:grid;grid-template-columns:1.35fr .95fr .95fr;gap:14px}
+    .column{background:rgba(255,248,236,.06);border:1px solid rgba(235,201,143,.18);border-radius:24px;padding:14px;min-height:220px}
+    .column h3{margin:0;color:#fff4dd;font-size:18px}
+    .column-sub{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+    .card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:12px}
+    .stack-grid{display:grid;gap:10px}
+    .char-card,.simple-card{background:linear-gradient(180deg,var(--paper),var(--paper-2));border:2px solid #8c6b42;border-radius:24px;padding:14px;display:grid;gap:10px;color:var(--ink);box-shadow:0 10px 20px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.55);position:relative}
+    .char-card.selected,.simple-card.selected{border-color:#cb9547;box-shadow:0 0 0 3px rgba(203,149,71,.25), 0 14px 28px rgba(0,0,0,.24)}
+    .char-card.dead{background:linear-gradient(180deg,#ecd3cc,#dfb6a9);border-color:#aa5148}
+    .char-card.low{border-color:#b98b39}
+    .char-head{display:grid;grid-template-columns:58px 1fr;gap:12px;align-items:center}
+    .avatar{width:58px;height:58px;border-radius:18px;overflow:hidden;border:2px solid #8c6b42;background:#fbf3e1;display:grid;place-items:center;text-align:center;font-size:11px;color:#5d3e23}
     .avatar img{width:100%;height:100%;object-fit:cover}
-    .char-name{font-size:18px;font-weight:950;letter-spacing:.2px}
-    .char-player{font-size:13px;color:#6d5a49}
-    .row{display:flex;gap:7px;flex-wrap:wrap}
-    .pill{padding:5px 9px;border-radius:999px;border:1px solid #8c6b42;background:#fcf4e4;font-size:12px;font-weight:900;color:#5b391f}
-    .pill.gold{background:#e6bf75;border-color:#a1722e;color:#2e1a0d}
-    .pill.green{background:#cae7d5;border-color:#5f9779;color:#234b39}
-    .pill.red{background:#eed0cb;border-color:#b26259;color:#6a241f}
-    .metric-line{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;font-size:13px;font-weight:800}
+    .char-name{font-size:21px;font-weight:950;line-height:1.04}
+    .char-player{font-size:13px;color:var(--muted)}
+    .pill-row{display:flex;flex-wrap:wrap;gap:7px}
+    .pill{display:inline-flex;align-items:center;gap:6px;padding:5px 9px;border-radius:999px;border:1px solid #8c6b42;background:#fbf2e1;color:#5d381d;font-size:12px;font-weight:900}
+    .pill.gold{background:#e7c17a;border-color:#a87935;color:#2f1b0f}
+    .pill.green{background:#d0e8d8;border-color:#6ea488;color:#244a3a}
+    .pill.red{background:#edd2cd;border-color:#b66a62;color:#6b2620}
+    .pill.blue{background:#d6e4f2;border-color:#7195b9;color:#274566}
+    .metric-line{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;font-size:13px;font-weight:900}
     .metric-line b{font-size:17px}
-    .bar{height:11px;border-radius:999px;background:#d7c19d;border:1px solid rgba(111,74,45,.26);overflow:hidden}
-    .fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#4b8f6c,#89c5a5)}
-    .fill.low{background:linear-gradient(90deg,#c19033,#efcc78)}
-    .fill.dead{background:linear-gradient(90deg,#a33b35,#d46c65)}
-    .fill.corr{background:linear-gradient(90deg,#6e539d,#ab87e0)}
-    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
-    .stat{background:rgba(255,250,242,.7);border:1px solid rgba(111,74,45,.2);border-radius:14px;padding:8px 6px;text-align:center;min-height:58px}
+    .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+    .stat{border-radius:15px;background:rgba(255,255,255,.46);border:1px solid rgba(111,74,45,.18);padding:8px 6px;text-align:center}
     .stat span{display:block;font-size:10px;font-weight:900;color:#7a624c;text-transform:uppercase;letter-spacing:.06em}
-    .stat b{display:block;margin-top:2px;font-size:18px;color:#2e1a0d}
-    .card-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:auto}
-    .foot-note{text-align:center;font-size:11px;color:#6b5947}
-    .empty{padding:18px;border:2px dashed rgba(111,74,45,.35);border-radius:16px;background:rgba(255,255,255,.38);color:#6b5947}
-    .details-body,.initiative-body,.side-body{padding:14px 16px 16px}
-    .selected-head{display:grid;grid-template-columns:48px 1fr;gap:10px;align-items:center}
-    .selected-head .avatar{width:48px;height:48px;border-radius:14px}
-    .selected-name{font-size:19px;font-weight:950}
-    .selected-sub{font-size:13px;color:#6d5a49}
+    .stat b{display:block;margin-top:2px;font-size:18px;color:#2c190e}
+    .card-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .foot{font-size:11px;text-align:center;color:#6b5947}
+    .empty{padding:16px;border-radius:18px;border:2px dashed rgba(111,74,45,.28);background:rgba(255,255,255,.35);color:#6b5947}
+    .side-card{background:linear-gradient(180deg,var(--paper),var(--paper-2));border:2px solid #8c6b42;border-radius:24px;box-shadow:var(--shadow), inset 0 1px 0 rgba(255,255,255,.55)}
+    .side-card .section-body{padding-top:10px}
+    .detail-hero{display:grid;grid-template-columns:56px 1fr;gap:10px;align-items:center}
+    .detail-hero .avatar{width:56px;height:56px}
+    .detail-name{font-size:22px;font-weight:950}
+    .detail-sub{font-size:13px;color:var(--muted)}
     .detail-grid{display:grid;gap:8px;margin-top:12px}
-    .detail-row{display:grid;grid-template-columns:125px 1fr;gap:8px;padding-bottom:7px;border-bottom:1px dashed rgba(111,74,45,.28);font-size:13px}
-    .detail-row span{font-weight:900;color:#6d5a49}
-    .note-box,.spell-box{background:rgba(255,250,242,.65);border:1px solid rgba(111,74,45,.2);border-radius:14px;padding:10px}
-    .spell-list{display:grid;gap:7px;max-height:220px;overflow:auto;padding-right:3px}
-    .spell-item{display:flex;justify-content:space-between;gap:8px;padding:8px 10px;border:1px solid rgba(111,74,45,.18);border-radius:12px;background:#fff8ec;font-size:12px}
-    .spell-item small{color:#6d5a49}
-    .initiative-list{display:grid;gap:8px}
-    .initiative-item{display:grid;grid-template-columns:36px 1fr 54px;gap:8px;align-items:center;background:rgba(255,250,242,.65);border:1px solid rgba(111,74,45,.2);border-radius:14px;padding:8px 10px;cursor:pointer}
-    .initiative-item:hover{background:#fff8ec}
-    .initiative-item b:last-child{text-align:right}
-    .enemy-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;padding:0 16px 16px}
-    .enemy-card{background:linear-gradient(180deg,#f3e5cb,#e4d0ac);border:2px dashed #8c6b42;border-radius:18px;padding:14px;color:#5f462e;min-height:130px}
-    .enemy-card b{display:block;color:#432715;font-size:16px;margin-bottom:6px}
+    .detail-row{display:grid;grid-template-columns:130px 1fr;gap:8px;padding-bottom:7px;border-bottom:1px dashed rgba(111,74,45,.28);font-size:13px}
+    .detail-row span{font-weight:900;color:var(--muted)}
+    .spell-box,.notes-box{border-radius:16px;background:rgba(255,255,255,.4);border:1px solid rgba(111,74,45,.18);padding:10px}
+    .spell-list{display:grid;gap:7px;max-height:240px;overflow:auto;padding-right:3px}
+    .spell-item{display:flex;justify-content:space-between;gap:8px;padding:8px 10px;border-radius:12px;border:1px solid rgba(111,74,45,.18);background:#fff8ec;font-size:12px}
+    .spell-item small{color:var(--muted)}
+    .add-grid{display:grid;grid-template-columns:1fr 110px 90px 90px 110px;gap:8px;align-items:end}
+    .tiny{font-size:12px;color:var(--muted)}
+    .simple-head{display:flex;justify-content:space-between;align-items:start;gap:8px}
+    .simple-title{font-size:18px;font-weight:950}
+    .simple-sub{font-size:12px;color:var(--muted)}
+    .simple-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+    .simple-meta .stat{min-height:58px}
+    .simple-notes{font-size:12px;color:var(--muted);line-height:1.35}
+    .hr{height:1px;background:rgba(111,74,45,.18);margin:10px 0}
     .hidden{display:none!important}
-    .toast{position:fixed;right:18px;bottom:18px;z-index:70;background:#fff5e3;color:#4e2f18;border:2px solid #966634;border-radius:14px;padding:12px 14px;box-shadow:var(--shadow);opacity:0;transform:translateY(8px);transition:.18s ease;pointer-events:none;max-width:340px}
+    .toast{position:fixed;right:18px;bottom:18px;z-index:100;background:#fff5e3;color:#4e2f18;border:2px solid #966634;border-radius:14px;padding:12px 14px;box-shadow:var(--shadow);opacity:0;transform:translateY(8px);transition:.18s ease;pointer-events:none;max-width:340px}
     .toast.show{opacity:1;transform:translateY(0)}
-    .spell-db{position:fixed;inset:14px;background:rgba(28,17,10,.46);backdrop-filter:blur(6px);display:grid;place-items:center;z-index:80}
-    .spell-db-card{width:min(1120px,100%);max-height:calc(100vh - 28px);overflow:auto}
-    .spell-results{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin-top:12px}
-    .spell-result{background:#fff8ec;border:1px solid rgba(111,74,45,.2);border-radius:14px;padding:10px}
-    .spell-result b{display:block;color:#442916}
-    .spell-result small{display:block;color:#6d5a49;margin:4px 0}
-    .spell-result p{font-size:12px;color:#6d5a49;line-height:1.35;max-height:70px;overflow:hidden}
-    @media(max-width:1300px){
-      .tabletop{grid-template-columns:1fr}
+    @media (max-width:1460px){
+      .columns{grid-template-columns:1fr}
+      .card-grid{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+    }
+    @media (max-width:1320px){
+      .layout{grid-template-columns:1fr}
       .right-col{position:relative;top:auto;max-height:none;overflow:visible}
     }
-    @media(max-width:980px){
-      .header{grid-template-columns:1fr}
-      .login-card{grid-template-columns:1fr 1fr}
-      .combat-grid{grid-template-columns:1fr 100px}
-      .quick-values,.action-buttons{grid-column:1/-1}
-      .action-buttons{grid-template-columns:repeat(3,1fr)}
-      .summary{grid-template-columns:repeat(3,1fr)}
+    @media (max-width:980px){
+      .top-grid{grid-template-columns:1fr}
+      .login-box{grid-template-columns:1fr 1fr}
+      .combat-stage-grid{grid-template-columns:1fr}
+      .summary-grid{grid-template-columns:repeat(3,1fr)}
       .filters{grid-template-columns:1fr 1fr}
       .filters .field:first-child{grid-column:1/-1}
+      .add-grid{grid-template-columns:1fr 1fr}
+      .add-grid .field:first-child{grid-column:1/-1}
     }
-    @media(max-width:620px){
+    @media (max-width:640px){
       .shell{padding:10px}
-      .summary{grid-template-columns:repeat(2,1fr)}
-      .filters{grid-template-columns:1fr}
-      .login-card{grid-template-columns:1fr}
-      .cards{grid-template-columns:1fr}
+      .login-box{grid-template-columns:1fr}
+      .summary-grid{grid-template-columns:repeat(2,1fr)}
+      .altar-meta,.stat-grid,.simple-meta{grid-template-columns:repeat(2,1fr)}
+      .card-actions,.action-grid,.quick-values{grid-template-columns:1fr 1fr}
+      .filters,.add-grid{grid-template-columns:1fr}
       .detail-row{grid-template-columns:1fr}
-      .action-buttons,.quick-values{grid-template-columns:1fr 1fr}
     }
   </style>
 </head>
 <body>
   <div class="shell">
-    <div class="tabletop">
+    <div class="layout">
       <div class="left-col">
-        <section class="panel header">
-          <div class="brand-card">
-            <div class="seal">DM</div>
-            <div>
-              <h1>Mesa do Mestre</h1>
-              <div class="subtitle">Uma visão de mesa com identidade de campanha: tabuleiro central, fichas em papel e controle de combate em um único lugar.</div>
-              <div class="mini-note">Ghosts of Saltmarsh • Saltmarsh • Thalassyr</div>
+        <section class="panel">
+          <div class="top-grid">
+            <div class="hero">
+              <div class="seal">DM</div>
+              <div>
+                <h1>Mesa do Mestre</h1>
+                <p>Painel com identidade de campanha para controlar jogadores, inimigos e NPCs em um layout que parece uma mesa de RPG de verdade.</p>
+                <small>Ghosts of Saltmarsh • Saltmarsh • Thalassyr • V16.9</small>
+              </div>
             </div>
-          </div>
-          <div class="login-card">
-            <div class="field">
-              <label>Senha da mesa</label>
-              <input id="masterPassword" type="password" placeholder="JOGADOR">
+            <div class="login-box">
+              <div class="field">
+                <label>Senha da mesa</label>
+                <input id="masterPassword" type="password" placeholder="JOGADOR">
+              </div>
+              <button class="btn primary" id="loadBtn">Carregar mesa</button>
+              <button class="btn secondary" id="refreshBtn">Atualizar</button>
+              <button class="btn ghost" id="toggleLocalPanelBtn">Painel local</button>
             </div>
-            <button class="btn primary" id="loadBtn">Carregar mesa</button>
-            <button class="btn secondary" id="refreshBtn">Atualizar</button>
-            <button class="btn ghost" id="toggleSpellDbBtn">Banco de magias</button>
           </div>
         </section>
 
         <section class="panel dark">
-          <div class="combat-strip">
-            <div class="combat-grid">
-              <div class="field">
-                <label style="color:#dfc79f">Alvo selecionado</label>
-                <div class="target-box" id="targetPill">
-                  <span class="target-dot"></span>
-                  <div>
-                    <div class="target-name">Nenhum personagem selecionado</div>
-                    <div class="target-meta">Clique em um card ou em “Detalhes” para abrir o personagem.</div>
+          <div class="panel-header">
+            <h2>Área de combate</h2>
+            <span class="badge dark">painel único de dano, cura, HP e condições</span>
+          </div>
+          <div class="combat-stage">
+            <div class="combat-stage-grid">
+              <div class="altar" id="combatAltar"></div>
+              <div class="console">
+                <div class="field">
+                  <label style="color:#d9c4a3">Valor</label>
+                  <div class="console-grid">
+                    <input id="actionValue" type="number" min="0" value="1">
+                    <button class="btn secondary" id="setHpBtn">Definir HP</button>
                   </div>
                 </div>
-              </div>
-              <div class="field">
-                <label style="color:#dfc79f">Valor</label>
-                <input id="actionValue" type="number" min="0" value="1">
-              </div>
-              <div class="field">
-                <label style="color:#dfc79f">Atalhos</label>
-                <div class="quick-values">
-                  <button class="btn small secondary" data-set-action-value="1">1</button>
-                  <button class="btn small secondary" data-set-action-value="5">5</button>
-                  <button class="btn small secondary" data-set-action-value="10">10</button>
-                  <button class="btn small secondary" data-set-action-value="20">20</button>
+                <div class="field">
+                  <label style="color:#d9c4a3">Atalhos rápidos</label>
+                  <div class="quick-values">
+                    <button class="btn small secondary" data-set-value="1">1</button>
+                    <button class="btn small secondary" data-set-value="5">5</button>
+                    <button class="btn small secondary" data-set-value="10">10</button>
+                    <button class="btn small secondary" data-set-value="20">20</button>
+                  </div>
                 </div>
-              </div>
-              <div class="action-buttons">
-                <button class="btn danger" id="damageBtn">Aplicar dano</button>
-                <button class="btn heal" id="healBtn">Aplicar cura</button>
-                <button class="btn info" id="setHpBtn">Definir HP</button>
+                <div class="action-grid">
+                  <button class="btn red" id="damageBtn">Aplicar dano</button>
+                  <button class="btn green" id="healBtn">Aplicar cura</button>
+                  <button class="btn blue" id="reloadSelectedBtn">Recarregar</button>
+                </div>
+                <div class="field">
+                  <label style="color:#d9c4a3">Condições do alvo</label>
+                  <div class="conditions-row" id="conditionButtons"></div>
+                </div>
+                <div class="tiny" style="color:#d9c4a3">As condições afetam apenas o alvo selecionado. Jogadores salvam online; inimigos e NPCs ficam locais na mesa do mestre.</div>
               </div>
             </div>
-          </div>
-          <div class="summary">
-            <div class="summary-box"><span>Personagens</span><b id="sumChars">0</b></div>
-            <div class="summary-box"><span>Baixo HP</span><b id="sumLowHp">0</b></div>
-            <div class="summary-box"><span>Caídos</span><b id="sumDead">0</b></div>
-            <div class="summary-box"><span>Corrupção alta</span><b id="sumCorr">0</b></div>
-            <div class="summary-box"><span>Magias</span><b id="sumSpells">0</b></div>
-            <div class="summary-box"><span>Inimigos/NPCs</span><b id="sumEnemies">0</b></div>
+            <div class="initiative-strip">
+              <div class="panel-header" style="padding:0 0 10px;align-items:center">
+                <h2 style="font-size:18px;color:#f7ead6">Trilha de iniciativa</h2>
+                <span class="badge dark">jogadores + inimigos + NPCs</span>
+              </div>
+              <div class="initiative-list" id="initiativeBoard"></div>
+            </div>
           </div>
         </section>
 
         <section class="panel">
-          <div class="section-head">
+          <div class="panel-header">
+            <h2>Resumo da mesa</h2>
+            <span class="badge" id="visibleBadge">0 cards visíveis</span>
+          </div>
+          <div class="summary-grid">
+            <div class="summary-card"><span>Jogadores</span><b id="sumPlayers">0</b></div>
+            <div class="summary-card"><span>Inimigos</span><b id="sumEnemies">0</b></div>
+            <div class="summary-card"><span>NPCs</span><b id="sumNpcs">0</b></div>
+            <div class="summary-card"><span>Baixo HP</span><b id="sumLow">0</b></div>
+            <div class="summary-card"><span>Caídos</span><b id="sumDead">0</b></div>
+            <div class="summary-card"><span>Magias</span><b id="sumSpells">0</b></div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header">
             <h2>Filtro da mesa</h2>
-            <span class="chip" id="visibleCharsBadge">0 visíveis</span>
+            <span class="badge">busca geral</span>
           </div>
-          <div class="filters">
-            <div class="field">
-              <label>Buscar personagem</label>
-              <input id="tableSearch" placeholder="Nome, jogador, classe, raça, facção, pista...">
+          <div class="section-body">
+            <div class="filters">
+              <div class="field">
+                <label>Buscar</label>
+                <input id="searchInput" placeholder="Nome, jogador, classe, raça, inimigo, NPC, notas...">
+              </div>
+              <div class="field">
+                <label>HP</label>
+                <select id="hpFilter">
+                  <option value="">Todos</option>
+                  <option value="low">Baixo HP</option>
+                  <option value="dead">Caídos</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Tipo</label>
+                <select id="typeFilter">
+                  <option value="">Todos</option>
+                  <option value="player">Jogadores</option>
+                  <option value="enemy">Inimigos</option>
+                  <option value="npc">NPCs</option>
+                </select>
+              </div>
+              <button class="btn secondary" id="clearFiltersBtn">Limpar</button>
             </div>
-            <div class="field">
-              <label>HP</label>
-              <select id="hpFilter">
-                <option value="">Todos</option>
-                <option value="low">Baixo HP</option>
-                <option value="dead">Caídos</option>
-              </select>
-            </div>
-            <div class="field">
-              <label>Corrupção</label>
-              <select id="corrFilter">
-                <option value="">Todos</option>
-                <option value="high">Alta</option>
-                <option value="marked">Marcado pela maré</option>
-              </select>
-            </div>
-            <button class="btn secondary" id="clearFiltersBtn">Limpar</button>
           </div>
         </section>
 
-        <section class="board-wrap">
-          <div class="board-title">
-            <h2>Personagens dos jogadores</h2>
-            <span class="chip">Clique no card para selecionar • “Detalhes” abre o painel lateral</span>
+        <section class="board-shell">
+          <div class="board-head">
+            <h2>Mesa distribuída</h2>
+            <span class="badge dark">clique no card para selecionar • detalhes no painel lateral</span>
           </div>
-          <div class="cards" id="playersBoard">
-            <div class="empty">Carregue a mesa para ver os personagens.</div>
-          </div>
-        </section>
-
-        <section class="panel">
-          <div class="section-head">
-            <h2>Inimigos e NPCs</h2>
-            <span class="chip">Preparado para a próxima etapa</span>
-          </div>
-          <div class="enemy-grid">
-            <div class="enemy-card">
-              <b>Trilha de inimigos</b>
-              Aqui vamos listar inimigos com HP, CA, condições, iniciativa, dano rápido e status de encontro.
+          <div class="columns">
+            <div class="column">
+              <div class="column-sub">
+                <h3>Jogadores</h3>
+                <span class="badge dark" id="playersCountBadge">0</span>
+              </div>
+              <div class="card-grid" id="playersBoard"></div>
             </div>
-            <div class="enemy-card">
-              <b>Trilha de NPCs</b>
-              Também dá para abrir aliados, civis, monstros ou líderes da cidade sem misturar com os jogadores.
+            <div class="column">
+              <div class="column-sub">
+                <h3>Inimigos</h3>
+                <span class="badge dark" id="enemiesCountBadge">0</span>
+              </div>
+              <div class="stack-grid" id="enemiesBoard"></div>
+            </div>
+            <div class="column">
+              <div class="column-sub">
+                <h3>NPCs e aliados</h3>
+                <span class="badge dark" id="npcsCountBadge">0</span>
+              </div>
+              <div class="stack-grid" id="npcsBoard"></div>
             </div>
           </div>
         </section>
       </div>
 
       <aside class="right-col">
-        <section class="panel">
-          <div class="section-head">
-            <h2>Detalhes do alvo</h2>
-            <button class="btn small secondary" id="reloadSelectedBtn">Recarregar</button>
+        <section class="side-card">
+          <div class="panel-header">
+            <h2>Detalhes</h2>
+            <span class="badge" id="selectedTypeBadge">nenhum alvo</span>
           </div>
-          <div class="details-body" id="selectedDetails">
-            <div class="empty">Selecione um personagem para abrir as informações distribuídas aqui.</div>
-          </div>
+          <div class="section-body" id="detailsPanel"></div>
         </section>
 
-        <section class="panel">
-          <div class="section-head">
-            <h2>Ordem de iniciativa</h2>
-            <span class="chip">automática</span>
+        <section class="side-card hidden" id="localPanel">
+          <div class="panel-header">
+            <h2>Painel local</h2>
+            <button class="btn small secondary" id="closeLocalPanelBtn">Fechar</button>
           </div>
-          <div class="initiative-body" id="initiativeList">
-            <div class="empty">Sem personagens carregados.</div>
+          <div class="section-body">
+            <div class="field">
+              <label>Adicionar inimigo</label>
+              <div class="add-grid">
+                <div class="field"><input id="enemyName" placeholder="Nome do inimigo"></div>
+                <div class="field"><input id="enemyRole" placeholder="Função"></div>
+                <div class="field"><input id="enemyHp" type="number" min="0" value="10"></div>
+                <div class="field"><input id="enemyAc" type="number" min="0" value="12"></div>
+                <button class="btn red" id="addEnemyBtn">Adicionar</button>
+              </div>
+            </div>
+            <div class="hr"></div>
+            <div class="field">
+              <label>Adicionar NPC / aliado</label>
+              <div class="add-grid">
+                <div class="field"><input id="npcName" placeholder="Nome do NPC"></div>
+                <div class="field"><input id="npcRole" placeholder="Papel"></div>
+                <div class="field"><input id="npcHp" type="number" min="0" value="10"></div>
+                <div class="field"><input id="npcAc" type="number" min="0" value="10"></div>
+                <button class="btn blue" id="addNpcBtn">Adicionar</button>
+              </div>
+            </div>
+            <div class="tiny" style="margin-top:10px">Inimigos e NPCs são locais da mesa do mestre. Não alteram a ficha online dos jogadores.</div>
           </div>
         </section>
       </aside>
-    </div>
-  </div>
-
-  <div class="spell-db hidden" id="spellDbPanel">
-    <div class="panel spell-db-card">
-      <div class="section-head" style="padding-bottom:10px">
-        <h2>Banco de magias</h2>
-        <button class="btn secondary" id="closeSpellDbBtn">Fechar</button>
-      </div>
-      <div class="details-body">
-        <div class="filters" style="padding:0;grid-template-columns:1fr 160px 180px auto">
-          <div class="field"><label>Busca</label><input id="spellSearch" placeholder="Bola de Fogo"></div>
-          <div class="field"><label>Nível</label><select id="spellLevel"><option value="">Todos</option><option value="0">Truque</option><option value="1">1º</option><option value="2">2º</option><option value="3">3º</option><option value="4">4º</option><option value="5">5º</option><option value="6">6º</option><option value="7">7º</option><option value="8">8º</option><option value="9">9º</option></select></div>
-          <div class="field"><label>Classe</label><select id="spellClass"><option value="">Todas</option><option>Bardo</option><option>Bruxo</option><option>Clérigo</option><option>Druida</option><option>Feiticeiro</option><option>Mago</option><option>Paladino</option><option>Patrulheiro</option></select></div>
-          <button class="btn secondary" id="spellSearchBtn">Buscar</button>
-        </div>
-        <p id="spellDbStatus" class="mini-note" style="margin:12px 0 0;color:#6d5a49">Use os filtros para consultar o banco.</p>
-        <div class="spell-results" id="spellDbResults"></div>
-      </div>
     </div>
   </div>
 
@@ -403,55 +414,89 @@
   <script>
     const API_BASE = location.origin;
     const CAMPAIGN_ID = 'ghosts-of-saltmarsh';
-    const PASS_KEY = 'rpggabriel.master.password.v168';
-    const state = { characters: [], selectedId: '', spellDbLoaded: false };
+    const PASS_KEY = 'rpggabriel.master.password.v169';
+    const LOCAL_ENEMIES = 'rpggabriel.master.enemies.v169';
+    const LOCAL_NPCS = 'rpggabriel.master.npcs.v169';
+    const CONDITIONS = ['Envenenado','Caído','Concentrando','Invisível'];
+    const state = { players: [], enemies: loadLocal(LOCAL_ENEMIES, []), npcs: loadLocal(LOCAL_NPCS, []), selectedType: 'player', selectedId: '', selectedOpen:false };
 
     function $(s,r=document){ return r.querySelector(s); }
     function $all(s,r=document){ return Array.from(r.querySelectorAll(s)); }
-    function num(v){ const n=Number(v); return Number.isFinite(n)?n:0; }
+    function num(v){ const n = Number(v); return Number.isFinite(n) ? n : 0; }
     function clamp(v,a,b){ return Math.max(a, Math.min(b,v)); }
     function escapeHtml(v){ return String(v ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
-    function toast(msg){ const el=$('#toast'); el.textContent=msg; el.classList.add('show'); clearTimeout(window.__toastT); window.__toastT=setTimeout(()=>el.classList.remove('show'),2600); }
-    function getByPath(obj,path){ return String(path||'').split('.').reduce((o,k)=>(o&&o[k]!==undefined?o[k]:undefined), obj); }
+    function toast(msg){ const el=$('#toast'); el.textContent=msg; el.classList.add('show'); clearTimeout(window.__t); window.__t=setTimeout(()=>el.classList.remove('show'),2500); }
+    function loadLocal(key,fallback){ try{ return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback)); }catch{return fallback;} }
+    function saveLocal(key,val){ localStorage.setItem(key, JSON.stringify(val)); }
+    function uid(prefix){ return prefix + '_' + Math.random().toString(36).slice(2,9); }
     function deepMerge(base, extra){
-      if(Array.isArray(base)) return Array.isArray(extra)?extra:base;
-      if(base && typeof base==='object'){
-        const out={...base};
-        if(extra && typeof extra==='object'){ Object.keys(extra).forEach(k=> out[k]=deepMerge(base[k], extra[k])); }
+      if(Array.isArray(base)) return Array.isArray(extra) ? extra : base;
+      if(base && typeof base === 'object'){
+        const out = {...base};
+        if(extra && typeof extra === 'object') Object.keys(extra).forEach(k => out[k] = deepMerge(base[k], extra[k]));
         return out;
       }
-      return extra!==undefined ? extra : base;
+      return extra !== undefined ? extra : base;
     }
-    function blankCharacter(){
+    function blankPlayer(){
       return {
         id:'', campaignId:CAMPAIGN_ID,
-        meta:{nomePersonagem:'',classe:'',nivel:1,classeNivel:'',raca:'',nomeJogador:'',alinhamento:'',experiencia:''},
-        vida:{atuais:0,maximos:0,temporarios:0,dadosVida:''},
-        combate:{classeArmadura:'',iniciativa:'',deslocamento:''},
-        atributos:{}, pericias:{},
-        proficiencia:{bonus:2}, bonusProficiencia:2,
-        campanha:{corrupcao:0,mareAtual:'',faccao:'',segredoAtivo:'',pressagioCurto:'',pistasDecifradas:'',marcadoPelaMare:false,ouviuThalassyr:false,viuRitual:false,reliquia:'',fraseChave:''},
-        magia:{classeConjuradora:'',atributoConjuracao:'',cdMagias:'',modificadorAtaqueMagico:'',truques:[],niveis:{},grimorio:[]},
-        descricao:{aparenciaImagem:'',historia:''}, personalidade:{vinculos:''}
+        meta:{nomePersonagem:'',classe:'',classeNivel:'',nivel:1,raca:'',nomeJogador:''},
+        vida:{atuais:0,maximos:0,temporarios:0}, combate:{classeArmadura:'',iniciativa:'',deslocamento:''},
+        atributos:{}, pericias:{}, proficiencia:{bonus:2}, bonusProficiencia:2,
+        campanha:{corrupcao:0,mareAtual:'',faccao:'',segredoAtivo:'',pistasDecifradas:'',pressagioCurto:'',marcadoPelaMare:false},
+        magia:{truques:[],niveis:{},grimorio:[]}, descricao:{aparenciaImagem:'',historia:''}, personalidade:{vinculos:''},
+        condicoes:[]
       };
     }
-    function normalize(c){
-      const b=blankCharacter();
-      const m=deepMerge(b,c||{});
-      m.id=(c&&c.id)||m.id; m.campaignId=m.campaignId||CAMPAIGN_ID;
-      m.meta=m.meta||{}; m.campanha=m.campanha||{}; m.vida=m.vida||{}; m.combate=m.combate||{}; m.descricao=m.descricao||{}; m.magia=m.magia||{};
-      if(!m.meta.classe && m.meta.classeNivel){
-        m.meta.classe = String(m.meta.classeNivel).replace(/nível.*$/i,'').replace(/\d+/g,'').replace(/[—-]/g,'').trim();
+    function normalizePlayer(c){
+      const p = deepMerge(blankPlayer(), c || {});
+      p.id = (c && c.id) || p.id;
+      if(!p.meta.classe && p.meta.classeNivel){
+        p.meta.classe = String(p.meta.classeNivel).replace(/\bn[ií]vel\b.*$/i,'').replace(/\d+/g,'').replace(/[—-]/g,'').trim();
       }
-      if(!m.meta.nivel){
-        const mm=String(m.meta.classeNivel||'').match(/(1[0-9]|20|[1-9])/);
-        m.meta.nivel = mm ? num(mm[1]) : 1;
-      }
-      m.magia.truques = Array.isArray(m.magia.truques) ? m.magia.truques : [];
-      m.magia.grimorio = Array.isArray(m.magia.grimorio) ? m.magia.grimorio : [];
-      m.magia.niveis = m.magia.niveis || {};
-      return m;
+      if(!p.meta.nivel){ const m=String(p.meta.classeNivel||'').match(/\b(1[0-9]|20|[1-9])\b/); p.meta.nivel=m?num(m[1]):1; }
+      p.condicoes = Array.isArray(p.condicoes) ? p.condicoes : [];
+      p.magia.truques = Array.isArray(p.magia.truques) ? p.magia.truques : [];
+      p.magia.grimorio = Array.isArray(p.magia.grimorio) ? p.magia.grimorio : [];
+      p.magia.niveis = p.magia.niveis || {};
+      return p;
     }
+    function baseLocalEntity(kind){ return { id: uid(kind), type: kind, name:'', role:'', hp:10, hpMax:10, ac:10, initiative:0, conditions:[], notes:'', image:'', spells:[] }; }
+    function entitiesAll(){ return [...state.players.map(p=>({type:'player', data:p})), ...state.enemies.map(e=>({type:'enemy', data:e})), ...state.npcs.map(n=>({type:'npc', data:n}))]; }
+    function findEntity(type,id){
+      if(type==='player') return state.players.find(x=>String(x.id)===String(id)) || null;
+      if(type==='enemy') return state.enemies.find(x=>String(x.id)===String(id)) || null;
+      if(type==='npc') return state.npcs.find(x=>String(x.id)===String(id)) || null;
+      return null;
+    }
+    function selected(){ return findEntity(state.selectedType, state.selectedId); }
+    function setSelected(type,id,openDetails=false){ state.selectedType=type; state.selectedId=id; state.selectedOpen=openDetails || state.selectedOpen; renderAll(); if(openDetails){ $('.right-col')?.scrollIntoView({behavior:'smooth',block:'start'}); } }
+    function entityName(type,e){ if(type==='player') return e.meta.nomePersonagem || 'Sem nome'; return e.name || 'Sem nome'; }
+    function entitySubtitle(type,e){
+      if(type==='player') return [e.meta.classe || e.meta.classeNivel, 'Nv. '+getPlayerLevel(e), e.meta.raca].filter(Boolean).join(' • ');
+      return [type==='enemy' ? 'Inimigo' : 'NPC', e.role].filter(Boolean).join(' • ');
+    }
+    function playerSpellList(p){
+      const out=[];
+      (p.magia.grimorio||[]).forEach(s=>{ const nm=s.nome_pt||s.nome||s.name; if(nm) out.push({name:nm, level:s.nivel===0?'Truque':((s.nivel||'?')+'º')}); });
+      (p.magia.truques||[]).forEach(s=>{ if(s&&s.nome) out.push({name:s.nome, level:'Truque'}); });
+      for(let i=1;i<=9;i++){ const sec=p.magia.niveis && p.magia.niveis[i]; const arr=sec && Array.isArray(sec.magias) ? sec.magias : []; arr.forEach(s=>{ if(s&&s.nome) out.push({name:s.nome, level:i+'º'}); }); }
+      return out;
+    }
+    function playerConditions(p){ return Array.isArray(p.condicoes) ? p.condicoes : []; }
+    function getEntityConditions(type,e){ return type==='player' ? playerConditions(e) : (Array.isArray(e.conditions) ? e.conditions : []); }
+    function hpInfo(type,e){ if(type==='player') return {now:num(e.vida.atuais), max:num(e.vida.maximos), temp:num(e.vida.temporarios)}; return {now:num(e.hp), max:num(e.hpMax), temp:0}; }
+    function entityAC(type,e){ return type==='player' ? String(e.combate.classeArmadura || '-') : String(e.ac || '-'); }
+    function entityIni(type,e){ return type==='player' ? num(e.combate.iniciativa) : num(e.initiative); }
+    function entityMove(type,e){ return type==='player' ? String(e.combate.deslocamento || '-') : '-'; }
+    function entitySpellCount(type,e){ return type==='player' ? playerSpellList(e).length : (Array.isArray(e.spells) ? e.spells.length : 0); }
+    function entityNotes(type,e){ return type==='player' ? (e.campanha.pistasDecifradas || e.campanha.pressagioCurto || e.descricao.historia || e.personalidade?.vinculos || '') : (e.notes || ''); }
+    function hpState(type,e){ const h=hpInfo(type,e); if(h.now<=0) return 'dead'; if(h.max>0 && h.now/h.max<=.35) return 'low'; return 'ok'; }
+    function attrMod(score){ const v = Number(score); return Math.floor(((Number.isFinite(v)?v:10)-10)/2); }
+    function passivePerception(p){ const wis=num(p.atributos?.sabedoria?.valor || 10); const mod=attrMod(wis); const prof=num(p.proficiencia?.bonus || p.bonusProficiencia || 0); const proficient=!!p.pericias?.percepcao?.proficiente; return 10 + mod + (proficient ? prof : 0); }
+    function getPlayerLevel(p){ const direct=num(p.meta.nivel); if(direct>0) return direct; const m=String(p.meta.classeNivel||'').match(/(\d+)/); return m?num(m[1]):1; }
+
     function password(){ return $('#masterPassword').value.trim() || localStorage.getItem(PASS_KEY) || ''; }
     async function apiFetch(path, options={}){
       const pwd=password();
@@ -461,205 +506,339 @@
       const res = await fetch(API_BASE + path, {...options, headers:{...headers, ...(options.headers||{})}});
       const txt=await res.text();
       let data=null; try{ data=txt?JSON.parse(txt):null; }catch{ data={ok:false,error:txt}; }
-      if(!res.ok || (data && data.ok===false)) throw new Error((data&&data.error)||('Erro HTTP '+res.status));
+      if(!res.ok || (data && data.ok===false)) throw new Error((data&&data.error) || ('Erro HTTP '+res.status));
       return data || {};
     }
-    async function loadCharacters(){
+    async function loadPlayers(){
       try{
-        $('#loadBtn').disabled=true;
-        const listData = await apiFetch('/api/characters?campaignId='+encodeURIComponent(CAMPAIGN_ID), {method:'GET'});
+        $('#loadBtn').disabled = true;
+        const listData = await apiFetch('/api/characters?campaignId=' + encodeURIComponent(CAMPAIGN_ID), {method:'GET'});
         const list = Array.isArray(listData.characters) ? listData.characters : [];
-        const full=[];
+        const full = [];
         for(const item of list){
-          const id=item.id || item.characterId;
+          const id=item.id||item.characterId;
           if(!id) continue;
           try{
-            const detail = await apiFetch('/api/characters/'+encodeURIComponent(id)+'?campaignId='+encodeURIComponent(CAMPAIGN_ID), {method:'GET'});
-            full.push(normalize(detail.character || item));
-          }catch{ full.push(normalize(item)); }
+            const detail = await apiFetch('/api/characters/' + encodeURIComponent(id) + '?campaignId=' + encodeURIComponent(CAMPAIGN_ID), {method:'GET'});
+            full.push(normalizePlayer(detail.character || item));
+          }catch{ full.push(normalizePlayer(item)); }
         }
-        state.characters = full.sort((a,b)=>String(a.meta.nomePersonagem||'').localeCompare(String(b.meta.nomePersonagem||'')));
-        if(!state.selectedId && state.characters[0]) state.selectedId=state.characters[0].id;
-        if(state.selectedId && !findCharacter(state.selectedId) && state.characters[0]) state.selectedId=state.characters[0].id;
+        state.players = full.sort((a,b)=>String(a.meta.nomePersonagem||'').localeCompare(String(b.meta.nomePersonagem||'')));
+        if(!state.selectedId && state.players[0]){ state.selectedType='player'; state.selectedId=state.players[0].id; }
+        if(state.selectedId && !selected() && state.players[0]){ state.selectedType='player'; state.selectedId=state.players[0].id; }
         renderAll();
         toast('Mesa carregada.');
       }catch(e){ toast(e.message); }
       finally{ $('#loadBtn').disabled=false; }
     }
-    async function saveCharacter(c,msg='Atualizado online.'){
-      c.updatedAt = new Date().toISOString();
-      await apiFetch('/api/characters/'+encodeURIComponent(c.id), {method:'PUT', body:JSON.stringify({character:c,campaignId:CAMPAIGN_ID})});
+    function persistLocalBoards(){ saveLocal(LOCAL_ENEMIES, state.enemies); saveLocal(LOCAL_NPCS, state.npcs); }
+    async function savePlayer(p,msg='Jogador atualizado.'){
+      p.updatedAt = new Date().toISOString();
+      await apiFetch('/api/characters/' + encodeURIComponent(p.id), {method:'PUT', body:JSON.stringify({character:p,campaignId:CAMPAIGN_ID})});
       renderAll(); toast(msg);
     }
-    function getLevel(c){ const direct=num(c.meta.nivel); if(direct>0) return direct; const m=String(c.meta.classeNivel||'').match(/(\d+)/); return m?num(m[1]):1; }
-    function spellNames(c){
-      const out=[];
-      (c.magia.grimorio||[]).forEach(s=>{ const nm=s.nome_pt||s.nome||s.name; if(nm) out.push({level:s.nivel===0?'Truque':((s.nivel||'?')+'º'), name:nm, prepared:s.preparada!==false}); });
-      (c.magia.truques||[]).forEach(s=>{ if(s&&s.nome) out.push({level:'Truque', name:s.nome, prepared:true}); });
-      for(let i=1;i<=9;i++){ const sec=c.magia.niveis && c.magia.niveis[i]; const arr=sec && Array.isArray(sec.magias) ? sec.magias : []; arr.forEach(s=>{ if(s&&s.nome) out.push({level:i+'º', name:s.nome, prepared:!!s.preparada}); }); }
-      return out;
+    function saveLocalEntity(type,e,msg='Alvo local atualizado.'){
+      if(type==='enemy'){ const i=state.enemies.findIndex(x=>x.id===e.id); if(i>=0) state.enemies[i]=e; }
+      else if(type==='npc'){ const i=state.npcs.findIndex(x=>x.id===e.id); if(i>=0) state.npcs[i]=e; }
+      persistLocalBoards(); renderAll(); toast(msg);
     }
-    function attrMod(score){ const n=Number(score); const value=Number.isFinite(n)?n:10; return Math.floor((value-10)/2); }
-    function passivePerception(c){
-      const wis=num(c.atributos?.sabedoria?.valor || 10);
-      const mod=attrMod(wis);
-      const prof=num(c.proficiencia?.bonus || c.bonusProficiencia || 0);
-      const proficient=!!getByPath(c,'pericias.percepcao.proficiente');
-      return 10 + mod + (proficient ? prof : 0);
-    }
-    function hpState(c){ const hpNow=num(c.vida.atuais), hpMax=num(c.vida.maximos); if(hpNow<=0) return 'dead'; if(hpMax && hpNow/hpMax<=.35) return 'low'; return 'ok'; }
-    function findCharacter(id){ return state.characters.find(c=>String(c.id)===String(id)); }
-    function selected(){ return findCharacter(state.selectedId); }
-    function filteredCharacters(){
-      const q=String($('#tableSearch')?.value || '').toLowerCase().trim();
-      const hp=$('#hpFilter')?.value || '';
-      const corr=$('#corrFilter')?.value || '';
-      return state.characters.filter(c=>{
-        const text=[c.meta.nomePersonagem,c.meta.nomeJogador,c.meta.classe,c.meta.classeNivel,c.meta.raca,c.campanha.faccao,c.campanha.mareAtual,c.campanha.segredoAtivo,c.campanha.pistasDecifradas,c.campanha.pressagioCurto,c.descricao.historia].join(' ').toLowerCase();
+    function visibleItems(){
+      const q = String($('#searchInput')?.value || '').toLowerCase().trim();
+      const hpF = $('#hpFilter')?.value || '';
+      const typeF = $('#typeFilter')?.value || '';
+      return entitiesAll().filter(item=>{
+        const {type,data} = item;
+        if(typeF && type!==typeF) return false;
+        const text = [entityName(type,data), entitySubtitle(type,data), type==='player'?data.meta.nomeJogador:'', type==='player'?data.campanha.faccao:'', entityNotes(type,data)].join(' ').toLowerCase();
         if(q && !text.includes(q)) return false;
-        const hps=hpState(c);
-        if(hp==='low' && hps!=='low') return false;
-        if(hp==='dead' && hps!=='dead') return false;
-        if(corr==='high' && num(c.campanha.corrupcao)<6) return false;
-        if(corr==='marked' && !c.campanha.marcadoPelaMare) return false;
+        const hs = hpState(type,data);
+        if(hpF==='low' && hs!=='low') return false;
+        if(hpF==='dead' && hs!=='dead') return false;
         return true;
       });
     }
     function renderSummary(){
-      let low=0,dead=0,corr=0,spells=0;
-      state.characters.forEach(c=>{ const hs=hpState(c); if(hs==='low') low++; if(hs==='dead') dead++; if(num(c.campanha.corrupcao)>=6) corr++; spells += spellNames(c).length; });
-      $('#sumChars').textContent=state.characters.length; $('#sumLowHp').textContent=low; $('#sumDead').textContent=dead; $('#sumCorr').textContent=corr; $('#sumSpells').textContent=spells; $('#sumEnemies').textContent='0';
+      const all=entitiesAll();
+      let low=0, dead=0, spells=0;
+      all.forEach(({type,data})=>{ const hs=hpState(type,data); if(hs==='low') low++; if(hs==='dead') dead++; spells+=entitySpellCount(type,data); });
+      $('#sumPlayers').textContent = state.players.length;
+      $('#sumEnemies').textContent = state.enemies.length;
+      $('#sumNpcs').textContent = state.npcs.length;
+      $('#sumLow').textContent = low;
+      $('#sumDead').textContent = dead;
+      $('#sumSpells').textContent = spells;
+      $('#visibleBadge').textContent = visibleItems().length + ' cards visíveis';
     }
-    function subtitle(c){ return [c.meta.classe || c.meta.classeNivel, 'Nv. '+getLevel(c), c.meta.raca].filter(Boolean).join(' • '); }
-    function characterCard(c){
-      const hpNow=num(c.vida.atuais), hpMax=num(c.vida.maximos), temp=num(c.vida.temporarios), pct=hpMax?clamp((hpNow/hpMax)*100,0,100):0, corr=clamp(num(c.campanha.corrupcao),0,10), hps=hpState(c);
-      const classes=['char-card', state.selectedId===c.id?'selected':'', hps==='dead'?'dead':'', hps==='low'?'low':''].filter(Boolean).join(' ');
-      const fillCls=hps==='dead'?'dead':(hps==='low'?'low':'');
-      const spells=spellNames(c); const img=c.descricao?.aparenciaImagem; const name=c.meta.nomePersonagem || 'Sem nome';
+    function cardConditionsPills(conditions){
+      return conditions.map(c=>`<span class="pill red">${escapeHtml(c)}</span>`).join('');
+    }
+    function renderPlayerCard(p){
+      const hs=hpState('player',p), h=hpInfo('player',p), pct=h.max?clamp(h.now/h.max*100,0,100):0, corr=clamp(num(p.campanha.corrupcao),0,10);
+      const cls=['char-card', state.selectedType==='player'&&state.selectedId===p.id?'selected':'', hs==='dead'?'dead':'', hs==='low'?'low':''].filter(Boolean).join(' ');
+      const fillCls=hs==='dead'?'dead':(hs==='low'?'low':'');
+      const spells=playerSpellList(p);
+      const conditions=getEntityConditions('player',p);
       return `
-        <article class="${classes}">
+        <article class="${cls}" data-select-type="player" data-select-id="${escapeHtml(p.id)}">
           <div class="char-head">
-            <div class="avatar">${img ? `<img src="${escapeHtml(img)}" alt="">` : 'Sem imagem'}</div>
+            <div class="avatar">${p.descricao?.aparenciaImagem ? `<img src="${escapeHtml(p.descricao.aparenciaImagem)}" alt="">` : 'Sem imagem'}</div>
             <div>
-              <div class="char-name">${escapeHtml(name)}</div>
-              <div class="char-player">${escapeHtml(c.meta.nomeJogador || 'Jogador não definido')}</div>
+              <div class="char-name">${escapeHtml(entityName('player',p))}</div>
+              <div class="char-player">${escapeHtml(p.meta.nomeJogador || 'Jogador não definido')}</div>
             </div>
           </div>
-          <div class="row">
-            <span class="pill gold">${escapeHtml(c.meta.classe || c.meta.classeNivel || 'Classe?')}</span>
-            <span class="pill">Nv. ${getLevel(c)}</span>
-            <span class="pill">${escapeHtml(c.meta.raca || 'Raça?')}</span>
+          <div class="pill-row">
+            <span class="pill gold">${escapeHtml(p.meta.classe || p.meta.classeNivel || 'Classe?')}</span>
+            <span class="pill">Nv. ${getPlayerLevel(p)}</span>
+            <span class="pill">${escapeHtml(p.meta.raca || 'Raça?')}</span>
           </div>
           <div>
-            <div class="metric-line"><span>HP</span><div class="bar"><div class="fill ${fillCls}" style="width:${pct}%"></div></div><b>${hpNow}/${hpMax || 0}</b></div>
-            <div class="metric-line" style="margin-top:8px"><span>Corrupção</span><div class="bar"><div class="fill corr" style="width:${clamp(corr/10*100,0,100)}%"></div></div><b>${corr}/10</b></div>
+            <div class="metric-line"><span>HP</span><div class="track"><div class="fill hp ${fillCls}" style="width:${pct}%"></div></div><b>${h.now}/${h.max || 0}</b></div>
+            <div class="metric-line" style="margin-top:8px"><span>Corrupção</span><div class="track"><div class="fill corr" style="width:${corr*10}%"></div></div><b>${corr}/10</b></div>
           </div>
-          <div class="stats">
-            <div class="stat"><span>CA</span><b>${escapeHtml(c.combate.classeArmadura || '-')}</b></div>
-            <div class="stat"><span>Inic.</span><b>${escapeHtml(c.combate.iniciativa || '-')}</b></div>
-            <div class="stat"><span>Desl.</span><b>${escapeHtml(c.combate.deslocamento || '-')}</b></div>
-            <div class="stat"><span>Percep.</span><b>${passivePerception(c)}</b></div>
+          <div class="stat-grid">
+            <div class="stat"><span>CA</span><b>${escapeHtml(p.combate.classeArmadura || '-')}</b></div>
+            <div class="stat"><span>Inic.</span><b>${escapeHtml(p.combate.iniciativa || '-')}</b></div>
+            <div class="stat"><span>Desl.</span><b>${escapeHtml(p.combate.deslocamento || '-')}</b></div>
+            <div class="stat"><span>Percep.</span><b>${passivePerception(p)}</b></div>
           </div>
-          <div class="row">
-            ${c.campanha.mareAtual ? `<span class="pill">${escapeHtml(c.campanha.mareAtual)}</span>` : ''}
-            ${c.campanha.faccao ? `<span class="pill">${escapeHtml(c.campanha.faccao)}</span>` : ''}
-            ${c.campanha.marcadoPelaMare ? `<span class="pill red">Marcado</span>` : ''}
+          <div class="pill-row">
+            ${p.campanha.faccao ? `<span class="pill blue">${escapeHtml(p.campanha.faccao)}</span>` : ''}
+            ${p.campanha.mareAtual ? `<span class="pill">${escapeHtml(p.campanha.mareAtual)}</span>` : ''}
             ${spells.length ? `<span class="pill green">${spells.length} magia(s)</span>` : '<span class="pill">Sem magias</span>'}
+            ${cardConditionsPills(conditions)}
           </div>
           <div class="card-actions">
-            <button class="btn small secondary" data-select-char="${escapeHtml(c.id)}">Selecionar</button>
-            <button class="btn small info" data-focus-detail="${escapeHtml(c.id)}">Detalhes</button>
+            <button class="btn small secondary" data-select-type="player" data-select-id="${escapeHtml(p.id)}">Selecionar</button>
+            <button class="btn small blue" data-open-type="player" data-open-id="${escapeHtml(p.id)}">Detalhes</button>
           </div>
-          <div class="foot-note">Dano/cura ficam no painel superior.</div>
+          <div class="foot">Jogador online • controle central na área de combate</div>
         </article>`;
     }
-    function renderBoard(){ const chars=filteredCharacters(); $('#visibleCharsBadge').textContent=chars.length+' visíveis'; $('#playersBoard').innerHTML = chars.map(characterCard).join('') || '<div class="empty">Nenhum personagem corresponde aos filtros.</div>'; }
-    function renderTarget(){
-      const c=selected(); const box=$('#targetPill');
-      if(!c){ box.innerHTML='<span class="target-dot"></span><div><div class="target-name">Nenhum personagem selecionado</div><div class="target-meta">Clique em um card ou em “Detalhes” para abrir o personagem.</div></div>'; return; }
-      box.innerHTML=`<span class="target-dot"></span><div><div class="target-name">${escapeHtml(c.meta.nomePersonagem || 'Sem nome')}</div><div class="target-meta">${escapeHtml(subtitle(c))} • HP ${num(c.vida.atuais)}/${num(c.vida.maximos)}</div></div>`;
+    function renderLocalCard(type,e){
+      const hs=hpState(type,e), h=hpInfo(type,e), pct=h.max?clamp(h.now/h.max*100,0,100):0, cls=['simple-card', state.selectedType===type&&state.selectedId===e.id?'selected':'', hs==='dead'?'dead':'', hs==='low'?'low':''].filter(Boolean).join(' ');
+      const fillCls=hs==='dead'?'dead':(hs==='low'?'low':'');
+      const conditions=getEntityConditions(type,e);
+      return `
+        <article class="${cls}" data-select-type="${type}" data-select-id="${escapeHtml(e.id)}">
+          <div class="simple-head">
+            <div>
+              <div class="simple-title">${escapeHtml(entityName(type,e))}</div>
+              <div class="simple-sub">${escapeHtml(type==='enemy'?'Inimigo':'NPC')} • ${escapeHtml(e.role || 'Sem função')}</div>
+            </div>
+            <span class="pill ${type==='enemy'?'red':'blue'}">${type==='enemy'?'Ameaça':'Aliado'}</span>
+          </div>
+          <div class="metric-line"><span>HP</span><div class="track"><div class="fill hp ${fillCls}" style="width:${pct}%"></div></div><b>${h.now}/${h.max || 0}</b></div>
+          <div class="simple-meta">
+            <div class="stat"><span>CA</span><b>${escapeHtml(String(e.ac || '-'))}</b></div>
+            <div class="stat"><span>Inic.</span><b>${escapeHtml(String(e.initiative || 0))}</b></div>
+            <div class="stat"><span>Condições</span><b>${conditions.length || 0}</b></div>
+          </div>
+          <div class="pill-row">${cardConditionsPills(conditions) || '<span class="pill">Sem condições</span>'}</div>
+          <div class="simple-notes">${escapeHtml(e.notes || 'Sem notas rápidas.')}</div>
+          <div class="card-actions">
+            <button class="btn small secondary" data-select-type="${type}" data-select-id="${escapeHtml(e.id)}">Selecionar</button>
+            <button class="btn small blue" data-open-type="${type}" data-open-id="${escapeHtml(e.id)}">Detalhes</button>
+          </div>
+        </article>`;
     }
-    function renderDetails(){
-      const c=selected(); const root=$('#selectedDetails');
-      if(!c){ root.innerHTML='<div class="empty">Selecione um personagem para abrir as informações distribuídas aqui.</div>'; return; }
-      const spells=spellNames(c); const img=c.descricao?.aparenciaImagem;
-      root.innerHTML=`
-        <div class="selected-head">
-          <div class="avatar">${img ? `<img src="${escapeHtml(img)}" alt="">` : 'Sem imagem'}</div>
+    function renderBoards(){
+      const vis=visibleItems();
+      const players = vis.filter(x=>x.type==='player').map(x=>x.data);
+      const enemies = vis.filter(x=>x.type==='enemy').map(x=>x.data);
+      const npcs = vis.filter(x=>x.type==='npc').map(x=>x.data);
+      $('#playersCountBadge').textContent = players.length;
+      $('#enemiesCountBadge').textContent = enemies.length;
+      $('#npcsCountBadge').textContent = npcs.length;
+      $('#playersBoard').innerHTML = players.map(renderPlayerCard).join('') || '<div class="empty">Nenhum jogador no filtro atual.</div>';
+      $('#enemiesBoard').innerHTML = enemies.map(e=>renderLocalCard('enemy',e)).join('') || '<div class="empty">Nenhum inimigo ainda. Abra o painel local para adicionar.</div>';
+      $('#npcsBoard').innerHTML = npcs.map(n=>renderLocalCard('npc',n)).join('') || '<div class="empty">Nenhum NPC ainda. Abra o painel local para adicionar.</div>';
+    }
+    function renderCombatAltar(){
+      const entity = selected();
+      if(!entity){
+        $('#combatAltar').innerHTML = '<div class="empty">Selecione um card para abrir o alvo central do combate.</div>';
+        $('#conditionButtons').innerHTML = CONDITIONS.map(c=>`<button class="cond-btn" disabled>${escapeHtml(c)}</button>`).join('');
+        return;
+      }
+      const type=state.selectedType, e=entity, h=hpInfo(type,e), hs=hpState(type,e), pct=h.max?clamp(h.now/h.max*100,0,100):0, fillCls=hs==='dead'?'dead':(hs==='low'?'low':'');
+      const conditions=getEntityConditions(type,e);
+      const img = type==='player' ? e.descricao?.aparenciaImagem : e.image;
+      const corr = type==='player' ? clamp(num(e.campanha.corrupcao),0,10) : 0;
+      $('#combatAltar').innerHTML = `
+        <div class="altar-head">
+          <div class="altar-avatar">${img ? `<img src="${escapeHtml(img)}" alt="">` : 'Sem imagem'}</div>
           <div>
-            <div class="selected-name">${escapeHtml(c.meta.nomePersonagem || 'Sem nome')}</div>
-            <div class="selected-sub">${escapeHtml(subtitle(c))}</div>
+            <div class="altar-title">${escapeHtml(entityName(type,e))}</div>
+            <div class="altar-sub">${escapeHtml(entitySubtitle(type,e)) || (type==='enemy'?'Inimigo':'NPC')}</div>
+            <div class="pill-row" style="margin-top:8px">
+              <span class="pill gold">${type==='player'?'Jogador':(type==='enemy'?'Inimigo':'NPC')}</span>
+              ${type==='player' && e.meta.nomeJogador ? `<span class="pill">${escapeHtml(e.meta.nomeJogador)}</span>` : ''}
+              ${conditions.length ? conditions.map(c=>`<span class="pill red">${escapeHtml(c)}</span>`).join('') : '<span class="pill">Sem condições</span>'}
+            </div>
           </div>
         </div>
-        <div class="detail-grid">
-          <div class="detail-row"><span>Jogador</span><b>${escapeHtml(c.meta.nomeJogador || '-')}</b></div>
-          <div class="detail-row"><span>HP</span><b>${num(c.vida.atuais)}/${num(c.vida.maximos)} ${num(c.vida.temporarios)?`(+${num(c.vida.temporarios)} temp)`:''}</b></div>
-          <div class="detail-row"><span>CA / Iniciativa</span><b>${escapeHtml(c.combate.classeArmadura || '-')} / ${escapeHtml(c.combate.iniciativa || '-')}</b></div>
-          <div class="detail-row"><span>Deslocamento</span><b>${escapeHtml(c.combate.deslocamento || '-')}</b></div>
-          <div class="detail-row"><span>Percepção passiva</span><b>${passivePerception(c)}</b></div>
-          <div class="detail-row"><span>Corrupção</span><b>${num(c.campanha.corrupcao)}/10</b></div>
-          <div class="detail-row"><span>Maré</span><b>${escapeHtml(c.campanha.mareAtual || '-')}</b></div>
-          <div class="detail-row"><span>Facção</span><b>${escapeHtml(c.campanha.faccao || '-')}</b></div>
-          <div class="detail-row"><span>Segredo</span><b>${escapeHtml(c.campanha.segredoAtivo || '-')}</b></div>
+        <div class="altar-bars">
+          <div class="bar-row"><span>HP</span><div class="track"><div class="fill hp ${fillCls}" style="width:${pct}%"></div></div><b>${h.now}/${h.max || 0}</b></div>
+          ${type==='player' ? `<div class="bar-row"><span>Corrupção</span><div class="track"><div class="fill corr" style="width:${corr*10}%"></div></div><b>${corr}/10</b></div>` : ''}
         </div>
-        <h3 style="margin:14px 0 8px">Magias</h3>
-        <div class="spell-box">
-          <div class="spell-list">
-            ${spells.map(s=>`<div class="spell-item"><b>${escapeHtml(s.name)}</b><small>${escapeHtml(s.level)}${s.prepared?' • preparada':''}</small></div>`).join('') || '<div class="empty">Sem magias cadastradas.</div>'}
-          </div>
-        </div>
-        <h3 style="margin:14px 0 8px">Pistas e notas</h3>
-        <div class="note-box">${escapeHtml(c.campanha.pistasDecifradas || c.campanha.pressagioCurto || c.personalidade?.vinculos || c.descricao?.historia || 'Sem notas rápidas.')}</div>`;
+        <div class="altar-meta">
+          <div class="mini-stat"><span>CA</span><b>${escapeHtml(entityAC(type,e))}</b></div>
+          <div class="mini-stat"><span>Iniciativa</span><b>${escapeHtml(String(entityIni(type,e) || 0))}</b></div>
+          <div class="mini-stat"><span>Magias</span><b>${entitySpellCount(type,e)}</b></div>
+          <div class="mini-stat"><span>Tipo</span><b>${type==='player'?'PJ':(type==='enemy'?'MON':'NPC')}</b></div>
+        </div>`;
+      $('#conditionButtons').innerHTML = CONDITIONS.map(c=>`<button class="cond-btn ${conditions.includes(c)?'active':''}" data-toggle-cond="${escapeHtml(c)}">${escapeHtml(c)}</button>`).join('');
     }
     function renderInitiative(){
-      const list=[...state.characters].sort((a,b)=>num(b.combate.iniciativa)-num(a.combate.iniciativa));
-      $('#initiativeList').innerHTML = list.map((c,i)=>`<div class="initiative-item" data-select-char="${escapeHtml(c.id)}"><span>#${i+1}</span><b>${escapeHtml(c.meta.nomePersonagem || 'Sem nome')}</b><b>${escapeHtml(c.combate.iniciativa || '-')}</b></div>`).join('') || '<div class="empty">Sem personagens carregados.</div>';
+      const items = entitiesAll().sort((a,b)=>entityIni(b.type,b.data)-entityIni(a.type,a.data));
+      $('#initiativeBoard').innerHTML = items.map((it,idx)=>`<div class="ini-token" data-open-type="${it.type}" data-open-id="${escapeHtml(it.data.id)}"><div class="ini-index">${idx+1}</div><div><b>${escapeHtml(entityName(it.type,it.data))}</b><div class="tiny" style="color:#d9c4a3">${escapeHtml(entitySubtitle(it.type,it.data) || (it.type==='enemy'?'Inimigo':'NPC'))}</div></div><b>${entityIni(it.type,it.data)}</b></div>`).join('') || '<div class="empty">Carregue a mesa para montar a iniciativa.</div>';
     }
-    function renderAll(){ renderSummary(); renderBoard(); renderTarget(); renderDetails(); renderInitiative(); }
-    async function changeHp(delta){ const c=selected(); if(!c){ toast('Selecione um personagem primeiro.'); return; } const max=num(c.vida.maximos); let next=num(c.vida.atuais)+delta; if(next<0) next=0; if(max>0 && next>max) next=max; c.vida.atuais=next; await saveCharacter(c, delta<0 ? `Dano aplicado em ${c.meta.nomePersonagem}.` : `Cura aplicada em ${c.meta.nomePersonagem}.`); }
-    async function setHp(value){ const c=selected(); if(!c){ toast('Selecione um personagem primeiro.'); return; } const max=num(c.vida.maximos); let next=num(value); if(next<0) next=0; if(max>0 && next>max) next=max; c.vida.atuais=next; await saveCharacter(c, `HP de ${c.meta.nomePersonagem} definido.`); }
-    async function reloadSelected(){ const c=selected(); if(!c){ toast('Selecione um personagem primeiro.'); return; } try{ const data=await apiFetch('/api/characters/'+encodeURIComponent(c.id)+'?campaignId='+encodeURIComponent(CAMPAIGN_ID), {method:'GET'}); if(data.character){ const idx=state.characters.findIndex(x=>x.id===c.id); if(idx>=0) state.characters[idx]=normalize(data.character); renderAll(); toast('Personagem recarregado.'); } }catch(e){ toast(e.message); } }
-    function spellLabelLevel(n){ n=num(n); return n===0?'Truque':n+'º nível'; }
-    function shortText(text,max=190){ text=String(text||'').replace(/\s+/g,' ').trim(); return text.length>max ? text.slice(0,max)+'...' : text; }
-    async function loadSpellDb(){
-      const params=new URLSearchParams(); params.set('limit','500');
-      if($('#spellSearch').value.trim()) params.set('q',$('#spellSearch').value.trim());
-      if($('#spellLevel').value!=='') params.set('nivel',$('#spellLevel').value);
-      if($('#spellClass').value) params.set('classe',$('#spellClass').value);
-      $('#spellDbStatus').textContent='Buscando magias...';
-      try{
-        const data=await apiFetch('/api/magias?'+params.toString(), {method:'GET'});
-        const list=data.magias || [];
-        $('#spellDbStatus').textContent=`${list.length} magia(s) carregada(s)` + (data.total ? ` de ${data.total}` : '') + '.';
-        $('#spellDbResults').innerHTML = list.map(m=>`<div class="spell-result"><b>${escapeHtml(m.nome_pt || m.nome || 'Magia')}</b><small>${escapeHtml(spellLabelLevel(m.nivel))} • ${escapeHtml(m.escola || '-')} • ${escapeHtml(m.classes || '')}</small><p>${escapeHtml(shortText(m.descricao_pt || ''))}</p></div>`).join('') || '<div class="empty">Nenhuma magia encontrada.</div>';
-      }catch(e){ $('#spellDbStatus').textContent=e.message; }
+    function renderDetails(){
+      const entity = selected();
+      if(!entity){ $('#detailsPanel').innerHTML='<div class="empty">Selecione um card para abrir os detalhes.</div>'; $('#selectedTypeBadge').textContent='nenhum alvo'; return; }
+      const type=state.selectedType, e=entity, h=hpInfo(type,e), conditions=getEntityConditions(type,e);
+      $('#selectedTypeBadge').textContent = type==='player' ? 'jogador' : (type==='enemy' ? 'inimigo' : 'npc');
+      if(type==='player'){
+        const spells = playerSpellList(e);
+        $('#detailsPanel').innerHTML = `
+          <div class="detail-hero">
+            <div class="avatar">${e.descricao?.aparenciaImagem ? `<img src="${escapeHtml(e.descricao.aparenciaImagem)}" alt="">` : 'Sem imagem'}</div>
+            <div><div class="detail-name">${escapeHtml(entityName(type,e))}</div><div class="detail-sub">${escapeHtml(entitySubtitle(type,e))}</div></div>
+          </div>
+          <div class="detail-grid">
+            <div class="detail-row"><span>Jogador</span><b>${escapeHtml(e.meta.nomeJogador || '-')}</b></div>
+            <div class="detail-row"><span>HP</span><b>${h.now}/${h.max || 0} ${h.temp?`(+${h.temp} temp)`:''}</b></div>
+            <div class="detail-row"><span>CA / Iniciativa</span><b>${escapeHtml(entityAC(type,e))} / ${escapeHtml(String(entityIni(type,e)))}</b></div>
+            <div class="detail-row"><span>Deslocamento</span><b>${escapeHtml(entityMove(type,e))}</b></div>
+            <div class="detail-row"><span>Percepção passiva</span><b>${passivePerception(e)}</b></div>
+            <div class="detail-row"><span>Corrupção</span><b>${num(e.campanha.corrupcao)}/10</b></div>
+            <div class="detail-row"><span>Facção / Maré</span><b>${escapeHtml((e.campanha.faccao || '-') + ' • ' + (e.campanha.mareAtual || '-'))}</b></div>
+            <div class="detail-row"><span>Condições</span><b>${conditions.join(', ') || 'Sem condições'}</b></div>
+          </div>
+          <h3 style="margin:14px 0 8px">Magias</h3>
+          <div class="spell-box"><div class="spell-list">${spells.map(s=>`<div class="spell-item"><b>${escapeHtml(s.name)}</b><small>${escapeHtml(s.level)}</small></div>`).join('') || '<div class="empty">Sem magias cadastradas.</div>'}</div></div>
+          <h3 style="margin:14px 0 8px">Notas</h3>
+          <div class="notes-box">${escapeHtml(entityNotes(type,e) || 'Sem notas rápidas.')}</div>`;
+      }else{
+        $('#detailsPanel').innerHTML = `
+          <div class="detail-hero">
+            <div class="avatar">${e.image ? `<img src="${escapeHtml(e.image)}" alt="">` : (type==='enemy'?'Inimigo':'NPC')}</div>
+            <div><div class="detail-name">${escapeHtml(entityName(type,e))}</div><div class="detail-sub">${escapeHtml(entitySubtitle(type,e))}</div></div>
+          </div>
+          <div class="detail-grid">
+            <div class="detail-row"><span>HP</span><b>${h.now}/${h.max || 0}</b></div>
+            <div class="detail-row"><span>CA / Iniciativa</span><b>${escapeHtml(entityAC(type,e))} / ${escapeHtml(String(entityIni(type,e)))}</b></div>
+            <div class="detail-row"><span>Condições</span><b>${conditions.join(', ') || 'Sem condições'}</b></div>
+            <div class="detail-row"><span>Função</span><b>${escapeHtml(e.role || '-')}</b></div>
+          </div>
+          <h3 style="margin:14px 0 8px">Notas</h3>
+          <div class="field"><textarea id="localNotesEditor">${escapeHtml(e.notes || '')}</textarea></div>
+          <div class="card-actions" style="margin-top:10px">
+            <button class="btn small secondary" id="saveLocalNotesBtn">Salvar notas</button>
+            <button class="btn small red" id="deleteLocalEntityBtn">Excluir</button>
+          </div>`;
+        $('#saveLocalNotesBtn').onclick = () => { e.notes = $('#localNotesEditor').value.trim(); saveLocalEntity(type,e,'Notas salvas.'); };
+        $('#deleteLocalEntityBtn').onclick = () => {
+          if(type==='enemy') state.enemies = state.enemies.filter(x=>x.id!==e.id);
+          else state.npcs = state.npcs.filter(x=>x.id!==e.id);
+          persistLocalBoards();
+          state.selectedId='';
+          renderAll();
+          toast((type==='enemy'?'Inimigo':'NPC') + ' removido.');
+        };
+      }
     }
-    function selectChar(id, focus=false){ state.selectedId=id; renderAll(); if(focus){ document.querySelector('.right-col')?.scrollIntoView({behavior:'smooth', block:'start'}); } }
+    function renderAll(){ renderSummary(); renderBoards(); renderCombatAltar(); renderInitiative(); renderDetails(); }
 
-    document.addEventListener('click', e=>{
-      const focusBtn = e.target.closest('[data-focus-detail]');
-      if(focusBtn){ selectChar(focusBtn.dataset.focusDetail, true); return; }
-      const selectBtn = e.target.closest('[data-select-char]');
-      if(selectBtn){ selectChar(selectBtn.dataset.selectChar, false); return; }
-      const setV = e.target.closest('[data-set-action-value]');
-      if(setV){ $('#actionValue').value=setV.dataset.setActionValue; return; }
+    async function applyHpAction(mode){
+      const entity = selected(); if(!entity){ toast('Selecione um alvo primeiro.'); return; }
+      const value = num($('#actionValue').value); const type=state.selectedType;
+      if(value<0){ toast('Informe um valor válido.'); return; }
+      if(type==='player'){
+        const h=hpInfo(type,entity); let next=h.now;
+        if(mode==='damage') next -= value; else if(mode==='heal') next += value; else next = value;
+        next = clamp(next, 0, h.max>0?h.max:999999);
+        entity.vida.atuais = next;
+        await savePlayer(entity, (mode==='damage'?'Dano aplicado.':mode==='heal'?'Cura aplicada.':'HP definido.'));
+      }else{
+        let next=num(entity.hp);
+        if(mode==='damage') next -= value; else if(mode==='heal') next += value; else next = value;
+        next = clamp(next, 0, num(entity.hpMax)||999999);
+        entity.hp = next;
+        saveLocalEntity(type, entity, (mode==='damage'?'Dano aplicado.':mode==='heal'?'Cura aplicada.':'HP definido.'));
+      }
+    }
+    async function reloadSelected(){
+      const entity = selected(); if(!entity){ toast('Selecione um alvo primeiro.'); return; }
+      if(state.selectedType!=='player'){ renderAll(); toast('Alvo local recarregado da mesa.'); return; }
+      try{
+        const data = await apiFetch('/api/characters/' + encodeURIComponent(entity.id) + '?campaignId=' + encodeURIComponent(CAMPAIGN_ID), {method:'GET'});
+        if(data.character){ const idx=state.players.findIndex(x=>x.id===entity.id); if(idx>=0) state.players[idx]=normalizePlayer(data.character); renderAll(); toast('Jogador recarregado.'); }
+      }catch(e){ toast(e.message); }
+    }
+    async function toggleCondition(cond){
+      const entity = selected(); if(!entity){ toast('Selecione um alvo primeiro.'); return; }
+      const type=state.selectedType;
+      const arr=[...getEntityConditions(type,entity)];
+      const idx=arr.indexOf(cond);
+      if(idx>=0) arr.splice(idx,1); else arr.push(cond);
+      if(type==='player'){
+        entity.condicoes = arr;
+        await savePlayer(entity, 'Condições atualizadas.');
+      }else{
+        entity.conditions = arr;
+        saveLocalEntity(type, entity, 'Condições atualizadas.');
+      }
+    }
+    function handleAddLocal(type){
+      const isEnemy = type==='enemy';
+      const entity = baseLocalEntity(type);
+      entity.name = (isEnemy ? $('#enemyName').value : $('#npcName').value).trim();
+      entity.role = (isEnemy ? $('#enemyRole').value : $('#npcRole').value).trim();
+      entity.hp = num((isEnemy ? $('#enemyHp').value : $('#npcHp').value));
+      entity.hpMax = entity.hp;
+      entity.ac = num((isEnemy ? $('#enemyAc').value : $('#npcAc').value));
+      if(!entity.name){ toast('Informe o nome.'); return; }
+      if(isEnemy){ state.enemies.push(entity); } else { state.npcs.push(entity); }
+      persistLocalBoards();
+      setSelected(type, entity.id, true);
+      toast((isEnemy?'Inimigo':'NPC') + ' adicionado.');
+      if(isEnemy){ $('#enemyName').value=''; $('#enemyRole').value=''; $('#enemyHp').value='10'; $('#enemyAc').value='12'; }
+      else { $('#npcName').value=''; $('#npcRole').value=''; $('#npcHp').value='10'; $('#npcAc').value='10'; }
+    }
+
+    document.addEventListener('click', async (e)=>{
+      const setV=e.target.closest('[data-set-value]');
+      if(setV){ $('#actionValue').value = setV.dataset.setValue; return; }
+      const sel=e.target.closest('[data-select-type]');
+      if(sel){ setSelected(sel.dataset.selectType, sel.dataset.selectId, false); return; }
+      const open=e.target.closest('[data-open-type]');
+      if(open){ setSelected(open.dataset.openType, open.dataset.openId, true); return; }
+      const cond=e.target.closest('[data-toggle-cond]');
+      if(cond){ await toggleCondition(cond.dataset.toggleCond); return; }
+      const card=e.target.closest('.char-card,.simple-card,.ini-token');
+      if(card && !e.target.closest('button')){
+        const t=card.dataset.selectType || card.dataset.openType; const id=card.dataset.selectId || card.dataset.openId;
+        if(t && id) setSelected(t,id,false);
+      }
     });
 
-    $('#loadBtn').onclick=()=>{ loadCharacters(); loadSpellDb(); };
-    $('#refreshBtn').onclick=loadCharacters;
-    $('#clearFiltersBtn').onclick=()=>{ $('#tableSearch').value=''; $('#hpFilter').value=''; $('#corrFilter').value=''; renderAll(); };
-    $('#tableSearch').addEventListener('input', renderAll);
+    $('#loadBtn').onclick = loadPlayers;
+    $('#refreshBtn').onclick = loadPlayers;
+    $('#damageBtn').onclick = ()=>applyHpAction('damage');
+    $('#healBtn').onclick = ()=>applyHpAction('heal');
+    $('#setHpBtn').onclick = ()=>applyHpAction('set');
+    $('#reloadSelectedBtn').onclick = reloadSelected;
+    $('#toggleLocalPanelBtn').onclick = ()=>$('#localPanel').classList.toggle('hidden');
+    $('#closeLocalPanelBtn').onclick = ()=>$('#localPanel').classList.add('hidden');
+    $('#addEnemyBtn').onclick = ()=>handleAddLocal('enemy');
+    $('#addNpcBtn').onclick = ()=>handleAddLocal('npc');
+    $('#searchInput').addEventListener('input', renderAll);
     $('#hpFilter').addEventListener('change', renderAll);
-    $('#corrFilter').addEventListener('change', renderAll);
-    $('#damageBtn').onclick=()=>changeHp(-num($('#actionValue').value));
-    $('#healBtn').onclick=()=>changeHp(num($('#actionValue').value));
-    $('#setHpBtn').onclick=()=>setHp($('#actionValue').value);
-    $('#reloadSelectedBtn').onclick=reloadSelected;
-    $('#toggleSpellDbBtn').onclick=()=>$('#spellDbPanel').classList.toggle('hidden');
-    $('#closeSpellDbBtn').onclick=()=>$('#spellDbPanel').classList.add('hidden');
-    $('#spellSearchBtn').onclick=loadSpellDb;
-    $('#spellSearch').addEventListener('keydown', e=>{ if(e.key==='Enter') loadSpellDb(); });
-    window.addEventListener('load', ()=>{ const saved=localStorage.getItem(PASS_KEY)||localStorage.getItem('rpggabriel.master.password')||''; if(saved) $('#masterPassword').value=saved; });
+    $('#typeFilter').addEventListener('change', renderAll);
+    $('#clearFiltersBtn').onclick = ()=>{ $('#searchInput').value=''; $('#hpFilter').value=''; $('#typeFilter').value=''; renderAll(); };
+    window.addEventListener('load', ()=>{ const saved=localStorage.getItem(PASS_KEY)||localStorage.getItem('rpggabriel.master.password.v168')||localStorage.getItem('rpggabriel.master.password')||''; if(saved) $('#masterPassword').value=saved; renderAll(); });
   </script>
 </body>
 </html>
