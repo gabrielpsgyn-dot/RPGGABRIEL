@@ -18,7 +18,7 @@ export default {
         return json({
           ok: true,
           app: "Ghosts of Saltmarsh - Ficha Online API",
-          version: "1.4.0-spellbook-player",
+          version: "1.4.1-spellbank-collapsible",
           loginMode: "character_click_standard_password",
           time: new Date().toISOString()
         });

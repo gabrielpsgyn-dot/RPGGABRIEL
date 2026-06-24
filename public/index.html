@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPG Gabriel - Ficha Online V16</title>
+  <title>RPG Gabriel - Ficha Online V16.1</title>
   <style>
     :root{
       --bg:#090b10;
@@ -414,6 +414,56 @@
       .spellbook-tools,.my-spell-actions{grid-template-columns:1fr}
     }
 
+
+    .spellbook-panel-title{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:8px;
+      align-items:start;
+    }
+    .spellbook-panel-title h3{
+      margin-bottom:2px;
+    }
+    .spellbank-collapsible{
+      overflow:hidden;
+      transition:max-height .22s ease, opacity .18s ease, margin-top .18s ease;
+      max-height:850px;
+      opacity:1;
+      margin-top:8px;
+    }
+    .spellbank-collapsed .spellbank-collapsible{
+      max-height:0;
+      opacity:0;
+      margin-top:0;
+      pointer-events:none;
+    }
+    .spellbank-panel{
+      position:relative;
+    }
+    .spellbank-panel .small{
+      min-height:32px;
+      padding:6px 10px;
+      font-size:12px;
+      border-radius:999px;
+      white-space:nowrap;
+    }
+    .spellbank-results{
+      max-height:360px;
+      overflow:auto;
+      padding-right:4px;
+    }
+    @media(max-width:600px){
+      .spellbook-panel-title{
+        grid-template-columns:1fr;
+      }
+      .spellbank-panel .small{
+        width:100%;
+      }
+      .spellbank-results{
+        max-height:300px;
+      }
+    }
+
   </style>
 </head>
 <body class="menu-open">
@@ -696,42 +746,51 @@
           <div class="field"><label>Ataque mágico</label><input data-path="magia.modificadorAtaqueMagico"></div>
         </div>
 
-        <div class="panel spellbook-panel">
-          <h3>Grimório do personagem</h3>
-          <div class="spellbook-tools">
-            <div class="field"><label>Buscar no banco</label><input id="spellSearchInput" placeholder="Ex.: Bola de Fogo"></div>
-            <div class="field"><label>Nível</label>
-              <select id="spellLevelFilter">
-                <option value="">Todos</option>
-                <option value="0">Truque</option>
-                <option value="1">1º</option>
-                <option value="2">2º</option>
-                <option value="3">3º</option>
-                <option value="4">4º</option>
-                <option value="5">5º</option>
-                <option value="6">6º</option>
-                <option value="7">7º</option>
-                <option value="8">8º</option>
-                <option value="9">9º</option>
-              </select>
+        <div class="panel spellbook-panel spellbank-panel spellbank-collapsed" id="spellBankPanel">
+          <div class="spellbook-panel-title">
+            <div>
+              <h3>Grimório do personagem</h3>
+              <p class="sheet-note">Abra a busca só quando for adicionar uma magia nova.</p>
             </div>
-            <div class="field"><label>Classe</label>
-              <select id="spellClassFilter">
-                <option value="">Todas</option>
-                <option>Bardo</option>
-                <option>Bruxo</option>
-                <option>Clérigo</option>
-                <option>Druida</option>
-                <option>Feiticeiro</option>
-                <option>Mago</option>
-                <option>Paladino</option>
-                <option>Patrulheiro</option>
-              </select>
-            </div>
-            <button class="btn secondary" id="spellBankSearchBtn">Buscar magias</button>
+            <button class="btn secondary small" id="toggleSpellBankBtn" type="button">Abrir busca</button>
           </div>
-          <div class="spellbook-status" id="spellBankStatus">Use a busca para adicionar magias ao personagem.</div>
-          <div class="spellbank-results" id="spellBankResults"></div>
+
+          <div class="spellbank-collapsible" id="spellBankCollapsible">
+            <div class="spellbook-tools">
+              <div class="field"><label>Buscar no banco</label><input id="spellSearchInput" placeholder="Ex.: Bola de Fogo"></div>
+              <div class="field"><label>Nível</label>
+                <select id="spellLevelFilter">
+                  <option value="">Todos</option>
+                  <option value="0">Truque</option>
+                  <option value="1">1º</option>
+                  <option value="2">2º</option>
+                  <option value="3">3º</option>
+                  <option value="4">4º</option>
+                  <option value="5">5º</option>
+                  <option value="6">6º</option>
+                  <option value="7">7º</option>
+                  <option value="8">8º</option>
+                  <option value="9">9º</option>
+                </select>
+              </div>
+              <div class="field"><label>Classe</label>
+                <select id="spellClassFilter">
+                  <option value="">Todas</option>
+                  <option>Bardo</option>
+                  <option>Bruxo</option>
+                  <option>Clérigo</option>
+                  <option>Druida</option>
+                  <option>Feiticeiro</option>
+                  <option>Mago</option>
+                  <option>Paladino</option>
+                  <option>Patrulheiro</option>
+                </select>
+              </div>
+              <button class="btn secondary" id="spellBankSearchBtn">Buscar magias</button>
+            </div>
+            <div class="spellbook-status" id="spellBankStatus">Use a busca para adicionar magias ao personagem.</div>
+            <div class="spellbank-results" id="spellBankResults"></div>
+          </div>
         </div>
 
         <div class="panel spellbook-panel">
@@ -1038,7 +1097,22 @@
       return spell.formula_dado_base || 'sem rolagem';
     }
 
+    function setSpellBankOpen(open){
+      const panel = $('#spellBankPanel');
+      const btn = $('#toggleSpellBankBtn');
+      if(!panel || !btn) return;
+      panel.classList.toggle('spellbank-collapsed', !open);
+      btn.textContent = open ? 'Fechar busca' : 'Abrir busca';
+    }
+
+    function toggleSpellBank(){
+      const panel = $('#spellBankPanel');
+      if(!panel) return;
+      setSpellBankOpen(panel.classList.contains('spellbank-collapsed'));
+    }
+
     async function searchSpellBank(){
+      setSpellBankOpen(true);
       const q = ($('#spellSearchInput') && $('#spellSearchInput').value.trim()) || '';
       const nivel = ($('#spellLevelFilter') && $('#spellLevelFilter').value) || '';
       const classe = ($('#spellClassFilter') && $('#spellClassFilter').value) || '';
@@ -1120,6 +1194,7 @@
         });
 
         renderSpellbookUI();
+        setSpellBankOpen(false);
         saveLocal(false);
         await saveOnline();
         toast('Magia adicionada ao personagem.');
@@ -1674,6 +1749,7 @@
       };
       const downloadJsonBtn = $('#downloadJsonBtn'); if(downloadJsonBtn) downloadJsonBtn.onclick=exportJson;
       const spellBankSearchBtn = $('#spellBankSearchBtn'); if(spellBankSearchBtn) spellBankSearchBtn.onclick=searchSpellBank;
+      const toggleSpellBankBtn = $('#toggleSpellBankBtn'); if(toggleSpellBankBtn) toggleSpellBankBtn.onclick=toggleSpellBank;
       const spellSearchInput = $('#spellSearchInput'); if(spellSearchInput) spellSearchInput.addEventListener('keydown', e=>{ if(e.key==='Enter') searchSpellBank(); });
     }
 
@@ -1684,6 +1760,6 @@
     refreshOnline();
     startOnlineSync();
   </script>
-<!-- RPGGABRIEL V16 SPELLBOOK MAGIAS MANUAIS -->
+<!-- RPGGABRIEL V16.1 SPELLBANK COLLAPSIBLE -->
 </body>
 </html>
