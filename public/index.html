@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPG Gabriel - Ficha Online V16.3</title>
+  <title>RPG Gabriel - Ficha Online V16.4</title>
   <style>
     :root{
       --bg:#090b10;
@@ -514,6 +514,101 @@
       .spell-slots-used-grid{grid-template-columns:repeat(2,1fr)}
     }
 
+
+    .calc-note{
+      margin:2px 0 8px;
+      font-size:11px;
+      color:#6c5842;
+      line-height:1.35;
+      background:rgba(214,168,90,.13);
+      border:1px solid rgba(150,99,40,.18);
+      border-radius:10px;
+      padding:7px 8px;
+    }
+    .save-skill-list,.skill-group-list{gap:8px}
+    .save-skill-group,.skill-ability-group{
+      border:1px solid rgba(36,27,20,.22);
+      background:rgba(255,250,240,.62);
+      border-radius:12px;
+      padding:8px;
+    }
+    .save-main,.skill-group-head{
+      display:grid;
+      grid-template-columns:24px 48px 1fr;
+      gap:6px;
+      align-items:center;
+      font-size:13px;
+      font-weight:850;
+    }
+    .save-main input[type="checkbox"],.skill-row-linked input[type="checkbox"]{
+      width:18px;
+      height:18px;
+      min-height:18px;
+    }
+    .calc-formula{
+      font-size:11px;
+      color:#6b5944;
+      margin-top:4px;
+      font-weight:750;
+    }
+    .linked-skills{
+      margin-top:6px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:5px;
+      align-items:center;
+      font-size:11px;
+      color:#6b5944;
+    }
+    .linked-skills-title{
+      font-weight:900;
+      color:#3b2a19;
+      margin-right:2px;
+    }
+    .linked-skill-pill{
+      border:1px solid rgba(36,27,20,.22);
+      background:#f4e4c4;
+      border-radius:999px;
+      padding:3px 7px;
+      font-weight:800;
+      color:#3e2d1d;
+    }
+    .linked-skill-pill .mini-bonus{
+      font-weight:950;
+      color:#21170f;
+      margin-left:3px;
+    }
+    .skill-ability-group{
+      display:grid;
+      gap:5px;
+    }
+    .skill-group-head{
+      grid-template-columns:48px 1fr;
+      border-bottom:1px dotted rgba(36,27,20,.24);
+      padding-bottom:5px;
+      margin-bottom:3px;
+    }
+    .skill-row-linked{
+      display:grid;
+      grid-template-columns:24px 48px 1fr;
+      gap:6px;
+      align-items:center;
+      font-size:13px;
+      padding:4px 0;
+      border-bottom:1px dotted rgba(36,27,20,.16);
+    }
+    .skill-row-linked:last-child{border-bottom:0}
+    .skill-ability-empty{
+      font-size:12px;
+      color:#786450;
+      padding:5px 0 2px;
+    }
+    @media(max-width:520px){
+      .save-main,.skill-row-linked{grid-template-columns:22px 42px 1fr;font-size:12px}
+      .skill-group-head{grid-template-columns:42px 1fr}
+      .linked-skills{font-size:10px}
+    }
+
   </style>
 </head>
 <body class="menu-open">
@@ -691,11 +786,13 @@
             </div>
             <div class="panel">
               <h3>Salvaguardas</h3>
-              <div class="check-list" id="savesList"></div>
+              <p class="calc-note">Cálculo: modificador do atributo + bônus de proficiência quando marcado. Salvaguarda e perícia são proficiências separadas.</p>
+              <div class="check-list save-skill-list" id="savesList"></div>
             </div>
             <div class="panel">
               <h3>Perícias</h3>
-              <div class="check-list" id="skillsList"></div>
+              <p class="calc-note">As perícias abaixo estão vinculadas ao atributo usado no cálculo. Marcar salvaguarda não marca perícia automaticamente.</p>
+              <div class="check-list skill-group-list" id="skillsList"></div>
             </div>
           </div>
 
@@ -1100,21 +1197,44 @@
         </div>
       `).join('');
 
-      $('#savesList').innerHTML = abilities.map(([k,label])=>`
-        <div class="check-row">
-          <input type="checkbox" data-path="atributos.${k}.salvaguardaProficiente">
-          <span class="bonus" data-save-bonus="${k}">+0</span>
-          <span>${label}</span>
-        </div>
-      `).join('');
+      $('#savesList').innerHTML = abilities.map(([k,label,abbr])=>{
+        const linked = skills.filter(([, , ability])=>ability===k);
+        return `
+          <div class="save-skill-group">
+            <div class="save-main">
+              <input type="checkbox" data-path="atributos.${k}.salvaguardaProficiente">
+              <span class="bonus" data-save-bonus="${k}">+0</span>
+              <span>${label} <small>(${abbr})</small></span>
+            </div>
+            <div class="calc-formula" data-save-formula="${k}">Mod ${abbr}</div>
+            <div class="linked-skills">
+              <span class="linked-skills-title">Perícias ligadas:</span>
+              ${linked.length ? linked.map(([sk,skLabel])=>`
+                <span class="linked-skill-pill">${skLabel} <span class="mini-bonus" data-linked-skill-bonus="${sk}">+0</span></span>
+              `).join('') : '<span class="linked-skill-pill">Nenhuma perícia padrão</span>'}
+            </div>
+          </div>
+        `;
+      }).join('');
 
-      $('#skillsList').innerHTML = skills.map(([k,label,ability,abbr])=>`
-        <div class="check-row">
-          <input type="checkbox" data-path="pericias.${k}.proficiente">
-          <span class="bonus" data-skill-bonus="${k}">+0</span>
-          <span>${label} (${abbr})</span>
-        </div>
-      `).join('');
+      $('#skillsList').innerHTML = abilities.map(([ability,label,abbr])=>{
+        const list = skills.filter(([, , a])=>a===ability);
+        return `
+          <div class="skill-ability-group">
+            <div class="skill-group-head">
+              <span class="bonus" data-skill-ability-mod="${ability}">+0</span>
+              <span>${label} <small>(${abbr})</small></span>
+            </div>
+            ${list.length ? list.map(([k,skLabel])=>`
+              <div class="skill-row-linked">
+                <input type="checkbox" data-path="pericias.${k}.proficiente">
+                <span class="bonus" data-skill-bonus="${k}">+0</span>
+                <span>${skLabel}</span>
+              </div>
+            `).join('') : '<div class="skill-ability-empty">Nenhuma perícia padrão vinculada.</div>'}
+          </div>
+        `;
+      }).join('');
 
       $('#deathSuccess').innerHTML = [0,1,2].map(i=>`<input type="checkbox" data-path="morte.sucessos.${i}">`).join(' ');
       $('#deathFail').innerHTML = [0,1,2].map(i=>`<input type="checkbox" data-path="morte.falhas.${i}">`).join(' ');
@@ -1557,17 +1677,43 @@
       $('#dashAvatar').innerHTML = img ? `<img src="${img}" alt="Imagem do personagem">` : 'Imagem';
     }
 
+
+    function calcSaveBonus(c,k){
+      return getMod(c,k) + (getByPath(c,'atributos.'+k+'.salvaguardaProficiente') ? profBonus(c) : 0);
+    }
+
+    function calcSkillBonus(c,k){
+      const item = skills.find(([id])=>id===k);
+      if(!item) return 0;
+      const ability = item[2];
+      return getMod(c,ability) + (getByPath(c,'pericias.'+k+'.proficiente') ? profBonus(c) : 0);
+    }
+
+    function calcFormulaText(c, ability, isProficient){
+      const abbr = (abilities.find(([k])=>k===ability) || [null,null,ability])[2];
+      const mod = getMod(c, ability);
+      const prof = profBonus(c);
+      return isProficient
+        ? `Mod ${abbr} ${fmt(mod)} + proficiência ${fmt(prof)} = ${fmt(mod + prof)}`
+        : `Mod ${abbr} ${fmt(mod)} = ${fmt(mod)}`;
+    }
+
+
     function renderCalcs(){
       const c=activeChar(); if(!c) return;
       abilities.forEach(([k])=>{
-        const save = getMod(c,k) + (getByPath(c,'atributos.'+k+'.salvaguardaProficiente') ? profBonus(c) : 0);
+        const proficient = !!getByPath(c,'atributos.'+k+'.salvaguardaProficiente');
+        const save = calcSaveBonus(c,k);
         const el = $(`[data-save-bonus="${k}"]`); if(el) el.textContent = fmt(save);
+        const formula = $(`[data-save-formula="${k}"]`); if(formula) formula.textContent = calcFormulaText(c,k,proficient);
+        const abilityMod = $(`[data-skill-ability-mod="${k}"]`); if(abilityMod) abilityMod.textContent = fmt(getMod(c,k));
         const modInput = $(`[data-mod-input="${k}"]`);
         if(modInput && !modInput.value) modInput.placeholder = fmt(getMod(c,k));
       });
       skills.forEach(([k,label,ability])=>{
-        const total = getMod(c,ability) + (getByPath(c,'pericias.'+k+'.proficiente') ? profBonus(c) : 0);
+        const total = calcSkillBonus(c,k);
         const el = $(`[data-skill-bonus="${k}"]`); if(el) el.textContent = fmt(total);
+        const linked = $(`[data-linked-skill-bonus="${k}"]`); if(linked) linked.textContent = fmt(total);
       });
       const perception = getMod(c,'sabedoria') + (getByPath(c,'pericias.percepcao.proficiente') ? profBonus(c) : 0);
       $('#passiveCalc').textContent = 'Calculado: ' + (10 + perception);
