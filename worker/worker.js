@@ -18,7 +18,7 @@ export default {
         return json({
           ok: true,
           app: "Ghosts of Saltmarsh - Ficha Online API",
-          version: "1.3.0-magias-manuais",
+          version: "1.3.1-magias-manuais-reset",
           loginMode: "character_click_standard_password",
           time: new Date().toISOString()
         });
@@ -39,6 +39,10 @@ export default {
 
       if (method === "GET" && path === "/api/magias") {
         return listMagias(request, env, url);
+      }
+
+      if (method === "GET" && path === "/api/magias-status") {
+        return magiasStatus(request, env, url);
       }
 
       const magiaMatch = path.match(/^\/api\/magias\/([^/]+)$/);
@@ -262,6 +266,63 @@ async function deleteCharacter(request, env, url, id) {
 }
 
 
+async function getTableColumns(env, tableName) {
+  try {
+    const info = await env.DB.prepare(`PRAGMA table_info(${tableName})`).all();
+    return (info.results || []).map(r => r.name);
+  } catch {
+    return [];
+  }
+}
+
+async function assertManualMagiasSchema(env) {
+  const cols = await getTableColumns(env, "magias");
+  if (!cols.length) {
+    throw new Error("Tabela magias não existe. Rode schema/magias_ptbr_pdf_schema_seed_RESET.sql no D1.");
+  }
+  if (!cols.includes("nome_pt") || !cols.includes("descricao_pt")) {
+    throw new Error("Tabela magias está em formato antigo. Rode schema/magias_ptbr_pdf_schema_seed_RESET.sql para recriar as magias manuais PT-BR.");
+  }
+}
+
+async function magiasStatus(request, env, url) {
+  const cols = await getTableColumns(env, "magias");
+  if (!cols.length) {
+    return json({
+      ok: false,
+      status: "sem_tabela_magias",
+      mensagem: "Tabela magias não existe. Execute o arquivo schema/magias_ptbr_pdf_schema_seed_RESET.sql."
+    });
+  }
+
+  const formatoManual = cols.includes("nome_pt") && cols.includes("descricao_pt");
+  let total = 0;
+  let porNivel = [];
+
+  if (formatoManual) {
+    const row = await env.DB.prepare("SELECT COUNT(*) AS total FROM magias").first();
+    const levels = await env.DB.prepare(`
+      SELECT nivel, COUNT(*) AS total
+      FROM magias
+      GROUP BY nivel
+      ORDER BY nivel
+    `).all();
+    total = Number(row && row.total ? row.total : 0);
+    porNivel = levels.results || [];
+  }
+
+  return json({
+    ok: formatoManual,
+    status: formatoManual ? "ok" : "schema_antigo",
+    total_magias: total,
+    por_nivel: porNivel,
+    colunas_magias: cols,
+    mensagem: formatoManual
+      ? "Banco de magias manuais OK."
+      : "Tabela magias existe, mas está em formato antigo. Execute schema/magias_ptbr_pdf_schema_seed_RESET.sql."
+  });
+}
+
 
 function parseBoolFlag(value) {
   return value === 1 || value === "1" || value === true;
@@ -297,6 +358,7 @@ function spellPublic(row) {
 }
 
 async function listMagias(request, env, url) {
+  await assertManualMagiasSchema(env);
   const q = String(url.searchParams.get("q") || "").trim();
   const classe = String(url.searchParams.get("classe") || "").trim();
   const tipoUso = String(url.searchParams.get("tipo_uso") || url.searchParams.get("tipo") || "").trim();
@@ -370,6 +432,7 @@ async function listMagias(request, env, url) {
 }
 
 async function getMagia(request, env, url, slug) {
+  await assertManualMagiasSchema(env);
   const row = await env.DB.prepare(`
     SELECT
       m.*,
