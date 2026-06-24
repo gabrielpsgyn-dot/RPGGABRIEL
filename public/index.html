@@ -676,7 +676,7 @@ body.menu-open .btn.ghost{
   <div class="app">
     <aside class="sidebar">
       <div class="brand">
-        <div class="brand-mark">â‰ˆ</div>
+        <div class="brand-mark"></div>
         <div>
           <h1>Ghosts of Saltmarsh</h1>
           <p>Ficha Online V5 - senha padrão</p>
@@ -720,7 +720,7 @@ body.menu-open .btn.ghost{
       <div class="topbar">
         <div class="topbar-inner">
           <div class="topbar-tools">
-            <button class="btn ghost small" id="backToMenuBtn">â† Personagens</button><div class="sheet-mode-note">Tela de informações do personagem</div>
+            <button class="btn ghost small" id="backToMenuBtn">Personagens</button><div class="sheet-mode-note">Tela de informações do personagem</div>
           </div>
           <div class="tabs" id="tabs">
             <button class="tab active" data-tab="page1">1. Ficha</button>
@@ -1353,34 +1353,60 @@ body.menu-open .btn.ghost{
       const input = $('#passwordInput'); if(input) input.value = '';
     }
 
-    async function confirmPasswordAndEnter(){
+    
+async function confirmPasswordAndEnter(){
       const id = state.pendingPasswordCharacterId || state.activeId;
       const input = $('#passwordInput');
       const pwd = input ? input.value.trim() : '';
       if(!id){ toast('Selecione um personagem.'); return; }
       if(!pwd){ toast('Digite a senha padrão.'); return; }
+
       setSessionPassword(pwd);
+
       try{
         if(getApiBase()){
-          const data = await apiFetch('/api/characters/' + encodeURIComponent(id) + '?campaignId=' + encodeURIComponent(CAMPAIGN_ID), {method:'GET'});
-          if(data && data.character){
-            const c = normalizeCharacter(data.character);
-            const idx = state.characters.findIndex(x => x.id === c.id);
-            if(idx >= 0) state.characters[idx] = c;
-            else state.characters.push(c);
-            state.activeId = c.id;
-            saveStore(false);
+          // Primeiro valida a senha no servidor.
+          await apiFetch('/api/characters?campaignId=' + encodeURIComponent(CAMPAIGN_ID), {method:'GET'});
+
+          // Depois tenta baixar a ficha online.
+          // Se o personagem ainda for só local, não bloqueia a entrada.
+          try{
+            const data = await apiFetch('/api/characters/' + encodeURIComponent(id) + '?campaignId=' + encodeURIComponent(CAMPAIGN_ID), {method:'GET'});
+            if(data && data.character){
+              const c = normalizeCharacter(data.character);
+              const idx = state.characters.findIndex(x => x.id === c.id);
+              if(idx >= 0) state.characters[idx] = c;
+              else state.characters.push(c);
+              state.activeId = c.id;
+              saveStore(false);
+            }
+          }catch(fetchErr){
+            const msg = String(fetchErr && fetchErr.message ? fetchErr.message : fetchErr);
+            if(!/Personagem não encontrado|404/i.test(msg)){
+              throw fetchErr;
+            }
+
+            const local = state.characters.find(x => x.id === id);
+            if(local){
+              local.campaignId = local.campaignId || CAMPAIGN_ID;
+              local.__onlineSummary = false;
+              state.activeId = local.id;
+              saveStore(false);
+            }
           }
         }else if(pwd !== LOCAL_DEV_PASSWORD){
           throw new Error('Senha padrão inválida.');
         }
+
         closePasswordModal();
         enterCharacter(id);
+        toast('Ficha aberta.');
       }catch(err){
         setSessionPassword('');
         toast('Não abriu: ' + err.message);
       }
     }
+
 
     function mergeOnlineCharacters(onlineChars){
       const byId = new Map(state.characters.map(c => [c.id, c]));
@@ -1614,7 +1640,7 @@ function loadStore(){
             <b>${escapeHtml(c.meta.nomePersonagem || 'Sem nome')}</b>
             <span>${escapeHtml(characterSubtitle(c))}</span>
             <div class="menu-char-meta">
-              <em class="pill">â‰ˆ ${escapeHtml((c.campanha && c.campanha.mareAtual) || 'sem maré')}</em>
+              <em class="pill">${escapeHtml((c.campanha && c.campanha.mareAtual) || 'sem maré')}</em>
               <em class="pill">corrupção ${escapeHtml((c.campanha && c.campanha.corrupcao) || 0)}/10</em>
               <em class="pill">${escapeHtml((c.campanha && c.campanha.marcaCampanha) || 'sem marca')}</em>
             </div>
