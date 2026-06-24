@@ -3,143 +3,477 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Página do Mestre - RPG Gabriel V16 Magias</title>
+  <title>Página do Mestre - RPG Gabriel V16.6</title>
   <style>
     :root{
-      --bg:#080b10;
-      --panel:#101722;
-      --panel2:#172130;
-      --paper:#fff7e8;
-      --ink:#241b14;
-      --muted:#9ca8b8;
-      --line:#2c3a4d;
-      --gold:#d8bd8b;
-      --red:#d43b32;
-      --green:#2f8b57;
-      --blue:#3f7fc8;
-      --purple:#8a35b2;
+      --bg:#071016;
+      --bg2:#101821;
+      --panel:#121c27;
+      --panel2:#172535;
+      --panel3:#203247;
+      --line:#2f4259;
+      --text:#eef5f8;
+      --muted:#9fb0bf;
+      --gold:#d9b56c;
+      --paper:#fff4df;
+      --ink:#21170d;
+      --red:#b63838;
+      --green:#2f8757;
+      --blue:#316dad;
+      --purple:#7442a6;
+      --shadow:0 18px 40px rgba(0,0,0,.25);
       --radius:16px;
       --ui:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
     }
     *{box-sizing:border-box}
-    body{margin:0;min-height:100vh;background:linear-gradient(180deg,#070a0f,#111722);color:#eef3f7;font-family:var(--ui)}
-    button,input,textarea,select{font:inherit}
+    body{
+      margin:0;
+      min-height:100vh;
+      color:var(--text);
+      font-family:var(--ui);
+      background:
+        radial-gradient(circle at 15% 0%, rgba(217,181,108,.16), transparent 30%),
+        radial-gradient(circle at 85% 10%, rgba(49,109,173,.14), transparent 34%),
+        linear-gradient(180deg,#060a0f,#101821 55%,#090e13);
+    }
+    button,input,select,textarea{font:inherit}
     button{cursor:pointer}
-    a{color:inherit}
-    .wrap{max-width:1440px;margin:0 auto;padding:16px}
-    .top{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;margin-bottom:14px}
-    h1{margin:0;font-size:30px;line-height:1}
-    .subtitle{color:#c9d3df;margin-top:5px}
-    .login{display:grid;grid-template-columns:260px auto auto;gap:8px;align-items:end;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:12px;margin-bottom:14px}
-    label{display:block;font-size:11px;text-transform:uppercase;font-weight:900;letter-spacing:.05em;color:#cfd7e1;margin-bottom:4px}
-    input,textarea,select{width:100%;border:1px solid #34465f;background:#0c121b;color:#fff;border-radius:10px;padding:9px 10px;outline:none}
-    textarea{resize:vertical;min-height:88px}
-    .btn{border:0;border-radius:11px;background:#7c4826;color:#fff4dc;font-weight:900;min-height:38px;padding:9px 12px}
-    .btn.secondary{background:#263449}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1680px;margin:0 auto;padding:14px}
+    .top{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:12px;
+      align-items:center;
+      margin-bottom:12px;
+    }
+    h1{margin:0;font-size:clamp(24px,3vw,38px);line-height:.95}
+    h2,h3{margin:0}
+    .subtitle{color:#cbd7e4;margin-top:6px;font-size:14px}
+    .btn{
+      border:0;
+      border-radius:12px;
+      background:#7a4a24;
+      color:#fff3d6;
+      font-weight:950;
+      min-height:38px;
+      padding:9px 12px;
+      box-shadow:0 10px 22px rgba(0,0,0,.18);
+    }
+    .btn.secondary{background:#26364b;color:#eaf2fb}
     .btn.green{background:var(--green)}
-    .btn.red{background:#9f2e2e}
-    .btn.blue{background:#2f68b3}
-    .btn.small{min-height:30px;padding:6px 9px;font-size:12px}
-    .grid{display:grid;grid-template-columns:360px 1fr;gap:14px;align-items:start}
-    .sidebar,.main-card,.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:12px}
-    .summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
-    .summary .box{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:12px}
-    .summary b{display:block;font-size:24px}
-    .summary span{color:#c9d3df;font-size:12px;text-transform:uppercase;font-weight:850}
-    .char-list{display:grid;gap:8px;max-height:calc(100vh - 250px);overflow:auto;padding-right:4px}
-    .char-btn{width:100%;text-align:left;background:#111b28;border:1px solid #33445c;color:#eef3f7;border-radius:13px;padding:10px}
-    .char-btn.active{border-color:var(--gold);background:#2e2116}
-    .char-btn b{display:block;font-size:18px}
-    .char-btn span{display:block;color:#c7d1dc;font-size:13px;margin-top:2px}
-    .chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
-    .chip{border-radius:999px;background:#263449;color:#eaf1f7;font-size:11px;font-weight:850;padding:4px 8px}
-    .main-card{display:grid;gap:12px}
-    .character-head{display:grid;grid-template-columns:110px 1fr auto;gap:12px;align-items:center}
-    .avatar{width:110px;height:110px;border-radius:18px;background:#05070b;border:1px solid #394a61;display:grid;place-items:center;overflow:hidden;color:#c9d3df;text-align:center}
-    .avatar img{width:100%;height:100%;object-fit:cover}
-    .name{font-size:30px;font-weight:950;line-height:1.05}
-    .meta{color:#c9d3df;margin-top:4px}
-    .bars{display:grid;gap:8px;margin-top:10px}
-    .bar-row{display:grid;grid-template-columns:90px 1fr 70px;gap:8px;align-items:center}
-    .bar-label{font-size:12px;text-transform:uppercase;font-weight:950;color:#cbd6e2}
-    .bar{height:18px;background:#253247;border-radius:999px;overflow:hidden;border:1px solid #394a61}
-    .fill{height:100%;width:0%}
-    .fill.hp{background:linear-gradient(90deg,#8f1d1d,#e2493b)}
-    .fill.level{background:linear-gradient(90deg,#244f8e,#5b9ce4)}
-    .fill.corr{background:linear-gradient(90deg,#3a164d,#9639bf)}
-    .bar-value{text-align:right;font-size:12px;font-weight:900}
-    .cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .card h2{margin:0 0 10px;font-size:18px}
-    .mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-    .stat{background:#111b28;border:1px solid #33445c;border-radius:12px;padding:9px}
-    .stat span{display:block;font-size:11px;color:#c9d3df;text-transform:uppercase;font-weight:900}
-    .stat b{display:block;font-size:20px;margin-top:3px}
-    .actions{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-    .action-row{display:grid;grid-template-columns:1fr auto auto;gap:8px;margin-bottom:8px}
-    .spell-list{display:grid;gap:6px;max-height:360px;overflow:auto}
-    .spell{background:#111b28;border:1px solid #33445c;border-radius:10px;padding:8px}
-    .spell b{display:block}
-    .spell small{color:#c9d3df}
-    .table{width:100%;border-collapse:collapse;font-size:13px}
-    .table th,.table td{border-bottom:1px solid #2c3a4d;padding:7px;text-align:left;vertical-align:top}
-    .table th{color:#cbd6e2;text-transform:uppercase;font-size:11px}
-    .notes{white-space:pre-wrap;color:#eaf1f7;line-height:1.35}
-    .toast{position:fixed;left:16px;right:16px;bottom:16px;background:#05070b;border:1px solid #44566d;color:#fff;border-radius:14px;padding:13px;text-align:center;opacity:0;transform:translateY(10px);pointer-events:none;transition:.2s;z-index:99}
-    .toast.show{opacity:1;transform:none}
-    .empty{padding:28px;text-align:center;color:#c9d3df}
-
-    .spell-db-panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:12px;margin-bottom:14px}
-    .spell-filters{display:grid;grid-template-columns:1fr 120px 150px 150px auto;gap:8px;align-items:end}
-    .spell-results{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:10px;margin-top:10px;max-height:520px;overflow:auto;padding-right:4px}
-    .spell-db-card{background:#111b28;border:1px solid #33445c;border-radius:13px;padding:10px}
-    .spell-db-head{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
-    .spell-db-name{font-size:17px;font-weight:950}
-    .spell-db-desc{color:#dce6f1;margin-top:8px;line-height:1.35;max-height:145px;overflow:auto;white-space:pre-wrap;font-size:13px}
-    .spell-db-meta{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}
-    .spell-db-tag{background:#263449;border:1px solid #3b4d66;border-radius:999px;padding:3px 7px;color:#eaf1f7;font-size:11px;font-weight:850}
-    @media(max-width:980px){.spell-filters{grid-template-columns:1fr 1fr}.spell-filters .btn{grid-column:1/-1}}
-
-    @media(max-width:980px){
-      .grid{grid-template-columns:1fr}
+    .btn.red{background:#963131}
+    .btn.blue{background:var(--blue)}
+    .btn.ghost{background:#101824;border:1px solid var(--line);box-shadow:none}
+    .btn.small{min-height:30px;padding:6px 9px;font-size:12px;border-radius:10px}
+    .btn.tiny{min-height:26px;padding:4px 7px;font-size:11px;border-radius:9px}
+    .login{
+      display:grid;
+      grid-template-columns:260px auto auto auto;
+      gap:8px;
+      align-items:end;
+      background:rgba(18,28,39,.92);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:12px;
+      margin-bottom:12px;
+      box-shadow:var(--shadow);
+      position:sticky;
+      top:0;
+      z-index:20;
+      backdrop-filter:blur(12px);
+    }
+    label{
+      display:block;
+      font-size:11px;
+      text-transform:uppercase;
+      font-weight:950;
+      letter-spacing:.05em;
+      color:#cad7e4;
+      margin-bottom:4px;
+    }
+    input,textarea,select{
+      width:100%;
+      border:1px solid #3a506b;
+      background:#0b121a;
+      color:#fff;
+      border-radius:11px;
+      padding:9px 10px;
+      outline:none;
+    }
+    textarea{resize:vertical;min-height:88px}
+    .summary{
+      display:grid;
+      grid-template-columns:repeat(6,minmax(120px,1fr));
+      gap:10px;
+      margin-bottom:12px;
+    }
+    .box{
+      background:linear-gradient(180deg,#152235,#0f1722);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:12px;
+      box-shadow:var(--shadow);
+      min-height:78px;
+    }
+    .box b{display:block;font-size:26px;color:#ffe2a0;line-height:1}
+    .box span{display:block;color:#aebdca;margin-top:5px;font-size:12px;font-weight:800}
+    .toolbar{
+      display:grid;
+      grid-template-columns:1fr 180px 180px auto;
+      gap:8px;
+      align-items:end;
+      background:rgba(18,28,39,.82);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:12px;
+      margin-bottom:12px;
+    }
+    .tabletop{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:14px;
+    }
+    .section-head{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:10px;
+      align-items:center;
+      margin:4px 0 8px;
+    }
+    .section-head .title{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:5px;
+      min-height:24px;
+      border:1px solid rgba(255,226,160,.35);
+      background:rgba(217,181,108,.12);
+      color:#ffe2a0;
+      border-radius:999px;
+      padding:3px 9px;
+      font-size:12px;
+      font-weight:900;
+    }
+    .board{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(315px,1fr));
+      gap:12px;
+      align-items:start;
+    }
+    .char-card{
+      background:linear-gradient(180deg,#162233,#101822);
+      border:1px solid var(--line);
+      border-radius:18px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+    }
+    .char-card.dead{border-color:rgba(214,62,62,.65)}
+    .char-card.low{border-color:rgba(255,192,80,.7)}
+    .char-top{
+      display:grid;
+      grid-template-columns:58px 1fr auto;
+      gap:10px;
+      align-items:center;
+      padding:12px;
+      background:linear-gradient(90deg,#1c2b3d,#142030);
+      border-bottom:1px solid var(--line);
+    }
+    .avatar{
+      width:58px;
+      height:58px;
+      border-radius:15px;
+      overflow:hidden;
+      background:#0a1018;
+      border:1px solid #40566f;
+      display:grid;
+      place-items:center;
+      color:#8293a2;
+      font-size:10px;
+      text-align:center;
+    }
+    .avatar img{width:100%;height:100%;object-fit:cover;display:block}
+    .char-name{
+      font-size:18px;
+      font-weight:1000;
+      line-height:1.05;
+      margin-bottom:4px;
+    }
+    .char-meta{
+      color:#b9c7d4;
+      font-size:12px;
+      display:flex;
+      gap:5px;
+      flex-wrap:wrap;
+    }
+    .pill{
+      background:#26364b;
+      border:1px solid #3c5067;
+      border-radius:999px;
+      padding:2px 7px;
+      font-size:11px;
+      font-weight:900;
+      color:#eaf2fb;
+    }
+    .pill.gold{background:#3b2c18;border-color:#705124;color:#ffd986}
+    .pill.red{background:#412020;border-color:#7a3333;color:#ffc6bd}
+    .pill.green{background:#1f3d2d;border-color:#2f8757;color:#c7ffdf}
+    .card-body{padding:12px;display:grid;gap:10px}
+    .meters{display:grid;gap:7px}
+    .meter-row{
+      display:grid;
+      grid-template-columns:62px 1fr 54px;
+      gap:7px;
+      align-items:center;
+      font-size:12px;
+      font-weight:900;
+      color:#cfd9e4;
+    }
+    .bar{
+      height:12px;
+      border-radius:999px;
+      background:#080d13;
+      border:1px solid #33475d;
+      overflow:hidden;
+    }
+    .fill{height:100%;width:0;background:linear-gradient(90deg,#2f8757,#9bd86b)}
+    .fill.hp-low{background:linear-gradient(90deg,#a97922,#e9bd58)}
+    .fill.hp-dead{background:linear-gradient(90deg,#7f2222,#d44942)}
+    .fill.corr{background:linear-gradient(90deg,#3f244f,#a94ed4)}
+    .quick-stats{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:6px;
+    }
+    .stat{
+      background:#0c131c;
+      border:1px solid #2c3e52;
+      border-radius:12px;
+      padding:7px 6px;
+      text-align:center;
+      min-height:54px;
+    }
+    .stat span{display:block;color:#97a8b7;font-size:10px;font-weight:900;text-transform:uppercase}
+    .stat b{display:block;color:#fff2cf;font-size:16px;margin-top:3px;line-height:1}
+    .actions{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:6px;
+    }
+    .custom-row{
+      display:grid;
+      grid-template-columns:1fr auto auto;
+      gap:6px;
+    }
+    details{
+      border-top:1px solid #2e4055;
+      background:#0e151f;
+    }
+    summary{
+      list-style:none;
+      cursor:pointer;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:10px 12px;
+      color:#ffe2a0;
+      font-weight:950;
+      user-select:none;
+    }
+    summary::-webkit-details-marker{display:none}
+    summary:after{content:"Abrir";font-size:11px;color:#b9c7d4;background:#1b2a3c;border:1px solid #344a62;border-radius:999px;padding:3px 8px}
+    details[open] summary:after{content:"Fechar"}
+    .detail-grid{
+      padding:0 12px 12px;
+      display:grid;
+      gap:10px;
+    }
+    .detail-block{
+      background:#111b27;
+      border:1px solid #30445b;
+      border-radius:13px;
+      padding:10px;
+    }
+    .detail-block h4{
+      margin:0 0 7px;
+      color:#e8d1a0;
+      font-size:13px;
+      text-transform:uppercase;
+      letter-spacing:.04em;
+    }
+    .mini-table{
+      width:100%;
+      border-collapse:collapse;
+      font-size:12px;
+    }
+    .mini-table th,.mini-table td{
+      border-bottom:1px solid #26384e;
+      padding:5px 4px;
+      vertical-align:top;
+    }
+    .mini-table th{
+      color:#99aabb;
+      text-align:left;
+      width:92px;
+      font-weight:900;
+    }
+    .spell-list{
+      display:grid;
+      gap:6px;
+      max-height:210px;
+      overflow:auto;
+    }
+    .spell{
+      background:#0c131c;
+      border:1px solid #2b3d52;
+      border-radius:10px;
+      padding:7px;
+    }
+    .spell b{display:block;font-size:12px}
+    .spell small{display:block;color:#9fb0bf;margin-top:2px}
+    .notes{
+      color:#dbe5ec;
+      white-space:pre-wrap;
+      line-height:1.35;
+      max-height:180px;
+      overflow:auto;
+      font-size:12px;
+    }
+    .enemies-panel{
+      background:linear-gradient(180deg,#1a1720,#111820);
+      border:1px dashed #765d7d;
+      border-radius:18px;
+      padding:14px;
+      color:#d8cfe0;
+      box-shadow:var(--shadow);
+    }
+    .enemy-placeholder{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:10px;
+      margin-top:10px;
+    }
+    .enemy-card{
+      border:1px solid #4b3c55;
+      background:#111018;
+      border-radius:14px;
+      padding:12px;
+    }
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom:18px;
+      transform:translateX(-50%) translateY(20px);
+      opacity:0;
+      pointer-events:none;
+      background:#fff1d1;
+      color:#20150b;
+      padding:10px 14px;
+      border-radius:12px;
+      font-weight:900;
+      box-shadow:0 10px 28px rgba(0,0,0,.35);
+      transition:.18s ease;
+      z-index:50;
+      max-width:min(92vw,720px);
+    }
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+    .empty{
+      color:#a9b7c6;
+      border:1px dashed #3b5069;
+      border-radius:14px;
+      padding:16px;
+      text-align:center;
+      background:#0d141d;
+    }
+    .hidden{display:none!important}
+    @media(max-width:1100px){
+      .summary{grid-template-columns:repeat(3,1fr)}
+      .toolbar{grid-template-columns:1fr 1fr}
+      .login{grid-template-columns:1fr 1fr}
+      .login div{grid-column:1/-1}
+    }
+    @media(max-width:680px){
+      .wrap{padding:10px}
+      .top{grid-template-columns:1fr}
       .summary{grid-template-columns:repeat(2,1fr)}
-      .cards{grid-template-columns:1fr}
+      .toolbar{grid-template-columns:1fr}
       .login{grid-template-columns:1fr}
-      .character-head{grid-template-columns:80px 1fr}
-      .character-head .head-actions{grid-column:1/-1}
-      .avatar{width:80px;height:80px}
+      .board{grid-template-columns:1fr}
+      .char-top{grid-template-columns:50px 1fr}
+      .char-top .pill.gold{grid-column:1/-1;justify-self:start}
+      .quick-stats{grid-template-columns:repeat(2,1fr)}
+      .actions{grid-template-columns:repeat(2,1fr)}
+      .custom-row{grid-template-columns:1fr}
     }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="top">
+    <header class="top">
       <div>
-        <h1>Página do Mestre</h1>
-        <div class="subtitle">Controle de personagens, vida, corrupção, nível, magias e informações rápidas da mesa.</div>
+        <h1>Painel do Mestre</h1>
+        <div class="subtitle">Visão de mesa: todos os personagens ao mesmo tempo, ações rápidas e detalhes sob demanda.</div>
       </div>
-      <a class="btn secondary" href="/?v=16_5_3">Abrir ficha do jogador</a>
-    </div>
+      <a class="btn secondary" href="/?v=16_6">Abrir ficha do jogador</a>
+    </header>
 
     <section class="login">
       <div>
         <label>Senha da mesa</label>
-        <input id="masterPassword" type="password" placeholder="Senha da mesa">
+        <input id="masterPassword" type="password" placeholder="Senha da mesa" autocomplete="current-password">
       </div>
-      <button class="btn" id="loadBtn">Carregar personagens</button>
+      <button class="btn" id="loadBtn">Carregar mesa</button>
       <button class="btn secondary" id="refreshBtn">Atualizar</button>
+      <button class="btn ghost" id="toggleSpellDbBtn">Banco de magias</button>
     </section>
 
     <section class="summary">
       <div class="box"><b id="sumChars">0</b><span>Personagens</span></div>
       <div class="box"><b id="sumLowHp">0</b><span>Vida baixa</span></div>
+      <div class="box"><b id="sumDead">0</b><span>Caídos</span></div>
       <div class="box"><b id="sumCorr">0</b><span>Corrupção alta</span></div>
-      <div class="box"><b id="sumSpells">0</b><span>Magias listadas</span></div>
+      <div class="box"><b id="sumSpells">0</b><span>Magias dos personagens</span></div>
+      <div class="box"><b id="sumEnemies">0</b><span>Inimigos/NPCs</span></div>
     </section>
 
+    <section class="toolbar">
+      <div>
+        <label>Buscar na mesa</label>
+        <input id="tableSearch" placeholder="Nome, classe, raça, facção, pista...">
+      </div>
+      <div>
+        <label>Filtrar vida</label>
+        <select id="hpFilter">
+          <option value="">Todos</option>
+          <option value="low">Vida baixa</option>
+          <option value="dead">Caídos / 0 HP</option>
+        </select>
+      </div>
+      <div>
+        <label>Filtrar corrupção</label>
+        <select id="corrFilter">
+          <option value="">Todos</option>
+          <option value="high">Corrupção alta</option>
+          <option value="marked">Marcado pela maré</option>
+        </select>
+      </div>
+      <button class="btn blue" id="applyFiltersBtn">Aplicar filtros</button>
+    </section>
 
-    <section class="spell-db-panel">
-      <h2 style="margin:0 0 10px">Banco de magias manual</h2>
-      <div class="spell-filters">
+    <section class="spell-db-panel hidden" id="spellDbPanel">
+      <div class="section-head">
+        <div class="title">
+          <h2>Banco de magias</h2>
+          <span class="badge">consulta rápida</span>
+        </div>
+        <button class="btn small secondary" id="closeSpellDbBtn">Fechar</button>
+      </div>
+      <div class="toolbar" style="margin-bottom:8px">
         <div>
           <label>Buscar magia</label>
           <input id="spellSearch" placeholder="Nome, descrição ou escola">
@@ -174,35 +508,51 @@
             <option>Patrulheiro</option>
           </select>
         </div>
-        <div>
-          <label>Uso</label>
-          <select id="spellUse">
-            <option value="">Todos</option>
-            <option value="dano">Dano</option>
-            <option value="cura">Cura</option>
-            <option value="controle">Controle</option>
-            <option value="defesa">Defesa</option>
-            <option value="utilidade">Utilidade</option>
-            <option value="invocacao">Invocação</option>
-          </select>
-        </div>
-        <button class="btn blue" id="spellSearchBtn">Buscar magias</button>
+        <button class="btn blue" id="spellSearchBtn">Buscar</button>
       </div>
-      <div id="spellDbStatus" class="subtitle" style="margin-top:8px">Use a senha da mesa para buscar no banco.</div>
-      <div id="spellDbResults" class="spell-results"></div>
+      <div id="spellDbStatus" class="subtitle" style="margin-bottom:8px">Use a senha da mesa para buscar no banco.</div>
+      <div id="spellDbResults" class="board"></div>
     </section>
 
+    <main class="tabletop">
+      <section>
+        <div class="section-head">
+          <div class="title">
+            <h2>Personagens dos jogadores</h2>
+            <span class="badge" id="visibleCharsBadge">0 visíveis</span>
+          </div>
+          <button class="btn small secondary" id="collapseAllBtn">Fechar detalhes</button>
+        </div>
+        <div class="board" id="playersBoard">
+          <div class="empty">Digite a senha e carregue os personagens.</div>
+        </div>
+      </section>
 
-    <div class="grid">
-      <aside class="sidebar">
-        <h2 style="margin:0 0 10px">Mesa</h2>
-        <div class="char-list" id="charList"></div>
-      </aside>
-
-      <main class="main-card" id="detail">
-        <div class="empty">Digite a senha da mesa e carregue os personagens.</div>
-      </main>
-    </div>
+      <section class="enemies-panel">
+        <div class="section-head">
+          <div class="title">
+            <h2>Inimigos e NPCs</h2>
+            <span class="badge">estrutura futura</span>
+          </div>
+          <button class="btn small ghost" disabled>Em breve</button>
+        </div>
+        <div class="subtitle">Aqui vai entrar o mesmo modelo de cartões para inimigos: HP, CA, iniciativa, condições, dano rápido e detalhes de combate.</div>
+        <div class="enemy-placeholder">
+          <div class="enemy-card">
+            <b>Grupo de inimigos</b>
+            <div class="subtitle">Para controlar múltiplas criaturas iguais.</div>
+          </div>
+          <div class="enemy-card">
+            <b>NPC importante</b>
+            <div class="subtitle">Para aliados, rivais e figuras da campanha.</div>
+          </div>
+          <div class="enemy-card">
+            <b>Encontro da sessão</b>
+            <div class="subtitle">Para montar a cena de combate sem misturar com os jogadores.</div>
+          </div>
+        </div>
+      </section>
+    </main>
   </div>
 
   <div class="toast" id="toast"></div>
@@ -212,7 +562,7 @@
     const CAMPAIGN_ID = 'ghosts-of-saltmarsh';
     const PASS_KEY = 'rpggabriel.master.password';
 
-    const state = { characters: [], selectedId: null };
+    const state = { characters: [], detailsOpen: new Set() };
 
     function $(s,r=document){ return r.querySelector(s); }
     function $all(s,r=document){ return Array.from(r.querySelectorAll(s)); }
@@ -221,43 +571,64 @@
     function escapeHtml(s){ return String(s ?? '').replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m])); }
     function toast(msg){ const el=$('#toast'); el.textContent=msg; el.classList.add('show'); clearTimeout(el._t); el._t=setTimeout(()=>el.classList.remove('show'),2600); }
     function getByPath(obj,path){ return String(path).split('.').reduce((a,k)=>a==null?undefined:a[k], obj); }
-    function setByPath(obj,path,value){
-      const parts=String(path).split('.');
-      let cur=obj;
-      for(let i=0;i<parts.length-1;i++){
-        if(cur[parts[i]] == null || typeof cur[parts[i]] !== 'object') cur[parts[i]] = {};
-        cur=cur[parts[i]];
+
+    function deepMerge(base, extra){
+      if(Array.isArray(base)) return Array.isArray(extra) ? extra : base;
+      if(base && typeof base==='object'){
+        const out={...base};
+        Object.keys(extra||{}).forEach(k=>{ out[k]=deepMerge(base[k], extra[k]); });
+        return out;
       }
-      cur[parts.at(-1)] = value;
+      return extra===undefined ? base : extra;
     }
-    function selected(){ return state.characters.find(c=>c.id===state.selectedId) || state.characters[0] || null; }
-    function password(){ return $('#masterPassword').value.trim() || sessionStorage.getItem(PASS_KEY) || localStorage.getItem(PASS_KEY) || ''; }
+
+    function blankCharacter(){
+      return {
+        id:'',
+        campaignId:CAMPAIGN_ID,
+        meta:{nomePersonagem:'',classe:'',nivel:1,classeNivel:'',raca:'',nomeJogador:'',alinhamento:'',experiencia:''},
+        vida:{atuais:0,maximos:0,temporarios:0,dadosVida:''},
+        combate:{classeArmadura:'',iniciativa:'',deslocamento:''},
+        atributos:{},
+        pericias:{},
+        campanha:{corrupcao:0,mareAtual:'',faccao:'',segredoAtivo:'',pressagioCurto:'',pistasDecifradas:'',marcadoPelaMare:false,ouviuThalassyr:false,viuRitual:false,reliquia:'',fraseChave:''},
+        magia:{classeConjuradora:'',atributoConjuracao:'',cdMagias:'',modificadorAtaqueMagico:'',truques:[],niveis:{},grimorio:[]},
+        descricao:{aparenciaImagem:'',historia:''},
+        personalidade:{vinculos:''}
+      };
+    }
+
+    function normalize(c){
+      const b=blankCharacter();
+      const m=deepMerge(b,c||{});
+      m.id=(c&&c.id)||m.id;
+      m.campaignId=m.campaignId||CAMPAIGN_ID;
+      m.meta = m.meta || {};
+      if(!m.meta.classe && m.meta.classeNivel){
+        m.meta.classe = String(m.meta.classeNivel).replace(/\bnível\b.*$/i,'').replace(/\d+/g,'').replace(/[—-]/g,'').trim();
+      }
+      if(!m.meta.nivel){
+        const mm = String(m.meta.classeNivel || '').match(/\b(1[0-9]|20|[1-9])\b/);
+        m.meta.nivel = mm ? num(mm[1]) : 1;
+      }
+      m.magia = m.magia || {};
+      m.magia.truques = Array.isArray(m.magia.truques) ? m.magia.truques : [];
+      m.magia.grimorio = Array.isArray(m.magia.grimorio) ? m.magia.grimorio : [];
+      m.magia.niveis = m.magia.niveis || {};
+      return m;
+    }
 
     async function apiFetch(path, options={}){
-      const pwd=password();
+      const pwd = $('#masterPassword').value.trim() || localStorage.getItem(PASS_KEY) || '';
       if(!pwd) throw new Error('Digite a senha da mesa.');
-      sessionStorage.setItem(PASS_KEY,pwd);
       localStorage.setItem(PASS_KEY,pwd);
       const headers = {'Content-Type':'application/json','x-rpg-password':pwd,'x-campaign-id':CAMPAIGN_ID,'x-player-id':'mestre'};
       const res = await fetch(API_BASE + path, {...options, headers:{...headers,...(options.headers||{})}});
       const txt = await res.text();
       let data=null;
-      try{ data=txt?JSON.parse(txt):null; }catch{ data={raw:txt}; }
-      if(!res.ok) throw new Error((data && (data.error||data.message)) || 'HTTP '+res.status);
-      return data;
-    }
-
-    function normalize(c){
-      c = c || {};
-      c.meta = c.meta || {};
-      c.vida = c.vida || {};
-      c.combate = c.combate || {};
-      c.campanha = c.campanha || {};
-      c.descricao = c.descricao || {};
-      c.magia = c.magia || {};
-      c.magia.truques = c.magia.truques || [];
-      c.magia.niveis = c.magia.niveis || {};
-      return c;
+      try{ data=txt ? JSON.parse(txt) : null; }catch{ data={ok:false,error:txt}; }
+      if(!res.ok || (data && data.ok===false)) throw new Error((data && data.error) || ('Erro HTTP '+res.status));
+      return data || {};
     }
 
     async function loadCharacters(){
@@ -278,12 +649,9 @@
           }
         }
 
-        state.characters = full;
-        if(!state.selectedId && full[0]) state.selectedId = full[0].id;
-        if(state.selectedId && !full.some(c=>c.id===state.selectedId) && full[0]) state.selectedId = full[0].id;
-
+        state.characters = full.sort((a,b)=>String(a.meta.nomePersonagem||'').localeCompare(String(b.meta.nomePersonagem||'')));
         renderAll();
-        toast('Personagens carregados.');
+        toast('Mesa carregada.');
       }catch(e){
         toast(e.message);
       }finally{
@@ -308,8 +676,16 @@
       return m ? num(m[1]) : 1;
     }
 
+    function subtitle(c){
+      return [c.meta.classe || c.meta.classeNivel, c.meta.raca, c.campanha.faccao].filter(Boolean).join(' • ') || 'Sem classe definida';
+    }
+
     function spellNames(c){
       const out=[];
+      (c.magia.grimorio || []).forEach(s=>{
+        const nm=s.nome_pt || s.nome || s.name;
+        if(nm) out.push({level:s.nivel===0?'Truque':((s.nivel||'?')+'º círculo'), name:nm, prepared:s.preparada!==false});
+      });
       (c.magia.truques || []).forEach(s=>{ if(s && s.nome) out.push({level:'Truque', name:s.nome, prepared:true}); });
       for(let i=1;i<=9;i++){
         const sec = c.magia.niveis && c.magia.niveis[i];
@@ -319,166 +695,207 @@
       return out;
     }
 
-    function subtitle(c){
-      return [c.meta.classeNivel, c.meta.raca, c.campanha.faccao].filter(Boolean).join(' - ') || 'Sem classe definida';
+    function passivePerception(c){
+      const sab = c.atributos && c.atributos.sab ? c.atributos.sab.valor : 10;
+      const mod = Math.floor((num(sab || 10)-10)/2);
+      const prof = num(c.proficiencia?.bonus || c.bonusProficiencia || 0);
+      const proficient = !!getByPath(c,'pericias.percepcao.proficiente');
+      return 10 + mod + (proficient ? prof : 0);
     }
 
-    function renderList(){
-      $('#charList').innerHTML = state.characters.map(c=>{
-        const hpNow=num(c.vida.atuais), hpMax=num(c.vida.maximos);
-        const corr=num(c.campanha.corrupcao);
-        const active = c.id===state.selectedId ? 'active' : '';
-        return `
-          <button class="char-btn ${active}" data-select="${escapeHtml(c.id)}">
-            <b>${escapeHtml(c.meta.nomePersonagem || 'Sem nome')}</b>
-            <span>${escapeHtml(subtitle(c))}</span>
-            <div class="chips">
-              <span class="chip">HP ${hpNow}/${hpMax || 0}</span>
-              <span class="chip">Nv. ${getLevel(c)}</span>
-              <span class="chip">Corr. ${corr}/10</span>
-            </div>
-          </button>
-        `;
-      }).join('') || '<div class="empty">Nenhum personagem encontrado.</div>';
+    function hpState(c){
+      const hpNow=num(c.vida.atuais), hpMax=num(c.vida.maximos);
+      if(hpNow <= 0) return 'dead';
+      if(hpMax && hpNow/hpMax <= .35) return 'low';
+      return 'ok';
+    }
+
+    function filteredCharacters(){
+      const q = String($('#tableSearch')?.value || '').toLowerCase().trim();
+      const hp = $('#hpFilter')?.value || '';
+      const corr = $('#corrFilter')?.value || '';
+
+      return state.characters.filter(c=>{
+        const text = [
+          c.meta.nomePersonagem, c.meta.nomeJogador, c.meta.classe, c.meta.classeNivel, c.meta.raca,
+          c.campanha.faccao, c.campanha.mareAtual, c.campanha.segredoAtivo, c.campanha.pistasDecifradas,
+          c.campanha.pressagioCurto, c.descricao.historia
+        ].join(' ').toLowerCase();
+
+        if(q && !text.includes(q)) return false;
+
+        const hps = hpState(c);
+        if(hp === 'low' && hps !== 'low') return false;
+        if(hp === 'dead' && hps !== 'dead') return false;
+
+        if(corr === 'high' && num(c.campanha.corrupcao) < 6) return false;
+        if(corr === 'marked' && !c.campanha.marcadoPelaMare) return false;
+
+        return true;
+      });
     }
 
     function renderSummary(){
       const chars = state.characters.length;
-      let low=0, highCorr=0, spells=0;
+      let low=0, dead=0, highCorr=0, spells=0;
       state.characters.forEach(c=>{
-        const hpNow=num(c.vida.atuais), hpMax=num(c.vida.maximos);
-        if(hpMax && hpNow/hpMax <= .35) low++;
+        const hps=hpState(c);
+        if(hps==='low') low++;
+        if(hps==='dead') dead++;
         if(num(c.campanha.corrupcao) >= 6) highCorr++;
         spells += spellNames(c).length;
       });
       $('#sumChars').textContent=chars;
       $('#sumLowHp').textContent=low;
+      $('#sumDead').textContent=dead;
       $('#sumCorr').textContent=highCorr;
       $('#sumSpells').textContent=spells;
+      $('#sumEnemies').textContent='0';
     }
 
-    function renderDetail(){
-      const c=selected();
-      if(!c){
-        $('#detail').innerHTML='<div class="empty">Nenhum personagem selecionado.</div>';
-        return;
-      }
-      state.selectedId = c.id;
+    function renderBoard(){
+      const chars = filteredCharacters();
+      $('#visibleCharsBadge').textContent = chars.length + ' visíveis';
 
-      const hpNow=num(c.vida.atuais), hpMax=num(c.vida.maximos);
-      const hpPct=hpMax ? clamp((hpNow/hpMax)*100,0,100) : 0;
-      const level=getLevel(c);
+      $('#playersBoard').innerHTML = chars.map(c=>characterCard(c)).join('') || '<div class="empty">Nenhum personagem corresponde aos filtros.</div>';
+
+      $all('details[data-char-details]').forEach(d=>{
+        if(state.detailsOpen.has(d.dataset.charDetails)) d.open = true;
+      });
+    }
+
+    function characterCard(c){
+      const hpNow=num(c.vida.atuais), hpMax=num(c.vida.maximos), temp=num(c.vida.temporarios);
+      const pct=hpMax ? clamp((hpNow/hpMax)*100,0,100) : 0;
+      const hps=hpState(c);
       const corr=clamp(num(c.campanha.corrupcao),0,10);
       const spells=spellNames(c);
-      const img=c.descricao.aparenciaImagem;
+      const img=c.descricao?.aparenciaImagem;
+      const classes = ['char-card', hps==='dead'?'dead':'', hps==='low'?'low':''].filter(Boolean).join(' ');
+      const hpFillClass = hps==='dead' ? 'hp-dead' : (hps==='low' ? 'hp-low' : '');
+      const name = c.meta.nomePersonagem || 'Sem nome';
 
-      $('#detail').innerHTML = `
-        <section class="character-head">
-          <div class="avatar">${img ? `<img src="${img}" alt="Personagem">` : 'Sem imagem'}</div>
-          <div>
-            <div class="name">${escapeHtml(c.meta.nomePersonagem || 'Sem nome')}</div>
-            <div class="meta">${escapeHtml(subtitle(c))}</div>
-            <div class="bars">
-              <div class="bar-row"><div class="bar-label">Vida</div><div class="bar"><div class="fill hp" style="width:${hpPct}%"></div></div><div class="bar-value">${hpNow}/${hpMax || 0}</div></div>
-              <div class="bar-row"><div class="bar-label">Nível</div><div class="bar"><div class="fill level" style="width:${clamp(level/20*100,0,100)}%"></div></div><div class="bar-value">Nv. ${level}</div></div>
-              <div class="bar-row"><div class="bar-label">Corrupção</div><div class="bar"><div class="fill corr" style="width:${clamp(corr/10*100,0,100)}%"></div></div><div class="bar-value">${corr}/10</div></div>
+      return `
+        <article class="${classes}" data-card="${escapeHtml(c.id)}">
+          <div class="char-top">
+            <div class="avatar">${img ? `<img src="${escapeHtml(img)}" alt="">` : 'Sem imagem'}</div>
+            <div>
+              <div class="char-name">${escapeHtml(name)}</div>
+              <div class="char-meta">
+                <span class="pill">${escapeHtml(c.meta.classe || c.meta.classeNivel || 'Classe?')}</span>
+                <span class="pill">Nv. ${getLevel(c)}</span>
+                <span class="pill">${escapeHtml(c.meta.raca || 'Raça?')}</span>
+              </div>
             </div>
+            <span class="pill gold">${escapeHtml(c.meta.nomeJogador || 'Jogador')}</span>
           </div>
-          <div class="head-actions">
-            <button class="btn secondary" id="reloadSelected">Recarregar</button>
-          </div>
-        </section>
 
-        <section class="card">
-          <h2>Controle rápido do mestre</h2>
-          <div class="actions">
-            <button class="btn red" data-damage="1">Dano -1</button>
-            <button class="btn red" data-damage="5">Dano -5</button>
-            <button class="btn green" data-heal="1">Cura +1</button>
-            <button class="btn green" data-heal="5">Cura +5</button>
-          </div>
-          <div class="action-row" style="margin-top:10px">
-            <input id="customHp" type="number" placeholder="Valor personalizado">
-            <button class="btn red" id="customDamage">Dar dano</button>
-            <button class="btn green" id="customHeal">Curar</button>
-          </div>
-          <div class="action-row">
-            <input id="setHpValue" type="number" placeholder="Definir vida atual">
-            <button class="btn blue" id="setHpBtn">Definir HP</button>
-            <button class="btn secondary" id="saveOnlyBtn">Salvar</button>
-          </div>
-        </section>
+          <div class="card-body">
+            <div class="meters">
+              <div class="meter-row">
+                <span>HP</span>
+                <div class="bar"><div class="fill ${hpFillClass}" style="width:${pct}%"></div></div>
+                <span>${hpNow}/${hpMax || 0}</span>
+              </div>
+              ${temp ? `<div class="meter-row"><span>Temp</span><div class="bar"><div class="fill" style="width:100%"></div></div><span>+${temp}</span></div>` : ''}
+              <div class="meter-row">
+                <span>Corr.</span>
+                <div class="bar"><div class="fill corr" style="width:${clamp(corr/10*100,0,100)}%"></div></div>
+                <span>${corr}/10</span>
+              </div>
+            </div>
 
-        <section class="cards">
-          <div class="card">
-            <h2>Informações rápidas</h2>
-            <div class="mini-grid">
+            <div class="quick-stats">
               <div class="stat"><span>CA</span><b>${escapeHtml(c.combate.classeArmadura || '-')}</b></div>
-              <div class="stat"><span>Iniciativa</span><b>${escapeHtml(c.combate.iniciativa || '-')}</b></div>
+              <div class="stat"><span>Inic.</span><b>${escapeHtml(c.combate.iniciativa || '-')}</b></div>
               <div class="stat"><span>Desloc.</span><b>${escapeHtml(c.combate.deslocamento || '-')}</b></div>
-              <div class="stat"><span>Maré</span><b>${escapeHtml(c.campanha.mareAtual || '-')}</b></div>
-              <div class="stat"><span>Facção</span><b>${escapeHtml(c.campanha.faccao || '-')}</b></div>
-              <div class="stat"><span>Segredo</span><b>${escapeHtml(c.campanha.segredoAtivo || '-')}</b></div>
+              <div class="stat"><span>Percep.</span><b>${passivePerception(c)}</b></div>
+            </div>
+
+            <div class="char-meta">
+              ${c.campanha.mareAtual ? `<span class="pill">${escapeHtml(c.campanha.mareAtual)}</span>` : ''}
+              ${c.campanha.faccao ? `<span class="pill">${escapeHtml(c.campanha.faccao)}</span>` : ''}
+              ${c.campanha.marcadoPelaMare ? `<span class="pill red">Marcado pela maré</span>` : ''}
+              ${spells.length ? `<span class="pill green">${spells.length} magia(s)</span>` : '<span class="pill">Sem magias</span>'}
+            </div>
+
+            <div class="actions">
+              <button class="btn tiny red" data-damage="${escapeHtml(c.id)}" data-value="1">-1 HP</button>
+              <button class="btn tiny red" data-damage="${escapeHtml(c.id)}" data-value="5">-5 HP</button>
+              <button class="btn tiny green" data-heal="${escapeHtml(c.id)}" data-value="1">+1 HP</button>
+              <button class="btn tiny green" data-heal="${escapeHtml(c.id)}" data-value="5">+5 HP</button>
+            </div>
+
+            <div class="custom-row">
+              <input data-custom-hp="${escapeHtml(c.id)}" type="number" placeholder="Valor">
+              <button class="btn tiny red" data-custom-damage="${escapeHtml(c.id)}">Dano</button>
+              <button class="btn tiny green" data-custom-heal="${escapeHtml(c.id)}">Cura</button>
             </div>
           </div>
 
-          <div class="card">
-            <h2>Ajustes narrativos</h2>
-            <div class="action-row">
-              <input id="levelValue" type="number" min="1" max="20" value="${level}">
-              <button class="btn secondary" data-level-step="-1">Nível -</button>
-              <button class="btn blue" data-level-step="1">Nível +</button>
-            </div>
-            <div class="action-row">
-              <input id="corrValue" type="number" min="0" max="10" value="${corr}">
-              <button class="btn secondary" data-corr-step="-1">Corr. -</button>
-              <button class="btn blue" data-corr-step="1">Corr. +</button>
-            </div>
-          </div>
-        </section>
+          <details data-char-details="${escapeHtml(c.id)}">
+            <summary>Detalhes de ${escapeHtml(name)}</summary>
+            <div class="detail-grid">
+              <div class="detail-block">
+                <h4>Controle</h4>
+                <div class="custom-row">
+                  <input data-set-hp="${escapeHtml(c.id)}" type="number" placeholder="Definir HP atual">
+                  <button class="btn tiny blue" data-set-hp-btn="${escapeHtml(c.id)}">Definir HP</button>
+                  <button class="btn tiny secondary" data-reload-char="${escapeHtml(c.id)}">Recarregar</button>
+                </div>
+              </div>
 
-        <section class="cards">
-          <div class="card">
-            <h2>Magias do personagem</h2>
-            <div class="spell-list">
-              ${spells.map(s=>`<div class="spell"><b>${escapeHtml(s.name)}</b><small>${escapeHtml(s.level)}${s.prepared ? ' - preparada' : ''}</small></div>`).join('') || '<div class="empty">Sem magias cadastradas.</div>'}
+              <div class="detail-block">
+                <h4>Informações rápidas</h4>
+                <table class="mini-table">
+                  <tr><th>Jogador</th><td>${escapeHtml(c.meta.nomeJogador || '-')}</td></tr>
+                  <tr><th>Classe</th><td>${escapeHtml(c.meta.classe || c.meta.classeNivel || '-')}</td></tr>
+                  <tr><th>Raça</th><td>${escapeHtml(c.meta.raca || '-')}</td></tr>
+                  <tr><th>Alinh.</th><td>${escapeHtml(c.meta.alinhamento || '-')}</td></tr>
+                  <tr><th>Segredo</th><td>${escapeHtml(c.campanha.segredoAtivo || '-')}</td></tr>
+                  <tr><th>Relíquia</th><td>${escapeHtml(c.campanha.reliquia || '-')}</td></tr>
+                </table>
+              </div>
+
+              <div class="detail-block">
+                <h4>Magias</h4>
+                <div class="spell-list">
+                  ${spells.map(s=>`<div class="spell"><b>${escapeHtml(s.name)}</b><small>${escapeHtml(s.level)}${s.prepared ? ' • preparada' : ''}</small></div>`).join('') || '<div class="empty">Sem magias cadastradas.</div>'}
+                </div>
+              </div>
+
+              <div class="detail-block">
+                <h4>Campanha e pistas</h4>
+                <table class="mini-table">
+                  <tr><th>Presságio</th><td>${escapeHtml(c.campanha.pressagioCurto || '-')}</td></tr>
+                  <tr><th>Frase</th><td>${escapeHtml(c.campanha.fraseChave || '-')}</td></tr>
+                  <tr><th>Thalassyr</th><td>${c.campanha.ouviuThalassyr ? 'Ouviu' : '-'}</td></tr>
+                  <tr><th>Ritual</th><td>${c.campanha.viuRitual ? 'Viu' : '-'}</td></tr>
+                </table>
+                <div class="notes">${escapeHtml(c.campanha.pistasDecifradas || 'Sem pistas registradas.')}</div>
+              </div>
+
+              <div class="detail-block">
+                <h4>Notas úteis</h4>
+                <div class="notes">${escapeHtml(c.personalidade?.vinculos || c.descricao?.historia || 'Sem notas rápidas.')}</div>
+              </div>
             </div>
-          </div>
-
-          <div class="card">
-            <h2>Campanha e pistas</h2>
-            <table class="table">
-              <tr><th>Presságio</th><td>${escapeHtml(c.campanha.pressagioCurto || '-')}</td></tr>
-              <tr><th>Relíquia</th><td>${escapeHtml(c.campanha.reliquia || '-')}</td></tr>
-              <tr><th>Frase-chave</th><td>${escapeHtml(c.campanha.fraseChave || '-')}</td></tr>
-              <tr><th>Marcado</th><td>${c.campanha.marcadoPelaMare ? 'Sim' : 'Não'}</td></tr>
-              <tr><th>Ouviu Thalassyr</th><td>${c.campanha.ouviuThalassyr ? 'Sim' : 'Não'}</td></tr>
-              <tr><th>Viu ritual</th><td>${c.campanha.viuRitual ? 'Sim' : 'Não'}</td></tr>
-            </table>
-          </div>
-        </section>
-
-        <section class="cards">
-          <div class="card">
-            <h2>Pistas decifradas</h2>
-            <div class="notes">${escapeHtml(c.campanha.pistasDecifradas || 'Sem pistas registradas.')}</div>
-          </div>
-          <div class="card">
-            <h2>Notas úteis</h2>
-            <div class="notes">${escapeHtml(c.personalidade?.vinculos || c.descricao?.historia || 'Sem notas rápidas.')}</div>
-          </div>
-        </section>
+          </details>
+        </article>
       `;
     }
 
     function renderAll(){
       renderSummary();
-      renderList();
-      renderDetail();
+      renderBoard();
     }
 
-    function changeHp(delta){
-      const c=selected(); if(!c) return;
+    function findCharacter(id){
+      return state.characters.find(c=>String(c.id)===String(id));
+    }
+
+    function changeHp(id, delta){
+      const c=findCharacter(id); if(!c) return;
       const max=num(c.vida.maximos);
       let next=num(c.vida.atuais) + delta;
       if(next < 0) next = 0;
@@ -487,8 +904,8 @@
       saveCharacter(c, delta < 0 ? 'Dano aplicado na ficha.' : 'Cura aplicada na ficha.');
     }
 
-    function setHp(value){
-      const c=selected(); if(!c) return;
+    function setHp(id, value){
+      const c=findCharacter(id); if(!c) return;
       const max=num(c.vida.maximos);
       let next=num(value);
       if(next < 0) next = 0;
@@ -497,22 +914,9 @@
       saveCharacter(c, 'Vida definida na ficha.');
     }
 
-    function stepLevel(delta){
-      const c=selected(); if(!c) return;
-      c.meta.nivel = clamp(num(c.meta.nivel || getLevel(c)) + delta, 1, 20);
-      saveCharacter(c, 'Nível atualizado.');
-    }
-
-    function stepCorr(delta){
-      const c=selected(); if(!c) return;
-      c.campanha.corrupcao = clamp(num(c.campanha.corrupcao) + delta, 0, 10);
-      saveCharacter(c, 'Corrupção atualizada.');
-    }
-
-    async function reloadSelected(){
-      const c=selected(); if(!c) return;
+    async function reloadCharacter(id){
       try{
-        const data=await apiFetch('/api/characters/'+encodeURIComponent(c.id)+'?campaignId='+encodeURIComponent(CAMPAIGN_ID), {method:'GET'});
+        const data = await apiFetch('/api/characters/'+encodeURIComponent(id)+'?campaignId='+encodeURIComponent(CAMPAIGN_ID), {method:'GET'});
         if(data.character){
           const fresh=normalize(data.character);
           const idx=state.characters.findIndex(x=>x.id===fresh.id);
@@ -524,59 +928,42 @@
       }catch(e){ toast(e.message); }
     }
 
-
     function spellLabelLevel(n){
       n = Number(n);
       return n === 0 ? 'Truque' : n + 'º nível';
     }
 
-    function shortText(text, max=360){
+    function shortText(text, max=220){
       text = String(text || '');
       return text.length <= max ? text : text.slice(0, max) + '...';
     }
 
     async function loadSpellDb(){
       try{
-        const q = encodeURIComponent($('#spellSearch')?.value || '');
-        const nivel = encodeURIComponent($('#spellLevel')?.value || '');
-        const classe = encodeURIComponent($('#spellClass')?.value || '');
-        const tipo = encodeURIComponent($('#spellUse')?.value || '');
         const params = new URLSearchParams();
-        if(q) params.set('q', $('#spellSearch').value);
-        if(nivel !== '') params.set('nivel', $('#spellLevel').value);
-        if(classe) params.set('classe', $('#spellClass').value);
-        if(tipo) params.set('tipo_uso', $('#spellUse').value);
+        if($('#spellSearch')?.value) params.set('q', $('#spellSearch').value);
+        if($('#spellLevel')?.value !== '') params.set('nivel', $('#spellLevel').value);
+        if($('#spellClass')?.value) params.set('classe', $('#spellClass').value);
         params.set('limit', '500');
 
         const data = await apiFetch('/api/magias?' + params.toString(), {method:'GET'});
         const magias = data.magias || [];
-        $('#spellDbStatus').textContent = magias.length + ' magia(s) encontrada(s).';
+        $('#spellDbStatus').textContent = magias.length + ' magia(s) encontrada(s)' + (data.total ? ' de ' + data.total : '') + '.';
 
         $('#spellDbResults').innerHTML = magias.map(m=>`
-          <article class="spell-db-card">
-            <div class="spell-db-head">
-              <div>
-                <div class="spell-db-name">${escapeHtml(m.nome_pt)}</div>
-                <div class="spell-db-meta">
-                  <span class="spell-db-tag">${escapeHtml(spellLabelLevel(m.nivel))}</span>
-                  <span class="spell-db-tag">${escapeHtml(m.escola || '-')}</span>
-                  ${m.ritual ? '<span class="spell-db-tag">Ritual</span>' : ''}
-                  ${m.concentracao ? '<span class="spell-db-tag">Concentração</span>' : ''}
-                  ${m.tipo_uso ? `<span class="spell-db-tag">${escapeHtml(m.tipo_uso)}</span>` : ''}
-                </div>
+          <article class="char-card">
+            <div class="card-body">
+              <div class="char-name">${escapeHtml(m.nome_pt)}</div>
+              <div class="char-meta">
+                <span class="pill gold">${escapeHtml(spellLabelLevel(m.nivel))}</span>
+                <span class="pill">${escapeHtml(m.escola || '-')}</span>
+                ${m.ritual ? '<span class="pill">Ritual</span>' : ''}
+                ${m.concentracao ? '<span class="pill">Concentração</span>' : ''}
+                ${m.tipo_uso ? `<span class="pill green">${escapeHtml(m.tipo_uso)}</span>` : ''}
               </div>
+              <div class="notes">${escapeHtml(shortText(m.descricao_pt || ''))}</div>
               <button class="btn small secondary" data-open-spell="${escapeHtml(m.slug)}">Detalhes</button>
             </div>
-            <div class="spell-db-meta">
-              <span class="spell-db-tag">Tempo: ${escapeHtml(m.tempo_conjuracao || '-')}</span>
-              <span class="spell-db-tag">Alcance: ${escapeHtml(m.alcance || '-')}</span>
-              <span class="spell-db-tag">Comp.: ${escapeHtml(m.componentes || '-')}</span>
-              ${m.formula_dado_base ? `<span class="spell-db-tag">Dado: ${escapeHtml(m.formula_dado_base)}</span>` : ''}
-              ${m.tipo_dano_padrao ? `<span class="spell-db-tag">Tipo: ${escapeHtml(m.tipo_dano_padrao)}</span>` : ''}
-              ${m.atributo_resistencia ? `<span class="spell-db-tag">Res.: ${escapeHtml(m.atributo_resistencia)}</span>` : ''}
-            </div>
-            <div class="spell-db-desc">${escapeHtml(shortText(m.descricao_pt || ''))}</div>
-            <div class="classes" style="padding:8px 0 0">Classes: ${escapeHtml((m.classes || []).join(', ') || '-')}</div>
           </article>
         `).join('') || '<div class="empty">Nenhuma magia encontrada.</div>';
       }catch(e){
@@ -590,26 +977,20 @@
         const data = await apiFetch('/api/magias/'+encodeURIComponent(slug), {method:'GET'});
         const m = data.magia;
         if(!m) return;
-
         const usos = (data.usos_espaco || []).map(u =>
           `Espaço ${u.espaco_usado}: ${u.formula_dado || 'sem rolagem'}${u.tipo_resultado ? ' / '+u.tipo_resultado : ''}${u.tipo_dano ? ' / '+u.tipo_dano : ''}`
-        ).join('\\n');
-
-        const escala = (data.escala_personagem || []).map(u =>
-          `Nv. ${u.nivel_personagem_min}: ${u.formula_dado || 'sem rolagem'}${u.tipo_resultado ? ' / '+u.tipo_resultado : ''}${u.tipo_dano ? ' / '+u.tipo_dano : ''}`
-        ).join('\\n');
+        ).join('\n');
 
         alert(
-          m.nome_pt + '\\n' +
-          spellLabelLevel(m.nivel) + ' de ' + (m.escola || '-') + '\\n\\n' +
-          'Tempo: ' + (m.tempo_conjuracao || '-') + '\\n' +
-          'Alcance: ' + (m.alcance || '-') + '\\n' +
-          'Componentes: ' + (m.componentes || '-') + '\\n' +
-          'Duração: ' + (m.duracao || '-') + '\\n' +
-          'Classes: ' + ((m.classes || []).join(', ') || '-') + '\\n\\n' +
+          m.nome_pt + '\n' +
+          spellLabelLevel(m.nivel) + ' de ' + (m.escola || '-') + '\n\n' +
+          'Tempo: ' + (m.tempo_conjuracao || '-') + '\n' +
+          'Alcance: ' + (m.alcance || '-') + '\n' +
+          'Componentes: ' + (m.componentes || '-') + '\n' +
+          'Duração: ' + (m.duracao || '-') + '\n' +
+          'Classes: ' + ((m.classes || []).join(', ') || '-') + '\n\n' +
           (m.descricao_pt || '') +
-          (usos ? '\\n\\nUso por espaço:\\n' + usos : '') +
-          (escala ? '\\n\\nEscala por personagem:\\n' + escala : '')
+          (usos ? '\n\nUso por espaço:\n' + usos : '')
         );
       }catch(e){
         toast('Erro ao abrir magia: ' + e.message);
@@ -617,52 +998,69 @@
     }
 
     document.addEventListener('click', e=>{
-      const spellOpen=e.target.closest('[data-open-spell]');
-      if(spellOpen){ openSpellDetail(spellOpen.dataset.openSpell); return; }
-
-      const select=e.target.closest('[data-select]');
-      if(select){ state.selectedId=select.dataset.select; renderAll(); return; }
+      const openSpell=e.target.closest('[data-open-spell]');
+      if(openSpell){ openSpellDetail(openSpell.dataset.openSpell); return; }
 
       const dmg=e.target.closest('[data-damage]');
-      if(dmg){ changeHp(-num(dmg.dataset.damage)); return; }
+      if(dmg){ changeHp(dmg.dataset.damage, -num(dmg.dataset.value)); return; }
 
       const heal=e.target.closest('[data-heal]');
-      if(heal){ changeHp(num(heal.dataset.heal)); return; }
+      if(heal){ changeHp(heal.dataset.heal, num(heal.dataset.value)); return; }
 
-      const level=e.target.closest('[data-level-step]');
-      if(level){ stepLevel(num(level.dataset.levelStep)); return; }
-
-      const corr=e.target.closest('[data-corr-step]');
-      if(corr){ stepCorr(num(corr.dataset.corrStep)); return; }
-    });
-
-    document.addEventListener('input', e=>{
-      const c=selected(); if(!c) return;
-      if(e.target.id === 'levelValue'){
-        c.meta.nivel = clamp(num(e.target.value), 1, 20);
-        renderSummary();
+      const customDamage=e.target.closest('[data-custom-damage]');
+      if(customDamage){
+        const id=customDamage.dataset.customDamage;
+        const input=document.querySelector(`[data-custom-hp="${CSS.escape(id)}"]`);
+        changeHp(id, -Math.abs(num(input?.value)));
+        if(input) input.value='';
+        return;
       }
-      if(e.target.id === 'corrValue'){
-        c.campanha.corrupcao = clamp(num(e.target.value), 0, 10);
-        renderSummary();
+
+      const customHeal=e.target.closest('[data-custom-heal]');
+      if(customHeal){
+        const id=customHeal.dataset.customHeal;
+        const input=document.querySelector(`[data-custom-hp="${CSS.escape(id)}"]`);
+        changeHp(id, Math.abs(num(input?.value)));
+        if(input) input.value='';
+        return;
       }
+
+      const setBtn=e.target.closest('[data-set-hp-btn]');
+      if(setBtn){
+        const id=setBtn.dataset.setHpBtn;
+        const input=document.querySelector(`[data-set-hp="${CSS.escape(id)}"]`);
+        setHp(id, input?.value);
+        if(input) input.value='';
+        return;
+      }
+
+      const reload=e.target.closest('[data-reload-char]');
+      if(reload){ reloadCharacter(reload.dataset.reloadChar); return; }
     });
 
-    $('#loadBtn').onclick=async()=>{ await loadCharacters(); await loadSpellDb(); };
-    $('#refreshBtn').onclick=loadCharacters;
-    $('#spellSearchBtn').onclick=loadSpellDb;
-    ['spellSearch','spellLevel','spellClass','spellUse'].forEach(id=>{ const el=$('#'+id); if(el) el.addEventListener('keydown',e=>{ if(e.key==='Enter') loadSpellDb(); }); if(el && el.tagName==='SELECT') el.addEventListener('change',loadSpellDb); });
-    $('#masterPassword').value = localStorage.getItem(PASS_KEY) || '';
+    document.addEventListener('toggle', e=>{
+      const d=e.target.closest && e.target.closest('[data-char-details]');
+      if(!d) return;
+      if(d.open) state.detailsOpen.add(d.dataset.charDetails);
+      else state.detailsOpen.delete(d.dataset.charDetails);
+    }, true);
 
-    document.addEventListener('click', e=>{
-      if(e.target.id === 'customDamage') changeHp(-num($('#customHp').value));
-      if(e.target.id === 'customHeal') changeHp(num($('#customHp').value));
-      if(e.target.id === 'setHpBtn') setHp($('#setHpValue').value);
-      if(e.target.id === 'saveOnlyBtn') saveCharacter(selected(), 'Personagem salvo.');
-      if(e.target.id === 'reloadSelected') reloadSelected();
+    $('#loadBtn').onclick = loadCharacters;
+    $('#refreshBtn').onclick = loadCharacters;
+    $('#applyFiltersBtn').onclick = renderBoard;
+    $('#tableSearch').addEventListener('input', renderBoard);
+    $('#hpFilter').addEventListener('change', renderBoard);
+    $('#corrFilter').addEventListener('change', renderBoard);
+    $('#collapseAllBtn').onclick = ()=>{ state.detailsOpen.clear(); renderBoard(); };
+    $('#toggleSpellDbBtn').onclick = ()=>$('#spellDbPanel').classList.toggle('hidden');
+    $('#closeSpellDbBtn').onclick = ()=>$('#spellDbPanel').classList.add('hidden');
+    $('#spellSearchBtn').onclick = loadSpellDb;
+    $('#spellSearch').addEventListener('keydown', e=>{ if(e.key==='Enter') loadSpellDb(); });
+
+    window.addEventListener('load', ()=>{
+      const saved = localStorage.getItem(PASS_KEY);
+      if(saved) $('#masterPassword').value = saved;
     });
-
-    if($('#masterPassword').value){ loadCharacters(); loadSpellDb(); }
   </script>
 </body>
 </html>
