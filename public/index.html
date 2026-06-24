@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPG Gabriel - Ficha Online V12.3</title>
+  <title>RPG Gabriel - Ficha Online V13</title>
   <style>
     :root{
       --bg:#090b10;
@@ -48,7 +48,7 @@
     .pill-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
     .pill{font-size:12px;border:1px solid currentColor;border-radius:999px;padding:4px 9px;background:#3a2115;color:#fff4dc}
     .note{background:#fff9ea;border:1px solid #c9ad7a;border-radius:12px;padding:10px;margin:0 0 8px;line-height:1.35}
-    .btn{border:0;border-radius:12px;min-height:44px;padding:10px 14px;background:var(--brown2);color:white;font-weight:850}
+    .btn{border:0;border-radius:12px;min-height:44px;padding:10px 14px;background:var(--brown2);color:white;font-weight:850;text-decoration:none;display:inline-grid;place-items:center}
     .btn.secondary{background:#2d251e}
     .btn.green{background:var(--green)}
     .btn.danger{background:#9f2e2e}
@@ -359,6 +359,7 @@
           <div class="menu-actions">
             <button class="btn" id="enterSelectedBtn">Entrar no personagem selecionado</button>
             <button class="btn secondary" id="refreshOnlineBtn">Atualizar lista online</button>
+            <a class="btn secondary master-link" href="/mestre.html?v=13">Página do Mestre</a>
             <button class="btn danger" id="deleteCharacterBtn">Excluir personagem local</button>
           </div>
           <div class="status-line" id="onlineBadge">Pronto.</div>
@@ -1091,6 +1092,56 @@
       reader.readAsText(file,'utf-8');
     }
 
+
+    function isTypingNow(){
+      const el = document.activeElement;
+      if(!el) return false;
+      return ['INPUT','TEXTAREA','SELECT'].includes(el.tagName);
+    }
+
+    async function syncActiveCharacterFromOnline(silent=true){
+      const c = activeChar();
+      const pwd = sessionStorage.getItem(PASSWORD_KEY) || '';
+      if(!c || !pwd) return;
+
+      try{
+        const data = await apiFetch('/api/characters/'+encodeURIComponent(c.id)+'?campaignId='+encodeURIComponent(CAMPAIGN_ID), {method:'GET'}, true);
+        if(!data || !data.character) return;
+
+        const remote = normalize(data.character);
+        const localTime = Date.parse(c.updatedAt || 0) || 0;
+        const remoteTime = Date.parse(remote.updatedAt || 0) || 0;
+
+        if(remoteTime > localTime){
+          const idx = state.characters.findIndex(x=>x.id===remote.id);
+          if(idx >= 0) state.characters[idx] = remote;
+          else state.characters.push(remote);
+
+          state.activeId = remote.id;
+          saveLocal(false);
+
+          if(!isTypingNow()) renderForm();
+          else {
+            renderDashboard();
+            renderCalcs();
+          }
+
+          if(!silent) toast('Ficha atualizada pelo mestre.');
+        }
+      }catch(e){
+        // silencioso para não atrapalhar o jogador durante a sessão
+      }
+    }
+
+    function startOnlineSync(){
+      setInterval(()=>syncActiveCharacterFromOnline(true), 8000);
+      window.addEventListener('focus', ()=>syncActiveCharacterFromOnline(true));
+      document.addEventListener('visibilitychange', ()=>{
+        if(!document.hidden) syncActiveCharacterFromOnline(true);
+      });
+    }
+
+
     function bindEvents(){
       document.addEventListener('input', e=>{
         const el=e.target;
@@ -1194,7 +1245,8 @@
     bindEvents();
     renderForm();
     refreshOnline();
+    startOnlineSync();
   </script>
-<!-- RPGGABRIEL V12.3 LEVEL CORRUPTION STEPPER -->
+<!-- RPGGABRIEL V13 MASTER PAGE SYNC -->
 </body>
 </html>
