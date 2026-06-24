@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPG Gabriel - Ficha Online V13</title>
+  <title>RPG Gabriel - Ficha Online V14</title>
   <style>
     :root{
       --bg:#090b10;
@@ -1099,45 +1099,95 @@
       return ['INPUT','TEXTAREA','SELECT'].includes(el.tagName);
     }
 
-    async function syncActiveCharacterFromOnline(silent=true){
+    function sleep(ms){
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    function onlineRevision(c){
+      return Number(c && c.__online && c.__online.revision ? c.__online.revision : 0);
+    }
+
+    function applyRemoteCharacter(remote, showToast=false){
+      if(!remote || !remote.id) return;
+      const idx = state.characters.findIndex(x=>x.id===remote.id);
+      if(idx >= 0) state.characters[idx] = remote;
+      else state.characters.push(remote);
+
+      state.activeId = remote.id;
+      saveLocal(false);
+
+      if(!isTypingNow()) renderForm();
+      else {
+        renderDashboard();
+        renderCalcs();
+      }
+
+      if(showToast) toast('Ficha atualizada pelo mestre.');
+    }
+
+    async function syncActiveCharacterFromOnline(showToast=false){
       const c = activeChar();
       const pwd = sessionStorage.getItem(PASSWORD_KEY) || '';
       if(!c || !pwd) return;
 
       try{
         const data = await apiFetch('/api/characters/'+encodeURIComponent(c.id)+'?campaignId='+encodeURIComponent(CAMPAIGN_ID), {method:'GET'}, true);
-        if(!data || !data.character) return;
+        if(data && data.character){
+          const remote = normalize(data.character);
+          const localRev = onlineRevision(c);
+          const remoteRev = onlineRevision(remote);
+          const localTime = Date.parse(c.updatedAt || 0) || 0;
+          const remoteTime = Date.parse(remote.updatedAt || 0) || 0;
 
-        const remote = normalize(data.character);
-        const localTime = Date.parse(c.updatedAt || 0) || 0;
-        const remoteTime = Date.parse(remote.updatedAt || 0) || 0;
-
-        if(remoteTime > localTime){
-          const idx = state.characters.findIndex(x=>x.id===remote.id);
-          if(idx >= 0) state.characters[idx] = remote;
-          else state.characters.push(remote);
-
-          state.activeId = remote.id;
-          saveLocal(false);
-
-          if(!isTypingNow()) renderForm();
-          else {
-            renderDashboard();
-            renderCalcs();
+          if(remoteRev > localRev || remoteTime > localTime){
+            applyRemoteCharacter(remote, showToast);
           }
-
-          if(!silent) toast('Ficha atualizada pelo mestre.');
         }
       }catch(e){
-        // silencioso para não atrapalhar o jogador durante a sessão
+        // silencioso
+      }
+    }
+
+    async function watchActiveCharacterChanges(){
+      while(true){
+        const c = activeChar();
+        const pwd = sessionStorage.getItem(PASSWORD_KEY) || '';
+
+        if(!c || !pwd || document.hidden){
+          await sleep(1200);
+          continue;
+        }
+
+        const watchedId = c.id;
+        const sinceRevision = onlineRevision(c);
+
+        try{
+          const url =
+            '/api/characters/' + encodeURIComponent(watchedId) +
+            '/changes?campaignId=' + encodeURIComponent(CAMPAIGN_ID) +
+            '&sinceRevision=' + encodeURIComponent(sinceRevision) +
+            '&timeout=28';
+
+          const data = await apiFetch(url, {method:'GET'}, true);
+
+          const current = activeChar();
+          if(!current || current.id !== watchedId) continue;
+
+          if(data && data.changed && data.character){
+            applyRemoteCharacter(normalize(data.character), true);
+          }
+        }catch(e){
+          await sleep(1800);
+        }
       }
     }
 
     function startOnlineSync(){
-      setInterval(()=>syncActiveCharacterFromOnline(true), 8000);
-      window.addEventListener('focus', ()=>syncActiveCharacterFromOnline(true));
+      watchActiveCharacterChanges();
+
+      window.addEventListener('focus', ()=>syncActiveCharacterFromOnline(false));
       document.addEventListener('visibilitychange', ()=>{
-        if(!document.hidden) syncActiveCharacterFromOnline(true);
+        if(!document.hidden) syncActiveCharacterFromOnline(false);
       });
     }
 
@@ -1247,6 +1297,6 @@
     refreshOnline();
     startOnlineSync();
   </script>
-<!-- RPGGABRIEL V13 MASTER PAGE SYNC -->
+<!-- RPGGABRIEL V14 CHANGE WATCH -->
 </body>
 </html>

@@ -14,18 +14,11 @@ export default {
       const path = url.pathname.replace(/\/+$/, "") || "/";
       const method = request.method.toUpperCase();
 
-      // Serve a ficha visual no endereço raiz do Worker.
-      // Rotas /api continuam como API.
-      if (!path.startsWith("/api")) {
-        if (env.ASSETS) return env.ASSETS.fetch(request);
-        return new Response("Frontend não configurado no Worker.", { status: 500 });
-      }
-
       if (method === "GET" && path === "/api/ping") {
         return json({
           ok: true,
           app: "Ghosts of Saltmarsh - Ficha Online API",
-          version: "1.1.0-password-flow",
+          version: "1.2.0-change-watch",
           loginMode: "character_click_standard_password",
           time: new Date().toISOString()
         });
@@ -42,6 +35,12 @@ export default {
 
       if (method === "GET" && path === "/api/characters") {
         return listCharacters(request, env, url);
+      }
+
+      const changeMatch = path.match(/^\/api\/characters\/([^/]+)\/changes$/);
+      if (changeMatch) {
+        const id = decodeURIComponent(changeMatch[1]);
+        if (method === "GET") return waitCharacterChange(request, env, url, id);
       }
 
       const match = path.match(/^\/api\/characters\/([^/]+)$/);
@@ -253,3 +252,60 @@ async function deleteCharacter(request, env, url, id) {
   return json({ ok: true, deletedId: id });
 }
 
+
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function getCharacterRow(env, id, campaignId) {
+  return await env.DB.prepare(`
+    SELECT id, user_id, campaign_id, name, character_json, revision, created_at, updated_at
+    FROM rpg_characters
+    WHERE id = ? AND campaign_id = ? AND deleted_at IS NULL
+  `).bind(id, campaignId).first();
+}
+
+async function waitCharacterChange(request, env, url, id) {
+  const campaignId = getCampaignId(request, url);
+  const sinceRevision = Number(url.searchParams.get("sinceRevision") || 0);
+  const timeoutSeconds = Math.max(3, Math.min(28, Number(url.searchParams.get("timeout") || 25)));
+  const started = Date.now();
+  const maxMs = timeoutSeconds * 1000;
+
+  while (Date.now() - started < maxMs) {
+    const row = await getCharacterRow(env, id, campaignId);
+
+    if (!row) {
+      return json({ ok: false, error: "Personagem não encontrado." }, 404);
+    }
+
+    const revision = Number(row.revision || 0);
+
+    if (!sinceRevision || revision > sinceRevision) {
+      return json({
+        ok: true,
+        changed: true,
+        characterId: id,
+        revision,
+        updatedAt: row.updated_at,
+        character: safeParseCharacter(row)
+      });
+    }
+
+    await delay(1000);
+  }
+
+  const row = await getCharacterRow(env, id, campaignId);
+
+  if (!row) {
+    return json({ ok: false, error: "Personagem não encontrado." }, 404);
+  }
+
+  return json({
+    ok: true,
+    changed: false,
+    characterId: id,
+    revision: Number(row.revision || 0),
+    updatedAt: row.updated_at
+  });
+}
