@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Livro de Regras do Gabriel - V27</title>
+  <style>
+    :root{--bg:#201107;--wood:#432814;--paper:#f1dfba;--paper2:#d7b77f;--ink:#241306;--muted:#695137;--line:#8d5e2f;--gold:#bd8539;--ok:#3f6d2a;--warn:#916414;--bad:#8b2f28;--ui:"Trebuchet MS",system-ui,sans-serif}
+    *{box-sizing:border-box} body{margin:0;background:radial-gradient(circle at 20% 0,#5a3519,#201107 55%,#100804);color:var(--ink);font-family:var(--ui)}
+    .app{max-width:1440px;margin:0 auto;padding:16px;display:grid;gap:14px}
+    .panel{background:linear-gradient(180deg,var(--paper),var(--paper2));border:2px solid var(--line);border-radius:22px;box-shadow:0 16px 36px rgba(0,0,0,.34);padding:16px}
+    .top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.actions,.tabs{display:flex;flex-wrap:wrap;gap:8px}
+    h1,h2,h3{margin:0} p{color:var(--muted);line-height:1.35}.btn,.tab{border:1px solid var(--line);border-radius:12px;padding:9px 13px;font-weight:950;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;min-height:40px}
+    .tab{border-radius:999px;background:#f7ead1}.tab.active{background:#241306;color:#f7ead1}.primary{background:linear-gradient(180deg,#e8bf75,#bd8539);color:#201107}.secondary{background:#f7ead1;color:#4f3115}.danger{background:linear-gradient(180deg,#b85e54,#8b2f28);color:#fff}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:grid;gap:5px;margin-bottom:9px} label{font-size:12px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+    input,textarea,select{width:100%;min-height:42px;border:1px solid var(--line);border-radius:12px;background:#fff7e8;padding:10px;color:var(--ink);font:inherit}textarea{min-height:120px;resize:vertical}.big{min-height:240px}
+    .hidden{display:none!important}.list{display:grid;gap:8px}.item{border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.35);padding:10px;display:grid;gap:6px}.item-top{display:flex;justify-content:space-between;gap:8px;align-items:center}.pill{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:4px 8px;background:#f4ead7;font-size:12px;font-weight:900}.ok{background:#dff0cf;color:#2b4d18}.warn{background:#fde7bd;color:#704708}.bad{background:#f4c7bf;color:#6d1f18}
+    code{background:#241306;color:#f7ead1;padding:2px 6px;border-radius:6px}@media(max-width:900px){.grid{grid-template-columns:1fr}.top{flex-direction:column}}
+  </style>
+</head>
+<body>
+<div class="app">
+  <section class="panel top">
+    <div>
+      <h1>Livro de Regras do Gabriel</h1>
+      <p>Base oficial do seu livro. Cadastre o texto completo e marque o status de revisão. A ficha passa a usar classes, raças, antecedentes e talentos daqui.</p>
+    </div>
+    <div class="actions">
+      <a class="btn secondary" href="index.html?v=27">Voltar para ficha</a>
+      <a class="btn secondary" href="criador.html?v=27">Criador livre</a>
+      <button class="btn secondary" id="exportBtn">Exportar JSON</button>
+      <button class="btn secondary" id="importBtn">Importar JSON</button>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="tabs">
+      <button class="tab active" data-tab="class">Classes</button>
+      <button class="tab" data-tab="race">Raças / Linhagens</button>
+      <button class="tab" data-tab="background">Antecedentes</button>
+      <button class="tab" data-tab="feat">Talentos</button>
+      <button class="tab" data-tab="catalog">Armas/Itens/Condições/Magias</button>
+      <button class="tab" data-tab="review">Revisão</button>
+      <button class="tab" data-tab="data">JSON</button>
+    </div>
+  </section>
+
+  <section class="panel tabpage" id="classPage">
+    <h2>Classe do livro</h2>
+    <div class="grid">
+      <div>
+        <div class="field"><label>Nome da classe</label><input id="className" placeholder="Ex.: Mago"></div>
+        <div class="field"><label>Status</label><select id="classStatus"><option>pendente</option><option>revisado</option><option>aprovado</option><option>igual ao livro</option></select></div>
+        <div class="field"><label>Fonte / capítulo / página</label><input id="classSource" placeholder="Livro do Gabriel, cap. ..."></div>
+        <div class="field"><label>Dado de vida</label><input id="classHitDie" placeholder="d6, d8, d10..."></div>
+        <div class="field"><label>Tipo de conjuração</label><select id="classCasting"><option value="none">Não conjurador</option><option value="full">Conjurador completo</option><option value="half">Meio conjurador</option><option value="pact">Pacto</option></select></div>
+        <div class="field"><label>Atributo de conjuração</label><input id="classSpellAbility" placeholder="inteligencia, sabedoria, carisma"></div>
+      </div>
+      <div>
+        <div class="field"><label>Salvaguardas</label><input id="classSaves" placeholder="inteligencia, sabedoria"></div>
+        <div class="field"><label>Atributos principais</label><input id="classPrimary" placeholder="inteligencia, constituicao"></div>
+        <div class="field"><label>Proficiências de armas/armaduras/ferramentas</label><textarea id="classProficiencies"></textarea></div>
+        <div class="field"><label>Habilidades por nível</label><textarea id="classFeatures" placeholder="1: Conjuração; Recuperação Arcana&#10;2: Tradição Arcana"></textarea></div>
+      </div>
+    </div>
+    <div class="field"><label>Texto completo do seu livro</label><textarea class="big" id="classText"></textarea></div>
+    <div class="actions"><button class="btn primary" id="saveClassBtn">Salvar classe</button><button class="btn secondary" id="clearClassBtn">Limpar</button></div>
+  </section>
+
+  <section class="panel tabpage hidden" id="racePage">
+    <h2>Raça / Linhagem do livro</h2>
+    <div class="grid">
+      <div>
+        <div class="field"><label>Nome</label><input id="raceName"></div>
+        <div class="field"><label>Status</label><select id="raceStatus"><option>pendente</option><option>revisado</option><option>aprovado</option><option>igual ao livro</option></select></div>
+        <div class="field"><label>Fonte / página</label><input id="raceSource"></div>
+        <div class="field"><label>Tamanho</label><input id="raceSize"></div>
+        <div class="field"><label>Deslocamento</label><input id="raceSpeed"></div>
+        <div class="field"><label>Visão no escuro</label><input id="raceDark"></div>
+      </div>
+      <div>
+        <div class="field"><label>Perícias automáticas</label><input id="raceSkills" placeholder="percepcao, furtividade"></div>
+        <div class="field"><label>Idiomas</label><input id="raceLanguages"></div>
+        <div class="field"><label>Resistências</label><input id="raceResist"></div>
+        <div class="field"><label>Proficiências</label><input id="raceProf"></div>
+        <div class="field"><label>Traços raciais</label><textarea id="raceTraits"></textarea></div>
+      </div>
+    </div>
+    <div class="field"><label>Texto completo do seu livro</label><textarea class="big" id="raceText"></textarea></div>
+    <div class="actions"><button class="btn primary" id="saveRaceBtn">Salvar raça</button><button class="btn secondary" id="clearRaceBtn">Limpar</button></div>
+  </section>
+
+  <section class="panel tabpage hidden" id="backgroundPage">
+    <h2>Antecedente do livro</h2>
+    <div class="grid">
+      <div>
+        <div class="field"><label>Nome</label><input id="bgName"></div>
+        <div class="field"><label>Status</label><select id="bgStatus"><option>pendente</option><option>revisado</option><option>aprovado</option><option>igual ao livro</option></select></div>
+        <div class="field"><label>Fonte / página</label><input id="bgSource"></div>
+        <div class="field"><label>Perícias</label><input id="bgSkills"></div>
+        <div class="field"><label>Idiomas</label><input id="bgLanguages"></div>
+        <div class="field"><label>Ferramentas</label><input id="bgTools"></div>
+      </div>
+      <div>
+        <div class="field"><label>Equipamento inicial</label><textarea id="bgEquipment"></textarea></div>
+        <div class="field"><label>Característica</label><input id="bgFeature"></div>
+        <div class="field"><label>Personalidade / ideais / vínculos / defeitos</label><textarea id="bgPersonality"></textarea></div>
+      </div>
+    </div>
+    <div class="field"><label>Texto completo do seu livro</label><textarea class="big" id="bgText"></textarea></div>
+    <div class="actions"><button class="btn primary" id="saveBgBtn">Salvar antecedente</button><button class="btn secondary" id="clearBgBtn">Limpar</button></div>
+  </section>
+
+  <section class="panel tabpage hidden" id="featPage">
+    <h2>Talento / Feito do livro</h2>
+    <div class="grid">
+      <div>
+        <div class="field"><label>Nome</label><input id="featName"></div>
+        <div class="field"><label>Status</label><select id="featStatus"><option>pendente</option><option>revisado</option><option>aprovado</option><option>igual ao livro</option></select></div>
+        <div class="field"><label>Fonte / página</label><input id="featSource"></div>
+        <div class="field"><label>Tags</label><input id="featTags"></div>
+      </div>
+      <div>
+        <div class="field"><label>Resumo</label><textarea id="featSummary"></textarea></div>
+        <div class="field"><label>Observação mecânica</label><textarea id="featNote"></textarea></div>
+      </div>
+    </div>
+    <div class="field"><label>Texto completo do seu livro</label><textarea class="big" id="featText"></textarea></div>
+    <div class="actions"><button class="btn primary" id="saveFeatBtn">Salvar talento</button><button class="btn secondary" id="clearFeatBtn">Limpar</button></div>
+  </section>
+
+  <section class="panel tabpage hidden" id="catalogPage">
+    <h2>Catálogo do livro</h2>
+    <p>Use para armas, armaduras, equipamentos, condições, magias ou regras gerais do seu livro.</p>
+    <div class="grid">
+      <div>
+        <div class="field"><label>Categoria</label><select id="catType"><option value="weapons">Arma</option><option value="armors">Armadura</option><option value="equipment">Equipamento</option><option value="conditions">Condição</option><option value="spells">Magia</option><option value="rules">Regra geral</option></select></div>
+        <div class="field"><label>Nome</label><input id="catName"></div>
+        <div class="field"><label>Status</label><select id="catStatus"><option>pendente</option><option>revisado</option><option>aprovado</option><option>igual ao livro</option></select></div>
+        <div class="field"><label>Fonte / página</label><input id="catSource"></div>
+      </div>
+      <div>
+        <div class="field"><label>Campos mecânicos em JSON</label><textarea id="catFields" placeholder='{"dano":"1d8","tipo":"cortante"}'></textarea></div>
+        <div class="field"><label>Texto completo</label><textarea id="catText"></textarea></div>
+      </div>
+    </div>
+    <div class="actions"><button class="btn primary" id="saveCatBtn">Salvar no catálogo</button><button class="btn secondary" id="clearCatBtn">Limpar</button></div>
+  </section>
+
+  <section class="panel tabpage hidden" id="reviewPage">
+    <h2>Revisão geral</h2>
+    <p>Itens aprovados/iguais ao livro já aparecem como base confiável. Pendentes precisam revisão.</p>
+    <div class="list" id="reviewList"></div>
+  </section>
+
+  <section class="panel tabpage hidden" id="dataPage">
+    <h2>JSON do livro</h2>
+    <p>Chave local: <code>rpggabriel.book.rules.v27</code></p>
+    <textarea id="jsonBox" class="big"></textarea>
+    <div class="actions"><button class="btn primary" id="saveJsonBtn">Salvar JSON editado</button></div>
+  </section>
+</div>
+
+<script>
+const KEY='rpggabriel.book.rules.v27';
+const $=s=>document.querySelector(s);
+const $$=s=>Array.from(document.querySelectorAll(s));
+const split=v=>String(v||'').split(',').map(x=>x.trim()).filter(Boolean);
+const lines=v=>String(v||'').split(/\n|,/).map(x=>x.trim()).filter(Boolean);
+const empty=()=>({classes:{},races:{},backgrounds:{},feats:{},weapons:{},armors:{},equipment:{},conditions:{},spells:{},rules:{}});
+function load(){try{return {...empty(),...(JSON.parse(localStorage.getItem(KEY)||'{}'))}}catch{return empty()}}
+function save(d){localStorage.setItem(KEY,JSON.stringify(d,null,2));render()}
+function setTab(name){$$('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));$$('.tabpage').forEach(p=>p.classList.add('hidden'));$('#'+name+'Page').classList.remove('hidden')}
+function features(text){const out={};String(text||'').split(/\n/).forEach(line=>{const m=line.match(/^\s*(\d+)\s*:\s*(.+)$/);if(!m)return;out[m[1]]=m[2].split(';').map(x=>x.trim()).filter(Boolean)});return out}
+function statusPill(s){const cls=s==='aprovado'||s==='igual ao livro'?'ok':s==='revisado'?'warn':'bad';return `<span class="pill ${cls}">${s||'pendente'}</span>`}
+function item(type,name,row){return `<div class="item"><div class="item-top"><b>${name}</b><div>${statusPill(row.status)} <button class="btn secondary" data-edit="${type}:${name}">Editar</button> <button class="btn danger" data-del="${type}:${name}">Excluir</button></div></div><small>${row.source||''}</small></div>`}
+function render(){
+  const d=load(); $('#jsonBox').value=JSON.stringify(d,null,2);
+  const rows=[]; Object.entries(d).forEach(([type,obj])=>Object.entries(obj||{}).forEach(([name,row])=>rows.push({type,name,row})));
+  $('#reviewList').innerHTML=rows.length?rows.map(r=>item(r.type,r.name,r.row)).join(''):'<div class="item">Nenhuma regra cadastrada.</div>';
+}
+function saveClass(){const d=load(),n=$('#className').value.trim();if(!n)return alert('Nome obrigatório');d.classes[n]={status:$('#classStatus').value,source:$('#classSource').value,hitDie:$('#classHitDie').value,saves:split($('#classSaves').value),casting:$('#classCasting').value,spellAbility:$('#classSpellAbility').value,primary:split($('#classPrimary').value),proficiencies:$('#classProficiencies').value,features:features($('#classFeatures').value),text:$('#classText').value};save(d);clearClass();setTab('review')}
+function saveRace(){const d=load(),n=$('#raceName').value.trim();if(!n)return alert('Nome obrigatório');d.races[n]={status:$('#raceStatus').value,source:$('#raceSource').value,size:$('#raceSize').value,speed:$('#raceSpeed').value,darkvision:$('#raceDark').value,skills:split($('#raceSkills').value),languages:split($('#raceLanguages').value),resistances:split($('#raceResist').value),proficiencies:split($('#raceProf').value),traits:lines($('#raceTraits').value),text:$('#raceText').value};save(d);clearRace();setTab('review')}
+function saveBg(){const d=load(),n=$('#bgName').value.trim();if(!n)return alert('Nome obrigatório');d.backgrounds[n]={status:$('#bgStatus').value,source:$('#bgSource').value,skills:split($('#bgSkills').value),languages:split($('#bgLanguages').value),tools:split($('#bgTools').value),equipment:lines($('#bgEquipment').value),feature:$('#bgFeature').value,personality:$('#bgPersonality').value,text:$('#bgText').value,summary:$('#bgText').value.slice(0,160)};save(d);clearBg();setTab('review')}
+function saveFeat(){const d=load(),n=$('#featName').value.trim();if(!n)return alert('Nome obrigatório');d.feats[n]={status:$('#featStatus').value,source:$('#featSource').value,tags:split($('#featTags').value),summary:$('#featSummary').value,note:$('#featNote').value,text:$('#featText').value};save(d);clearFeat();setTab('review')}
+function saveCat(){const d=load(),type=$('#catType').value,n=$('#catName').value.trim();if(!n)return alert('Nome obrigatório');let fields={};try{fields=$('#catFields').value.trim()?JSON.parse($('#catFields').value):{}}catch(e){return alert('JSON inválido nos campos mecânicos')}d[type][n]={status:$('#catStatus').value,source:$('#catSource').value,fields,text:$('#catText').value};save(d);clearCat();setTab('review')}
+function clearClass(){$$('#classPage input,#classPage textarea').forEach(x=>x.value='');$('#classCasting').value='none';$('#classStatus').value='pendente'}
+function clearRace(){$$('#racePage input,#racePage textarea').forEach(x=>x.value='');$('#raceStatus').value='pendente'}
+function clearBg(){$$('#backgroundPage input,#backgroundPage textarea').forEach(x=>x.value='');$('#bgStatus').value='pendente'}
+function clearFeat(){$$('#featPage input,#featPage textarea').forEach(x=>x.value='');$('#featStatus').value='pendente'}
+function clearCat(){$$('#catalogPage input,#catalogPage textarea').forEach(x=>x.value='');$('#catStatus').value='pendente'}
+function del(type,name){const d=load();if(!confirm('Excluir '+name+'?'))return;delete d[type][name];save(d)}
+function edit(type,name){const d=load(),r=d[type][name];if(type==='classes'){setTab('class');$('#className').value=name;$('#classStatus').value=r.status||'pendente';$('#classSource').value=r.source||'';$('#classHitDie').value=r.hitDie||'';$('#classSaves').value=(r.saves||[]).join(', ');$('#classCasting').value=r.casting||'none';$('#classSpellAbility').value=r.spellAbility||'';$('#classPrimary').value=(r.primary||[]).join(', ');$('#classProficiencies').value=r.proficiencies||'';$('#classFeatures').value=Object.entries(r.features||{}).map(([lv,a])=>`${lv}: ${(a||[]).join('; ')}`).join('\n');$('#classText').value=r.text||''}
+if(type==='races'){setTab('race');$('#raceName').value=name;$('#raceStatus').value=r.status||'pendente';$('#raceSource').value=r.source||'';$('#raceSize').value=r.size||'';$('#raceSpeed').value=r.speed||'';$('#raceDark').value=r.darkvision||'';$('#raceSkills').value=(r.skills||[]).join(', ');$('#raceLanguages').value=(r.languages||[]).join(', ');$('#raceResist').value=(r.resistances||[]).join(', ');$('#raceProf').value=(r.proficiencies||[]).join(', ');$('#raceTraits').value=(r.traits||[]).join('\n');$('#raceText').value=r.text||''}
+if(type==='backgrounds'){setTab('background');$('#bgName').value=name;$('#bgStatus').value=r.status||'pendente';$('#bgSource').value=r.source||'';$('#bgSkills').value=(r.skills||[]).join(', ');$('#bgLanguages').value=(r.languages||[]).join(', ');$('#bgTools').value=(r.tools||[]).join(', ');$('#bgEquipment').value=(r.equipment||[]).join('\n');$('#bgFeature').value=r.feature||'';$('#bgPersonality').value=r.personality||'';$('#bgText').value=r.text||''}
+if(type==='feats'){setTab('feat');$('#featName').value=name;$('#featStatus').value=r.status||'pendente';$('#featSource').value=r.source||'';$('#featTags').value=(r.tags||[]).join(', ');$('#featSummary').value=r.summary||'';$('#featNote').value=r.note||'';$('#featText').value=r.text||''}
+if(['weapons','armors','equipment','conditions','spells','rules'].includes(type)){setTab('catalog');$('#catType').value=type;$('#catName').value=name;$('#catStatus').value=r.status||'pendente';$('#catSource').value=r.source||'';$('#catFields').value=JSON.stringify(r.fields||{},null,2);$('#catText').value=r.text||''}}
+document.addEventListener('click',e=>{const t=e.target.closest('[data-tab]');if(t)setTab(t.dataset.tab);const ed=e.target.closest('[data-edit]');if(ed){const [type,...rest]=ed.dataset.edit.split(':');edit(type,rest.join(':'))}const dl=e.target.closest('[data-del]');if(dl){const [type,...rest]=dl.dataset.del.split(':');del(type,rest.join(':'))}})
+$('#saveClassBtn').onclick=saveClass;$('#clearClassBtn').onclick=clearClass;$('#saveRaceBtn').onclick=saveRace;$('#clearRaceBtn').onclick=clearRace;$('#saveBgBtn').onclick=saveBg;$('#clearBgBtn').onclick=clearBg;$('#saveFeatBtn').onclick=saveFeat;$('#clearFeatBtn').onclick=clearFeat;$('#saveCatBtn').onclick=saveCat;$('#clearCatBtn').onclick=clearCat;
+$('#exportBtn').onclick=()=>{navigator.clipboard.writeText(JSON.stringify(load(),null,2));alert('JSON copiado.')};$('#importBtn').onclick=()=>{setTab('data');$('#jsonBox').focus()};$('#saveJsonBtn').onclick=()=>{try{save(JSON.parse($('#jsonBox').value));alert('JSON salvo.')}catch(e){alert('JSON inválido: '+e.message)}}
+render();
+</script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPG Gabriel - Ficha Online V26.1</title>
+  <title>RPG Gabriel - Ficha Online V27</title>
   <style>
     :root{
       --bg:#090b10;
@@ -756,6 +756,12 @@
 .inventory-warning{border:1px solid var(--line);border-radius:12px;background:rgba(180,115,45,.12);padding:8px 10px;color:var(--muted);font-size:12px;font-weight:800;line-height:1.35;margin:8px 0}
 .book-audit-note{border:1px solid var(--line);border-radius:12px;background:rgba(120,75,30,.10);padding:8px 10px;color:var(--muted);font-size:12px;font-weight:800;line-height:1.35;margin:8px 0}
 
+
+.book-status-pill{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;padding:4px 8px;background:#f4ead7;font-size:12px;font-weight:900;color:#5b3a12;margin-left:6px}
+.book-status-pill.ok{background:#dff0cf;color:#2b4d18}
+.book-status-pill.warn{background:#fde7bd;color:#704708}
+.book-status-pill.bad{background:#f4c7bf;color:#6d1f18}
+
 </style>
 </head>
 <body class="menu-open">
@@ -988,11 +994,11 @@
             </div>
             <div class="panel rules-audit-panel" id="rulesAuditPanel">
               <h3>Conferência do livro / regras</h3>
-              <p class="sheet-note">Mostra se classe, raça e antecedente estão aplicados na ficha. Para ficar 100% igual ao livro, use o Criador de Regras para cadastrar/revisar a base completa.</p>
+              <p class="sheet-note">Mostra se classe, raça e antecedente estão aplicados na ficha. Para ficar 100% igual ao seu livro, use o Livro de Regras para cadastrar/revisar a base completa.</p>
               <div id="rulesAuditSummary" class="rules-audit-box"></div>
               <div class="rules-audit-actions">
                 <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                <a class="btn small primary" href="criador.html?v=26_1" target="_blank">Criar/editar regras</a>
+                <a class="btn small secondary" href="criador.html?v=27" target="_blank">Criador livre</a><a class="btn small primary" href="livro-regras.html?v=27" target="_blank">Livro de Regras</a>
               </div>
             </div>
           </div>
@@ -1892,6 +1898,51 @@
 
     const CUSTOM_RULES_KEY = 'rpggabriel.custom.rules.v26';
 
+
+    const BOOK_RULES_KEY = 'rpggabriel.book.rules.v27';
+
+    function loadBookRules(){
+      try{
+        const raw = localStorage.getItem(BOOK_RULES_KEY);
+        const parsed = raw ? JSON.parse(raw) : {};
+        return {
+          classes: parsed.classes && typeof parsed.classes === 'object' ? parsed.classes : {},
+          races: parsed.races && typeof parsed.races === 'object' ? parsed.races : {},
+          backgrounds: parsed.backgrounds && typeof parsed.backgrounds === 'object' ? parsed.backgrounds : {},
+          feats: parsed.feats && typeof parsed.feats === 'object' ? parsed.feats : {},
+          weapons: parsed.weapons && typeof parsed.weapons === 'object' ? parsed.weapons : {},
+          armors: parsed.armors && typeof parsed.armors === 'object' ? parsed.armors : {},
+          equipment: parsed.equipment && typeof parsed.equipment === 'object' ? parsed.equipment : {},
+          conditions: parsed.conditions && typeof parsed.conditions === 'object' ? parsed.conditions : {},
+          spells: parsed.spells && typeof parsed.spells === 'object' ? parsed.spells : {},
+          rules: parsed.rules && typeof parsed.rules === 'object' ? parsed.rules : {}
+        };
+      }catch(e){
+        return {classes:{}, races:{}, backgrounds:{}, feats:{}, weapons:{}, armors:{}, equipment:{}, conditions:{}, spells:{}, rules:{}};
+      }
+    }
+
+    function getAllClassRules(){
+      const book = loadBookRules();
+      return {...CLASS_RULES, ...book.classes};
+    }
+
+    function getAllClassNames(){
+      return Object.keys(getAllClassRules()).sort((a,b)=>a.localeCompare(b,'pt-BR'));
+    }
+
+    function bookStatusFor(type, name){
+      const book = loadBookRules();
+      const row = book[type] && book[type][name];
+      return row && row.status ? row.status : '';
+    }
+
+    function bookStatusClass(status){
+      if(status === 'aprovado' || status === 'igual ao livro') return 'ok';
+      if(status === 'revisado') return 'warn';
+      return status ? 'bad' : '';
+    }
+
     function loadCustomRules(){
       try{
         const raw = localStorage.getItem(CUSTOM_RULES_KEY);
@@ -1908,20 +1959,48 @@
 
     function getAllRaceRules(){
       const custom = loadCustomRules();
-      return {...RACE_RULES, ...custom.races};
+      const book = loadBookRules();
+      return {...RACE_RULES, ...custom.races, ...book.races};
     }
 
     function getAllBackgroundRules(){
       const custom = loadCustomRules();
-      return {...BACKGROUND_RULES, ...custom.backgrounds};
+      const book = loadBookRules();
+      return {...BACKGROUND_RULES, ...custom.backgrounds, ...book.backgrounds};
     }
 
     function getAllFeatRules(){
       const custom = loadCustomRules();
-      return {...FEAT_RULES, ...custom.feats};
+      const book = loadBookRules();
+      return {...FEAT_RULES, ...custom.feats, ...book.feats};
     }
 
     function refreshCustomRuleOptions(){
+      const classSelect = $('#characterClassSelect');
+      if(classSelect){
+        const currentClasses = Array.from(classSelect.options).map(o=>o.value || o.textContent);
+        getAllClassNames().forEach(name=>{
+          if(!currentClasses.includes(name)){
+            const opt = document.createElement('option');
+            opt.value = name;
+            opt.textContent = name;
+            classSelect.appendChild(opt);
+          }
+        });
+      }
+      const spellClassSelect = $('#spellClassFilter');
+      if(spellClassSelect){
+        const currentSpellClasses = Array.from(spellClassSelect.options).map(o=>o.value || o.textContent);
+        getAllClassNames().forEach(name=>{
+          const rule = getAllClassRules()[name];
+          if(rule && rule.casting && rule.casting !== 'none' && !currentSpellClasses.includes(name)){
+            const opt = document.createElement('option');
+            opt.value = name;
+            opt.textContent = name;
+            spellClassSelect.appendChild(opt);
+          }
+        });
+      }
       const races = getAllRaceRules();
       const raceList = $('#raceOptions');
       if(raceList){
@@ -1960,14 +2039,22 @@
       const cls = c.meta.classe || c.meta.classeNivel || '';
       const race = c.meta.raca || '';
       const bg = c.meta.antecedente || '';
-      const raceKnown = !!getAllRaceRules()[normalizeRaceName(race)];
-      const bgKnown = !!getAllBackgroundRules()[normalizeBackgroundName(bg)];
-      const classKnown = !!getClassRule(c);
+      const classRule = getClassRule(c);
+      const raceName = normalizeRaceName(race);
+      const bgName = normalizeBackgroundName(bg);
+      const raceKnown = !!getAllRaceRules()[raceName];
+      const bgKnown = !!getAllBackgroundRules()[bgName];
+      const classKnown = !!classRule;
+      const clsStatus = bookStatusFor('classes', cls);
+      const raceStatus = bookStatusFor('races', raceName);
+      const bgStatus = bookStatusFor('backgrounds', bgName);
+
+      const pill = status => status ? `<span class="book-status-pill ${bookStatusClass(status)}">${escapeHtml(status)}</span>` : '<span class="book-status-pill bad">não revisado no livro</span>';
 
       box.innerHTML = `
-        <div class="rules-audit-row"><b>Classe</b><small>${escapeHtml(cls || 'Não definida')} — ${classKnown ? 'base encontrada e progressão aplicada.' : 'não encontrada na base; cadastre ou ajuste o nome.'}</small></div>
-        <div class="rules-audit-row"><b>Raça / Linhagem</b><small>${escapeHtml(race || 'Não definida')} — ${raceKnown ? 'base encontrada.' : 'não encontrada; crie no Criador de Regras.'}</small></div>
-        <div class="rules-audit-row"><b>Antecedente</b><small>${escapeHtml(bg || 'Não definido')} — ${bgKnown ? 'base encontrada.' : 'não encontrado; crie no Criador de Regras.'}</small></div>
+        <div class="rules-audit-row"><b>Classe ${pill(clsStatus)}</b><small>${escapeHtml(cls || 'Não definida')} — ${classKnown ? 'base encontrada e progressão aplicada.' : 'não encontrada na base; cadastre no Livro de Regras.'}</small></div>
+        <div class="rules-audit-row"><b>Raça / Linhagem ${pill(raceStatus)}</b><small>${escapeHtml(race || 'Não definida')} — ${raceKnown ? 'base encontrada.' : 'não encontrada; cadastre no Livro de Regras.'}</small></div>
+        <div class="rules-audit-row"><b>Antecedente ${pill(bgStatus)}</b><small>${escapeHtml(bg || 'Não definido')} — ${bgKnown ? 'base encontrada.' : 'não encontrado; cadastre no Livro de Regras.'}</small></div>
       `;
     }
 
@@ -2125,13 +2212,20 @@
     function getClassRule(c){
       ensureClassLevelData(c);
       const cls = c && c.meta ? normalizeClassName(c.meta.classe) : '';
-      return CLASS_RULES[cls] || null;
+      return getAllClassRules()[cls] || null;
     }
 
     function getClassSpellSlots(cls, level){
-      const rule = CLASS_RULES[cls];
+      const rule = getAllClassRules()[cls];
       level = clamp(num(level)||1,1,20);
       const empty = [0,0,0,0,0,0,0,0,0];
+      if(rule && rule.slots){
+        const rawSlots = rule.slots[level] || rule.slots[String(level)];
+        if(Array.isArray(rawSlots)){
+          return rawSlots.map(x=>num(x)||0).concat(empty).slice(0,9);
+        }
+      }
+
       if(!rule || rule.casting === 'none') return empty;
       if(rule.casting === 'full') return FULL_CASTER_SLOTS[level] || empty;
       if(rule.casting === 'half') return HALF_CASTER_SLOTS[level] || empty;
@@ -2145,7 +2239,7 @@
     }
 
     function classSlotLabel(cls, level){
-      const rule = CLASS_RULES[cls];
+      const rule = getAllClassRules()[cls];
       if(!rule || rule.casting === 'none') return 'Sem espaços de magia pela classe.';
       const slots = getClassSpellSlots(cls, level);
       const labels = slots.map((q,idx)=>q ? `${idx+1}º: ${q}` : '').filter(Boolean);
@@ -2168,7 +2262,7 @@
       if(!c) return;
       ensureClassLevelData(c);
       const cls = c.meta.classe || '';
-      const rule = CLASS_RULES[cls];
+      const rule = getAllClassRules()[cls];
       const level = getCharacterLevel(c);
       c.classeInfo = c.classeInfo || {};
       c.classeInfo.nome = cls;
@@ -2219,7 +2313,7 @@
       applyClassProgression(c);
       const cls = c.meta.classe || '';
       const level = getCharacterLevel(c);
-      const rule = CLASS_RULES[cls];
+      const rule = getAllClassRules()[cls];
       if(!rule){
         badge.textContent = 'Classe não definida';
         box.innerHTML = '<div class="class-empty">Escolha uma classe para aplicar dado de vida, salvaguardas, conjuração e progressão.</div>';
@@ -2671,7 +2765,7 @@
       if(!original) return '';
       const clean = normalizeTextKey(original);
       if(CLASS_ALIASES[clean]) return CLASS_ALIASES[clean];
-      for(const cls of ALL_CLASSES){
+      for(const cls of getAllClassNames()){
         const key = normalizeTextKey(cls);
         if(clean === key || clean.includes(key)) return cls;
       }

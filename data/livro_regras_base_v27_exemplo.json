@@ -1,0 +1,36 @@
+{
+  "classes": {
+    "Mago do Livro do Gabriel": {
+      "status": "pendente",
+      "source": "Livro do Gabriel, capítulo de classes",
+      "hitDie": "d6",
+      "saves": [
+        "inteligencia",
+        "sabedoria"
+      ],
+      "casting": "full",
+      "spellAbility": "inteligencia",
+      "primary": [
+        "inteligencia"
+      ],
+      "features": {
+        "1": [
+          "Conjuração"
+        ],
+        "2": [
+          "Tradição"
+        ]
+      },
+      "text": "Cole aqui o texto completo da classe do seu livro."
+    }
+  },
+  "races": {},
+  "backgrounds": {},
+  "feats": {},
+  "weapons": {},
+  "armors": {},
+  "equipment": {},
+  "conditions": {},
+  "spells": {},
+  "rules": {}
+}
