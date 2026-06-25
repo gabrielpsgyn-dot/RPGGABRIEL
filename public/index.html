@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPG Gabriel - Ficha Online V34</title>
+  <title>RPG Gabriel - Ficha Online V36</title>
   <style>
     :root{
       --bg:#090b10;
@@ -1494,9 +1494,72 @@ textarea.huge{min-height:200px}
   line-height:1.35;
 }
 
+
+/* V35 - resolver escolhas pendentes na própria ficha */
+.pending-choice-card{
+  width:100%;
+  border:1px solid rgba(112,71,8,.35);
+  border-radius:12px;
+  background:#fffaf0;
+  padding:8px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(210px,.9fr);
+  gap:8px;
+  align-items:center;
+}
+.pending-choice-card b{
+  display:block;
+  color:#3d2b19;
+}
+.pending-choice-card small{
+  display:block;
+  color:#704708;
+  margin-top:2px;
+}
+.pending-choice-action{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:6px;
+  align-items:center;
+}
+.pending-choice-action select{
+  min-height:36px;
+}
+@media(max-width:700px){
+  .pending-choice-card,
+  .pending-choice-action{
+    grid-template-columns:1fr;
+  }
+  .pending-choice-action .btn{
+    width:100%;
+  }
+}
+
+
+/* V36 - campos aparecem só quando a classe/raça exige */
+.contextual-choice-field.hidden{
+  display:none !important;
+}
+.context-hint{
+  display:block;
+  color:#735d42;
+  font-size:10px;
+  line-height:1.25;
+  margin-top:3px;
+  font-weight:800;
+}
+.pending-choice-card{
+  border-left:4px solid #bd8539;
+}
+.pending-choice-card b::before{
+  content:'Escolha contextual: ';
+  color:#704708;
+  font-weight:950;
+}
+
 </style>
 </head>
-<!-- RPGGABRIEL V34 RECOMPENSAS COMO OBJETOS -->
+<!-- RPGGABRIEL V36 CAMPOS CONTEXTUAIS -->
 <body class="menu-open">
   <section class="menu-screen" id="menuScreen">
     <div class="menu-shell">
@@ -1627,7 +1690,7 @@ textarea.huge{min-height:200px}
               </select>
             </div>
             <div class="field"><label>Nível</label><input data-path="meta.nivel" type="number" min="1" max="20"></div>
-            <div class="field"><label id="classPathLabel">Caminho / Subclasse</label><select data-path="classeInfo.subclasse" id="classPathSelect"><option value="">Escolher quando liberar</option></select></div>
+            <div class="field contextual-choice-field hidden" id="classPathField"><label id="classPathLabel">Caminho / Subclasse</label><select data-path="classeInfo.subclasse" id="classPathSelect"><option value="">Escolher quando liberar</option></select><small class="context-hint" id="classPathHint"></small></div>
             <div class="field"><label>Antecedente</label><input data-path="meta.antecedente" list="backgroundOptions" placeholder="Escolher ou digitar"><datalist id="backgroundOptions"><option value="Acólito"></option><option value="Artesão de Guilda"></option><option value="Artista"></option><option value="Charlatão"></option><option value="Criminoso"></option><option value="Eremita"></option><option value="Forasteiro"></option><option value="Herói do Povo"></option><option value="Marinheiro"></option><option value="Nobre"></option><option value="Órfão"></option><option value="Sábio"></option><option value="Soldado"></option></datalist></div>
             <div class="field"><label>Nome do jogador</label><input data-path="meta.nomeJogador"></div>
             <div class="field">
@@ -1757,8 +1820,8 @@ textarea.huge{min-height:200px}
                 <div id="rulesAuditSummary" class="rules-audit-box"></div>
                 <div class="rules-audit-actions">
                   <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                  <a class="btn small secondary" href="criador.html?v=34" target="_blank">Criador livre</a>
-                  <a class="btn small primary" href="livro-regras.html?v=34" target="_blank">Livro de Regras</a>
+                  <a class="btn small secondary" href="criador.html?v=36" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=36" target="_blank">Livro de Regras</a>
                 </div>
               </details>
             </div>
@@ -2136,7 +2199,7 @@ textarea.huge{min-height:200px}
     const CLASS_ADVANCEMENT_RULES = {
       'Bárbaro': { pathLevel:3, pathLabel:'Caminho Primitivo', paths:['Caminho do Berserker','Caminho do Totem','Caminho personalizado do livro'], choicesByLevel:{3:[{tipo:'escolha', nome:'Escolher Caminho Primitivo', origem:'classe', modo:'escolha'}]} },
       'Bardo': { pathLevel:3, pathLabel:'Colégio de Bardo', paths:['Colégio do Conhecimento','Colégio da Bravura','Colégio personalizado do livro'], choicesByLevel:{3:[{tipo:'escolha', nome:'Escolher Colégio de Bardo', origem:'classe', modo:'escolha'}]} },
-      'Bruxo': { pathLevel:1, pathLabel:'Patrono', paths:['Arquifada','Infernal','Grande Antigo','Patrono personalizado do livro'], choicesByLevel:{1:[{tipo:'escolha', nome:'Escolher Patrono', origem:'classe', modo:'escolha'}],3:[{tipo:'escolha', nome:'Escolher Dádiva do Pacto', origem:'classe', modo:'escolha'}]} },
+      'Bruxo': { pathLevel:1, pathLabel:'Patrono', paths:['Arquifada','Infernal','Grande Antigo','Patrono personalizado do livro'], choicesByLevel:{1:[{tipo:'escolha', nome:'Escolher Patrono', origem:'classe', modo:'escolha'}],2:[{tipo:'escolha', nome:'Escolher Invocações Místicas', origem:'classe', modo:'escolha', alvo:'classeInfo.invocacoes', opcoes:['Armadura de Sombras','Rajada Agonizante','Visão Diabólica','Invocação personalizada do livro']}],3:[{tipo:'escolha', nome:'Escolher Dádiva do Pacto', origem:'classe', modo:'escolha', alvo:'classeInfo.dadivaPacto', opcoes:['Pacto da Corrente','Pacto da Lâmina','Pacto do Tomo','Dádiva personalizada do livro']}]} },
       'Clérigo': { pathLevel:1, pathLabel:'Domínio Divino', paths:['Domínio da Vida','Domínio da Luz','Domínio da Guerra','Domínio personalizado do livro'], choicesByLevel:{1:[{tipo:'escolha', nome:'Escolher Domínio Divino', origem:'classe', modo:'escolha'}]} },
       'Druida': {
         pathLevel:2, pathLabel:'Círculo Druídico',
@@ -3072,20 +3135,28 @@ textarea.huge{min-height:200px}
       const c = activeChar(); if(!c) return;
       ensureClassLevelData(c);
       c.classeInfo = c.classeInfo || {};
+      const field = $('#classPathField');
       const select = $('#classPathSelect');
       const label = $('#classPathLabel');
+      const hint = $('#classPathHint');
       if(!select) return;
+
       const cls = c.meta.classe || '';
       const adv = getClassAdvanceRule(cls);
       const level = getCharacterLevel(c);
       const opts = getClassPathOptions(cls);
       const pathLevel = num(adv.pathLevel) || num(adv.subclassLevel) || 0;
       const pathLabel = adv.pathLabel || adv.subclassLabel || 'Caminho / Subclasse';
+      const shouldShow = !!cls && opts.length && (!pathLevel || level >= pathLevel);
+
       if(label) label.textContent = pathLabel;
+      if(field) field.classList.toggle('hidden', !shouldShow);
+      if(hint) hint.textContent = shouldShow ? `${pathLabel} disponível para ${cls} no nível ${level}.` : '';
+
       const current = getSelectedClassPath(c);
-      select.innerHTML = `<option value="">${pathLevel && level < pathLevel ? 'Libera no nível '+pathLevel : 'Escolher '+pathLabel}</option>` + opts.map(x=>`<option value="${escapeHtml(x)}">${escapeHtml(x)}</option>`).join('');
+      select.innerHTML = `<option value="">Escolher ${pathLabel}</option>` + opts.map(x=>`<option value="${escapeHtml(x)}">${escapeHtml(x)}</option>`).join('');
       select.value = current && opts.includes(current) ? current : '';
-      select.disabled = !opts.length || (pathLevel && level < pathLevel);
+      select.disabled = !shouldShow;
     }
 
 
@@ -3173,7 +3244,7 @@ textarea.huge{min-height:200px}
 
       const pathLevel = num(adv.pathLevel) || num(adv.subclassLevel) || 0;
       if(pathLevel && level >= pathLevel && getClassPathOptions(cls).length && !path){
-        out.choices.push(normalizeRewardObject({tipo:'escolha', nome:`Escolher ${adv.pathLabel || adv.subclassLabel || 'caminho/subclasse'}`, origem:'classe'}, 'escolha', 'classe'));
+        out.choices.push(normalizeRewardObject({tipo:'escolha', nome:`Escolher ${adv.pathLabel || adv.subclassLabel || 'caminho/subclasse'}`, origem:'classe', opcoes:getClassPathOptions(cls), alvo:'classeInfo.subclasse'}, 'escolha', 'classe'));
       }
       return out;
     }
@@ -4422,15 +4493,26 @@ textarea.huge{min-height:200px}
       return /escolh|à escolha|a escolha|opção|opcao|definir/.test(t);
     }
 
-    function addPendingChoice(c, sourceKey, label, sourceLabel){
+    function addPendingChoice(c, sourceKey, choice, sourceLabel){
       c.escolhasPendentes = Array.isArray(c.escolhasPendentes) ? c.escolhasPendentes : [];
-      if(c.escolhasPendentes.some(x=>x.sourceKey === sourceKey && x.label === label)) return;
+      const reward = normalizeRewardObject(choice, 'escolha', sourceLabel || 'regra');
+      const label = rewardLabel(reward);
+      if(!label) return;
+      const existing = c.escolhasPendentes.find(x=>x.sourceKey === sourceKey && x.label === label);
+      if(existing){
+        existing.opcoes = existing.opcoes && existing.opcoes.length ? existing.opcoes : (reward.opcoes || []);
+        existing.alvo = existing.alvo || reward.alvo || reward.target || '';
+        existing.origem = existing.origem || sourceLabel || reward.origem || 'regra';
+        return;
+      }
       c.escolhasPendentes.push({
         id:'choice_'+Math.random().toString(36).slice(2,9),
         sourceKey,
         label,
-        origem:sourceLabel,
-        status:'pendente'
+        origem:sourceLabel || reward.origem || 'regra',
+        status:'pendente',
+        opcoes: reward.opcoes || [],
+        alvo: reward.alvo || reward.target || ''
       });
     }
 
@@ -4444,7 +4526,7 @@ textarea.huge{min-height:200px}
         if(!line) return;
 
         if(reward.tipo === 'escolha' || reward.modo === 'escolha'){
-          addPendingChoice(c, sourceKey, line, reward.origem || sourceLabel);
+          addPendingChoice(c, sourceKey, reward, reward.origem || sourceLabel);
           return;
         }
 
@@ -4508,9 +4590,95 @@ textarea.huge{min-height:200px}
       applyGrantedInventorySource(c, 'raca:'+race, 'raça', raceRule.equipment || []);
       applyGrantedInventorySource(c, 'antecedente:'+bg, 'antecedente', bgRule.equipment || []);
 
-      [...(rewards.choices||[]), ...(rewards.pathChoices||[])].forEach(x=>addPendingChoice(c, `classe:${cls}:nivel:${level}`, rewardLabel(x), x.origem || 'classe'));
-      [...(rewards.spells||[]), ...(rewards.pathSpells||[])].forEach(x=>addPendingChoice(c, `magia:${cls}:nivel:${level}`, rewardLabel(x), x.origem || 'magia'));
+      [...(rewards.choices||[]), ...(rewards.pathChoices||[])].forEach(x=>addPendingChoice(c, `classe:${cls}:nivel:${level}`, x, x.origem || 'classe'));
+      [...(rewards.spells||[]), ...(rewards.pathSpells||[])].forEach(x=>addPendingChoice(c, `magia:${cls}:nivel:${level}`, x, x.origem || 'magia'));
     }
+
+
+    function isClassPathChoice(c, choice){
+      const cls = c && c.meta ? c.meta.classe || '' : '';
+      const adv = getClassAdvanceRule(cls);
+      const label = String(choice && choice.label || '').toLowerCase();
+      const pathLabel = String(adv.pathLabel || adv.subclassLabel || 'caminho/subclasse').toLowerCase();
+      return choice && choice.sourceKey && choice.sourceKey.startsWith('classe:') && (
+        label.includes(pathLabel) ||
+        label.includes('tradição arcana') ||
+        label.includes('círculo druídico') ||
+        label.includes('patrono') ||
+        label.includes('domínio divino') ||
+        label.includes('arquétipo') ||
+        label.includes('juramento') ||
+        label.includes('colégio') ||
+        label.includes('caminho')
+      );
+    }
+
+    function pendingChoiceOptions(c, choice){
+      if(!choice) return [];
+      if(Array.isArray(choice.opcoes) && choice.opcoes.length) return choice.opcoes;
+      if(isClassPathChoice(c, choice)) return getClassPathOptions(c.meta.classe || '');
+      return [];
+    }
+
+    function cleanupResolvedPendingChoices(c){
+      if(!c || !Array.isArray(c.escolhasPendentes)) return;
+      const selectedPath = getSelectedClassPath(c);
+      c.escolhasPendentes.forEach(ch=>{
+        if(ch.status === 'resolvido') return;
+        if(isClassPathChoice(c, ch) && selectedPath){
+          ch.status = 'resolvido';
+          ch.valor = selectedPath;
+        }
+      });
+    }
+
+    function applyPendingChoice(choiceId){
+      const c = activeChar(); if(!c) return;
+      ensureObjectSheetData(c);
+      const choice = (c.escolhasPendentes || []).find(x=>x.id === choiceId);
+      if(!choice){ notify('Escolha não encontrada.'); return; }
+      const select = document.querySelector(`[data-pending-choice-select="${CSS.escape(choiceId)}"]`);
+      const input = document.querySelector(`[data-pending-choice-input="${CSS.escape(choiceId)}"]`);
+      const value = String((select && select.value) || (input && input.value) || '').trim();
+      if(!value){ notify('Informe ou selecione uma opção.'); return; }
+
+      if(isClassPathChoice(c, choice) || choice.alvo === 'classeInfo.subclasse'){
+        c.classeInfo = c.classeInfo || {};
+        c.classeInfo.subclasse = value;
+      }else if(choice.alvo){
+        setByPath(c, choice.alvo, value);
+      }else{
+        c.classeInfo = c.classeInfo || {};
+        c.classeInfo.escolhas = c.classeInfo.escolhas || {};
+        c.classeInfo.escolhas[choice.label] = value;
+      }
+
+      choice.status = 'resolvido';
+      choice.valor = value;
+      saveLocal(false);
+      renderForm();
+      notify(`Escolha aplicada: ${value}`);
+    }
+
+    function renderPendingChoiceCard(c, choice){
+      const options = pendingChoiceOptions(c, choice);
+      const hasOptions = options.length > 0;
+      const needsInput = !hasOptions;
+      return `<div class="pending-choice-card">
+        <div>
+          <b>${escapeHtml(choice.label)}</b>
+          <small>${escapeHtml(choice.origem || '')}</small>
+        </div>
+        <div class="pending-choice-action">
+          ${hasOptions ? `<select data-pending-choice-select="${escapeHtml(choice.id)}">
+            <option value="">Escolher opção</option>
+            ${options.map(o=>`<option value="${escapeHtml(o)}">${escapeHtml(o)}</option>`).join('')}
+          </select>` : `<input data-pending-choice-input="${escapeHtml(choice.id)}" placeholder="Escreva a escolha conforme o livro">`}
+          <button class="btn small primary" type="button" data-apply-pending-choice="${escapeHtml(choice.id)}">Aplicar</button>
+        </div>
+      </div>`;
+    }
+
 
     function renderCharacterFlow(){
       const c = activeChar(); if(!c) return;
@@ -4518,6 +4686,7 @@ textarea.huge{min-height:200px}
       const badge = $('#flowModeBadge');
       if(!box || !badge) return;
       ensureObjectSheetData(c);
+      cleanupResolvedPendingChoices(c);
       const hasCoins = Object.values(c.equipamento.moedas || {}).some(v=>num(v)>0);
       const checks = [
         {label:'Nome', ok:!!(c.meta.nomePersonagem || '').trim()},
@@ -4532,7 +4701,7 @@ textarea.huge{min-height:200px}
       const creationDone = done >= 6;
       badge.textContent = creationDone ? 'Modo jogo' : 'Modo criação';
       const pending = (c.escolhasPendentes || []).filter(x=>x.status !== 'resolvido');
-      const pendingHtml = pending.length ? `<div class="flow-pending"><b>Escolhas pendentes</b>${pending.map(x=>`<span class="reward-pill warn">${escapeHtml(x.label)} <small>(${escapeHtml(x.origem || '-')})</small></span>`).join('')}</div>` : '';
+      const pendingHtml = pending.length ? `<div class="flow-pending"><b>Escolhas pendentes</b>${pending.map(x=>renderPendingChoiceCard(c,x)).join('')}</div>` : '';
       box.innerHTML = `
         <div class="flow-progress"><span style="width:${Math.round(done/checks.length*100)}%"></span></div>
         <div class="flow-checks">
@@ -4938,6 +5107,9 @@ textarea.huge{min-height:200px}
         }
       });
       document.addEventListener('click', e=>{
+        const pendingApply = e.target.closest('[data-apply-pending-choice]');
+        if(pendingApply){ applyPendingChoice(pendingApply.dataset.applyPendingChoice); return; }
+
         const flowBtn = e.target.closest('[data-flow-tab]');
         if(flowBtn){
           const tab = document.querySelector(`[data-tab="${flowBtn.dataset.flowTab}"]`);
