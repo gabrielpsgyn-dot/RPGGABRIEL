@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPG Gabriel - Ficha Online V27.1</title>
+  <title>RPG Gabriel - Ficha Online V27.2</title>
   <style>
     :root{
       --bg:#090b10;
@@ -914,9 +914,116 @@ table{
   }
 }
 
+
+/* V27.2 - Correção do corte: não esconder conteúdo; reduzir largura real dos blocos */
+html,body{
+  width:100%;
+  max-width:100%;
+  overflow-x:auto !important;
+}
+body:not(.menu-open) .app{
+  display:block;
+  width:100%;
+  max-width:100%;
+  overflow-x:visible !important;
+  padding-left:8px;
+  padding-right:8px;
+}
+.sheet,.page,.page.active,.panel,.dash,.name-box,.header-fields{
+  overflow:visible !important;
+}
+.topbar{
+  overflow:visible !important;
+}
+.topbar-row,.top-actions,.sheet,.tabs{
+  max-width:100%;
+  min-width:0;
+}
+.grid-main,.grid-2,.header-grid,.spell-grid,.weapon-builder,.item-row,.rest-grid,.inventory-summary,.compact-stat-grid,.class-progress-grid{
+  min-width:0;
+}
+.grid-main > *, .grid-2 > *, .header-grid > *, .spell-grid > *, .panel > *, .field{
+  min-width:0;
+  max-width:100%;
+}
+.panel, .rules-audit-row, .compact-details, .feat-card, .roll-item, .inventory-warning, .book-audit-note{
+  overflow-wrap:anywhere;
+  word-break:normal;
+}
+input,textarea,select{
+  width:100%;
+  min-width:0 !important;
+  max-width:100%;
+}
+button,.btn{
+  max-width:100%;
+  white-space:normal;
+}
+table{
+  width:max-content;
+  min-width:100%;
+  max-width:none;
+}
+.panel > div[style*="overflow"], #attacksPanel > div[style*="overflow"]{
+  overflow-x:auto !important;
+  -webkit-overflow-scrolling:touch;
+  max-width:100%;
+}
+.tabs{
+  overflow-x:auto !important;
+  overflow-y:visible !important;
+}
+@media(max-width:900px){
+  html,body{
+    overflow-x:auto !important;
+  }
+  body:not(.menu-open) .app{
+    overflow-x:visible !important;
+    padding-left:6px;
+    padding-right:6px;
+  }
+  .sheet{
+    width:100%;
+    max-width:100%;
+    margin:0;
+  }
+  .header-grid,.grid-main,.grid-2,.spell-grid,.weapon-builder,.item-row,.rest-grid,.inventory-summary{
+    grid-template-columns:minmax(0,1fr) !important;
+  }
+  .ability-list{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  }
+  .header-fields{
+    grid-template-columns:minmax(0,1fr) !important;
+  }
+  .top-actions.compact-save{
+    display:flex;
+    justify-content:flex-end;
+  }
+  .save-online-small{
+    max-width:180px;
+    flex:0 1 auto;
+  }
+  .item-pill{
+    grid-template-columns:minmax(0,1fr) auto;
+  }
+  .feat-card-top,.compact-panel-top{
+    display:grid;
+    grid-template-columns:minmax(0,1fr);
+  }
+  textarea.tall, textarea.huge{
+    min-height:180px;
+  }
+}
+@media(max-width:420px){
+  .ability-list{
+    grid-template-columns:minmax(0,1fr) !important;
+  }
+}
+
 </style>
 </head>
-<!-- RPGGABRIEL V27.1 MOBILE LAYOUT FIX -->
+<!-- RPGGABRIEL V27.2 MOBILE SEM CORTE -->
 <body class="menu-open">
   <section class="menu-screen" id="menuScreen">
     <div class="menu-shell">
@@ -1151,7 +1258,7 @@ table{
               <div id="rulesAuditSummary" class="rules-audit-box"></div>
               <div class="rules-audit-actions">
                 <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                <a class="btn small secondary" href="criador.html?v=27_1" target="_blank">Criador livre</a><a class="btn small primary" href="livro-regras.html?v=27_1" target="_blank">Livro de Regras</a>
+                <a class="btn small secondary" href="criador.html?v=27_2_2" target="_blank">Criador livre</a><a class="btn small primary" href="livro-regras.html?v=27_2_2" target="_blank">Livro de Regras</a>
               </div>
             </div>
           </div>
