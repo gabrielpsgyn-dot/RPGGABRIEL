@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPG Gabriel - Ficha Online V31</title>
+  <title>RPG Gabriel - Ficha Online V32</title>
   <style>
     :root{
       --bg:#090b10;
@@ -1327,9 +1327,86 @@ textarea.huge{min-height:200px}
   .compact-stat-grid-3,.compact-stat-grid-2{grid-template-columns:1fr !important}
 }
 
+
+/* V32 - fluxo de usuário e inventário como fonte única */
+.flow-panel{
+  border-color:#7b5b32;
+  background:linear-gradient(180deg,#fff8ea,#ead7b5);
+}
+.flow-top{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:10px;
+  align-items:center;
+}
+.flow-top h3{margin:0 !important}
+.flow-summary{display:grid;gap:8px;margin-top:8px}
+.flow-progress{
+  height:10px;
+  background:#d7c39d;
+  border:1px solid rgba(36,27,20,.22);
+  border-radius:999px;
+  overflow:hidden;
+}
+.flow-progress span{
+  display:block;
+  height:100%;
+  background:linear-gradient(90deg,#8aa34d,#4f7b2a);
+}
+.flow-checks{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+}
+.flow-check{
+  display:inline-flex;
+  align-items:center;
+  border:1px solid rgba(36,27,20,.22);
+  border-radius:999px;
+  padding:5px 8px;
+  font-size:12px;
+  font-weight:900;
+}
+.flow-check.ok{background:#dff0cf;color:#2b4d18}
+.flow-check.todo{background:#f3e0c4;color:#704708}
+.flow-note{
+  color:#6d5538;
+  font-size:12px;
+  font-weight:850;
+  line-height:1.35;
+}
+.flow-steps{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:7px;
+}
+.flow-step-btn{
+  border:1px solid rgba(36,27,20,.22);
+  border-radius:12px;
+  background:#fff7e8;
+  color:#2d2115;
+  padding:8px 10px;
+  font-weight:900;
+  text-align:left;
+}
+.class-current-strip-clean{
+  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+}
+.background-action-row{
+  margin-top:8px;
+}
+#inventoryPanel .calc-note{
+  background:rgba(138,163,77,.13);
+}
+@media(max-width:900px){
+  .flow-top{grid-template-columns:1fr}
+  .flow-steps{grid-template-columns:1fr}
+  .class-current-strip-clean{grid-template-columns:1fr !important}
+}
+
 </style>
 </head>
-<!-- RPGGABRIEL V31 PENTE FINO FICHA -->
+<!-- RPGGABRIEL V32 FLUXO USUARIO INVENTARIO UNIFICADO -->
 <body class="menu-open">
   <section class="menu-screen" id="menuScreen">
     <div class="menu-shell">
@@ -1509,6 +1586,29 @@ textarea.huge{min-height:200px}
           </div>
           <div id="classProgressSummary" class="class-progress-summary"></div>
         </div>
+        <div class="panel flow-panel" id="characterFlowPanel">
+          <div class="flow-top">
+            <div>
+              <h3>Fluxo da ficha</h3>
+              <p class="sheet-note">Primeiro cria a ficha. Depois usa em jogo. Equipamento e ouro entram sempre no inventário.</p>
+            </div>
+            <span class="class-badge" id="flowModeBadge">Modo criação</span>
+          </div>
+          <div id="characterFlowSummary" class="flow-summary"></div>
+          <details class="clean-edit-details flow-details">
+            <summary>Passo a passo para criar a ficha</summary>
+            <div class="flow-steps">
+              <button class="flow-step-btn" type="button" data-flow-tab="sheetPage" data-flow-focus="[data-path='meta.nomePersonagem']">1. Nome e identidade</button>
+              <button class="flow-step-btn" type="button" data-flow-tab="sheetPage" data-flow-focus="#characterClassSelect">2. Classe e nível</button>
+              <button class="flow-step-btn" type="button" data-flow-tab="sheetPage" data-flow-focus="[data-path='meta.raca']">3. Raça e antecedente</button>
+              <button class="flow-step-btn" type="button" data-flow-tab="sheetPage" data-flow-focus="#abilityList">4. Atributos</button>
+              <button class="flow-step-btn" type="button" data-flow-tab="sheetPage" data-flow-focus="[data-path='vida.maximos']">5. PV e defesa</button>
+              <button class="flow-step-btn" type="button" data-flow-tab="sheetPage" data-flow-focus="#inventoryPanel">6. Inventário, equipamento e ouro</button>
+              <button class="flow-step-btn" type="button" data-flow-tab="spellsPage" data-flow-focus="#spellbookPanel">7. Magias, se tiver</button>
+            </div>
+          </details>
+        </div>
+
 
         <div class="grid-main">
           <div>
@@ -1565,8 +1665,8 @@ textarea.huge{min-height:200px}
                 <div id="rulesAuditSummary" class="rules-audit-box"></div>
                 <div class="rules-audit-actions">
                   <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                  <a class="btn small secondary" href="criador.html?v=31" target="_blank">Criador livre</a>
-                  <a class="btn small primary" href="livro-regras.html?v=31" target="_blank">Livro de Regras</a>
+                  <a class="btn small secondary" href="criador.html?v=32" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=32" target="_blank">Livro de Regras</a>
                 </div>
               </details>
             </div>
@@ -1773,7 +1873,11 @@ textarea.huge{min-height:200px}
             </div>
             <div class="panel">
               <h3>Tesouros</h3>
-              <textarea data-path="descricao.tesouros" class="tall"></textarea>
+              <p class="calc-note">Tesouros, ouro e itens ficam no Inventário por objetos da ficha inicial.</p>
+              <details class="clean-edit-details">
+                <summary>Legado: tesouros antigos em texto</summary>
+                <textarea data-path="descricao.tesouros" class="tall" placeholder="Texto antigo preservado apenas para migração."></textarea>
+              </details>
             </div>
           </div>
         </div>
@@ -2690,21 +2794,18 @@ textarea.huge{min-height:200px}
       const rule = getAllBackgroundRules()[bg];
       if(!rule){
         badge.textContent = 'Antecedente não definido';
-        box.innerHTML = '<div class="class-empty">Escolha um antecedente. Perícias, idiomas e ferramentas aparecerão no painel único de Proficiências.</div>';
+        box.innerHTML = '<div class="class-empty">Escolha um antecedente. Equipamento e ouro irão para o inventário.</div>';
         return;
       }
       badge.textContent = bg;
-      const makePills = arr => (arr||[]).map(x=>`<span class="compact-pill">${escapeHtml(x)}</span>`).join('') || '<span class="compact-pill">-</span>';
+      const eqCount = (rule.equipment || []).length || 0;
       box.innerHTML = `
         <div class="compact-stat-grid compact-stat-grid-2">
           <div class="compact-stat"><span>Característica</span><b>${escapeHtml(rule.feature || '-')}</b></div>
-          <div class="compact-stat"><span>Equipamento</span><b>${escapeHtml(String((rule.equipment || []).length || 0))} item(ns)</b></div>
+          <div class="compact-stat"><span>Equipamento</span><b>${eqCount ? 'no inventário' : '-'}</b></div>
         </div>
-        <details class="compact-details"><summary>Equipamento e observações do antecedente</summary>
-          <div><div class="compact-label">Equipamento inicial</div><div class="compact-inline-list">${makePills(rule.equipment)}</div></div>
-          ${rule.summary || rule.note ? `<div class="compact-note" style="margin-top:8px">${escapeHtml(rule.summary || rule.note)}</div>` : ''}
-          <div class="background-action-row"><button class="btn small secondary" type="button" data-apply-background-equipment="1">Aplicar equipamento como objetos</button></div>
-        </details>
+        <div class="compact-note">O equipamento e o ouro do antecedente aparecem no Inventário por objetos. Não ficam duplicados aqui.</div>
+        <div class="background-action-row"><button class="btn small secondary" type="button" data-apply-background-equipment="1">Sincronizar com inventário</button></div>
       `;
     }
 
@@ -2899,17 +3000,14 @@ textarea.huge{min-height:200px}
       box.classList.add('compact-class-summary');
       if(!rule){
         badge.textContent = 'Classe não definida';
-        box.innerHTML = '<div class="class-empty">Escolha uma classe para aplicar dado de vida, salvaguardas, conjuração e progressão.</div>';
+        box.innerHTML = '<div class="class-empty">Escolha uma classe. A ficha aplica dado de vida, conjuração e habilidades.</div>';
         return;
       }
       badge.textContent = `${cls} nv. ${level}`;
-      const saves = (rule.saves || []).map(k => (abilities.find(([id])=>id===k) || [k,k])[1]).join(' e ');
-      const primaries = (rule.primary || []).map(k => (abilities.find(([id])=>id===k) || [k,k])[1]).join(', ') || '-';
       const spellAbility = rule.spellAbility ? (abilities.find(([id])=>id===rule.spellAbility) || [null,rule.spellAbility])[1] : 'Não';
       const castingLabel = rule.casting === 'full' ? 'Completa' : rule.casting === 'half' ? 'Meia' : rule.casting === 'pact' ? 'Pacto' : 'Não';
       const slots = getClassSpellSlots(cls, level);
       const slotPills = slots.map((q,idx)=>q ? `<span class="class-slot-pill">${idx+1}º: ${q}</span>` : '').filter(Boolean).join('') || '<span class="class-slot-pill empty">Sem espaços</span>';
-
       const allFeatures = featuresForClassLevel(rule, level);
       const currentFeatures = allFeatures.filter(f=>f.level === level);
       const previousFeatures = allFeatures.filter(f=>f.level < level);
@@ -2918,20 +3016,15 @@ textarea.huge{min-height:200px}
       const previousHtml = previousFeatures.map(f=>`<span class="class-feature-pill">Nv. ${f.level}: ${escapeHtml(f.name)}</span>`).join('') || '<span class="class-feature-pill">Nenhuma anterior</span>';
 
       box.innerHTML = `
-        <div class="class-current-strip">
-          <div class="class-mini-stat"><span>Dado</span><b>${escapeHtml(rule.hitDie || '-')}</b></div>
-          <div class="class-mini-stat"><span>Prof.</span><b>${escapeHtml(fmt(profBonus(c)))}</b></div>
-          <div class="class-mini-stat"><span>Salv.</span><b>${escapeHtml(saves || '-')}</b></div>
-          <div class="class-mini-stat"><span>Conj.</span><b>${escapeHtml(castingLabel)}</b></div>
-          <div class="class-mini-stat"><span>Atr. mágico</span><b>${escapeHtml(spellAbility)}</b></div>
-          <div class="class-mini-stat"><span>Fortes</span><b>${escapeHtml(primaries)}</b></div>
+        <div class="class-current-strip class-current-strip-clean">
+          <div class="class-mini-stat"><span>Dado de vida</span><b>${escapeHtml(rule.hitDie || '-')}</b></div>
+          <div class="class-mini-stat"><span>Conjuração</span><b>${escapeHtml(castingLabel)}</b></div>
+          <div class="class-mini-stat"><span>Atributo mágico</span><b>${escapeHtml(spellAbility)}</b></div>
         </div>
-
         <div class="class-now-box">
           <div class="class-now-title">Habilidades do nível atual / mais recentes</div>
           <div class="class-feature-list compact">${currentHtml}</div>
         </div>
-
         <details class="class-details">
           <summary>Ver espaços de magia e progressão completa</summary>
           <div class="class-details-grid">
@@ -2947,6 +3040,7 @@ textarea.huge{min-height:200px}
       c.schemaVersion = Math.max(num(c.schemaVersion)||0, 20);
       applyClassProgression(c);
       applyRaceProgression(c);
+      syncGrantedInventoryObjects(c);
       c.meta = c.meta || {};
       c.combate = c.combate || {};
       c.proficiencias = c.proficiencias || {};
@@ -3832,18 +3926,16 @@ textarea.huge{min-height:200px}
     function addBackgroundEquipment(){
       const c = activeChar(); if(!c) return;
       applyBackgroundProgression(c);
-      ensureCombatInventoryData(c);
-      const bg = c.meta.antecedente || '';
+      ensureObjectSheetData(c);
+      const bg = normalizeBackgroundName(c.meta.antecedente || '');
       const rule = getAllBackgroundRules()[bg];
       if(!rule){ notify('Escolha um antecedente primeiro.'); return; }
-      rule.equipment.forEach(name=>{
-        if(!c.equipamento.itens.some(i=>i.nome === name)){
-          c.equipamento.itens.push({id:'item_'+Math.random().toString(36).slice(2,9), nome:name, qtd:1, peso:0, categoria:'Antecedente'});
-        }
-      });
+      c.equipamento.appliedSources = c.equipamento.appliedSources || {};
+      delete c.equipamento.appliedSources['antecedente:'+bg];
+      applyGrantedInventorySource(c, 'antecedente:'+bg, 'antecedente', rule.equipment || []);
       saveLocal(false);
       renderForm();
-      notify('Equipamento do antecedente aplicado ao inventário.');
+      notify('Equipamento e ouro do antecedente sincronizados no inventário.');
     }
 
 
@@ -4028,6 +4120,109 @@ textarea.huge{min-height:200px}
       saveLocal(false);
       renderForm();
       notify(added ? `${added} objeto(s) criado(s) do texto antigo.` : 'Nada novo para converter.');
+    }
+
+
+    function parseCoinObjectsFromText(text){
+      const out = [];
+      const raw = String(text || '');
+      const rx = /(\d+)\s*(pc|pp|pe|po|pl|cobre|prata|eletro|electro|ouro|platina)\b/gi;
+      let m;
+      while((m = rx.exec(raw))){
+        let code = m[2].toLowerCase();
+        if(code === 'cobre') code = 'pc';
+        if(code === 'prata') code = 'pp';
+        if(code === 'eletro' || code === 'electro') code = 'pe';
+        if(code === 'ouro') code = 'po';
+        if(code === 'platina') code = 'pl';
+        out.push({code, amount:num(m[1]) || 0});
+      }
+      return out;
+    }
+
+    function inventoryNameWithoutCoins(text){
+      return String(text || '')
+        .replace(/(\d+)\s*(pc|pp|pe|po|pl|cobre|prata|eletro|electro|ouro|platina)\b/gi,'')
+        .replace(/\b(contendo|com|e|uma|um|de|do|da)\b/gi,' ')
+        .replace(/[,:;]+/g,' ')
+        .replace(/\s+/g,' ')
+        .trim();
+    }
+
+    function applyGrantedInventorySource(c, sourceKey, sourceLabel, equipment){
+      if(!c || !Array.isArray(equipment) || !equipment.length) return;
+      ensureObjectSheetData(c);
+      c.equipamento.appliedSources = c.equipamento.appliedSources || {};
+      if(c.equipamento.appliedSources[sourceKey]) return;
+
+      equipment.forEach(raw=>{
+        const line = String(raw || '').trim();
+        if(!line) return;
+
+        parseCoinObjectsFromText(line).forEach(coin=>{
+          c.equipamento.moedas[coin.code] = String((num(c.equipamento.moedas[coin.code]) || 0) + coin.amount);
+        });
+
+        const itemName = inventoryNameWithoutCoins(line);
+        const hasOnlyCoin = !!parseCoinObjectsFromText(line).length && itemName.length < 3;
+        if(hasOnlyCoin) return;
+        const name = itemName || line;
+        if(c.equipamento.itens.some(i=>String(i.nome || '').toLowerCase() === name.toLowerCase() && String(i.origem || '') === sourceLabel)) return;
+        c.equipamento.itens.push({
+          id:'item_'+Math.random().toString(36).slice(2,9),
+          nome:name,
+          qtd:1,
+          peso:0,
+          categoria:'equipamento inicial',
+          origem:sourceLabel,
+          descricao:line
+        });
+      });
+
+      c.equipamento.appliedSources[sourceKey] = true;
+    }
+
+    function syncGrantedInventoryObjects(c){
+      if(!c) return;
+      ensureClassLevelData(c);
+      ensureObjectSheetData(c);
+      const cls = c.meta.classe || '';
+      const race = normalizeRaceName(c.meta.raca || '');
+      const bg = normalizeBackgroundName(c.meta.antecedente || '');
+      const clsRule = getAllClassRules()[cls] || {};
+      const raceRule = getAllRaceRules()[race] || {};
+      const bgRule = getAllBackgroundRules()[bg] || {};
+      applyGrantedInventorySource(c, 'classe:'+cls, 'classe', clsRule.equipment || []);
+      applyGrantedInventorySource(c, 'raca:'+race, 'raça', raceRule.equipment || []);
+      applyGrantedInventorySource(c, 'antecedente:'+bg, 'antecedente', bgRule.equipment || []);
+    }
+
+    function renderCharacterFlow(){
+      const c = activeChar(); if(!c) return;
+      const box = $('#characterFlowSummary');
+      const badge = $('#flowModeBadge');
+      if(!box || !badge) return;
+      ensureObjectSheetData(c);
+      const hasCoins = Object.values(c.equipamento.moedas || {}).some(v=>num(v)>0);
+      const checks = [
+        {label:'Nome', ok:!!(c.meta.nomePersonagem || '').trim()},
+        {label:'Classe/nível', ok:!!(c.meta.classe || '').trim() && (num(c.meta.nivel)||0) > 0},
+        {label:'Raça', ok:!!(c.meta.raca || '').trim()},
+        {label:'Antecedente', ok:!!(c.meta.antecedente || '').trim()},
+        {label:'Atributos', ok:abilities.every(([k])=>num(c.atributos && c.atributos[k] && c.atributos[k].valor) > 0)},
+        {label:'PV/defesa', ok:(num(c.vida && c.vida.maximos)>0) || (num(c.combate && c.combate.classeArmadura)>0)},
+        {label:'Inventário/ouro', ok:(c.equipamento.itens || []).length > 0 || hasCoins}
+      ];
+      const done = checks.filter(x=>x.ok).length;
+      const creationDone = done >= 6;
+      badge.textContent = creationDone ? 'Modo jogo' : 'Modo criação';
+      box.innerHTML = `
+        <div class="flow-progress"><span style="width:${Math.round(done/checks.length*100)}%"></span></div>
+        <div class="flow-checks">
+          ${checks.map(x=>`<span class="flow-check ${x.ok?'ok':'todo'}">${x.ok?'✓':'•'} ${escapeHtml(x.label)}</span>`).join('')}
+        </div>
+        <div class="flow-note">${creationDone ? 'Ficha pronta para uso. Durante o jogo use PV, ataques, inventário, magias e condições.' : 'Complete os passos pendentes. O equipamento e o ouro recebidos são sincronizados no inventário.'}</div>
+      `;
     }
 
     function renderForm(){
@@ -4425,6 +4620,20 @@ textarea.huge{min-height:200px}
         }
       });
       document.addEventListener('click', e=>{
+        const flowBtn = e.target.closest('[data-flow-tab]');
+        if(flowBtn){
+          const tab = document.querySelector(`[data-tab="${flowBtn.dataset.flowTab}"]`);
+          if(tab) tab.click();
+          setTimeout(()=>{
+            const focusEl = document.querySelector(flowBtn.dataset.flowFocus);
+            if(focusEl){
+              focusEl.scrollIntoView({behavior:'smooth', block:'center'});
+              if(focusEl.focus) focusEl.focus();
+            }
+          }, 80);
+          return;
+        }
+
         const remManualProf = e.target.closest('[data-remove-manual-prof]');
         if(remManualProf){ removeManualProficiency(remManualProf.dataset.removeManualProf); return; }
 
