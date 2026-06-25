@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPG Gabriel - Ficha Online V43</title>
+  <title>RPG Gabriel - Ficha Online V44</title>
   <style>
     :root{
       --bg:#090b10;
@@ -1808,7 +1808,7 @@ textarea.huge{min-height:200px}
 
 </style>
 </head>
-<!-- RPGGABRIEL V43 MAGO EQUIPAMENTO INICIAL -->
+<!-- RPGGABRIEL V44 EQUIPAMENTOS TODAS CLASSES -->
 <body class="menu-open">
   <section class="menu-screen" id="menuScreen">
     <div class="menu-shell">
@@ -2045,8 +2045,8 @@ textarea.huge{min-height:200px}
                 <div id="rulesAuditSummary" class="rules-audit-box"></div>
                 <div class="rules-audit-actions">
                   <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                  <a class="btn small secondary" href="criador.html?v=43" target="_blank">Criador livre</a>
-                  <a class="btn small primary" href="livro-regras.html?v=43" target="_blank">Livro de Regras</a>
+                  <a class="btn small secondary" href="criador.html?v=44" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=44" target="_blank">Livro de Regras</a>
                 </div>
               </details>
             </div>
@@ -2446,6 +2446,70 @@ textarea.huge{min-height:200px}
     };
 
 
+
+    const CLASS_STARTING_EQUIPMENT_RULES = {
+      'Bárbaro': [
+        {tipo:'escolha_item', nome:'Escolher arma principal de Bárbaro', origem:'classe Bárbaro', modo:'escolha', opcoes:['Machado grande','Espada longa','Montante'], alvo:'equipamento.escolhas.barbaroArmaPrincipal', aplicaItem:true, categoriaItem:'arma'},
+        {tipo:'item', nome:'4 azagaias', quantidade:1, categoria:'arma', origem:'classe Bárbaro', modo:'fixo'},
+        {tipo:'escolha_item', nome:'Escolher pacote inicial de Bárbaro', origem:'classe Bárbaro', modo:'escolha', opcoes:['Pacote de aventureiro','Pacote de explorador'], alvo:'equipamento.escolhas.barbaroPacote', aplicaItem:true, categoriaItem:'pacote'}
+      ],
+      'Bardo': [
+        {tipo:'escolha_item', nome:'Escolher arma inicial de Bardo', origem:'classe Bardo', modo:'escolha', opcoes:['Rapieira','Espada curta','Besta de mão'], alvo:'equipamento.escolhas.bardoArma', aplicaItem:true, categoriaItem:'arma'},
+        {tipo:'escolha_item', nome:'Escolher instrumento musical', origem:'classe Bardo', modo:'escolha', opcoes:['Alaúde','Flauta','Tambor','Instrumento personalizado do livro'], alvo:'equipamento.escolhas.bardoInstrumento', aplicaItem:true, categoriaItem:'instrumento'},
+        {tipo:'escolha_item', nome:'Escolher pacote inicial de Bardo', origem:'classe Bardo', modo:'escolha', opcoes:['Pacote de diplomata','Pacote de artista'], alvo:'equipamento.escolhas.bardoPacote', aplicaItem:true, categoriaItem:'pacote'}
+      ],
+      'Bruxo': [
+        {tipo:'escolha_item', nome:'Escolher arma inicial de Bruxo', origem:'classe Bruxo', modo:'escolha', opcoes:['Besta leve','Adaga','Cajado'], alvo:'equipamento.escolhas.bruxoArma', aplicaItem:true, categoriaItem:'arma'},
+        {tipo:'escolha_item', nome:'Escolher foco arcano ou componentes de Bruxo', origem:'classe Bruxo', modo:'escolha', opcoes:['Foco arcano','Bolsa de componentes'], alvo:'equipamento.escolhas.bruxoFoco', aplicaItem:true, categoriaItem:'foco arcano'},
+        {tipo:'escolha_item', nome:'Escolher pacote inicial de Bruxo', origem:'classe Bruxo', modo:'escolha', opcoes:['Pacote de estudioso','Pacote de explorador'], alvo:'equipamento.escolhas.bruxoPacote', aplicaItem:true, categoriaItem:'pacote'}
+      ],
+      'Clérigo': [
+        {tipo:'escolha_item', nome:'Escolher arma inicial de Clérigo', origem:'classe Clérigo', modo:'escolha', opcoes:['Maça','Martelo leve'], alvo:'equipamento.escolhas.clerigoArma', aplicaItem:true, categoriaItem:'arma'},
+        {tipo:'escolha_item', nome:'Escolher armadura inicial de Clérigo', origem:'classe Clérigo', modo:'escolha', opcoes:['Armadura de couro','Cota de malha','Armadura personalizada do livro'], alvo:'equipamento.escolhas.clerigoArmadura', aplicaItem:true, categoriaItem:'armadura'},
+        {tipo:'item', nome:'Símbolo sagrado', quantidade:1, categoria:'foco divino', origem:'classe Clérigo', modo:'fixo'}
+      ],
+      'Druida': [
+        {tipo:'escolha_item', nome:'Escolher arma inicial de Druida', origem:'classe Druida', modo:'escolha', opcoes:['Cajado','Cimitarra','Lança'], alvo:'equipamento.escolhas.druidaArma', aplicaItem:true, categoriaItem:'arma'},
+        {tipo:'item', nome:'Foco druídico', quantidade:1, categoria:'foco druídico', origem:'classe Druida', modo:'fixo'},
+        {tipo:'escolha_item', nome:'Escolher pacote inicial de Druida', origem:'classe Druida', modo:'escolha', opcoes:['Pacote de explorador','Pacote personalizado do livro'], alvo:'equipamento.escolhas.druidaPacote', aplicaItem:true, categoriaItem:'pacote'}
+      ],
+      'Feiticeiro': [
+        {tipo:'escolha_item', nome:'Escolher arma inicial de Feiticeiro', origem:'classe Feiticeiro', modo:'escolha', opcoes:['Adaga','Cajado','Besta leve'], alvo:'equipamento.escolhas.feiticeiroArma', aplicaItem:true, categoriaItem:'arma'},
+        {tipo:'escolha_item', nome:'Escolher foco arcano ou componentes de Feiticeiro', origem:'classe Feiticeiro', modo:'escolha', opcoes:['Foco arcano','Bolsa de componentes'], alvo:'equipamento.escolhas.feiticeiroFoco', aplicaItem:true, categoriaItem:'foco arcano'},
+        {tipo:'escolha_item', nome:'Escolher pacote inicial de Feiticeiro', origem:'classe Feiticeiro', modo:'escolha', opcoes:['Pacote de explorador','Pacote de aventureiro'], alvo:'equipamento.escolhas.feiticeiroPacote', aplicaItem:true, categoriaItem:'pacote'}
+      ],
+      'Guerreiro': [
+        {tipo:'escolha_item', nome:'Escolher arma principal de Guerreiro', origem:'classe Guerreiro', modo:'escolha', opcoes:['Espada longa','Machado grande','Rapieira','Arco longo'], alvo:'equipamento.escolhas.guerreiroArma', aplicaItem:true, categoriaItem:'arma'},
+        {tipo:'escolha_item', nome:'Escolher armadura inicial de Guerreiro', origem:'classe Guerreiro', modo:'escolha', opcoes:['Cota de malha','Armadura de couro','Armadura personalizada do livro'], alvo:'equipamento.escolhas.guerreiroArmadura', aplicaItem:true, categoriaItem:'armadura'},
+        {tipo:'escolha_item', nome:'Escolher pacote inicial de Guerreiro', origem:'classe Guerreiro', modo:'escolha', opcoes:['Pacote de aventureiro','Pacote de explorador'], alvo:'equipamento.escolhas.guerreiroPacote', aplicaItem:true, categoriaItem:'pacote'}
+      ],
+      'Ladino': [
+        {tipo:'escolha_item', nome:'Escolher arma inicial de Ladino', origem:'classe Ladino', modo:'escolha', opcoes:['Rapieira','Espada curta'], alvo:'equipamento.escolhas.ladinoArma', aplicaItem:true, categoriaItem:'arma'},
+        {tipo:'escolha_item', nome:'Escolher arma à distância de Ladino', origem:'classe Ladino', modo:'escolha', opcoes:['Arco curto','Besta de mão'], alvo:'equipamento.escolhas.ladinoDistancia', aplicaItem:true, categoriaItem:'arma'},
+        {tipo:'item', nome:'Ferramentas de ladrão', quantidade:1, categoria:'ferramenta', origem:'classe Ladino', modo:'fixo'}
+      ],
+      'Mago': [
+        {tipo:'item', nome:'Grimório', quantidade:1, categoria:'grimório', origem:'classe Mago', modo:'fixo'},
+        {tipo:'escolha_item', nome:'Escolher arma inicial de Mago', origem:'classe Mago', modo:'escolha', opcoes:['Cajado','Adaga'], alvo:'equipamento.escolhas.magoArmaInicial', aplicaItem:true, categoriaItem:'arma'},
+        {tipo:'escolha_item', nome:'Escolher foco arcano ou bolsa de componentes', origem:'classe Mago', modo:'escolha', opcoes:['Foco arcano','Bolsa de componentes'], alvo:'equipamento.escolhas.magoFocoInicial', aplicaItem:true, categoriaItem:'foco arcano'},
+        {tipo:'escolha_item', nome:'Escolher pacote inicial de Mago', origem:'classe Mago', modo:'escolha', opcoes:['Pacote de estudioso','Pacote de explorador'], alvo:'equipamento.escolhas.magoPacoteInicial', aplicaItem:true, categoriaItem:'pacote'}
+      ],
+      'Monge': [
+        {tipo:'escolha_item', nome:'Escolher arma inicial de Monge', origem:'classe Monge', modo:'escolha', opcoes:['Espada curta','Cajado','Lança'], alvo:'equipamento.escolhas.mongeArma', aplicaItem:true, categoriaItem:'arma'},
+        {tipo:'escolha_item', nome:'Escolher pacote inicial de Monge', origem:'classe Monge', modo:'escolha', opcoes:['Pacote de aventureiro','Pacote de explorador'], alvo:'equipamento.escolhas.mongePacote', aplicaItem:true, categoriaItem:'pacote'}
+      ],
+      'Paladino': [
+        {tipo:'escolha_item', nome:'Escolher arma principal de Paladino', origem:'classe Paladino', modo:'escolha', opcoes:['Espada longa','Montante','Maça'], alvo:'equipamento.escolhas.paladinoArma', aplicaItem:true, categoriaItem:'arma'},
+        {tipo:'item', nome:'Símbolo sagrado', quantidade:1, categoria:'foco divino', origem:'classe Paladino', modo:'fixo'},
+        {tipo:'escolha_item', nome:'Escolher pacote inicial de Paladino', origem:'classe Paladino', modo:'escolha', opcoes:['Pacote de sacerdote','Pacote de explorador'], alvo:'equipamento.escolhas.paladinoPacote', aplicaItem:true, categoriaItem:'pacote'}
+      ],
+      'Patrulheiro': [
+        {tipo:'escolha_item', nome:'Escolher arma principal de Patrulheiro', origem:'classe Patrulheiro', modo:'escolha', opcoes:['Espada curta','Espada longa','Arco longo'], alvo:'equipamento.escolhas.patrulheiroArma', aplicaItem:true, categoriaItem:'arma'},
+        {tipo:'escolha_item', nome:'Escolher pacote inicial de Patrulheiro', origem:'classe Patrulheiro', modo:'escolha', opcoes:['Pacote de explorador','Pacote de aventureiro'], alvo:'equipamento.escolhas.patrulheiroPacote', aplicaItem:true, categoriaItem:'pacote'}
+      ]
+    };
+
+
     const CLASS_ADVANCEMENT_RULES = {
       'Bárbaro': { pathLevel:3, pathLabel:'Caminho Primitivo', paths:['Caminho do Berserker','Caminho do Totem','Caminho personalizado do livro'], choicesByLevel:{3:[{tipo:'escolha', nome:'Escolher Caminho Primitivo', origem:'classe', modo:'escolha'}]} },
       'Bardo': { pathLevel:3, pathLabel:'Colégio de Bardo', paths:['Colégio do Conhecimento','Colégio da Bravura','Colégio personalizado do livro'], choicesByLevel:{3:[{tipo:'escolha', nome:'Escolher Colégio de Bardo', origem:'classe', modo:'escolha'}]} },
@@ -2466,24 +2530,7 @@ textarea.huge{min-height:200px}
       'Feiticeiro': { pathLevel:1, pathLabel:'Origem de Feitiçaria', paths:['Linhagem Dracônica','Magia Selvagem','Origem personalizada do livro'], choicesByLevel:{1:[{tipo:'escolha', nome:'Escolher Origem de Feitiçaria', origem:'classe', modo:'escolha'}]} },
       'Guerreiro': { pathLevel:3, pathLabel:'Arquétipo Marcial', paths:['Campeão','Mestre de Batalha','Cavaleiro Arcano','Arquétipo personalizado do livro'], choicesByLevel:{3:[{tipo:'escolha', nome:'Escolher Arquétipo Marcial', origem:'classe', modo:'escolha'}]} },
       'Ladino': { pathLevel:3, pathLabel:'Arquétipo Ladino', paths:['Assassino','Ladrão','Trapaceiro Arcano','Arquétipo personalizado do livro'], choicesByLevel:{3:[{tipo:'escolha', nome:'Escolher Arquétipo Ladino', origem:'classe', modo:'escolha'}]} },
-      'Mago': {
-        pathLevel:2,
-        pathLabel:'Tradição Arcana',
-        paths:['Abjuração','Conjuração','Adivinhação','Encantamento','Evocação','Ilusão','Necromancia','Transmutação','Tradição personalizada do livro'],
-        levelEquipment:{
-          1:[
-            {tipo:'item', nome:'Grimório', quantidade:1, categoria:'grimório', origem:'classe Mago', modo:'fixo'},
-            {tipo:'escolha_item', nome:'Escolher arma inicial de Mago', origem:'classe Mago', modo:'escolha', opcoes:['Cajado','Adaga'], alvo:'equipamento.escolhas.magoArmaInicial', aplicaItem:true, categoriaItem:'arma'},
-            {tipo:'escolha_item', nome:'Escolher foco arcano ou bolsa de componentes', origem:'classe Mago', modo:'escolha', opcoes:['Foco arcano','Bolsa de componentes'], alvo:'equipamento.escolhas.magoFocoInicial', aplicaItem:true, categoriaItem:'foco arcano'}
-          ]
-        },
-        choicesByLevel:{
-          1:[
-            {tipo:'escolha', nome:'Escolher pacote inicial de Mago', origem:'classe Mago', modo:'escolha', opcoes:['Pacote de estudioso','Pacote de explorador'], alvo:'equipamento.escolhas.magoPacoteInicial'}
-          ],
-          2:[{tipo:'escolha', nome:'Escolher Tradição Arcana', origem:'classe', modo:'escolha'}]
-        }
-      },
+      'Mago': { pathLevel:2, pathLabel:'Tradição Arcana', paths:['Abjuração','Conjuração','Adivinhação','Encantamento','Evocação','Ilusão','Necromancia','Transmutação','Tradição personalizada do livro'], choicesByLevel:{2:[{tipo:'escolha', nome:'Escolher Tradição Arcana', origem:'classe', modo:'escolha'}]} },
       'Monge': { pathLevel:3, pathLabel:'Tradição Monástica', paths:['Mão Aberta','Sombra','Quatro Elementos','Tradição personalizada do livro'], choicesByLevel:{3:[{tipo:'escolha', nome:'Escolher Tradição Monástica', origem:'classe', modo:'escolha'}]} },
       'Paladino': { pathLevel:3, pathLabel:'Juramento Sagrado', paths:['Devoção','Anciões','Vingança','Juramento personalizado do livro'], choicesByLevel:{3:[{tipo:'escolha', nome:'Escolher Juramento Sagrado', origem:'classe', modo:'escolha'}]} },
       'Patrulheiro': { pathLevel:3, pathLabel:'Arquétipo de Patrulheiro', paths:['Caçador','Mestre das Bestas','Arquétipo personalizado do livro'], choicesByLevel:{3:[{tipo:'escolha', nome:'Escolher Arquétipo de Patrulheiro', origem:'classe', modo:'escolha'}]} }
@@ -3393,7 +3440,12 @@ textarea.huge{min-height:200px}
     function getClassAdvanceRule(cls){
       const base = CLASS_ADVANCEMENT_RULES[cls] || {};
       const book = getAllClassRules()[cls] || {};
-      return {...base, ...book, levelEquipment:{...(base.levelEquipment||{}), ...(book.levelEquipment||{}), ...(book.rewardsByLevel||{})}, pathRewards:{...(base.pathRewards||{}), ...(book.pathRewards||{})}};
+      const starting = CLASS_STARTING_EQUIPMENT_RULES[cls] || [];
+      const mergedLevelEquipment = {...(base.levelEquipment||{}), ...(book.levelEquipment||{}), ...(book.rewardsByLevel||{})};
+      if(starting.length){
+        mergedLevelEquipment[1] = [...starting, ...((mergedLevelEquipment[1] || mergedLevelEquipment['1'] || []))];
+      }
+      return {...base, ...book, levelEquipment:mergedLevelEquipment, pathRewards:{...(base.pathRewards||{}), ...(book.pathRewards||{})}};
     }
 
     function getClassPathOptions(cls){

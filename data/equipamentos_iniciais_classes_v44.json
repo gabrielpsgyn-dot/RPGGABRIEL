@@ -1,0 +1,150 @@
+{
+  "version": "V44",
+  "description": "Equipamentos iniciais por classe. Ajustar conforme o livro do Gabriel.",
+  "classes": {
+    "Mago": [
+      {
+        "tipo": "item",
+        "nome": "Grimório",
+        "quantidade": 1,
+        "categoria": "grimório",
+        "origem": "classe Mago",
+        "modo": "fixo"
+      },
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher arma inicial de Mago",
+        "opcoes": [
+          "Cajado",
+          "Adaga"
+        ],
+        "aplicaItem": true,
+        "categoriaItem": "arma"
+      }
+    ],
+    "Bárbaro": [
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher arma principal de Bárbaro",
+        "opcoes": [
+          "Machado grande",
+          "Espada longa",
+          "Montante"
+        ],
+        "aplicaItem": true,
+        "categoriaItem": "arma"
+      }
+    ],
+    "Bardo": [
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher arma inicial de Bardo",
+        "opcoes": [
+          "Rapieira",
+          "Espada curta",
+          "Besta de mão"
+        ],
+        "aplicaItem": true,
+        "categoriaItem": "arma"
+      }
+    ],
+    "Bruxo": [
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher arma inicial de Bruxo",
+        "opcoes": [
+          "Besta leve",
+          "Adaga",
+          "Cajado"
+        ],
+        "aplicaItem": true,
+        "categoriaItem": "arma"
+      }
+    ],
+    "Clérigo": [
+      {
+        "tipo": "item",
+        "nome": "Símbolo sagrado",
+        "categoria": "foco divino",
+        "modo": "fixo"
+      }
+    ],
+    "Druida": [
+      {
+        "tipo": "item",
+        "nome": "Foco druídico",
+        "categoria": "foco druídico",
+        "modo": "fixo"
+      }
+    ],
+    "Feiticeiro": [
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher arma inicial de Feiticeiro",
+        "opcoes": [
+          "Adaga",
+          "Cajado",
+          "Besta leve"
+        ],
+        "aplicaItem": true,
+        "categoriaItem": "arma"
+      }
+    ],
+    "Guerreiro": [
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher arma principal de Guerreiro",
+        "opcoes": [
+          "Espada longa",
+          "Machado grande",
+          "Rapieira",
+          "Arco longo"
+        ],
+        "aplicaItem": true,
+        "categoriaItem": "arma"
+      }
+    ],
+    "Ladino": [
+      {
+        "tipo": "item",
+        "nome": "Ferramentas de ladrão",
+        "categoria": "ferramenta",
+        "modo": "fixo"
+      }
+    ],
+    "Monge": [
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher arma inicial de Monge",
+        "opcoes": [
+          "Espada curta",
+          "Cajado",
+          "Lança"
+        ],
+        "aplicaItem": true,
+        "categoriaItem": "arma"
+      }
+    ],
+    "Paladino": [
+      {
+        "tipo": "item",
+        "nome": "Símbolo sagrado",
+        "categoria": "foco divino",
+        "modo": "fixo"
+      }
+    ],
+    "Patrulheiro": [
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher arma principal de Patrulheiro",
+        "opcoes": [
+          "Espada curta",
+          "Espada longa",
+          "Arco longo"
+        ],
+        "aplicaItem": true,
+        "categoriaItem": "arma"
+      }
+    ]
+  }
+}
