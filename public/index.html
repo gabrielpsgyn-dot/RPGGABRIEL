@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPG Gabriel - Ficha Online V32</title>
+  <title>RPG Gabriel - Ficha Online V33</title>
   <style>
     :root{
       --bg:#090b10;
@@ -1404,9 +1404,86 @@ textarea.huge{min-height:200px}
   .class-current-strip-clean{grid-template-columns:1fr !important}
 }
 
+
+/* V33 - motor de recompensas, caminhos e inventário automático */
+#classPathSelect:disabled{
+  opacity:.65;
+  background:#eee0c3;
+}
+.class-rewards-summary{
+  margin-top:8px;
+}
+.reward-box{
+  border:1px solid rgba(36,27,20,.22);
+  border-radius:12px;
+  background:rgba(255,250,240,.54);
+  padding:8px;
+  display:grid;
+  gap:7px;
+}
+.reward-group{
+  display:grid;
+  gap:5px;
+}
+.reward-group b{
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.07em;
+  color:#735d42;
+}
+.reward-group > div{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+}
+.reward-pill{
+  display:inline-flex;
+  align-items:center;
+  border:1px solid rgba(36,27,20,.22);
+  border-radius:999px;
+  background:#f2dfbb;
+  color:#3d2b19;
+  padding:5px 8px;
+  font-size:11px;
+  font-weight:900;
+}
+.reward-pill.warn,.reward-group.warn .reward-pill{
+  background:#fde7bd;
+  color:#704708;
+}
+.flow-pending{
+  border:1px dashed rgba(112,71,8,.45);
+  border-radius:12px;
+  background:#fff7e2;
+  padding:8px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  align-items:center;
+}
+.flow-pending b{
+  width:100%;
+  font-size:11px;
+  text-transform:uppercase;
+  color:#704708;
+}
+.class-current-strip-clean{
+  grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+}
+@media(max-width:900px){
+  .class-current-strip-clean{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  }
+}
+@media(max-width:420px){
+  .class-current-strip-clean{
+    grid-template-columns:1fr !important;
+  }
+}
+
 </style>
 </head>
-<!-- RPGGABRIEL V32 FLUXO USUARIO INVENTARIO UNIFICADO -->
+<!-- RPGGABRIEL V33 PROGRESSAO RECOMPENSAS -->
 <body class="menu-open">
   <section class="menu-screen" id="menuScreen">
     <div class="menu-shell">
@@ -1537,6 +1614,7 @@ textarea.huge{min-height:200px}
               </select>
             </div>
             <div class="field"><label>Nível</label><input data-path="meta.nivel" type="number" min="1" max="20"></div>
+            <div class="field"><label id="classPathLabel">Caminho / Subclasse</label><select data-path="classeInfo.subclasse" id="classPathSelect"><option value="">Escolher quando liberar</option></select></div>
             <div class="field"><label>Antecedente</label><input data-path="meta.antecedente" list="backgroundOptions" placeholder="Escolher ou digitar"><datalist id="backgroundOptions"><option value="Acólito"></option><option value="Artesão de Guilda"></option><option value="Artista"></option><option value="Charlatão"></option><option value="Criminoso"></option><option value="Eremita"></option><option value="Forasteiro"></option><option value="Herói do Povo"></option><option value="Marinheiro"></option><option value="Nobre"></option><option value="Órfão"></option><option value="Sábio"></option><option value="Soldado"></option></datalist></div>
             <div class="field"><label>Nome do jogador</label><input data-path="meta.nomeJogador"></div>
             <div class="field">
@@ -1585,6 +1663,7 @@ textarea.huge{min-height:200px}
             <span class="class-badge" id="classAutoBadge">Classe não definida</span>
           </div>
           <div id="classProgressSummary" class="class-progress-summary"></div>
+          <div id="classRewardsSummary" class="class-rewards-summary"></div>
         </div>
         <div class="panel flow-panel" id="characterFlowPanel">
           <div class="flow-top">
@@ -1665,8 +1744,8 @@ textarea.huge{min-height:200px}
                 <div id="rulesAuditSummary" class="rules-audit-box"></div>
                 <div class="rules-audit-actions">
                   <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                  <a class="btn small secondary" href="criador.html?v=32" target="_blank">Criador livre</a>
-                  <a class="btn small primary" href="livro-regras.html?v=32" target="_blank">Livro de Regras</a>
+                  <a class="btn small secondary" href="criador.html?v=33" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=33" target="_blank">Livro de Regras</a>
                 </div>
               </details>
             </div>
@@ -2039,6 +2118,97 @@ textarea.huge{min-height:200px}
       'ranger':'Patrulheiro'
 
     };
+
+
+    const CLASS_ADVANCEMENT_RULES = {
+      'Bárbaro': {
+        pathLevel:3, pathLabel:'Caminho Primitivo',
+        paths:['Caminho do Berserker','Caminho do Totem','Caminho personalizado do livro'],
+        choicesByLevel:{3:['Escolher Caminho Primitivo']},
+        levelEquipment:{1:['4 azagaias']},
+        levelChoices:{1:['Escolher arma principal do bárbaro']}
+      },
+      'Bardo': {
+        pathLevel:3, pathLabel:'Colégio de Bardo',
+        paths:['Colégio do Conhecimento','Colégio da Bravura','Colégio personalizado do livro'],
+        choicesByLevel:{1:['Escolher instrumento musical'],3:['Escolher Colégio de Bardo']},
+        levelEquipment:{1:['Instrumento musical']},
+        levelSpells:{1:['Truques e magias de bardo conforme Livro de Regras']}
+      },
+      'Bruxo': {
+        pathLevel:1, pathLabel:'Patrono',
+        paths:['Arquifada','Infernal','Grande Antigo','Patrono personalizado do livro'],
+        choicesByLevel:{1:['Escolher Patrono'],3:['Escolher Dádiva do Pacto']},
+        levelSpells:{1:['Magias de pacto conforme Patrono']}
+      },
+      'Clérigo': {
+        pathLevel:1, pathLabel:'Domínio Divino',
+        paths:['Domínio da Vida','Domínio da Luz','Domínio da Guerra','Domínio personalizado do livro'],
+        choicesByLevel:{1:['Escolher Domínio Divino']},
+        levelSpells:{1:['Magias de domínio conforme Livro de Regras']}
+      },
+      'Druida': {
+        pathLevel:2, pathLabel:'Círculo Druídico',
+        paths:['Círculo da Terra','Círculo da Lua','Círculo do Fogo','Círculo personalizado do livro'],
+        choicesByLevel:{1:['Escolher truques de druida'],2:['Escolher Círculo Druídico']},
+        levelEquipment:{1:['Foco druídico']},
+        levelSpells:{1:['Magias de druida preparadas conforme Sabedoria']},
+        pathRewards:{
+          'Círculo do Fogo':{
+            2:{ features:['Direcionamento elemental: fogo'], spells:['Magias de fogo do círculo conforme Livro de Regras'], choices:['Definir origem do fogo: círculo, linhagem, entidade ou evento da campanha'] }
+          },
+          'Círculo da Terra':{
+            2:{ features:['Direcionamento: terra/bioma'], choices:['Escolher terreno do círculo'] }
+          },
+          'Círculo da Lua':{
+            2:{ features:['Direcionamento: formas selvagens'] }
+          }
+        }
+      },
+      'Feiticeiro': {
+        pathLevel:1, pathLabel:'Origem de Feitiçaria',
+        paths:['Linhagem Dracônica','Magia Selvagem','Origem personalizada do livro'],
+        choicesByLevel:{1:['Escolher Origem de Feitiçaria'],3:['Escolher Metamagia']},
+        levelSpells:{1:['Magias conhecidas de feiticeiro']}
+      },
+      'Guerreiro': {
+        pathLevel:3, pathLabel:'Arquétipo Marcial',
+        paths:['Campeão','Mestre de Batalha','Cavaleiro Arcano','Arquétipo personalizado do livro'],
+        choicesByLevel:{1:['Escolher estilo de luta'],3:['Escolher Arquétipo Marcial']},
+        levelChoices:{1:['Escolher arma e armadura iniciais']}
+      },
+      'Ladino': {
+        pathLevel:3, pathLabel:'Arquétipo Ladino',
+        paths:['Assassino','Ladrão','Trapaceiro Arcano','Arquétipo personalizado do livro'],
+        choicesByLevel:{1:['Escolher especialização'],3:['Escolher Arquétipo Ladino']},
+        levelEquipment:{1:['Ferramentas de ladrão']}
+      },
+      'Mago': {
+        pathLevel:2, pathLabel:'Tradição Arcana',
+        paths:['Abjuração','Conjuração','Adivinhação','Encantamento','Evocação','Ilusão','Necromancia','Transmutação','Tradição personalizada do livro'],
+        choicesByLevel:{1:['Escolher magias iniciais no grimório'],2:['Escolher Tradição Arcana']},
+        levelEquipment:{1:['Grimório']},
+        levelSpells:{1:['Magias do grimório conforme Livro de Regras']}
+      },
+      'Monge': {
+        pathLevel:3, pathLabel:'Tradição Monástica',
+        paths:['Mão Aberta','Sombra','Quatro Elementos','Tradição personalizada do livro'],
+        choicesByLevel:{3:['Escolher Tradição Monástica']}
+      },
+      'Paladino': {
+        pathLevel:3, pathLabel:'Juramento Sagrado',
+        paths:['Devoção','Anciões','Vingança','Juramento personalizado do livro'],
+        choicesByLevel:{2:['Escolher estilo de luta'],3:['Escolher Juramento Sagrado']},
+        levelSpells:{2:['Magias de paladino preparadas']}
+      },
+      'Patrulheiro': {
+        pathLevel:3, pathLabel:'Arquétipo de Patrulheiro',
+        paths:['Caçador','Mestre das Bestas','Arquétipo personalizado do livro'],
+        choicesByLevel:{1:['Escolher inimigo favorito e terreno'],2:['Escolher estilo de luta'],3:['Escolher Arquétipo de Patrulheiro']},
+        levelSpells:{2:['Magias de patrulheiro conhecidas']}
+      }
+    };
+
 
     const FULL_CASTER_SLOTS = {
       1:[2,0,0,0,0,0,0,0,0],
@@ -2930,6 +3100,92 @@ textarea.huge{min-height:200px}
       return labels.length ? labels.join(' • ') : 'Sem espaços neste nível.';
     }
 
+
+    function getClassAdvanceRule(cls){
+      const base = CLASS_ADVANCEMENT_RULES[cls] || {};
+      const book = getAllClassRules()[cls] || {};
+      return {...base, ...book, pathRewards:{...(base.pathRewards||{}), ...(book.pathRewards||{})}};
+    }
+
+    function getClassPathOptions(cls){
+      const adv = getClassAdvanceRule(cls);
+      const raw = adv.paths || adv.subclasses || adv.caminhos || [];
+      if(Array.isArray(raw)) return raw;
+      return Object.keys(raw || {});
+    }
+
+    function getSelectedClassPath(c){
+      c.classeInfo = c.classeInfo || {};
+      return c.classeInfo.subclasse || c.classeInfo.caminho || '';
+    }
+
+    function renderClassPathOptions(){
+      const c = activeChar(); if(!c) return;
+      ensureClassLevelData(c);
+      c.classeInfo = c.classeInfo || {};
+      const select = $('#classPathSelect');
+      const label = $('#classPathLabel');
+      if(!select) return;
+      const cls = c.meta.classe || '';
+      const adv = getClassAdvanceRule(cls);
+      const level = getCharacterLevel(c);
+      const opts = getClassPathOptions(cls);
+      const pathLevel = num(adv.pathLevel) || num(adv.subclassLevel) || 0;
+      const pathLabel = adv.pathLabel || adv.subclassLabel || 'Caminho / Subclasse';
+      if(label) label.textContent = pathLabel;
+      const current = getSelectedClassPath(c);
+      select.innerHTML = `<option value="">${pathLevel && level < pathLevel ? 'Libera no nível '+pathLevel : 'Escolher '+pathLabel}</option>` + opts.map(x=>`<option value="${escapeHtml(x)}">${escapeHtml(x)}</option>`).join('');
+      select.value = current && opts.includes(current) ? current : '';
+      select.disabled = !opts.length || (pathLevel && level < pathLevel);
+    }
+
+    function collectClassLevelRewards(c){
+      if(!c) return {features:[], equipment:[], spells:[], choices:[], pathFeatures:[], pathSpells:[], pathEquipment:[], pathChoices:[]};
+      ensureClassLevelData(c);
+      const cls = c.meta.classe || '';
+      const level = getCharacterLevel(c);
+      const path = getSelectedClassPath(c);
+      const adv = getClassAdvanceRule(cls);
+      const out = {features:[], equipment:[], spells:[], choices:[], pathFeatures:[], pathSpells:[], pathEquipment:[], pathChoices:[]};
+
+      const addFromMap = (map, key) => {
+        const arr = map && (map[level] || map[String(level)]);
+        if(Array.isArray(arr)) arr.forEach(x=>out[key].push(x));
+      };
+
+      addFromMap(adv.levelEquipment, 'equipment');
+      addFromMap(adv.equipmentByLevel, 'equipment');
+      addFromMap(adv.levelSpells, 'spells');
+      addFromMap(adv.spellsByLevel, 'spells');
+      addFromMap(adv.levelChoices, 'choices');
+      addFromMap(adv.choicesByLevel, 'choices');
+
+      const rule = getAllClassRules()[cls] || {};
+      const currentFeatures = (rule.features && (rule.features[level] || rule.features[String(level)])) || [];
+      currentFeatures.forEach(x=>out.features.push(x));
+
+      const pathData = adv.pathRewards && path ? adv.pathRewards[path] : null;
+      const pathLevelData = pathData && (pathData[level] || pathData[String(level)]);
+      if(pathLevelData){
+        (pathLevelData.features || []).forEach(x=>out.pathFeatures.push(x));
+        (pathLevelData.spells || []).forEach(x=>out.pathSpells.push(x));
+        (pathLevelData.equipment || []).forEach(x=>out.pathEquipment.push(x));
+        (pathLevelData.choices || []).forEach(x=>out.pathChoices.push(x));
+      }
+
+      const pathLevel = num(adv.pathLevel) || num(adv.subclassLevel) || 0;
+      if(pathLevel && level >= pathLevel && getClassPathOptions(cls).length && !path){
+        out.choices.push(`Escolher ${adv.pathLabel || adv.subclassLabel || 'caminho/subclasse'}`);
+      }
+      return out;
+    }
+
+    function renderRewardPills(title, items, cls=''){
+      if(!items || !items.length) return '';
+      return `<div class="reward-group ${cls}"><b>${escapeHtml(title)}</b><div>${items.map(x=>`<span class="reward-pill">${escapeHtml(x)}</span>`).join('')}</div></div>`;
+    }
+
+
     function featuresForClassLevel(rule, level){
       if(!rule || !rule.features) return [];
       const out = [];
@@ -2990,9 +3246,11 @@ textarea.huge{min-height:200px}
     function renderClassProgress(){
       const c = activeChar();
       const box = $('#classProgressSummary');
+      const rewardsBox = $('#classRewardsSummary');
       const badge = $('#classAutoBadge');
       if(!box || !badge || !c) return;
       ensureClassLevelData(c);
+      renderClassPathOptions();
       applyClassProgression(c);
       const cls = c.meta.classe || '';
       const level = getCharacterLevel(c);
@@ -3000,29 +3258,36 @@ textarea.huge{min-height:200px}
       box.classList.add('compact-class-summary');
       if(!rule){
         badge.textContent = 'Classe não definida';
-        box.innerHTML = '<div class="class-empty">Escolha uma classe. A ficha aplica dado de vida, conjuração e habilidades.</div>';
+        box.innerHTML = '<div class="class-empty">Escolha uma classe. A ficha aplica dado de vida, conjuração, recompensas e escolhas de nível.</div>';
+        if(rewardsBox) rewardsBox.innerHTML = '';
         return;
       }
       badge.textContent = `${cls} nv. ${level}`;
+      const path = getSelectedClassPath(c);
+      const adv = getClassAdvanceRule(cls);
       const spellAbility = rule.spellAbility ? (abilities.find(([id])=>id===rule.spellAbility) || [null,rule.spellAbility])[1] : 'Não';
       const castingLabel = rule.casting === 'full' ? 'Completa' : rule.casting === 'half' ? 'Meia' : rule.casting === 'pact' ? 'Pacto' : 'Não';
       const slots = getClassSpellSlots(cls, level);
       const slotPills = slots.map((q,idx)=>q ? `<span class="class-slot-pill">${idx+1}º: ${q}</span>` : '').filter(Boolean).join('') || '<span class="class-slot-pill empty">Sem espaços</span>';
       const allFeatures = featuresForClassLevel(rule, level);
-      const currentFeatures = allFeatures.filter(f=>f.level === level);
       const previousFeatures = allFeatures.filter(f=>f.level < level);
-      const currentHtml = (currentFeatures.length ? currentFeatures : allFeatures.slice(-4))
-        .map(f=>`<span class="class-feature-pill">Nv. ${f.level}: ${escapeHtml(f.name)}</span>`).join('') || '<span class="class-feature-pill">Sem habilidade listada neste nível</span>';
       const previousHtml = previousFeatures.map(f=>`<span class="class-feature-pill">Nv. ${f.level}: ${escapeHtml(f.name)}</span>`).join('') || '<span class="class-feature-pill">Nenhuma anterior</span>';
+
+      const rewards = collectClassLevelRewards(c);
+      const currentHtml = [
+        ...rewards.features,
+        ...rewards.pathFeatures.map(x=>`${path}: ${x}`)
+      ].map(x=>`<span class="class-feature-pill">${escapeHtml(x)}</span>`).join('') || '<span class="class-feature-pill">Sem habilidade listada neste nível</span>';
 
       box.innerHTML = `
         <div class="class-current-strip class-current-strip-clean">
           <div class="class-mini-stat"><span>Dado de vida</span><b>${escapeHtml(rule.hitDie || '-')}</b></div>
           <div class="class-mini-stat"><span>Conjuração</span><b>${escapeHtml(castingLabel)}</b></div>
           <div class="class-mini-stat"><span>Atributo mágico</span><b>${escapeHtml(spellAbility)}</b></div>
+          <div class="class-mini-stat"><span>${escapeHtml(adv.pathLabel || 'Caminho')}</span><b>${escapeHtml(path || '-')}</b></div>
         </div>
         <div class="class-now-box">
-          <div class="class-now-title">Habilidades do nível atual / mais recentes</div>
+          <div class="class-now-title">Ganho do nível atual</div>
           <div class="class-feature-list compact">${currentHtml}</div>
         </div>
         <details class="class-details">
@@ -3033,6 +3298,15 @@ textarea.huge{min-height:200px}
           </div>
         </details>
       `;
+
+      if(rewardsBox){
+        const rewardsHtml = [
+          renderRewardPills('Equipamentos que entram no inventário', [...rewards.equipment, ...rewards.pathEquipment]),
+          renderRewardPills('Magias / grimório', [...rewards.spells, ...rewards.pathSpells]),
+          renderRewardPills('Escolhas pendentes', [...rewards.choices, ...rewards.pathChoices], 'warn')
+        ].filter(Boolean).join('');
+        rewardsBox.innerHTML = rewardsHtml ? `<div class="reward-box">${rewardsHtml}</div>` : '';
+      }
     }
 
     function applyRuleEngine(c){
@@ -3789,7 +4063,7 @@ textarea.huge{min-height:200px}
           </div>
           ${i.descricao ? `<div class="object-desc">${escapeHtml(i.descricao)}</div>` : ''}
         </div>
-      `).join('') : '<div class="clean-empty">Nenhum objeto de inventário. Adicione item por item ou converta o texto antigo.</div>';
+      `).join('') : '<div class="clean-empty">Inventário vazio. Escolha antecedente/classe ou clique em sincronizar; equipamento e ouro aparecem aqui como objetos.</div>';
     }
 
 
@@ -3927,15 +4201,10 @@ textarea.huge{min-height:200px}
       const c = activeChar(); if(!c) return;
       applyBackgroundProgression(c);
       ensureObjectSheetData(c);
-      const bg = normalizeBackgroundName(c.meta.antecedente || '');
-      const rule = getAllBackgroundRules()[bg];
-      if(!rule){ notify('Escolha um antecedente primeiro.'); return; }
-      c.equipamento.appliedSources = c.equipamento.appliedSources || {};
-      delete c.equipamento.appliedSources['antecedente:'+bg];
-      applyGrantedInventorySource(c, 'antecedente:'+bg, 'antecedente', rule.equipment || []);
+      syncGrantedInventoryObjects(c);
       saveLocal(false);
       renderForm();
-      notify('Equipamento e ouro do antecedente sincronizados no inventário.');
+      notify('Equipamento, ouro e escolhas foram sincronizados no inventário.');
     }
 
 
@@ -4123,6 +4392,7 @@ textarea.huge{min-height:200px}
     }
 
 
+
     function parseCoinObjectsFromText(text){
       const out = [];
       const raw = String(text || '');
@@ -4149,52 +4419,87 @@ textarea.huge{min-height:200px}
         .trim();
     }
 
+    function shouldBePendingChoice(text){
+      const t = String(text || '').toLowerCase();
+      return /escolh|à escolha|a escolha|opção|opcao|definir/.test(t);
+    }
+
+    function addPendingChoice(c, sourceKey, label, sourceLabel){
+      c.escolhasPendentes = Array.isArray(c.escolhasPendentes) ? c.escolhasPendentes : [];
+      if(c.escolhasPendentes.some(x=>x.sourceKey === sourceKey && x.label === label)) return;
+      c.escolhasPendentes.push({
+        id:'choice_'+Math.random().toString(36).slice(2,9),
+        sourceKey,
+        label,
+        origem:sourceLabel,
+        status:'pendente'
+      });
+    }
+
     function applyGrantedInventorySource(c, sourceKey, sourceLabel, equipment){
       if(!c || !Array.isArray(equipment) || !equipment.length) return;
       ensureObjectSheetData(c);
-      c.equipamento.appliedSources = c.equipamento.appliedSources || {};
-      if(c.equipamento.appliedSources[sourceKey]) return;
+      c.equipamento.coinGrantLedger = c.equipamento.coinGrantLedger || {};
 
       equipment.forEach(raw=>{
         const line = String(raw || '').trim();
         if(!line) return;
 
+        if(shouldBePendingChoice(line)){
+          addPendingChoice(c, sourceKey, line, sourceLabel);
+          return;
+        }
+
         parseCoinObjectsFromText(line).forEach(coin=>{
-          c.equipamento.moedas[coin.code] = String((num(c.equipamento.moedas[coin.code]) || 0) + coin.amount);
+          const coinKey = `${sourceKey}|coin|${coin.code}|${coin.amount}|${line}`.toLowerCase();
+          if(!c.equipamento.coinGrantLedger[coinKey]){
+            c.equipamento.moedas[coin.code] = String((num(c.equipamento.moedas[coin.code]) || 0) + coin.amount);
+            c.equipamento.coinGrantLedger[coinKey] = true;
+          }
         });
 
         const itemName = inventoryNameWithoutCoins(line);
         const hasOnlyCoin = !!parseCoinObjectsFromText(line).length && itemName.length < 3;
         if(hasOnlyCoin) return;
         const name = itemName || line;
-        if(c.equipamento.itens.some(i=>String(i.nome || '').toLowerCase() === name.toLowerCase() && String(i.origem || '') === sourceLabel)) return;
+        const grantKey = `${sourceKey}|item|${name}`.toLowerCase();
+        if(c.equipamento.itens.some(i=>String(i.grantKey || '').toLowerCase() === grantKey)) return;
+        if(c.equipamento.itens.some(i=>String(i.nome || '').toLowerCase() === name.toLowerCase() && String(i.origem || '').toLowerCase() === sourceLabel.toLowerCase())) return;
         c.equipamento.itens.push({
           id:'item_'+Math.random().toString(36).slice(2,9),
+          grantKey,
           nome:name,
           qtd:1,
           peso:0,
-          categoria:'equipamento inicial',
+          categoria:'equipamento/recompensa',
           origem:sourceLabel,
           descricao:line
         });
       });
-
-      c.equipamento.appliedSources[sourceKey] = true;
     }
 
     function syncGrantedInventoryObjects(c){
       if(!c) return;
       ensureClassLevelData(c);
       ensureObjectSheetData(c);
+      c.escolhasPendentes = Array.isArray(c.escolhasPendentes) ? c.escolhasPendentes : [];
       const cls = c.meta.classe || '';
+      const level = getCharacterLevel(c);
       const race = normalizeRaceName(c.meta.raca || '');
       const bg = normalizeBackgroundName(c.meta.antecedente || '');
       const clsRule = getAllClassRules()[cls] || {};
+      const adv = getClassAdvanceRule(cls);
+      const rewards = collectClassLevelRewards(c);
       const raceRule = getAllRaceRules()[race] || {};
       const bgRule = getAllBackgroundRules()[bg] || {};
-      applyGrantedInventorySource(c, 'classe:'+cls, 'classe', clsRule.equipment || []);
+
+      applyGrantedInventorySource(c, 'classe:'+cls+':base', 'classe', clsRule.equipment || adv.equipment || []);
+      applyGrantedInventorySource(c, 'classe:'+cls+':nivel:'+level, 'classe nível '+level, [...(rewards.equipment||[]), ...(rewards.pathEquipment||[])]);
       applyGrantedInventorySource(c, 'raca:'+race, 'raça', raceRule.equipment || []);
       applyGrantedInventorySource(c, 'antecedente:'+bg, 'antecedente', bgRule.equipment || []);
+
+      [...(rewards.choices||[]), ...(rewards.pathChoices||[])].forEach(x=>addPendingChoice(c, `classe:${cls}:nivel:${level}`, x, 'classe'));
+      [...(rewards.spells||[]), ...(rewards.pathSpells||[])].forEach(x=>addPendingChoice(c, `magia:${cls}:nivel:${level}`, x, 'magia'));
     }
 
     function renderCharacterFlow(){
@@ -4216,12 +4521,14 @@ textarea.huge{min-height:200px}
       const done = checks.filter(x=>x.ok).length;
       const creationDone = done >= 6;
       badge.textContent = creationDone ? 'Modo jogo' : 'Modo criação';
+      const pending = (c.escolhasPendentes || []).filter(x=>x.status !== 'resolvido');
+      const pendingHtml = pending.length ? `<div class="flow-pending"><b>Escolhas pendentes</b>${pending.map(x=>`<span class="reward-pill warn">${escapeHtml(x.label)} <small>(${escapeHtml(x.origem || '-')})</small></span>`).join('')}</div>` : '';
       box.innerHTML = `
         <div class="flow-progress"><span style="width:${Math.round(done/checks.length*100)}%"></span></div>
         <div class="flow-checks">
           ${checks.map(x=>`<span class="flow-check ${x.ok?'ok':'todo'}">${x.ok?'✓':'•'} ${escapeHtml(x.label)}</span>`).join('')}
         </div>
-        <div class="flow-note">${creationDone ? 'Ficha pronta para uso. Durante o jogo use PV, ataques, inventário, magias e condições.' : 'Complete os passos pendentes. O equipamento e o ouro recebidos são sincronizados no inventário.'}</div>
+        <div class="flow-note">${creationDone ? 'Ficha pronta para uso. Durante o jogo use PV, ataques, inventário, magias e condições.' : 'Complete os passos pendentes. O equipamento e o ouro recebidos são sincronizados no inventário.'}</div>${pendingHtml}
       `;
     }
 
@@ -4237,6 +4544,7 @@ textarea.huge{min-height:200px}
         else if(document.activeElement !== el) el.value = val ?? '';
       });
       refreshCustomRuleOptions();
+      renderClassPathOptions();
       renderClassProgress();
       renderRaceProgress();
       renderBackgroundProgress();
