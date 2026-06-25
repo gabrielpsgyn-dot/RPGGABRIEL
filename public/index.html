@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPG Gabriel - Ficha Online V20</title>
+  <title>RPG Gabriel - Ficha Online V24</title>
   <style>
     :root{
       --bg:#090b10;
@@ -701,7 +701,38 @@
     .race-feature-box{margin-top:10px;border:1px solid rgba(36,27,20,.18);background:rgba(255,255,255,.35);border-radius:14px;padding:10px}
     .race-feature-box > span{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#70553b;font-weight:950;margin-bottom:6px}
 
-  </style>
+  
+.compact-panel{padding:14px 16px}
+.compact-panel-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}
+.compact-progress-summary{display:grid;gap:10px}
+.compact-stat-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.compact-stat{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:rgba(255,255,255,.35)}
+.compact-stat span{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}
+.compact-stat b{font-size:18px}
+.compact-label{font-size:12px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+.compact-pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:6px 10px;background:#f4ead7;font-size:13px;font-weight:700;color:#5b3a12}
+.compact-note{font-size:13px;color:var(--muted)}
+.compact-details{border:1px dashed var(--line);border-radius:12px;padding:8px 10px;background:rgba(255,255,255,.28)}
+.compact-details summary{cursor:pointer;font-weight:700;color:var(--ink)}
+.compact-details[open] summary{margin-bottom:8px}
+.compact-inline-list{display:flex;flex-wrap:wrap;gap:8px}
+@media (max-width:900px){.compact-stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+
+.weapon-builder{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr 1fr;gap:8px;align-items:end;margin-bottom:10px}
+.attack-table th,.attack-table td{white-space:nowrap}.attack-table input,.attack-table select{min-width:105px}
+.attack-auto-chip{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;padding:5px 9px;background:#f4ead7;font-weight:800;font-size:12px}
+.attack-actions{display:flex;flex-wrap:wrap;gap:6px}.roll-log{display:grid;gap:6px;margin-top:10px;max-height:220px;overflow:auto}
+.roll-item{border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.35);padding:8px 10px;font-size:13px}
+.rest-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.rest-card{border:1px solid var(--line);border-radius:14px;padding:12px;background:rgba(255,255,255,.32);display:grid;gap:8px}.rest-card h4{margin:0;font-size:16px}
+.inventory-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:10px 0}
+.inv-stat{border:1px solid var(--line);border-radius:12px;padding:10px;background:rgba(255,255,255,.35)}
+.inv-stat span{display:block;color:var(--muted);font-size:11px;font-weight:800;text-transform:uppercase}.inv-stat b{display:block;font-size:20px;margin-top:3px}
+.item-row{display:grid;grid-template-columns:1.4fr .7fr .7fr 1fr auto;gap:8px;align-items:end;margin-bottom:8px}
+.item-list{display:grid;gap:7px;margin-top:10px}.item-pill{display:grid;grid-template-columns:1fr auto auto auto;gap:8px;align-items:center;border:1px solid var(--line);background:rgba(255,255,255,.32);border-radius:12px;padding:8px 10px}
+@media (max-width:900px){.weapon-builder,.item-row{grid-template-columns:1fr 1fr}.inventory-summary,.rest-grid{grid-template-columns:1fr}}
+
+</style>
 </head>
 <body class="menu-open">
   <section class="menu-screen" id="menuScreen">
@@ -833,7 +864,7 @@
               </select>
             </div>
             <div class="field"><label>Nível</label><input data-path="meta.nivel" type="number" min="1" max="20"></div>
-            <div class="field"><label>Antecedente</label><input data-path="meta.antecedente"></div>
+            <div class="field"><label>Antecedente</label><input data-path="meta.antecedente" list="backgroundOptions" placeholder="Escolher ou digitar"><datalist id="backgroundOptions"><option value="Acólito"></option><option value="Artesão de Guilda"></option><option value="Artista"></option><option value="Charlatão"></option><option value="Criminoso"></option><option value="Eremita"></option><option value="Forasteiro"></option><option value="Herói do Povo"></option><option value="Marinheiro"></option><option value="Nobre"></option><option value="Órfão"></option><option value="Sábio"></option><option value="Soldado"></option></datalist></div>
             <div class="field"><label>Nome do jogador</label><input data-path="meta.nomeJogador"></div>
             <div class="field">
               <label>Raça / Linhagem</label>
@@ -883,17 +914,6 @@
           <div id="classProgressSummary" class="class-progress-summary"></div>
         </div>
 
-        <div class="panel race-progress-panel" id="raceProgressPanel">
-          <div class="class-progress-top">
-            <div>
-              <h3>Raça / Linhagem</h3>
-              <p class="sheet-note">Aplicado automaticamente pela raça: tamanho, deslocamento, visão no escuro, idiomas, resistências, proficiências e traços raciais.</p>
-            </div>
-            <span class="class-badge" id="raceAutoBadge">Raça não definida</span>
-          </div>
-          <div id="raceProgressSummary" class="class-progress-summary"></div>
-        </div>
-
         <div class="grid-main">
           <div>
             <div class="panel">
@@ -921,6 +941,26 @@
               <h3>Perícias</h3>
               <p class="calc-note">As perícias abaixo estão vinculadas ao atributo usado no cálculo. Marcar salvaguarda não marca perícia automaticamente.</p>
               <div class="check-list skill-group-list" id="skillsList"></div>
+            </div>
+            <div class="panel race-progress-panel compact-panel" id="raceProgressPanel">
+              <div class="compact-panel-top">
+                <div>
+                  <h3>Raça / Linhagem</h3>
+                  <p class="sheet-note">Resumo compacto aplicado automaticamente pela raça.</p>
+                </div>
+                <span class="class-badge" id="raceAutoBadge">Raça não definida</span>
+              </div>
+              <div id="raceProgressSummary" class="compact-progress-summary"></div>
+            </div>
+            <div class="panel background-progress-panel compact-panel" id="backgroundProgressPanel">
+              <div class="compact-panel-top">
+                <div>
+                  <h3>Antecedente</h3>
+                  <p class="sheet-note">Proficiências, idiomas e característica narrativa do antecedente.</p>
+                </div>
+                <span class="class-badge" id="backgroundAutoBadge">Antecedente não definido</span>
+              </div>
+              <div id="backgroundProgressSummary" class="compact-progress-summary"></div>
             </div>
           </div>
 
@@ -953,17 +993,44 @@
               <div class="death"><span>Sucessos</span><span id="deathSuccess"></span></div>
               <div class="death"><span>Falhas</span><span id="deathFail"></span></div>
             </div>
-            <div class="panel">
-              <h3>Ataques e conjuração</h3>
+            <div class="panel" id="restPanel">
+              <h3>Descanso curto / longo</h3>
+              <p class="calc-note">V23: recupera vida, dados de vida, espaços de magia e condições temporárias.</p>
+              <div class="rest-grid">
+                <div class="rest-card">
+                  <h4>Descanso curto</h4>
+                  <div class="field"><label>Dados de vida para gastar</label><input id="shortRestDice" type="number" min="0" value="0"></div>
+                  <button class="btn green" id="shortRestBtn" type="button">Aplicar descanso curto</button>
+                  <small>Recupera vida usando dados de vida e reduz dados disponíveis.</small>
+                </div>
+                <div class="rest-card">
+                  <h4>Descanso longo</h4>
+                  <button class="btn primary" id="longRestBtn" type="button">Aplicar descanso longo</button>
+                  <small>Restaura PV, espaços de magia, limpa usados e recupera parte dos dados de vida.</small>
+                </div>
+              </div>
+            </div>
+            <div class="panel" id="attacksPanel">
+              <h3>Ataques / Armas automáticos</h3>
+              <p class="calc-note">V22: bônus de ataque e dano calculados por atributo + proficiência. Também rola ataque e dano.</p>
+              <div class="weapon-builder">
+                <div class="field"><label>Arma / Ataque</label><input id="weaponName" placeholder="Ex.: Espada longa"></div>
+                <div class="field"><label>Atributo</label><select id="weaponAbility"></select></div>
+                <div class="field"><label>Dano</label><input id="weaponDamage" placeholder="Ex.: 1d8"></div>
+                <div class="field"><label>Tipo</label><input id="weaponType" placeholder="Cortante"></div>
+                <button class="btn small primary" id="addWeaponBtn" type="button">Adicionar</button>
+              </div>
               <div style="overflow:auto">
-                <table>
-                  <thead><tr><th>Nome</th><th>Bônus</th><th>Dano / Tipo</th></tr></thead>
+                <table class="attack-table">
+                  <thead><tr><th>Nome</th><th>Atributo</th><th>Prof.</th><th>Bônus</th><th>Dano</th><th>Ações</th></tr></thead>
                   <tbody id="attacksBody"></tbody>
                 </table>
               </div>
+              <div class="roll-log" id="rollLog"></div>
             </div>
-            <div class="panel">
-              <h3>Equipamento</h3>
+            <div class="panel" id="inventoryPanel">
+              <h3>Inventário, carga e moedas</h3>
+              <p class="calc-note">V24: moedas, itens com quantidade/peso, peso total e capacidade de carga.</p>
               <div class="coins">
                 <div class="coin"><label>PC</label><input data-path="equipamento.moedas.pc" type="number"></div>
                 <div class="coin"><label>PP</label><input data-path="equipamento.moedas.pp" type="number"></div>
@@ -971,6 +1038,20 @@
                 <div class="coin"><label>PO</label><input data-path="equipamento.moedas.po" type="number"></div>
                 <div class="coin"><label>PL</label><input data-path="equipamento.moedas.pl" type="number"></div>
               </div>
+              <div class="inventory-summary">
+                <div class="inv-stat"><span>Peso total</span><b id="inventoryWeight">0 kg</b></div>
+                <div class="inv-stat"><span>Capacidade</span><b id="carryCapacity">0 kg</b></div>
+                <div class="inv-stat"><span>Situação</span><b id="carryStatus">Livre</b></div>
+              </div>
+              <div class="item-row">
+                <div class="field"><label>Item</label><input id="itemName" placeholder="Ex.: corda, poção..."></div>
+                <div class="field"><label>Qtd.</label><input id="itemQty" type="number" value="1" min="1"></div>
+                <div class="field"><label>Peso kg</label><input id="itemWeight" type="number" value="0" min="0" step="0.1"></div>
+                <div class="field"><label>Categoria</label><input id="itemCategory" placeholder="arma, kit, tesouro..."></div>
+                <button class="btn small primary" id="addItemBtn" type="button">Adicionar</button>
+              </div>
+              <div class="item-list" id="inventoryList"></div>
+              <label class="label">Anotações livres</label>
               <textarea data-path="equipamento.texto" class="tall"></textarea>
             </div>
           </div>
@@ -1447,6 +1528,7 @@
       });
       ensureClassLevelData(m);
       applyRuleEngine(m);
+      ensureCombatInventoryData(m);
       return m;
     }
     function activeChar(){ return state.characters.find(c=>c.id===state.activeId) || null; }
@@ -1492,6 +1574,87 @@
     }
 
 
+
+    const BACKGROUND_RULES = {
+      'Acólito': {skills:['intuicao','religiao'], languages:['Dois idiomas à escolha'], tools:[], equipment:['Símbolo sagrado','Livro de preces','5 varetas de incenso','Vestes','15 po'], feature:'Abrigo dos Fiéis', note:'Excelente para clérigos e personagens religiosos.'},
+      'Artesão de Guilda': {skills:['intuicao','persuasao'], languages:[], tools:['Ferramentas de artesão'], equipment:['Ferramentas de artesão','Carta da guilda','Roupas de viagem','15 po'], feature:'Membro de Guilda', note:'Bom para personagens ligados a ofícios e comércio.'},
+      'Artista': {skills:['acrobacia','performance'], languages:[], tools:['Kit de disfarce','Um instrumento musical'], equipment:['Instrumento musical','Cartas de fã','Fantasia','15 po'], feature:'A Pedido Popular', note:'Antecedente focado em performance e presença social.'},
+      'Charlatão': {skills:['enganacao','prestidigitacao'], languages:[], tools:['Kit de disfarce','Kit de falsificação'], equipment:['Roupas finas','Kit de disfarce','Ferramentas de trapaça','15 po'], feature:'Identidade Falsa', note:'Ótimo para intriga e disfarces.'},
+      'Criminoso': {skills:['enganacao','furtividade'], languages:[], tools:['Jogo de azar','Ferramentas de ladrão'], equipment:['Pé-de-cabra','Roupas escuras','15 po'], feature:'Contato Criminoso', note:'Pode representar espião, ladrão ou contrabandista.'},
+      'Eremita': {skills:['medicina','religiao'], languages:['Um idioma à escolha'], tools:['Kit de herbalismo'], equipment:['Pergaminho','Cobertor','Kit de herbalismo','5 po'], feature:'Descoberta', note:'Bom para sábios isolados e curandeiros.'},
+      'Forasteiro': {skills:['atletismo','sobrevivencia'], languages:['Um idioma à escolha'], tools:['Um instrumento musical'], equipment:['Bastão','Armadilha de caça','Troféu','10 po'], feature:'Andarilho', note:'Excelente para exploração.'},
+      'Herói do Povo': {skills:['adestrarAnimais','sobrevivencia'], languages:[], tools:['Ferramentas de artesão','Veículos terrestres'], equipment:['Pá','Panela','Roupas comuns','10 po'], feature:'Hospitalidade Rural', note:'Bom para personagens populares.'},
+      'Marinheiro': {skills:['atletismo','percepcao'], languages:[], tools:['Ferramentas de navegador','Veículos aquáticos'], equipment:['Corda','Amuleto da sorte','Roupas comuns','10 po'], feature:'Passagem de Navio', note:'Combina bem com Ghosts of Saltmarsh.'},
+      'Nobre': {skills:['historia','persuasao'], languages:['Um idioma à escolha'], tools:['Jogo de azar'], equipment:['Roupas finas','Anel de sinete','Pergaminho de linhagem','25 po'], feature:'Posição de Privilégio', note:'Bom para influência social.'},
+      'Órfão': {skills:['furtividade','prestidigitacao'], languages:[], tools:['Kit de disfarce','Ferramentas de ladrão'], equipment:['Faca pequena','Mapa da cidade','Rato de estimação','10 po'], feature:'Segredos da Cidade', note:'Equivalente prático ao urchin.'},
+      'Sábio': {skills:['arcana','historia'], languages:['Dois idiomas à escolha'], tools:[], equipment:['Tinta','Pena','Livro','10 po'], feature:'Pesquisador', note:'Ideal para magos e estudiosos.'},
+      'Soldado': {skills:['atletismo','intimidacao'], languages:[], tools:['Jogo de azar','Veículos terrestres'], equipment:['Insígnia','Troféu de guerra','Roupas comuns','10 po'], feature:'Patente Militar', note:'Bom para personagens marciais.'}
+    };
+
+    function normalizeBackgroundName(value){
+      value = String(value || '').trim();
+      if(!value) return '';
+      const plain = value.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+      const aliases = {
+        'acolito':'Acólito','artesao de guilda':'Artesão de Guilda','artista':'Artista','charlatao':'Charlatão','criminoso':'Criminoso','eremita':'Eremita','forasteiro':'Forasteiro',
+        'heroi do povo':'Herói do Povo','marinheiro':'Marinheiro','nobre':'Nobre','orfao':'Órfão','sabio':'Sábio','soldado':'Soldado'
+      };
+      return aliases[plain] || Object.keys(BACKGROUND_RULES).find(k => k.toLowerCase() === value.toLowerCase()) || value;
+    }
+
+    function applyBackgroundProgression(c){
+      if(!c) return;
+      c.meta = c.meta || {};
+      c.meta.antecedente = normalizeBackgroundName(c.meta.antecedente || '');
+      const bg = c.meta.antecedente || '';
+      const rule = BACKGROUND_RULES[bg];
+      c.antecedenteInfo = c.antecedenteInfo || {};
+      c.antecedenteInfo.nome = bg;
+      if(!rule) return;
+      c.antecedenteInfo.pericias = [...(rule.skills || [])];
+      c.antecedenteInfo.idiomas = [...(rule.languages || [])];
+      c.antecedenteInfo.ferramentas = [...(rule.tools || [])];
+      c.antecedenteInfo.equipamentos = [...(rule.equipment || [])];
+      c.antecedenteInfo.caracteristica = rule.feature || '';
+      c.antecedenteInfo.observacao = rule.note || '';
+      c.pericias = c.pericias || blankSkills();
+      (rule.skills || []).forEach(k=>{
+        c.pericias[k] = c.pericias[k] || {proficiente:false};
+        c.pericias[k].proficiente = true;
+      });
+    }
+
+    function renderBackgroundProgress(){
+      const c = activeChar();
+      const box = $('#backgroundProgressSummary');
+      const badge = $('#backgroundAutoBadge');
+      if(!box || !badge || !c) return;
+      applyBackgroundProgression(c);
+      const bg = c.meta.antecedente || '';
+      const rule = BACKGROUND_RULES[bg];
+      if(!rule){
+        badge.textContent = 'Antecedente não definido';
+        box.innerHTML = '<div class="class-empty">Escolha um antecedente para aplicar perícias, idiomas, ferramentas, equipamento inicial e característica narrativa.</div>';
+        return;
+      }
+      badge.textContent = bg;
+      const skillLabels = (rule.skills || []).map(k=>raceSkillLabel(k));
+      const makePills = arr => (arr||[]).map(x=>`<span class="compact-pill">${escapeHtml(x)}</span>`).join('') || '<span class="compact-pill">-</span>';
+      box.innerHTML = `
+        <div class="compact-stat-grid">
+          <div class="compact-stat"><span>Perícias</span><b>${escapeHtml(skillLabels.join(', ') || '-')}</b></div>
+          <div class="compact-stat"><span>Idiomas</span><b>${escapeHtml(String((rule.languages || []).length || 0))}</b></div>
+          <div class="compact-stat"><span>Ferramentas</span><b>${escapeHtml(String((rule.tools || []).length || 0))}</b></div>
+          <div class="compact-stat"><span>Característica</span><b>${escapeHtml(rule.feature || '-')}</b></div>
+        </div>
+        <div><div class="compact-label">Idiomas</div><div class="compact-inline-list">${makePills(rule.languages)}</div></div>
+        <div><div class="compact-label">Ferramentas / Kits</div><div class="compact-inline-list">${makePills(rule.tools)}</div></div>
+        <details class="compact-details"><summary>Ver equipamentos e observações</summary>
+          <div><div class="compact-label">Equipamento inicial</div><div class="compact-inline-list">${makePills(rule.equipment)}</div></div>
+          ${rule.note ? `<div class="compact-note" style="margin-top:8px">${escapeHtml(rule.note)}</div>` : ''}
+        </details>
+      `;
+    }
 
     function normalizeRaceName(value){
       const raw = String(value || '').trim();
@@ -1561,23 +1724,21 @@
         return;
       }
       badge.textContent = race;
-      const languages = (rule.languages || []).map(x=>`<span class="race-trait-pill">${escapeHtml(x)}</span>`).join('') || '<span class="race-trait-pill warn">Sem idiomas listados</span>';
-      const resist = (rule.resistances || []).map(x=>`<span class="race-trait-pill">${escapeHtml(x)}</span>`).join('') || '<span class="race-trait-pill warn">Sem resistência racial</span>';
-      const profs = (rule.proficiencies || []).map(x=>`<span class="race-trait-pill">${escapeHtml(x)}</span>`).join('') || '<span class="race-trait-pill warn">Sem proficiência racial fixa</span>';
-      const traits = (rule.traits || []).map(x=>`<span class="race-trait-pill">${escapeHtml(x)}</span>`).join('') || '<span class="race-trait-pill warn">Sem traços listados</span>';
+      const makePills = arr => (arr||[]).map(x=>`<span class="compact-pill">${escapeHtml(x)}</span>`).join('') || '<span class="compact-pill">-</span>';
       const skillsAuto = (rule.skills || []).map(k=>raceSkillLabel(k)).join(', ') || '-';
       box.innerHTML = `
-        <div class="class-progress-grid">
-          <div class="class-stat"><span>Tamanho</span><b>${escapeHtml(rule.size || '-')}</b></div>
-          <div class="class-stat"><span>Deslocamento</span><b>${escapeHtml(rule.speed || '-')}</b></div>
-          <div class="class-stat"><span>Visão no escuro</span><b>${escapeHtml(rule.darkvision || '-')}</b></div>
-          <div class="class-stat"><span>Perícias automáticas</span><b>${escapeHtml(skillsAuto)}</b></div>
+        <div class="compact-stat-grid">
+          <div class="compact-stat"><span>Tamanho</span><b>${escapeHtml(rule.size || '-')}</b></div>
+          <div class="compact-stat"><span>Desloc.</span><b>${escapeHtml(rule.speed || '-')}</b></div>
+          <div class="compact-stat"><span>Visão escuro</span><b>${escapeHtml(rule.darkvision || '-')}</b></div>
+          <div class="compact-stat"><span>Perícias auto</span><b>${escapeHtml(skillsAuto)}</b></div>
         </div>
-        <div class="race-feature-box"><span>Idiomas</span><div class="race-lang-list">${languages}</div></div>
-        <div class="race-feature-box"><span>Resistências</span><div class="race-res-list">${resist}</div></div>
-        <div class="race-feature-box"><span>Proficiências raciais</span><div class="race-trait-list">${profs}</div></div>
-        <div class="race-feature-box"><span>Traços raciais</span><div class="race-trait-list">${traits}</div></div>
-        ${rule.note ? `<div class="race-feature-box"><span>Observação</span><div class="sheet-note">${escapeHtml(rule.note)}</div></div>` : ''}
+        <div><div class="compact-label">Idiomas e resistências</div><div class="compact-inline-list">${makePills(rule.languages)}${makePills(rule.resistances)}</div></div>
+        <details class="compact-details"><summary>Ver proficiências e traços raciais</summary>
+          <div><div class="compact-label">Proficiências raciais</div><div class="compact-inline-list">${makePills(rule.proficiencies)}</div></div>
+          <div style="margin-top:8px"><div class="compact-label">Traços raciais</div><div class="compact-inline-list">${makePills(rule.traits)}</div></div>
+          ${rule.note ? `<div class="compact-note" style="margin-top:8px">${escapeHtml(rule.note)}</div>` : ''}
+        </details>
       `;
     }
 
@@ -2197,6 +2358,259 @@
       }
     }
 
+
+    const WEAPON_PRESETS = {
+      'Ataque desarmado': {ability:'forca', damage:'1', type:'concussão', proficient:true, range:'corpo a corpo'},
+      'Adaga': {ability:'destreza', damage:'1d4', type:'perfurante', proficient:true, range:'6/18m'},
+      'Espada curta': {ability:'destreza', damage:'1d6', type:'perfurante', proficient:true, range:'corpo a corpo'},
+      'Espada longa': {ability:'forca', damage:'1d8', type:'cortante', proficient:true, range:'corpo a corpo'},
+      'Arco curto': {ability:'destreza', damage:'1d6', type:'perfurante', proficient:true, range:'24/96m'},
+      'Arco longo': {ability:'destreza', damage:'1d8', type:'perfurante', proficient:true, range:'45/180m'},
+      'Besta leve': {ability:'destreza', damage:'1d8', type:'perfurante', proficient:true, range:'24/96m'},
+      'Bordão': {ability:'forca', damage:'1d6', type:'concussão', proficient:true, range:'corpo a corpo'}
+    };
+
+    function ensureCombatInventoryData(c){
+      if(!c) return;
+      c.combate = c.combate || {};
+      c.combate.ataques = Array.isArray(c.combate.ataques) ? c.combate.ataques : [];
+      c.equipamento = c.equipamento || {};
+      c.equipamento.moedas = c.equipamento.moedas || {};
+      c.equipamento.itens = Array.isArray(c.equipamento.itens) ? c.equipamento.itens : [];
+      c.rolagens = Array.isArray(c.rolagens) ? c.rolagens : [];
+    }
+
+    function attackBonus(c, atk){
+      const ability = atk.ability || atk.atributo || 'forca';
+      return getMod(c, ability) + (atk.proficient === false ? 0 : profBonus(c));
+    }
+
+    function attackDamageText(c, atk){
+      const ability = atk.ability || atk.atributo || 'forca';
+      const mod = getMod(c, ability);
+      const base = atk.damage || atk.dano || '1';
+      const type = atk.type || atk.tipo || '';
+      return base + (mod ? ' ' + fmt(mod) : '') + (type ? ' ' + type : '');
+    }
+
+    function parseDiceFormula(formula){
+      const text = String(formula || '').trim().toLowerCase();
+      const m = text.match(/(\d*)d(\d+)(?:\s*([+-])\s*(\d+))?/);
+      if(!m) return {count:0, sides:0, mod:num(text)||0};
+      return {count:num(m[1] || 1), sides:num(m[2]), mod:(m[3]==='-'?-1:1)*num(m[4]||0)};
+    }
+
+    function rollDiceFormula(formula, extraMod=0){
+      const d = parseDiceFormula(formula);
+      const rolls = [];
+      let total = d.mod + extraMod;
+      if(d.count && d.sides){
+        for(let i=0;i<d.count;i++){
+          const r = Math.floor(Math.random()*d.sides)+1;
+          rolls.push(r);
+          total += r;
+        }
+      }
+      return {total, rolls, mod:d.mod + extraMod};
+    }
+
+    function pushRollLog(c, text){
+      ensureCombatInventoryData(c);
+      c.rolagens.unshift({time:now(), text});
+      c.rolagens = c.rolagens.slice(0,20);
+    }
+
+    function addAttackFromFields(){
+      const c = activeChar(); if(!c) return;
+      ensureCombatInventoryData(c);
+      const name = $('#weaponName').value.trim();
+      if(!name){ notify('Informe o nome da arma/ataque.'); return; }
+      const preset = WEAPON_PRESETS[name] || {};
+      const atk = {
+        id:'atk_'+Math.random().toString(36).slice(2,9),
+        name,
+        ability: $('#weaponAbility').value || preset.ability || 'forca',
+        damage: $('#weaponDamage').value.trim() || preset.damage || '1',
+        type: $('#weaponType').value.trim() || preset.type || '',
+        proficient:true,
+        range:preset.range || ''
+      };
+      c.combate.ataques.push(atk);
+      $('#weaponName').value = '';
+      $('#weaponDamage').value = '';
+      $('#weaponType').value = '';
+      saveLocal(false);
+      renderForm();
+      notify('Ataque adicionado.');
+    }
+
+    function rollAttack(id, kind){
+      const c = activeChar(); if(!c) return;
+      ensureCombatInventoryData(c);
+      const atk = c.combate.ataques.find(a=>a.id===id);
+      if(!atk) return;
+      if(kind === 'hit'){
+        const d20 = Math.floor(Math.random()*20)+1;
+        const bonus = attackBonus(c, atk);
+        const total = d20 + bonus;
+        pushRollLog(c, `${atk.name}: ataque d20 ${d20} ${fmt(bonus)} = ${total}`);
+      }else{
+        const ability = atk.ability || 'forca';
+        const mod = getMod(c, ability);
+        const rolled = rollDiceFormula(atk.damage || '1', mod);
+        pushRollLog(c, `${atk.name}: dano ${atk.damage}${fmt(mod)} = ${rolled.total} (${rolled.rolls.join(', ') || 'fixo'})`);
+      }
+      saveLocal(false);
+      renderAttacks();
+      renderRollLog();
+    }
+
+    function removeAttack(id){
+      const c = activeChar(); if(!c) return;
+      ensureCombatInventoryData(c);
+      c.combate.ataques = c.combate.ataques.filter(a=>a.id!==id);
+      saveLocal(false);
+      renderForm();
+    }
+
+    function renderWeaponSelects(){
+      const sel = $('#weaponAbility');
+      if(sel && !sel.children.length){
+        abilities.forEach(([id,label])=>{
+          const opt=document.createElement('option');
+          opt.value=id; opt.textContent=label;
+          sel.appendChild(opt);
+        });
+      }
+    }
+
+    function renderAttacks(){
+      const c=activeChar(); if(!c) return;
+      ensureCombatInventoryData(c);
+      renderWeaponSelects();
+      const body = $('#attacksBody'); if(!body) return;
+      if(!c.combate.ataques.length){
+        body.innerHTML = '<tr><td colspan="6">Nenhum ataque cadastrado.</td></tr>';
+        return;
+      }
+      body.innerHTML = c.combate.ataques.map(a=>{
+        const abilityLabel = (abilities.find(([id])=>id===(a.ability||a.atributo))||[])[1] || a.ability || '-';
+        const bonus = attackBonus(c,a);
+        const dmg = attackDamageText(c,a);
+        return `<tr>
+          <td><b>${escapeHtml(a.name || a.nome || '-')}</b><br><span class="attack-auto-chip">${escapeHtml(a.range || '')}</span></td>
+          <td>${escapeHtml(abilityLabel)}</td>
+          <td>${a.proficient === false ? 'Não' : 'Sim'}</td>
+          <td><b>${fmt(bonus)}</b></td>
+          <td>${escapeHtml(dmg)}</td>
+          <td><div class="attack-actions">
+            <button class="btn small secondary" data-roll-attack="${escapeHtml(a.id)}">Rolar ataque</button>
+            <button class="btn small green" data-roll-damage="${escapeHtml(a.id)}">Rolar dano</button>
+            <button class="btn small danger" data-remove-attack="${escapeHtml(a.id)}">Remover</button>
+          </div></td>
+        </tr>`;
+      }).join('');
+    }
+
+    function renderRollLog(){
+      const c=activeChar(); if(!c) return;
+      ensureCombatInventoryData(c);
+      const box = $('#rollLog'); if(!box) return;
+      box.innerHTML = c.rolagens.length ? c.rolagens.map(r=>`<div class="roll-item">${escapeHtml(r.text)}<br><small>${escapeHtml(r.time || '')}</small></div>`).join('') : '<div class="roll-item">Rolagens aparecerão aqui.</div>';
+    }
+
+    function applyShortRest(){
+      const c=activeChar(); if(!c) return;
+      ensureCombatInventoryData(c);
+      const available = Math.max(0, num(c.vida.dadoVidaTotal||0)-num(c.vida.dadoVidaUsado||0));
+      const diceToUse = clamp(num($('#shortRestDice').value),0,available);
+      const die = String(c.vida.dadoVida || 'd8').replace(/^d/,'');
+      const con = getMod(c,'constituicao');
+      let healed = 0;
+      for(let i=0;i<diceToUse;i++) healed += Math.floor(Math.random()*num(die||8))+1 + con;
+      healed = Math.max(0, healed);
+      c.vida.atuais = clamp(num(c.vida.atuais)+healed,0,num(c.vida.maximos)||9999);
+      c.vida.dadoVidaUsado = num(c.vida.dadoVidaUsado) + diceToUse;
+      pushRollLog(c, `Descanso curto: gastou ${diceToUse} dado(s), recuperou ${healed} PV.`);
+      saveLocal(false);
+      renderForm();
+      notify('Descanso curto aplicado.');
+    }
+
+    function applyLongRest(){
+      const c=activeChar(); if(!c) return;
+      ensureCombatInventoryData(c);
+      c.vida.atuais = num(c.vida.maximos);
+      c.vida.temporarios = 0;
+      const totalDice = Math.max(1, num(c.vida.dadoVidaTotal) || getCharacterLevel(c));
+      const recoverDice = Math.max(1, Math.floor(totalDice/2));
+      c.vida.dadoVidaTotal = totalDice;
+      c.vida.dadoVidaUsado = Math.max(0, num(c.vida.dadoVidaUsado) - recoverDice);
+      if(c.magia && c.magia.niveis){
+        for(let i=1;i<=9;i++) if(c.magia.niveis[i]) c.magia.niveis[i].espacosUsados = 0;
+      }
+      c.condicoes = [];
+      pushRollLog(c, `Descanso longo: PV restaurado, espaços de magia recuperados e ${recoverDice} dado(s) de vida recuperado(s).`);
+      saveLocal(false);
+      renderForm();
+      notify('Descanso longo aplicado.');
+    }
+
+    function addInventoryItem(){
+      const c=activeChar(); if(!c) return;
+      ensureCombatInventoryData(c);
+      const name = $('#itemName').value.trim();
+      if(!name){ notify('Informe o nome do item.'); return; }
+      c.equipamento.itens.push({
+        id:'item_'+Math.random().toString(36).slice(2,9),
+        nome:name,
+        qtd:Math.max(1,num($('#itemQty').value)||1),
+        peso:Math.max(0,num($('#itemWeight').value)||0),
+        categoria:$('#itemCategory').value.trim()
+      });
+      $('#itemName').value=''; $('#itemQty').value='1'; $('#itemWeight').value='0'; $('#itemCategory').value='';
+      saveLocal(false);
+      renderForm();
+      notify('Item adicionado.');
+    }
+
+    function removeInventoryItem(id){
+      const c=activeChar(); if(!c) return;
+      ensureCombatInventoryData(c);
+      c.equipamento.itens = c.equipamento.itens.filter(i=>i.id!==id);
+      saveLocal(false);
+      renderForm();
+    }
+
+    function inventoryWeight(c){
+      ensureCombatInventoryData(c);
+      return c.equipamento.itens.reduce((sum,i)=>sum + (num(i.qtd)||1)*(num(i.peso)||0),0);
+    }
+
+    function carryCapacity(c){
+      return Math.max(0, num(getByPath(c,'atributos.forca.valor')) * 7.5);
+    }
+
+    function renderInventory(){
+      const c=activeChar(); if(!c) return;
+      ensureCombatInventoryData(c);
+      const total = inventoryWeight(c);
+      const cap = carryCapacity(c);
+      const status = total > cap ? 'Sobrecarregado' : (total > cap*0.75 ? 'Pesado' : 'Livre');
+      const wEl=$('#inventoryWeight'); if(wEl) wEl.textContent = total.toFixed(1).replace('.0','') + ' kg';
+      const cEl=$('#carryCapacity'); if(cEl) cEl.textContent = cap.toFixed(1).replace('.0','') + ' kg';
+      const sEl=$('#carryStatus'); if(sEl) sEl.textContent = status;
+      const list=$('#inventoryList'); if(!list) return;
+      list.innerHTML = c.equipamento.itens.length ? c.equipamento.itens.map(i=>`
+        <div class="item-pill">
+          <b>${escapeHtml(i.nome)}</b>
+          <span>${num(i.qtd)||1}x</span>
+          <span>${((num(i.qtd)||1)*(num(i.peso)||0)).toFixed(1).replace('.0','')} kg</span>
+          <button class="btn small danger" data-remove-item="${escapeHtml(i.id)}">Remover</button>
+        </div>
+      `).join('') : '<div class="roll-item">Nenhum item cadastrado.</div>';
+    }
+
     function renderForm(){
       const c=activeChar();
       if(!c) return;
@@ -2210,6 +2624,7 @@
       });
       renderClassProgress();
       renderRaceProgress();
+      renderBackgroundProgress();
       renderDashboard();
       renderCalcs();
       renderImages();
@@ -2590,6 +3005,15 @@
         }
       });
       document.addEventListener('click', e=>{
+        const rollAtk = e.target.closest('[data-roll-attack]');
+        if(rollAtk){ rollAttack(rollAtk.dataset.rollAttack,'hit'); return; }
+        const rollDmg = e.target.closest('[data-roll-damage]');
+        if(rollDmg){ rollAttack(rollDmg.dataset.rollDamage,'damage'); return; }
+        const remAtk = e.target.closest('[data-remove-attack]');
+        if(remAtk){ removeAttack(remAtk.dataset.removeAttack); return; }
+        const remItem = e.target.closest('[data-remove-item]');
+        if(remItem){ removeInventoryItem(remItem.dataset.removeItem); return; }
+
         const menuCard=e.target.closest('[data-menu-id]');
         if(menuCard){ setActive(menuCard.dataset.menuId); openPassword(menuCard.dataset.menuId); return; }
         const attr=e.target.closest('[data-attr-step]');

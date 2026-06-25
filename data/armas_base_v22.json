@@ -1,0 +1,38 @@
+{
+  "Ataque desarmado": {
+    "ability": "forca",
+    "damage": "1",
+    "type": "concussão",
+    "range": "corpo a corpo"
+  },
+  "Adaga": {
+    "ability": "destreza",
+    "damage": "1d4",
+    "type": "perfurante",
+    "range": "6/18m"
+  },
+  "Espada curta": {
+    "ability": "destreza",
+    "damage": "1d6",
+    "type": "perfurante",
+    "range": "corpo a corpo"
+  },
+  "Espada longa": {
+    "ability": "forca",
+    "damage": "1d8",
+    "type": "cortante",
+    "range": "corpo a corpo"
+  },
+  "Arco curto": {
+    "ability": "destreza",
+    "damage": "1d6",
+    "type": "perfurante",
+    "range": "24/96m"
+  },
+  "Arco longo": {
+    "ability": "destreza",
+    "damage": "1d8",
+    "type": "perfurante",
+    "range": "45/180m"
+  }
+}

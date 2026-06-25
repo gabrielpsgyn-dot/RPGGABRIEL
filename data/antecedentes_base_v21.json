@@ -1,0 +1,236 @@
+{
+  "Acólito": {
+    "skills": [
+      "intuicao",
+      "religiao"
+    ],
+    "languages": [
+      "Dois idiomas à escolha"
+    ],
+    "tools": [],
+    "equipment": [
+      "Símbolo sagrado",
+      "Livro de preces",
+      "5 varetas de incenso",
+      "Vestes",
+      "15 po"
+    ],
+    "feature": "Abrigo dos Fiéis"
+  },
+  "Artesão de Guilda": {
+    "skills": [
+      "intuicao",
+      "persuasao"
+    ],
+    "languages": [],
+    "tools": [
+      "Ferramentas de artesão"
+    ],
+    "equipment": [
+      "Ferramentas de artesão",
+      "Carta da guilda",
+      "Roupas de viagem",
+      "15 po"
+    ],
+    "feature": "Membro de Guilda"
+  },
+  "Artista": {
+    "skills": [
+      "acrobacia",
+      "performance"
+    ],
+    "languages": [],
+    "tools": [
+      "Kit de disfarce",
+      "Um instrumento musical"
+    ],
+    "equipment": [
+      "Instrumento musical",
+      "Cartas de fã",
+      "Fantasia",
+      "15 po"
+    ],
+    "feature": "A Pedido Popular"
+  },
+  "Charlatão": {
+    "skills": [
+      "enganacao",
+      "prestidigitacao"
+    ],
+    "languages": [],
+    "tools": [
+      "Kit de disfarce",
+      "Kit de falsificação"
+    ],
+    "equipment": [
+      "Roupas finas",
+      "Kit de disfarce",
+      "Ferramentas de trapaça",
+      "15 po"
+    ],
+    "feature": "Identidade Falsa"
+  },
+  "Criminoso": {
+    "skills": [
+      "enganacao",
+      "furtividade"
+    ],
+    "languages": [],
+    "tools": [
+      "Jogo de azar",
+      "Ferramentas de ladrão"
+    ],
+    "equipment": [
+      "Pé-de-cabra",
+      "Roupas escuras",
+      "15 po"
+    ],
+    "feature": "Contato Criminoso"
+  },
+  "Eremita": {
+    "skills": [
+      "medicina",
+      "religiao"
+    ],
+    "languages": [
+      "Um idioma à escolha"
+    ],
+    "tools": [
+      "Kit de herbalismo"
+    ],
+    "equipment": [
+      "Pergaminho",
+      "Cobertor",
+      "Kit de herbalismo",
+      "5 po"
+    ],
+    "feature": "Descoberta"
+  },
+  "Forasteiro": {
+    "skills": [
+      "atletismo",
+      "sobrevivencia"
+    ],
+    "languages": [
+      "Um idioma à escolha"
+    ],
+    "tools": [
+      "Um instrumento musical"
+    ],
+    "equipment": [
+      "Bastão",
+      "Armadilha de caça",
+      "Troféu",
+      "10 po"
+    ],
+    "feature": "Andarilho"
+  },
+  "Herói do Povo": {
+    "skills": [
+      "adestrarAnimais",
+      "sobrevivencia"
+    ],
+    "languages": [],
+    "tools": [
+      "Ferramentas de artesão",
+      "Veículos terrestres"
+    ],
+    "equipment": [
+      "Pá",
+      "Panela",
+      "Roupas comuns",
+      "10 po"
+    ],
+    "feature": "Hospitalidade Rural"
+  },
+  "Marinheiro": {
+    "skills": [
+      "atletismo",
+      "percepcao"
+    ],
+    "languages": [],
+    "tools": [
+      "Ferramentas de navegador",
+      "Veículos aquáticos"
+    ],
+    "equipment": [
+      "Corda",
+      "Amuleto da sorte",
+      "Roupas comuns",
+      "10 po"
+    ],
+    "feature": "Passagem de Navio"
+  },
+  "Nobre": {
+    "skills": [
+      "historia",
+      "persuasao"
+    ],
+    "languages": [
+      "Um idioma à escolha"
+    ],
+    "tools": [
+      "Jogo de azar"
+    ],
+    "equipment": [
+      "Roupas finas",
+      "Anel de sinete",
+      "Pergaminho de linhagem",
+      "25 po"
+    ],
+    "feature": "Posição de Privilégio"
+  },
+  "Órfão": {
+    "skills": [
+      "furtividade",
+      "prestidigitacao"
+    ],
+    "languages": [],
+    "tools": [
+      "Kit de disfarce",
+      "Ferramentas de ladrão"
+    ],
+    "equipment": [
+      "Faca pequena",
+      "Mapa da cidade",
+      "Rato de estimação",
+      "10 po"
+    ],
+    "feature": "Segredos da Cidade"
+  },
+  "Sábio": {
+    "skills": [
+      "arcana",
+      "historia"
+    ],
+    "languages": [
+      "Dois idiomas à escolha"
+    ],
+    "tools": [],
+    "equipment": [
+      "Tinta",
+      "Pena",
+      "Livro",
+      "10 po"
+    ],
+    "feature": "Pesquisador"
+  },
+  "Soldado": {
+    "skills": [
+      "atletismo",
+      "intimidacao"
+    ],
+    "languages": [],
+    "tools": [
+      "Jogo de azar",
+      "Veículos terrestres"
+    ],
+    "equipment": [
+      "Insígnia",
+      "Troféu de guerra",
+      "Roupas comuns",
+      "10 po"
+    ],
+    "feature": "Patente Militar"
+  }
+}
