@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPG Gabriel - Ficha Online V27.2</title>
+  <title>RPG Gabriel - Ficha Online V30</title>
   <style>
     :root{
       --bg:#090b10;
@@ -1021,9 +1021,273 @@ table{
   }
 }
 
+
+/* V28 - Progressão de classe compacta e tela de ficha otimizada */
+.class-progress-panel{
+  padding:10px 12px !important;
+  margin:8px 0 10px !important;
+}
+.class-progress-top{
+  grid-template-columns:minmax(0,1fr) auto !important;
+  align-items:center !important;
+}
+.class-progress-top h3{
+  font-size:15px !important;
+  margin:0 !important;
+}
+.class-progress-top .sheet-note{
+  text-align:left !important;
+  margin:2px 0 0 !important;
+  font-size:11px !important;
+}
+.class-progress-summary.compact-class-summary{
+  display:grid;
+  gap:8px;
+  margin-top:8px;
+}
+.class-current-strip{
+  display:grid;
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:6px;
+}
+.class-mini-stat{
+  border:1px solid rgba(36,27,20,.20);
+  background:rgba(255,250,240,.62);
+  border-radius:10px;
+  padding:7px 8px;
+  min-width:0;
+}
+.class-mini-stat span{
+  display:block;
+  font-size:9px;
+  line-height:1.1;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  color:#735d42;
+  font-weight:950;
+  margin-bottom:3px;
+}
+.class-mini-stat b{
+  display:block;
+  font-size:13px;
+  line-height:1.15;
+  color:#2d2115;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.class-now-box{
+  border:1px solid rgba(36,27,20,.22);
+  background:rgba(255,250,240,.60);
+  border-radius:10px;
+  padding:8px;
+  display:grid;
+  gap:6px;
+}
+.class-now-title{
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.07em;
+  color:#735d42;
+  font-weight:950;
+}
+.class-feature-list.compact{
+  max-height:96px;
+  overflow:auto;
+  padding-right:3px;
+}
+.class-details{
+  border:1px dashed rgba(36,27,20,.28);
+  border-radius:10px;
+  padding:8px;
+  background:rgba(255,250,240,.38);
+}
+.class-details summary{
+  cursor:pointer;
+  font-weight:950;
+  color:#3d2b19;
+}
+.class-details-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:8px;
+}
+.sheet .panel{
+  margin-bottom:7px !important;
+}
+.sheet .panel h3{
+  font-size:15px;
+  padding-bottom:5px;
+  margin-bottom:6px;
+}
+.rule-engine-box,.calc-note{
+  padding:6px 8px !important;
+  margin-bottom:6px !important;
+}
+textarea.tall{min-height:120px}
+textarea.huge{min-height:200px}
+.spell-slots-used-grid{
+  grid-template-columns:repeat(auto-fit,minmax(76px,1fr)) !important;
+}
+.spell-slot-used-card{
+  padding:6px !important;
+}
+@media(max-width:900px){
+  .class-current-strip{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  .class-details-grid{
+    grid-template-columns:1fr;
+  }
+  .class-feature-list.compact{
+    max-height:130px;
+  }
+}
+
+
+/* V29 - Ficha do jogador limpa: sem campos vazios e sem duplicação */
+.clean-summary-list{
+  display:grid;
+  gap:8px;
+}
+.clean-row{
+  border:1px solid rgba(36,27,20,.20);
+  border-radius:12px;
+  background:rgba(255,250,240,.55);
+  padding:8px 10px;
+}
+.clean-row b{
+  display:block;
+  color:#2d2115;
+  margin-bottom:4px;
+}
+.clean-row small{
+  display:block;
+  color:#735d42;
+  line-height:1.35;
+  overflow-wrap:anywhere;
+}
+.clean-edit-details{
+  border:1px dashed rgba(36,27,20,.25);
+  border-radius:12px;
+  padding:8px 10px;
+  background:rgba(255,250,240,.35);
+  margin-top:8px;
+}
+.clean-edit-details summary{
+  cursor:pointer;
+  font-weight:950;
+  color:#3d2b19;
+}
+.clean-edit-details[open] summary{
+  margin-bottom:8px;
+}
+.clean-empty{
+  border:1px dashed rgba(36,27,20,.25);
+  border-radius:12px;
+  padding:10px;
+  background:rgba(255,250,240,.42);
+  color:#735d42;
+  font-weight:800;
+  line-height:1.35;
+}
+.clean-master-panel{
+  opacity:.92;
+}
+#featsPanel .feat-builder{
+  margin-top:8px;
+}
+#inventoryPanel textarea{
+  min-height:170px;
+}
+#inventoryPanel .inventory-summary{
+  margin-top:8px;
+}
+#inventoryPanel .item-list{
+  margin-top:8px;
+}
+@media(max-width:900px){
+  .clean-master-panel{
+    font-size:13px;
+  }
+}
+
+
+/* V30 - Ficha por objetos, sem texto solto como dado principal */
+.object-builder{
+  display:grid;
+  grid-template-columns:1.2fr .45fr .55fr .9fr .9fr auto;
+  gap:8px;
+  align-items:end;
+  margin:8px 0;
+}
+.object-builder .object-wide{
+  grid-column:1 / -2;
+}
+.object-card{
+  border:1px solid rgba(36,27,20,.22);
+  border-radius:13px;
+  background:rgba(255,250,240,.55);
+  padding:9px 10px;
+  display:grid;
+  gap:6px;
+}
+.object-card-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+}
+.object-card-title{
+  font-weight:950;
+  color:#2d2115;
+}
+.object-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+}
+.object-pill{
+  display:inline-flex;
+  border:1px solid rgba(36,27,20,.22);
+  background:#f2dfbb;
+  border-radius:999px;
+  padding:4px 8px;
+  color:#3d2b19;
+  font-size:11px;
+  font-weight:900;
+}
+.object-desc{
+  color:#735d42;
+  font-size:12px;
+  line-height:1.35;
+  overflow-wrap:anywhere;
+}
+.proficiency-object-grid{
+  display:grid;
+  gap:7px;
+}
+@media(max-width:900px){
+  .object-builder{
+    grid-template-columns:1fr 1fr;
+  }
+  .object-builder .object-wide{
+    grid-column:1/-1;
+  }
+  .object-builder button{
+    grid-column:1/-1;
+    width:100%;
+  }
+  .object-card-top{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+}
+
 </style>
 </head>
-<!-- RPGGABRIEL V27.2 MOBILE SEM CORTE -->
+<!-- RPGGABRIEL V30 FICHA POR OBJETOS -->
 <body class="menu-open">
   <section class="menu-screen" id="menuScreen">
     <div class="menu-shell">
@@ -1197,7 +1461,7 @@ table{
           <div class="class-progress-top">
             <div>
               <h3>Progressão da classe</h3>
-              <p class="sheet-note">Aplicado automaticamente pela classe e nível: dado de vida, salvaguardas, conjuração, espaços e habilidades informativas.</p>
+              <p class="sheet-note">Resumo compacto da classe. Detalhes ficam recolhidos para não ocupar a ficha inteira.</p>
             </div>
             <span class="class-badge" id="classAutoBadge">Classe não definida</span>
           </div>
@@ -1252,14 +1516,17 @@ table{
               </div>
               <div id="backgroundProgressSummary" class="compact-progress-summary"></div>
             </div>
-            <div class="panel rules-audit-panel" id="rulesAuditPanel">
-              <h3>Conferência do livro / regras</h3>
-              <p class="sheet-note">Mostra se classe, raça e antecedente estão aplicados na ficha. Para ficar 100% igual ao seu livro, use o Livro de Regras para cadastrar/revisar a base completa.</p>
-              <div id="rulesAuditSummary" class="rules-audit-box"></div>
-              <div class="rules-audit-actions">
-                <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                <a class="btn small secondary" href="criador.html?v=27_2_2" target="_blank">Criador livre</a><a class="btn small primary" href="livro-regras.html?v=27_2_2" target="_blank">Livro de Regras</a>
-              </div>
+            <div class="panel rules-audit-panel clean-master-panel" id="rulesAuditPanel">
+              <details class="clean-edit-details">
+                <summary>Conferência do livro / mestre</summary>
+                <p class="sheet-note">Área de conferência do mestre. Não é preenchimento do jogador.</p>
+                <div id="rulesAuditSummary" class="rules-audit-box"></div>
+                <div class="rules-audit-actions">
+                  <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
+                  <a class="btn small secondary" href="criador.html?v=30" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=30" target="_blank">Livro de Regras</a>
+                </div>
+              </details>
             </div>
           </div>
 
@@ -1328,8 +1595,8 @@ table{
               <div class="roll-log" id="rollLog"></div>
             </div>
             <div class="panel" id="inventoryPanel">
-              <h3>Inventário único do personagem</h3>
-              <p class="calc-note">V26.1: inventário unificado. O texto antigo do personagem e os itens com peso ficam no mesmo bloco.</p>
+              <h3>Inventário por objetos</h3>
+              <p class="calc-note">V30: inventário não é texto solto. Cada item é um objeto com nome, quantidade, peso, categoria, origem e descrição.</p>
               <div class="coins">
                 <div class="coin"><label>PC</label><input data-path="equipamento.moedas.pc" type="number"></div>
                 <div class="coin"><label>PP</label><input data-path="equipamento.moedas.pp" type="number"></div>
@@ -1342,20 +1609,23 @@ table{
                 <div class="inv-stat"><span>Capacidade</span><b id="carryCapacity">0 kg</b></div>
                 <div class="inv-stat"><span>Situação</span><b id="carryStatus">Livre</b></div>
               </div>
-              <div class="item-row">
-                <div class="field"><label>Item</label><input id="itemName" placeholder="Ex.: corda, poção..."></div>
+              <div class="object-builder item-object-builder">
+                <div class="field"><label>Nome do item</label><input id="itemName" placeholder="Ex.: Corda de cânhamo"></div>
                 <div class="field"><label>Qtd.</label><input id="itemQty" type="number" value="1" min="1"></div>
                 <div class="field"><label>Peso kg</label><input id="itemWeight" type="number" value="0" min="0" step="0.1"></div>
                 <div class="field"><label>Categoria</label><input id="itemCategory" placeholder="arma, kit, tesouro..."></div>
-                <button class="btn small primary" id="addItemBtn" type="button">Adicionar</button>
+                <div class="field"><label>Origem</label><input id="itemOrigin" placeholder="classe, raça, antecedente, compra..."></div>
+                <div class="field object-wide"><label>Descrição</label><input id="itemDesc" placeholder="Observação do item"></div>
+                <button class="btn small primary" id="addItemBtn" type="button">Adicionar objeto</button>
+              </div>
+              <div class="inventory-actions">
+                <button class="btn small secondary" id="convertLegacyInventoryBtn" type="button">Converter texto antigo em objetos</button>
               </div>
               <div class="item-list" id="inventoryList"></div>
-              <label class="label">Inventário antigo / descrição livre do personagem</label>
-              <textarea data-path="equipamento.texto" id="inventoryText" class="tall" placeholder="Tudo que já estava no inventário do personagem continua aqui."></textarea>
-              <div class="inventory-actions">
-                <button class="btn small secondary" id="syncTextInventoryBtn" type="button">Importar linhas deste texto para itens</button>
-                <button class="btn small secondary" id="appendItemsToTextBtn" type="button">Atualizar texto com itens cadastrados</button>
-              </div>
+              <details class="clean-edit-details">
+                <summary>Legado técnico: texto antigo preservado</summary>
+                <textarea data-path="equipamento.texto" id="inventoryText" class="tall" placeholder="Texto antigo preservado apenas para migração."></textarea>
+              </details>
             </div>
           </div>
 
@@ -1376,20 +1646,34 @@ table{
               </div>
               <div class="status-line" id="passiveCalc">Calculado: -</div>
             </div>
-            <div class="panel">
+            <div class="panel clean-summary-panel" id="proficiencySummaryPanel">
               <h3>Proficiências e idiomas</h3>
-              <textarea data-path="proficiencias.outras" class="tall"></textarea>
+              <p class="calc-note">V30: proficiências também são objetos. A ficha mostra origem, tipo e nome.</p>
+              <div id="proficiencySummary" class="clean-summary-list"></div>
+              <details class="clean-edit-details">
+                <summary>Adicionar proficiência manual como objeto</summary>
+                <div class="object-builder prof-object-builder">
+                  <div class="field"><label>Tipo</label><select id="manualProfType"><option value="pericia">Perícia</option><option value="idioma">Idioma</option><option value="ferramenta">Ferramenta</option><option value="arma">Arma</option><option value="armadura">Armadura</option><option value="outro">Outro</option></select></div>
+                  <div class="field"><label>Nome</label><input id="manualProfName" placeholder="Ex.: Percepção"></div>
+                  <div class="field"><label>Origem</label><input id="manualProfOrigin" placeholder="Ex.: regra especial"></div>
+                  <button class="btn small primary" id="addManualProfBtn" type="button">Adicionar proficiência</button>
+                </div>
+                <textarea data-path="proficiencias.outras" class="tall" placeholder="Texto antigo preservado apenas para migração."></textarea>
+              </details>
             </div>
             <div class="panel" id="featsPanel">
               <h3>Talentos / Feitos</h3>
-              <p class="calc-note">V25: talentos cadastrados no sistema. Adicione talentos ao personagem e mantenha notas livres separadas.</p>
-              <div class="feat-builder">
-                <div class="field"><label>Escolher talento</label><select id="featSelect"></select></div>
-                <button class="btn small primary" id="addFeatBtn" type="button">Adicionar talento</button>
-              </div>
+              <p class="calc-note">Mostra apenas os talentos escolhidos no personagem. A base de talentos fica no Livro de Regras.</p>
               <div class="feat-list" id="featList"></div>
-              <label class="label">Características e notas livres</label>
-              <textarea data-path="caracteristicasTalentos.principais" class="huge"></textarea>
+              <details class="clean-edit-details">
+                <summary>Adicionar talento manual / notas</summary>
+                <div class="feat-builder">
+                  <div class="field"><label>Escolher talento</label><select id="featSelect"></select></div>
+                  <button class="btn small primary" id="addFeatBtn" type="button">Adicionar talento</button>
+                </div>
+                <label class="label">Características e notas livres</label>
+                <textarea data-path="caracteristicasTalentos.principais" class="huge" placeholder="Use apenas para anotações especiais."></textarea>
+              </details>
             </div>
           </div>
         </div>
@@ -1840,6 +2124,7 @@ table{
       applyRuleEngine(m);
       ensureCombatInventoryData(m);
       ensureFeatData(m);
+      ensureObjectSheetData(m);
       return m;
     }
     function activeChar(){ return state.characters.find(c=>c.id===state.activeId) || null; }
@@ -2574,28 +2859,49 @@ table{
       const cls = c.meta.classe || '';
       const level = getCharacterLevel(c);
       const rule = getAllClassRules()[cls];
+      box.classList.add('compact-class-summary');
       if(!rule){
         badge.textContent = 'Classe não definida';
         box.innerHTML = '<div class="class-empty">Escolha uma classe para aplicar dado de vida, salvaguardas, conjuração e progressão.</div>';
         return;
       }
-      badge.textContent = `${cls} nível ${level}`;
+      badge.textContent = `${cls} nv. ${level}`;
       const saves = (rule.saves || []).map(k => (abilities.find(([id])=>id===k) || [k,k])[1]).join(' e ');
       const primaries = (rule.primary || []).map(k => (abilities.find(([id])=>id===k) || [k,k])[1]).join(', ') || '-';
-      const spellAbility = rule.spellAbility ? (abilities.find(([id])=>id===rule.spellAbility) || [null,rule.spellAbility])[1] : 'Não conjurador';
+      const spellAbility = rule.spellAbility ? (abilities.find(([id])=>id===rule.spellAbility) || [null,rule.spellAbility])[1] : 'Não';
+      const castingLabel = rule.casting === 'full' ? 'Completa' : rule.casting === 'half' ? 'Meia' : rule.casting === 'pact' ? 'Pacto' : 'Não';
       const slots = getClassSpellSlots(cls, level);
-      const slotPills = slots.map((q,idx)=>q ? `<span class="class-slot-pill">${idx+1}º círculo: ${q}</span>` : '').filter(Boolean).join('') || '<span class="class-slot-pill empty">Sem espaços neste nível</span>';
-      const features = featuresForClassLevel(rule, level).map(f=>`<span class="class-feature-pill">Nv. ${f.level}: ${escapeHtml(f.name)}</span>`).join('') || '<span class="class-feature-pill">Sem habilidades listadas</span>';
+      const slotPills = slots.map((q,idx)=>q ? `<span class="class-slot-pill">${idx+1}º: ${q}</span>` : '').filter(Boolean).join('') || '<span class="class-slot-pill empty">Sem espaços</span>';
+
+      const allFeatures = featuresForClassLevel(rule, level);
+      const currentFeatures = allFeatures.filter(f=>f.level === level);
+      const previousFeatures = allFeatures.filter(f=>f.level < level);
+      const currentHtml = (currentFeatures.length ? currentFeatures : allFeatures.slice(-4))
+        .map(f=>`<span class="class-feature-pill">Nv. ${f.level}: ${escapeHtml(f.name)}</span>`).join('') || '<span class="class-feature-pill">Sem habilidade listada neste nível</span>';
+      const previousHtml = previousFeatures.map(f=>`<span class="class-feature-pill">Nv. ${f.level}: ${escapeHtml(f.name)}</span>`).join('') || '<span class="class-feature-pill">Nenhuma anterior</span>';
+
       box.innerHTML = `
-        <div class="class-progress-grid">
-          <div class="class-stat"><span>Dado de vida</span><b>${escapeHtml(rule.hitDie)}</b></div>
-          <div class="class-stat"><span>Salvaguardas</span><b>${escapeHtml(saves || '-')}</b></div>
-          <div class="class-stat"><span>Atributos fortes</span><b>${escapeHtml(primaries)}</b></div>
-          <div class="class-stat"><span>Conjuração</span><b>${escapeHtml(rule.casting === 'full' ? 'Completa' : rule.casting === 'half' ? 'Meia' : rule.casting === 'pact' ? 'Pacto' : 'Não')}</b></div>
-          <div class="class-stat"><span>Atributo mágico</span><b>${escapeHtml(spellAbility)}</b></div>
+        <div class="class-current-strip">
+          <div class="class-mini-stat"><span>Dado</span><b>${escapeHtml(rule.hitDie || '-')}</b></div>
+          <div class="class-mini-stat"><span>Prof.</span><b>${escapeHtml(fmt(profBonus(c)))}</b></div>
+          <div class="class-mini-stat"><span>Salv.</span><b>${escapeHtml(saves || '-')}</b></div>
+          <div class="class-mini-stat"><span>Conj.</span><b>${escapeHtml(castingLabel)}</b></div>
+          <div class="class-mini-stat"><span>Atr. mágico</span><b>${escapeHtml(spellAbility)}</b></div>
+          <div class="class-mini-stat"><span>Fortes</span><b>${escapeHtml(primaries)}</b></div>
         </div>
-        <div class="class-feature-box"><span>Espaços de magia do nível atual</span><div class="class-slots">${slotPills}</div></div>
-        <div class="class-feature-box"><span>Habilidades recebidas até o nível ${level}</span><div class="class-feature-list">${features}</div></div>
+
+        <div class="class-now-box">
+          <div class="class-now-title">Habilidades do nível atual / mais recentes</div>
+          <div class="class-feature-list compact">${currentHtml}</div>
+        </div>
+
+        <details class="class-details">
+          <summary>Ver espaços de magia e progressão completa</summary>
+          <div class="class-details-grid">
+            <div class="class-feature-box"><span>Espaços de magia do nível ${level}</span><div class="class-slots">${slotPills}</div></div>
+            <div class="class-feature-box"><span>Habilidades anteriores</span><div class="class-feature-list compact">${previousHtml}</div></div>
+          </div>
+        </details>
       `;
     }
 
@@ -3300,9 +3606,11 @@ table{
         nome:name,
         qtd:Math.max(1,num($('#itemQty').value)||1),
         peso:Math.max(0,num($('#itemWeight').value)||0),
-        categoria:$('#itemCategory').value.trim()
+        categoria:$('#itemCategory').value.trim(),
+        origem:($('#itemOrigin') ? $('#itemOrigin').value.trim() : ''),
+        descricao:($('#itemDesc') ? $('#itemDesc').value.trim() : '')
       });
-      $('#itemName').value=''; $('#itemQty').value='1'; $('#itemWeight').value='0'; $('#itemCategory').value='';
+      $('#itemName').value=''; $('#itemQty').value='1'; $('#itemWeight').value='0'; $('#itemCategory').value=''; if($('#itemOrigin')) $('#itemOrigin').value=''; if($('#itemDesc')) $('#itemDesc').value='';
       saveLocal(false);
       renderForm();
       notify('Item adicionado.');
@@ -3328,29 +3636,29 @@ table{
     function renderInventory(){
       const c=activeChar(); if(!c) return;
       ensureCombatInventoryData(c);
+      ensureObjectSheetData(c);
       const total = inventoryWeight(c);
       const cap = carryCapacity(c);
       const status = total > cap ? 'Sobrecarregado' : (total > cap*0.75 ? 'Pesado' : 'Livre');
       const wEl=$('#inventoryWeight'); if(wEl) wEl.textContent = total.toFixed(1).replace('.0','') + ' kg';
       const cEl=$('#carryCapacity'); if(cEl) cEl.textContent = cap.toFixed(1).replace('.0','') + ' kg';
       const sEl=$('#carryStatus'); if(sEl) sEl.textContent = status;
-
       const list=$('#inventoryList'); if(!list) return;
-      const oldLines = splitInventoryTextLines(c.equipamento.texto || '');
-      const oldBox = oldLines.length
-        ? `<div class="inventory-warning"><b>Inventário original do personagem:</b><br>${oldLines.map(x=>escapeHtml(x)).join('<br>')}</div>`
-        : `<div class="inventory-warning">Nenhum texto antigo de inventário preenchido.</div>`;
-
-      const structured = c.equipamento.itens.length ? c.equipamento.itens.map(i=>`
-        <div class="item-pill">
-          <b>${escapeHtml(i.nome)}</b>
-          <span>${num(i.qtd)||1}x</span>
-          <span>${((num(i.qtd)||1)*(num(i.peso)||0)).toFixed(1).replace('.0','')} kg</span>
-          <button class="btn small danger" data-remove-item="${escapeHtml(i.id)}">Remover</button>
+      list.innerHTML = c.equipamento.itens.length ? c.equipamento.itens.map(i=>`
+        <div class="object-card">
+          <div class="object-card-top">
+            <div class="object-card-title">${escapeHtml(i.nome)}</div>
+            <button class="btn small danger" data-remove-item="${escapeHtml(i.id)}">Remover</button>
+          </div>
+          <div class="object-meta">
+            <span class="object-pill">${num(i.qtd)||1}x</span>
+            <span class="object-pill">${((num(i.qtd)||1)*(num(i.peso)||0)).toFixed(1).replace('.0','')} kg</span>
+            ${i.categoria ? `<span class="object-pill">${escapeHtml(i.categoria)}</span>` : ''}
+            ${i.origem ? `<span class="object-pill">origem: ${escapeHtml(i.origem)}</span>` : ''}
+          </div>
+          ${i.descricao ? `<div class="object-desc">${escapeHtml(i.descricao)}</div>` : ''}
         </div>
-      `).join('') : '<div class="roll-item">Nenhum item estruturado cadastrado.</div>';
-
-      list.innerHTML = oldBox + structured;
+      `).join('') : '<div class="clean-empty">Nenhum objeto de inventário. Adicione item por item ou converta o texto antigo.</div>';
     }
 
 
@@ -3477,11 +3785,11 @@ table{
             <b>${escapeHtml(t.nome)}</b>
             <button class="btn small danger" data-remove-feat="${escapeHtml(t.id)}">Remover</button>
           </div>
-          <div class="feat-tags">${tags}</div>
-          <div class="feat-note">${escapeHtml(rule.summary || '')}</div>
+          ${tags ? `<div class="feat-tags">${tags}</div>` : ''}
+          ${rule.summary ? `<div class="feat-note">${escapeHtml(rule.summary)}</div>` : ''}
           ${t.nota || rule.note ? `<div class="feat-note"><b>Nota:</b> ${escapeHtml(t.nota || rule.note)}</div>` : ''}
         </div>`;
-      }).join('') : '<div class="roll-item">Nenhum talento cadastrado.</div>';
+      }).join('') : '<div class="clean-empty">Nenhum talento escolhido para este personagem. A lista de talentos fica no Livro de Regras; aqui só aparece o que o personagem realmente tem.</div>';
     }
 
     function addBackgroundEquipment(){
@@ -3559,6 +3867,139 @@ table{
       saveLocal(false);
       renderForm();
       notify(extra.length ? 'Texto do inventário atualizado.' : 'O texto já contém os itens cadastrados.');
+    }
+
+
+    function uniqueClean(arr){
+      const seen = new Set();
+      return (arr || []).map(x=>String(x||'').trim()).filter(Boolean).filter(x=>{
+        const k = x.toLowerCase();
+        if(seen.has(k)) return false;
+        seen.add(k);
+        return true;
+      });
+    }
+
+    function renderProficiencySummary(){
+      const c = activeChar(); if(!c) return;
+      const box = $('#proficiencySummary'); if(!box) return;
+      ensureClassLevelData(c);
+      ensureObjectSheetData(c);
+      const clsRule = getClassRule(c) || {};
+      const raceRule = getAllRaceRules()[normalizeRaceName(c.meta.raca || '')] || {};
+      const bgRule = getAllBackgroundRules()[normalizeBackgroundName(c.meta.antecedente || '')] || {};
+
+      const objects = [];
+      (raceRule.skills || []).forEach(k=>objects.push({tipo:'perícia', nome:raceSkillLabel(k), origem:'raça'}));
+      (bgRule.skills || []).forEach(k=>objects.push({tipo:'perícia', nome:raceSkillLabel(k), origem:'antecedente'}));
+      (raceRule.languages || []).forEach(x=>objects.push({tipo:'idioma', nome:x, origem:'raça'}));
+      (bgRule.languages || []).forEach(x=>objects.push({tipo:'idioma', nome:x, origem:'antecedente'}));
+      (bgRule.tools || []).forEach(x=>objects.push({tipo:'ferramenta', nome:x, origem:'antecedente'}));
+      (raceRule.proficiencies || []).forEach(x=>objects.push({tipo:'proficiência', nome:x, origem:'raça'}));
+      String(clsRule.proficiencies || '').split(/\n|,/).map(x=>x.trim()).filter(Boolean).forEach(x=>objects.push({tipo:'proficiência', nome:x, origem:'classe'}));
+      (c.proficiencias.manuais || []).forEach(p=>objects.push({id:p.id, tipo:p.tipo, nome:p.nome, origem:p.origem, manual:true}));
+
+      const seen = new Set();
+      const clean = objects.filter(o=>{
+        const key = `${o.tipo}|${o.nome}|${o.origem}`.toLowerCase();
+        if(seen.has(key)) return false;
+        seen.add(key);
+        return o.nome;
+      });
+
+      if(!clean.length){
+        box.innerHTML = '<div class="clean-empty">Nenhuma proficiência/idioma definido como objeto. Cadastre no Livro de Regras ou adicione manualmente.</div>';
+        return;
+      }
+
+      box.innerHTML = `<div class="proficiency-object-grid">${clean.map(o=>`
+        <div class="object-card">
+          <div class="object-card-top">
+            <div class="object-card-title">${escapeHtml(o.nome)}</div>
+            ${o.manual ? `<button class="btn small danger" data-remove-manual-prof="${escapeHtml(o.id)}">Remover</button>` : ''}
+          </div>
+          <div class="object-meta">
+            <span class="object-pill">${escapeHtml(o.tipo)}</span>
+            <span class="object-pill">origem: ${escapeHtml(o.origem || '-')}</span>
+          </div>
+        </div>
+      `).join('')}</div>`;
+    }
+
+
+    function ensureObjectSheetData(c){
+      if(!c) return;
+      c.equipamento = c.equipamento || {};
+      c.equipamento.moedas = c.equipamento.moedas || {};
+      c.equipamento.itens = Array.isArray(c.equipamento.itens) ? c.equipamento.itens : [];
+      c.equipamento.itens = c.equipamento.itens.map(i=>({
+        id: i.id || 'item_'+Math.random().toString(36).slice(2,9),
+        nome: i.nome || i.name || '',
+        qtd: Math.max(1, num(i.qtd || i.quantidade || 1) || 1),
+        peso: Math.max(0, num(i.peso || i.weight || 0) || 0),
+        categoria: i.categoria || i.category || '',
+        origem: i.origem || i.origin || '',
+        descricao: i.descricao || i.desc || ''
+      })).filter(i=>i.nome);
+      c.proficiencias = c.proficiencias || {};
+      c.proficiencias.manuais = Array.isArray(c.proficiencias.manuais) ? c.proficiencias.manuais : [];
+      c.proficiencias.manuais = c.proficiencias.manuais.map(p=>({
+        id:p.id || 'prof_'+Math.random().toString(36).slice(2,9),
+        tipo:p.tipo || 'outro',
+        nome:p.nome || '',
+        origem:p.origem || 'manual'
+      })).filter(p=>p.nome);
+    }
+
+    function addManualProficiency(){
+      const c = activeChar(); if(!c) return;
+      ensureObjectSheetData(c);
+      const nome = $('#manualProfName').value.trim();
+      if(!nome){ notify('Informe o nome da proficiência.'); return; }
+      c.proficiencias.manuais.push({
+        id:'prof_'+Math.random().toString(36).slice(2,9),
+        tipo:$('#manualProfType').value || 'outro',
+        nome,
+        origem:$('#manualProfOrigin').value.trim() || 'manual'
+      });
+      $('#manualProfName').value='';
+      $('#manualProfOrigin').value='';
+      saveLocal(false);
+      renderForm();
+      notify('Proficiência adicionada como objeto.');
+    }
+
+    function removeManualProficiency(id){
+      const c = activeChar(); if(!c) return;
+      ensureObjectSheetData(c);
+      c.proficiencias.manuais = c.proficiencias.manuais.filter(p=>p.id!==id);
+      saveLocal(false);
+      renderForm();
+    }
+
+    function convertLegacyInventoryTextToObjects(){
+      const c = activeChar(); if(!c) return;
+      ensureObjectSheetData(c);
+      const lines = splitInventoryTextLines(c.equipamento.texto || '');
+      let added = 0;
+      lines.forEach(line=>{
+        const name = normalizeInventoryTextName(line);
+        if(!name) return;
+        if(c.equipamento.itens.some(i=>String(i.nome).toLowerCase() === name.toLowerCase())) return;
+        c.equipamento.itens.push({
+          id:'item_'+Math.random().toString(36).slice(2,9),
+          nome:name,
+          qtd:1,
+          peso:0,
+          categoria:'legado',
+          origem:'texto antigo',
+          descricao:line
+        });
+        added++;
+      });
+      saveLocal(false);
+      renderForm();
+      notify(added ? `${added} objeto(s) criado(s) do texto antigo.` : 'Nada novo para converter.');
     }
 
     function renderForm(){
@@ -3956,6 +4397,9 @@ table{
         }
       });
       document.addEventListener('click', e=>{
+        const remManualProf = e.target.closest('[data-remove-manual-prof]');
+        if(remManualProf){ removeManualProficiency(remManualProf.dataset.removeManualProf); return; }
+
         const remFeat = e.target.closest('[data-remove-feat]');
         if(remFeat){ removeFeat(remFeat.dataset.removeFeat); return; }
         const bgEquip = e.target.closest('[data-apply-background-equipment]');
