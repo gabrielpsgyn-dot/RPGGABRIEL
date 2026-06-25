@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Criador de Regras - RPG Gabriel V26</title>
+  <style>
+    :root{
+      --bg:#211208;--wood:#3d2411;--paper:#f0dfbd;--paper2:#dec397;--ink:#261507;--muted:#6e563a;--line:#8a5d2c;--gold:#b98235;--red:#8d302a;
+      --ui:"Trebuchet MS",system-ui,sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:var(--ui);color:var(--ink);background:repeating-linear-gradient(90deg,#160b04 0 32px,#2b1709 32px 38px,#4a2b14 38px 82px)}
+    .app{max-width:1380px;margin:0 auto;padding:16px;display:grid;gap:14px}
+    .panel{background:linear-gradient(180deg,var(--paper),var(--paper2));border:2px solid var(--line);border-radius:22px;box-shadow:0 16px 36px rgba(0,0,0,.32);padding:16px}
+    .top{display:flex;justify-content:space-between;gap:12px;align-items:center}
+    h1,h2,h3{margin:0}
+    p{color:var(--muted)}
+    .tabs{display:flex;flex-wrap:wrap;gap:8px}
+    .tab{border:1px solid var(--line);border-radius:999px;background:#f7ead1;padding:9px 13px;font-weight:900;cursor:pointer}
+    .tab.active{background:#2b1709;color:#f7ead1}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .field{display:grid;gap:5px;margin-bottom:9px}
+    label{font-size:12px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+    input,textarea,select{width:100%;min-height:42px;border:1px solid var(--line);border-radius:12px;background:#fff7e8;padding:10px;color:var(--ink);font:inherit}
+    textarea{min-height:98px;resize:vertical}
+    .btn{min-height:40px;border:1px solid transparent;border-radius:12px;padding:9px 13px;font-weight:950;cursor:pointer}
+    .primary{background:linear-gradient(180deg,#e4bd78,#b98235);color:#251407}
+    .secondary{background:#f7ead1;border-color:var(--line);color:#543417}
+    .danger{background:linear-gradient(180deg,#b95e54,#8d302a);color:#fff}
+    .actions{display:flex;flex-wrap:wrap;gap:8px}
+    .list{display:grid;gap:8px}
+    .item{border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.35);padding:10px;display:grid;gap:6px}
+    .item-top{display:flex;justify-content:space-between;gap:8px;align-items:center}
+    .hidden{display:none!important}
+    code{background:#2b1709;color:#f7ead1;padding:2px 6px;border-radius:6px}
+    @media(max-width:900px){.grid{grid-template-columns:1fr}.top{align-items:flex-start;flex-direction:column}}
+  </style>
+</head>
+<body>
+<div class="app">
+  <section class="panel top">
+    <div>
+      <h1>Criador de Regras</h1>
+      <p>Crie raças, linhagens, antecedentes e talentos totalmente personalizados. O que você salvar aqui entra na ficha do jogador.</p>
+    </div>
+    <div class="actions">
+      <a class="btn secondary" href="index.html?v=26">Voltar para ficha</a>
+      <button class="btn secondary" id="exportBtn">Exportar JSON</button>
+      <button class="btn secondary" id="importBtn">Importar JSON</button>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="tabs">
+      <button class="tab active" data-tab="race">Raça / Linhagem</button>
+      <button class="tab" data-tab="background">Antecedente</button>
+      <button class="tab" data-tab="feat">Talento / Feito</button>
+      <button class="tab" data-tab="data">Dados</button>
+    </div>
+  </section>
+
+  <section class="panel tabpage" id="racePage">
+    <h2>Criar raça / linhagem</h2>
+    <p>Use vírgula para listas. Em traços raciais, use uma linha por traço/característica.</p>
+    <div class="grid">
+      <div>
+        <div class="field"><label>Nome</label><input id="raceName" placeholder="Ex.: Tiefling do Mar"></div>
+        <div class="field"><label>Tamanho</label><input id="raceSize" placeholder="Médio"></div>
+        <div class="field"><label>Deslocamento</label><input id="raceSpeed" placeholder="9m"></div>
+        <div class="field"><label>Visão no escuro</label><input id="raceDark" placeholder="18m"></div>
+        <div class="field"><label>Perícias automáticas</label><input id="raceSkills" placeholder="percepcao, furtividade"></div>
+      </div>
+      <div>
+        <div class="field"><label>Idiomas</label><input id="raceLanguages" placeholder="Comum, Infernal"></div>
+        <div class="field"><label>Resistências</label><input id="raceResist" placeholder="Fogo, Veneno"></div>
+        <div class="field"><label>Proficiências raciais</label><input id="raceProf" placeholder="Armas, ferramentas..."></div>
+        <div class="field"><label>Traços raciais</label><textarea id="raceTraits" placeholder="Legado Infernal&#10;Resistência Infernal"></textarea></div>
+        <div class="field"><label>Observação</label><textarea id="raceNote"></textarea></div>
+      </div>
+    </div>
+    <div class="actions"><button class="btn primary" id="saveRaceBtn">Salvar raça/linhagem</button><button class="btn secondary" id="clearRaceBtn">Limpar</button></div>
+  </section>
+
+  <section class="panel tabpage hidden" id="backgroundPage">
+    <h2>Criar antecedente</h2>
+    <div class="grid">
+      <div>
+        <div class="field"><label>Nome</label><input id="bgName" placeholder="Ex.: Contrabandista de Saltmarsh"></div>
+        <div class="field"><label>Perícias</label><input id="bgSkills" placeholder="furtividade, enganacao"></div>
+        <div class="field"><label>Idiomas</label><input id="bgLanguages" placeholder="Um idioma à escolha"></div>
+        <div class="field"><label>Ferramentas / Kits</label><input id="bgTools" placeholder="Ferramentas de ladrão, veículos aquáticos"></div>
+      </div>
+      <div>
+        <div class="field"><label>Equipamento inicial</label><textarea id="bgEquipment" placeholder="Roupas comuns&#10;15 po"></textarea></div>
+        <div class="field"><label>Característica do antecedente</label><input id="bgFeature" placeholder="Contato de Porto"></div>
+        <div class="field"><label>Resumo / observação</label><textarea id="bgSummary"></textarea></div>
+      </div>
+    </div>
+    <div class="actions"><button class="btn primary" id="saveBgBtn">Salvar antecedente</button><button class="btn secondary" id="clearBgBtn">Limpar</button></div>
+  </section>
+
+  <section class="panel tabpage hidden" id="featPage">
+    <h2>Criar talento / feito</h2>
+    <div class="grid">
+      <div>
+        <div class="field"><label>Nome</label><input id="featName" placeholder="Ex.: Mestre do Porto"></div>
+        <div class="field"><label>Tags</label><input id="featTags" placeholder="combate, magia, social"></div>
+      </div>
+      <div>
+        <div class="field"><label>Resumo</label><textarea id="featSummary"></textarea></div>
+        <div class="field"><label>Observação mecânica</label><textarea id="featNote"></textarea></div>
+      </div>
+    </div>
+    <div class="actions"><button class="btn primary" id="saveFeatBtn">Salvar talento</button><button class="btn secondary" id="clearFeatBtn">Limpar</button></div>
+  </section>
+
+  <section class="panel tabpage hidden" id="dataPage">
+    <h2>Regras cadastradas</h2>
+    <p>Chave local: <code>rpggabriel.custom.rules.v26</code></p>
+    <div class="grid">
+      <div><h3>Raças / Linhagens</h3><div class="list" id="raceList"></div></div>
+      <div><h3>Antecedentes</h3><div class="list" id="bgList"></div></div>
+      <div><h3>Talentos</h3><div class="list" id="featList"></div></div>
+      <div><h3>JSON</h3><textarea id="jsonBox" style="min-height:260px"></textarea><div class="actions"><button class="btn primary" id="saveJsonBtn">Salvar JSON editado</button></div></div>
+    </div>
+  </section>
+</div>
+
+<script>
+const KEY='rpggabriel.custom.rules.v26';
+const $=s=>document.querySelector(s);
+const $$=s=>Array.from(document.querySelectorAll(s));
+const split=v=>String(v||'').split(',').map(x=>x.trim()).filter(Boolean);
+const lines=v=>String(v||'').split(/\n|,/).map(x=>x.trim()).filter(Boolean);
+function load(){try{const x=JSON.parse(localStorage.getItem(KEY)||'{}');return {races:x.races||{},backgrounds:x.backgrounds||{},feats:x.feats||{}}}catch{return {races:{},backgrounds:{},feats:{}}}}
+function save(d){localStorage.setItem(KEY,JSON.stringify(d,null,2));render()}
+function setTab(name){$$('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));$$('.tabpage').forEach(p=>p.classList.add('hidden'));$('#'+name+'Page').classList.remove('hidden')}
+function render(){
+  const d=load(); $('#jsonBox').value=JSON.stringify(d,null,2);
+  $('#raceList').innerHTML=Object.keys(d.races).sort().map(n=>item('race',n)).join('')||'<div class="item">Nenhuma raça customizada.</div>';
+  $('#bgList').innerHTML=Object.keys(d.backgrounds).sort().map(n=>item('background',n)).join('')||'<div class="item">Nenhum antecedente customizado.</div>';
+  $('#featList').innerHTML=Object.keys(d.feats).sort().map(n=>item('feat',n)).join('')||'<div class="item">Nenhum talento customizado.</div>';
+}
+function item(type,name){return `<div class="item"><div class="item-top"><b>${name}</b><div><button class="btn secondary" data-edit="${type}:${name}">Editar</button> <button class="btn danger" data-del="${type}:${name}">Excluir</button></div></div></div>`}
+function clearRace(){$('#raceName').value=$('#raceSize').value=$('#raceSpeed').value=$('#raceDark').value=$('#raceSkills').value=$('#raceLanguages').value=$('#raceResist').value=$('#raceProf').value=$('#raceTraits').value=$('#raceNote').value=''}
+function clearBg(){$('#bgName').value=$('#bgSkills').value=$('#bgLanguages').value=$('#bgTools').value=$('#bgEquipment').value=$('#bgFeature').value=$('#bgSummary').value=''}
+function clearFeat(){$('#featName').value=$('#featTags').value=$('#featSummary').value=$('#featNote').value=''}
+function saveRace(){const d=load(),name=$('#raceName').value.trim();if(!name)return alert('Nome obrigatório');d.races[name]={size:$('#raceSize').value.trim(),speed:$('#raceSpeed').value.trim(),darkvision:$('#raceDark').value.trim(),skills:split($('#raceSkills').value),languages:split($('#raceLanguages').value),resistances:split($('#raceResist').value),proficiencies:split($('#raceProf').value),traits:lines($('#raceTraits').value),note:$('#raceNote').value.trim()};save(d);clearRace();setTab('data')}
+function saveBg(){const d=load(),name=$('#bgName').value.trim();if(!name)return alert('Nome obrigatório');d.backgrounds[name]={skills:split($('#bgSkills').value),languages:split($('#bgLanguages').value),tools:split($('#bgTools').value),equipment:lines($('#bgEquipment').value),feature:$('#bgFeature').value.trim(),summary:$('#bgSummary').value.trim(),note:$('#bgSummary').value.trim()};save(d);clearBg();setTab('data')}
+function saveFeat(){const d=load(),name=$('#featName').value.trim();if(!name)return alert('Nome obrigatório');d.feats[name]={tags:split($('#featTags').value),summary:$('#featSummary').value.trim(),note:$('#featNote').value.trim()};save(d);clearFeat();setTab('data')}
+function edit(type,name){const d=load();if(type==='race'){const r=d.races[name];setTab('race');$('#raceName').value=name;$('#raceSize').value=r.size||'';$('#raceSpeed').value=r.speed||'';$('#raceDark').value=r.darkvision||'';$('#raceSkills').value=(r.skills||[]).join(', ');$('#raceLanguages').value=(r.languages||[]).join(', ');$('#raceResist').value=(r.resistances||[]).join(', ');$('#raceProf').value=(r.proficiencies||[]).join(', ');$('#raceTraits').value=(r.traits||[]).join('\n');$('#raceNote').value=r.note||''}
+if(type==='background'){const r=d.backgrounds[name];setTab('background');$('#bgName').value=name;$('#bgSkills').value=(r.skills||[]).join(', ');$('#bgLanguages').value=(r.languages||[]).join(', ');$('#bgTools').value=(r.tools||[]).join(', ');$('#bgEquipment').value=(r.equipment||[]).join('\n');$('#bgFeature').value=r.feature||'';$('#bgSummary').value=r.summary||r.note||''}
+if(type==='feat'){const r=d.feats[name];setTab('feat');$('#featName').value=name;$('#featTags').value=(r.tags||[]).join(', ');$('#featSummary').value=r.summary||'';$('#featNote').value=r.note||''}}
+function del(type,name){const d=load();if(!confirm('Excluir '+name+'?'))return;if(type==='race')delete d.races[name];if(type==='background')delete d.backgrounds[name];if(type==='feat')delete d.feats[name];save(d)}
+document.addEventListener('click',e=>{const t=e.target.closest('[data-tab]');if(t)setTab(t.dataset.tab);const ed=e.target.closest('[data-edit]');if(ed){const [type,name]=ed.dataset.edit.split(':');edit(type,name)}const dl=e.target.closest('[data-del]');if(dl){const [type,name]=dl.dataset.del.split(':');del(type,name)}})
+$('#saveRaceBtn').onclick=saveRace;$('#clearRaceBtn').onclick=clearRace;$('#saveBgBtn').onclick=saveBg;$('#clearBgBtn').onclick=clearBg;$('#saveFeatBtn').onclick=saveFeat;$('#clearFeatBtn').onclick=clearFeat;
+$('#exportBtn').onclick=()=>{navigator.clipboard.writeText(JSON.stringify(load(),null,2));alert('JSON copiado.')};$('#importBtn').onclick=()=>{setTab('data');$('#jsonBox').focus()};$('#saveJsonBtn').onclick=()=>{try{save(JSON.parse($('#jsonBox').value));alert('JSON salvo.')}catch(e){alert('JSON inválido: '+e.message)}}
+render();
+</script>
+</body>
+</html>

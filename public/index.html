@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPG Gabriel - Ficha Online V25</title>
+  <title>RPG Gabriel - Ficha Online V26</title>
   <style>
     :root{
       --bg:#090b10;
@@ -744,6 +744,13 @@
 .feat-note{font-size:13px;color:var(--muted);line-height:1.35}
 @media(max-width:700px){.feat-builder{grid-template-columns:1fr}}
 
+
+.rules-audit-box{display:grid;gap:8px}
+.rules-audit-row{border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.32);padding:9px 10px}
+.rules-audit-row b{display:block;margin-bottom:4px}
+.rules-audit-row small{color:var(--muted);line-height:1.35}
+.rules-audit-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+
 </style>
 </head>
 <body class="menu-open">
@@ -973,6 +980,15 @@
                 <span class="class-badge" id="backgroundAutoBadge">Antecedente não definido</span>
               </div>
               <div id="backgroundProgressSummary" class="compact-progress-summary"></div>
+            </div>
+            <div class="panel rules-audit-panel" id="rulesAuditPanel">
+              <h3>Conferência do livro / regras</h3>
+              <p class="sheet-note">Mostra se classe, raça e antecedente estão aplicados na ficha. Use para manter o personagem alinhado com a base cadastrada.</p>
+              <div id="rulesAuditSummary" class="rules-audit-box"></div>
+              <div class="rules-audit-actions">
+                <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
+                <a class="btn small primary" href="criador.html?v=26" target="_blank">Criar/editar regras</a>
+              </div>
             </div>
           </div>
 
@@ -1864,6 +1880,88 @@
       }
 };
 
+
+    const CUSTOM_RULES_KEY = 'rpggabriel.custom.rules.v26';
+
+    function loadCustomRules(){
+      try{
+        const raw = localStorage.getItem(CUSTOM_RULES_KEY);
+        const parsed = raw ? JSON.parse(raw) : {};
+        return {
+          races: parsed.races && typeof parsed.races === 'object' ? parsed.races : {},
+          backgrounds: parsed.backgrounds && typeof parsed.backgrounds === 'object' ? parsed.backgrounds : {},
+          feats: parsed.feats && typeof parsed.feats === 'object' ? parsed.feats : {}
+        };
+      }catch(e){
+        return {races:{}, backgrounds:{}, feats:{}};
+      }
+    }
+
+    function getAllRaceRules(){
+      const custom = loadCustomRules();
+      return {...RACE_RULES, ...custom.races};
+    }
+
+    function getAllBackgroundRules(){
+      const custom = loadCustomRules();
+      return {...BACKGROUND_RULES, ...custom.backgrounds};
+    }
+
+    function getAllFeatRules(){
+      const custom = loadCustomRules();
+      return {...FEAT_RULES, ...custom.feats};
+    }
+
+    function refreshCustomRuleOptions(){
+      const races = getAllRaceRules();
+      const raceList = $('#raceOptions');
+      if(raceList){
+        const current = Array.from(raceList.options).map(o=>o.value);
+        Object.keys(races).sort().forEach(name=>{
+          if(!current.includes(name)){
+            const opt = document.createElement('option');
+            opt.value = name;
+            raceList.appendChild(opt);
+          }
+        });
+      }
+      const bgList = $('#backgroundOptions');
+      if(bgList){
+        bgList.innerHTML = Object.keys(getAllBackgroundRules()).sort().map(x=>`<option value="${escapeHtml(x)}"></option>`).join('');
+      }
+    }
+
+    function reapplyAllCharacterRules(){
+      const c = activeChar(); if(!c) return;
+      ensureClassLevelData(c);
+      applyClassProgression(c);
+      applyRaceProgression(c);
+      applyBackgroundProgression(c);
+      applyRuleEngine(c);
+      saveLocal(false);
+      renderForm();
+      notify('Classe, raça e antecedente reaplicados.');
+    }
+
+    function renderRulesAudit(){
+      const c = activeChar();
+      const box = $('#rulesAuditSummary');
+      if(!box || !c) return;
+
+      const cls = c.meta.classe || c.meta.classeNivel || '';
+      const race = c.meta.raca || '';
+      const bg = c.meta.antecedente || '';
+      const raceKnown = !!getAllRaceRules()[normalizeRaceName(race)];
+      const bgKnown = !!getAllBackgroundRules()[normalizeBackgroundName(bg)];
+      const classKnown = !!getClassRule(c);
+
+      box.innerHTML = `
+        <div class="rules-audit-row"><b>Classe</b><small>${escapeHtml(cls || 'Não definida')} — ${classKnown ? 'base encontrada e progressão aplicada.' : 'não encontrada na base; cadastre ou ajuste o nome.'}</small></div>
+        <div class="rules-audit-row"><b>Raça / Linhagem</b><small>${escapeHtml(race || 'Não definida')} — ${raceKnown ? 'base encontrada.' : 'não encontrada; crie no Criador de Regras.'}</small></div>
+        <div class="rules-audit-row"><b>Antecedente</b><small>${escapeHtml(bg || 'Não definido')} — ${bgKnown ? 'base encontrada.' : 'não encontrado; crie no Criador de Regras.'}</small></div>
+      `;
+    }
+
     function normalizeBackgroundName(value){
       value = String(value || '').trim();
       if(!value) return '';
@@ -1872,7 +1970,7 @@
         'acolito':'Acólito','artesao de guilda':'Artesão de Guilda','artista':'Artista','charlatao':'Charlatão','criminoso':'Criminoso','eremita':'Eremita','forasteiro':'Forasteiro',
         'heroi do povo':'Herói do Povo','marinheiro':'Marinheiro','nobre':'Nobre','orfao':'Órfão','sabio':'Sábio','soldado':'Soldado'
       };
-      return aliases[plain] || Object.keys(BACKGROUND_RULES).find(k => k.toLowerCase() === value.toLowerCase()) || value;
+      return aliases[plain] || Object.keys(getAllBackgroundRules()).find(k => k.toLowerCase() === value.toLowerCase()) || value;
     }
 
     function applyBackgroundProgression(c){
@@ -1880,7 +1978,7 @@
       c.meta = c.meta || {};
       c.meta.antecedente = normalizeBackgroundName(c.meta.antecedente || '');
       const bg = c.meta.antecedente || '';
-      const rule = BACKGROUND_RULES[bg];
+      const rule = getAllBackgroundRules()[bg];
       c.antecedenteInfo = c.antecedenteInfo || {};
       c.antecedenteInfo.nome = bg;
       if(!rule) return;
@@ -1904,7 +2002,7 @@
       if(!box || !badge || !c) return;
       applyBackgroundProgression(c);
       const bg = c.meta.antecedente || '';
-      const rule = BACKGROUND_RULES[bg];
+      const rule = getAllBackgroundRules()[bg];
       if(!rule){
         badge.textContent = 'Antecedente não definido';
         box.innerHTML = '<div class="class-empty">Escolha um antecedente para aplicar perícias, idiomas, ferramentas, equipamento inicial e característica narrativa.</div>';
@@ -1940,7 +2038,7 @@
         'humano':'Humano','humano variante':'Humano Variante','draconato':'Draconato','gnomo':'Gnomo','gnomo da floresta':'Gnomo da Floresta','gnomo das rochas':'Gnomo das Rochas',
         'meio-elfo':'Meio-Elfo','meio elfo':'Meio-Elfo','meio-orc':'Meio-Orc','meio orc':'Meio-Orc','tiefling':'Tiefling','aasimar':'Aasimar','genasi':'Genasi','goliath':'Goliath','golias':'Goliath','tabaxi':'Tabaxi','tritao':'Tritão','kobold':'Kobold','orc':'Orc'
       };
-      return aliases[plain] || Object.keys(RACE_RULES).find(k => k.toLowerCase() === raw.toLowerCase()) || raw;
+      return aliases[plain] || Object.keys(getAllRaceRules()).find(k => k.toLowerCase() === raw.toLowerCase()) || raw;
     }
 
     function raceSkillLabel(key){
@@ -1955,7 +2053,7 @@
       c.meta = c.meta || {};
       c.meta.raca = normalizeRaceName(c.meta.raca || '');
       const race = c.meta.raca || '';
-      const rule = RACE_RULES[race];
+      const rule = getAllRaceRules()[race];
       c.racaInfo = c.racaInfo || {};
       c.racaInfo.nome = race;
       if(!rule) return;
@@ -1990,7 +2088,7 @@
       if(!box || !badge || !c) return;
       applyRaceProgression(c);
       const race = c.meta.raca || '';
-      const rule = RACE_RULES[race];
+      const rule = getAllRaceRules()[race];
       if(!rule){
         badge.textContent = 'Raça não definida';
         box.innerHTML = '<div class="class-empty">Escolha uma raça/linhagem para aplicar tamanho, deslocamento, idiomas, visão, resistências e traços raciais.</div>';
@@ -2970,7 +3068,7 @@
     function renderFeatSelect(){
       const select = $('#featSelect');
       if(!select || select.children.length) return;
-      select.innerHTML = '<option value="">Selecione...</option>' + Object.keys(FEAT_RULES).map(k=>`<option value="${escapeHtml(k)}">${escapeHtml(k)}</option>`).join('');
+      select.innerHTML = '<option value="">Selecione...</option>' + Object.keys(getAllFeatRules()).map(k=>`<option value="${escapeHtml(k)}">${escapeHtml(k)}</option>`).join('');
     }
 
     function addFeatFromSelect(){
@@ -2979,7 +3077,7 @@
       const name = $('#featSelect').value;
       if(!name){ notify('Escolha um talento.'); return; }
       if(c.talentos.some(t=>t.nome === name)){ notify('Esse talento já está no personagem.'); return; }
-      const rule = FEAT_RULES[name] || {};
+      const rule = getAllFeatRules()[name] || {};
       c.talentos.push({id:'feat_'+Math.random().toString(36).slice(2,9), nome:name, tags:[...(rule.tags||[])], nota:rule.note||''});
       $('#featSelect').value = '';
       saveLocal(false);
@@ -3001,7 +3099,7 @@
       renderFeatSelect();
       const box = $('#featList'); if(!box) return;
       box.innerHTML = c.talentos.length ? c.talentos.map(t=>{
-        const rule = FEAT_RULES[t.nome] || {};
+        const rule = getAllFeatRules()[t.nome] || {};
         const tags = (t.tags && t.tags.length ? t.tags : (rule.tags||[])).map(x=>`<span class="feat-tag">${escapeHtml(x)}</span>`).join('');
         return `<div class="feat-card">
           <div class="feat-card-top">
@@ -3020,7 +3118,7 @@
       applyBackgroundProgression(c);
       ensureCombatInventoryData(c);
       const bg = c.meta.antecedente || '';
-      const rule = BACKGROUND_RULES[bg];
+      const rule = getAllBackgroundRules()[bg];
       if(!rule){ notify('Escolha um antecedente primeiro.'); return; }
       rule.equipment.forEach(name=>{
         if(!c.equipamento.itens.some(i=>i.nome === name)){
@@ -3043,6 +3141,7 @@
         if(el.type === 'checkbox') el.checked = !!val;
         else if(document.activeElement !== el) el.value = val ?? '';
       });
+      refreshCustomRuleOptions();
       renderClassProgress();
       renderRaceProgress();
       renderBackgroundProgress();

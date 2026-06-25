@@ -1,0 +1,44 @@
+{
+  "races": {
+    "Tiefling do Mar": {
+      "size": "Médio",
+      "speed": "9m",
+      "darkvision": "18m",
+      "skills": [],
+      "languages": [
+        "Comum",
+        "Infernal"
+      ],
+      "resistances": [
+        "Fogo"
+      ],
+      "proficiencies": [],
+      "traits": [
+        "Resistência Infernal",
+        "Legado Infernal adaptado"
+      ],
+      "note": "Exemplo customizado pelo mestre."
+    }
+  },
+  "backgrounds": {
+    "Contrabandista de Saltmarsh": {
+      "skills": [
+        "furtividade",
+        "enganacao"
+      ],
+      "languages": [],
+      "tools": [
+        "Ferramentas de ladrão",
+        "Veículos aquáticos"
+      ],
+      "equipment": [
+        "Roupas comuns",
+        "Bolsa escondida",
+        "15 po"
+      ],
+      "feature": "Contato no Porto",
+      "summary": "Conhece rotas, docas e atravessadores."
+    }
+  },
+  "feats": {}
+}
