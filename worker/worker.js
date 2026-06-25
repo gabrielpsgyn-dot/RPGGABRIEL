@@ -18,7 +18,7 @@ export default {
         return json({
           ok: true,
           app: "Ghosts of Saltmarsh - Ficha Online API",
-          version: "3.3.0-safe-render-character-list",
+          version: "3.3.1-fix-c-undefined",
           loginMode: "character_click_standard_password",
           time: new Date().toISOString()
         });

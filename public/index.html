@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPG Gabriel - Ficha Online V40</title>
+  <title>RPG Gabriel - Ficha Online V41</title>
   <style>
     :root{
       --bg:#090b10;
@@ -1743,7 +1743,7 @@ textarea.huge{min-height:200px}
 
 </style>
 </head>
-<!-- RPGGABRIEL V40 SAFE RENDER PERSONAGENS -->
+<!-- RPGGABRIEL V41 FIX C UNDEFINED -->
 <body class="menu-open">
   <section class="menu-screen" id="menuScreen">
     <div class="menu-shell">
@@ -1980,8 +1980,8 @@ textarea.huge{min-height:200px}
                 <div id="rulesAuditSummary" class="rules-audit-box"></div>
                 <div class="rules-audit-actions">
                   <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                  <a class="btn small secondary" href="criador.html?v=40" target="_blank">Criador livre</a>
-                  <a class="btn small primary" href="livro-regras.html?v=40" target="_blank">Livro de Regras</a>
+                  <a class="btn small secondary" href="criador.html?v=41" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=41" target="_blank">Livro de Regras</a>
                 </div>
               </details>
             </div>
@@ -4071,7 +4071,7 @@ textarea.huge{min-height:200px}
 
 
     const WEAPON_PRESETS = {
-      'Ataque desarmado': {ability:'forca', damage:'1', type:'concussão', proficient:hasWeaponProficiency(c,name), range:'corpo a corpo'},
+      'Ataque desarmado': {ability:'forca', damage:'1', type:'concussão', proficient:true, range:'corpo a corpo'},
       'Adaga': {ability:'destreza', damage:'1d4', type:'perfurante', proficient:true, range:'6/18m', weight:0.5},
       'Azagaia': {ability:'forca', damage:'1d6', type:'perfurante', proficient:true, range:'9/36m', weight:1},
       'Bordão': {ability:'forca', damage:'1d6', type:'concussão', proficient:true, range:'corpo a corpo', weight:2},
