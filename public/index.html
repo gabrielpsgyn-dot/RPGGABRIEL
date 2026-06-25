@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPG Gabriel - Ficha Online V42</title>
+  <title>RPG Gabriel - Ficha Online V43</title>
   <style>
     :root{
       --bg:#090b10;
@@ -1808,7 +1808,7 @@ textarea.huge{min-height:200px}
 
 </style>
 </head>
-<!-- RPGGABRIEL V42 PERICIAS COMPACTAS -->
+<!-- RPGGABRIEL V43 MAGO EQUIPAMENTO INICIAL -->
 <body class="menu-open">
   <section class="menu-screen" id="menuScreen">
     <div class="menu-shell">
@@ -2045,8 +2045,8 @@ textarea.huge{min-height:200px}
                 <div id="rulesAuditSummary" class="rules-audit-box"></div>
                 <div class="rules-audit-actions">
                   <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                  <a class="btn small secondary" href="criador.html?v=42" target="_blank">Criador livre</a>
-                  <a class="btn small primary" href="livro-regras.html?v=42" target="_blank">Livro de Regras</a>
+                  <a class="btn small secondary" href="criador.html?v=43" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=43" target="_blank">Livro de Regras</a>
                 </div>
               </details>
             </div>
@@ -2466,7 +2466,24 @@ textarea.huge{min-height:200px}
       'Feiticeiro': { pathLevel:1, pathLabel:'Origem de Feitiçaria', paths:['Linhagem Dracônica','Magia Selvagem','Origem personalizada do livro'], choicesByLevel:{1:[{tipo:'escolha', nome:'Escolher Origem de Feitiçaria', origem:'classe', modo:'escolha'}]} },
       'Guerreiro': { pathLevel:3, pathLabel:'Arquétipo Marcial', paths:['Campeão','Mestre de Batalha','Cavaleiro Arcano','Arquétipo personalizado do livro'], choicesByLevel:{3:[{tipo:'escolha', nome:'Escolher Arquétipo Marcial', origem:'classe', modo:'escolha'}]} },
       'Ladino': { pathLevel:3, pathLabel:'Arquétipo Ladino', paths:['Assassino','Ladrão','Trapaceiro Arcano','Arquétipo personalizado do livro'], choicesByLevel:{3:[{tipo:'escolha', nome:'Escolher Arquétipo Ladino', origem:'classe', modo:'escolha'}]} },
-      'Mago': { pathLevel:2, pathLabel:'Tradição Arcana', paths:['Abjuração','Conjuração','Adivinhação','Encantamento','Evocação','Ilusão','Necromancia','Transmutação','Tradição personalizada do livro'], choicesByLevel:{2:[{tipo:'escolha', nome:'Escolher Tradição Arcana', origem:'classe', modo:'escolha'}]} },
+      'Mago': {
+        pathLevel:2,
+        pathLabel:'Tradição Arcana',
+        paths:['Abjuração','Conjuração','Adivinhação','Encantamento','Evocação','Ilusão','Necromancia','Transmutação','Tradição personalizada do livro'],
+        levelEquipment:{
+          1:[
+            {tipo:'item', nome:'Grimório', quantidade:1, categoria:'grimório', origem:'classe Mago', modo:'fixo'},
+            {tipo:'escolha_item', nome:'Escolher arma inicial de Mago', origem:'classe Mago', modo:'escolha', opcoes:['Cajado','Adaga'], alvo:'equipamento.escolhas.magoArmaInicial', aplicaItem:true, categoriaItem:'arma'},
+            {tipo:'escolha_item', nome:'Escolher foco arcano ou bolsa de componentes', origem:'classe Mago', modo:'escolha', opcoes:['Foco arcano','Bolsa de componentes'], alvo:'equipamento.escolhas.magoFocoInicial', aplicaItem:true, categoriaItem:'foco arcano'}
+          ]
+        },
+        choicesByLevel:{
+          1:[
+            {tipo:'escolha', nome:'Escolher pacote inicial de Mago', origem:'classe Mago', modo:'escolha', opcoes:['Pacote de estudioso','Pacote de explorador'], alvo:'equipamento.escolhas.magoPacoteInicial'}
+          ],
+          2:[{tipo:'escolha', nome:'Escolher Tradição Arcana', origem:'classe', modo:'escolha'}]
+        }
+      },
       'Monge': { pathLevel:3, pathLabel:'Tradição Monástica', paths:['Mão Aberta','Sombra','Quatro Elementos','Tradição personalizada do livro'], choicesByLevel:{3:[{tipo:'escolha', nome:'Escolher Tradição Monástica', origem:'classe', modo:'escolha'}]} },
       'Paladino': { pathLevel:3, pathLabel:'Juramento Sagrado', paths:['Devoção','Anciões','Vingança','Juramento personalizado do livro'], choicesByLevel:{3:[{tipo:'escolha', nome:'Escolher Juramento Sagrado', origem:'classe', modo:'escolha'}]} },
       'Patrulheiro': { pathLevel:3, pathLabel:'Arquétipo de Patrulheiro', paths:['Caçador','Mestre das Bestas','Arquétipo personalizado do livro'], choicesByLevel:{3:[{tipo:'escolha', nome:'Escolher Arquétipo de Patrulheiro', origem:'classe', modo:'escolha'}]} }
@@ -3444,8 +3461,11 @@ textarea.huge{min-height:200px}
           categoria: raw.categoria || raw.category || tipo,
           origem: raw.origem || raw.origin || fallbackOrigin,
           descricao: raw.descricao || raw.description || rewardLabel(raw),
-          modo: raw.modo || raw.mode || (tipo === 'escolha' ? 'escolha' : 'fixo'),
-          opcoes: Array.isArray(raw.opcoes) ? raw.opcoes : (Array.isArray(raw.options) ? raw.options : [])
+          modo: raw.modo || raw.mode || (tipo === 'escolha' || tipo === 'escolha_item' ? 'escolha' : 'fixo'),
+          opcoes: Array.isArray(raw.opcoes) ? raw.opcoes : (Array.isArray(raw.options) ? raw.options : []),
+          alvo: raw.alvo || raw.target || '',
+          aplicaItem: !!(raw.aplicaItem || raw.applyItem),
+          categoriaItem: raw.categoriaItem || raw.itemCategory || ''
         };
       }
       const txt = String(raw || '').trim();
@@ -3458,8 +3478,11 @@ textarea.huge{min-height:200px}
         categoria: fallbackKind,
         origem: fallbackOrigin,
         descricao: txt,
-        modo: tipo === 'escolha' ? 'escolha' : 'fixo',
-        opcoes: []
+        modo: tipo === 'escolha' || tipo === 'escolha_item' ? 'escolha' : 'fixo',
+        opcoes: [],
+        alvo:'',
+        aplicaItem:false,
+        categoriaItem:''
       };
     }
 
@@ -4134,6 +4157,7 @@ textarea.huge{min-height:200px}
       'Adaga': {ability:'destreza', damage:'1d4', type:'perfurante', proficient:true, range:'6/18m', weight:0.5},
       'Azagaia': {ability:'forca', damage:'1d6', type:'perfurante', proficient:true, range:'9/36m', weight:1},
       'Bordão': {ability:'forca', damage:'1d6', type:'concussão', proficient:true, range:'corpo a corpo', weight:2},
+      'Cajado': {ability:'forca', damage:'1d6', type:'concussão', proficient:true, range:'corpo a corpo', weight:2},
       'Clava': {ability:'forca', damage:'1d4', type:'concussão', proficient:true, range:'corpo a corpo', weight:1},
       'Foice curta': {ability:'forca', damage:'1d4', type:'cortante', proficient:true, range:'corpo a corpo', weight:1},
       'Lança': {ability:'forca', damage:'1d6', type:'perfurante', proficient:true, range:'6/18m', weight:1.5},
@@ -4153,7 +4177,7 @@ textarea.huge{min-height:200px}
       'Besta pesada': {ability:'destreza', damage:'1d10', type:'perfurante', proficient:true, range:'30/120m', weight:9}
     };
 
-    const SIMPLE_WEAPONS = ['Ataque desarmado','Adaga','Azagaia','Bordão','Clava','Foice curta','Lança','Maça','Machadinha','Martelo leve'];
+    const SIMPLE_WEAPONS = ['Ataque desarmado','Adaga','Azagaia','Bordão','Cajado','Clava','Foice curta','Lança','Maça','Machadinha','Martelo leve'];
     const MARTIAL_WEAPONS = ['Espada curta','Espada longa','Rapieira','Cimitarra','Machado grande','Montante','Arco curto','Arco longo','Besta leve','Besta de mão','Besta pesada'];
     const CLASS_WEAPON_PROFICIENCIES = {
       'Bárbaro':['simples','marciais'],
@@ -5022,6 +5046,10 @@ textarea.huge{min-height:200px}
         existing.opcoes = existing.opcoes && existing.opcoes.length ? existing.opcoes : (reward.opcoes || []);
         existing.alvo = existing.alvo || reward.alvo || reward.target || '';
         existing.origem = existing.origem || sourceLabel || reward.origem || 'regra';
+        existing.tipo = existing.tipo || reward.tipo || 'escolha';
+        existing.aplicaItem = existing.aplicaItem || !!reward.aplicaItem;
+        existing.categoriaItem = existing.categoriaItem || reward.categoriaItem || '';
+        existing.reward = existing.reward || reward;
         return;
       }
       c.escolhasPendentes.push({
@@ -5031,7 +5059,11 @@ textarea.huge{min-height:200px}
         origem:sourceLabel || reward.origem || 'regra',
         status:'pendente',
         opcoes: reward.opcoes || [],
-        alvo: reward.alvo || reward.target || ''
+        alvo: reward.alvo || reward.target || '',
+        tipo: reward.tipo || 'escolha',
+        aplicaItem: !!reward.aplicaItem,
+        categoriaItem: reward.categoriaItem || '',
+        reward
       });
     }
 
@@ -5151,6 +5183,26 @@ textarea.huge{min-height:200px}
       });
     }
 
+
+    function addInventoryItemFromChoice(c, choice, value){
+      ensureObjectSheetData(c);
+      const name = String(value || '').trim();
+      if(!name) return;
+      const key = `${choice.sourceKey}|resolved-item|${name}`.toLowerCase();
+      if(c.equipamento.itens.some(i=>String(i.grantKey || '').toLowerCase() === key)) return;
+      const preset = WEAPON_PRESETS[name] || {};
+      c.equipamento.itens.push({
+        id:'item_'+Math.random().toString(36).slice(2,9),
+        grantKey:key,
+        nome:name,
+        qtd:1,
+        peso:preset.weight || 0,
+        categoria:choice.categoriaItem || (preset.damage ? 'arma' : 'equipamento inicial'),
+        origem:choice.origem || 'escolha',
+        descricao:preset.damage ? `${preset.damage} ${preset.type || ''}${preset.range ? ' · alcance '+preset.range : ''}`.trim() : `Escolha resolvida: ${choice.label}`
+      });
+    }
+
     function applyPendingChoice(choiceId){
       const c = activeChar(); if(!c) return;
       ensureObjectSheetData(c);
@@ -5170,6 +5222,10 @@ textarea.huge{min-height:200px}
         c.classeInfo = c.classeInfo || {};
         c.classeInfo.escolhas = c.classeInfo.escolhas || {};
         c.classeInfo.escolhas[choice.label] = value;
+      }
+
+      if(choice.aplicaItem || choice.tipo === 'escolha_item'){
+        addInventoryItemFromChoice(c, choice, value);
       }
 
       choice.status = 'resolvido';
