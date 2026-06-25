@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPG Gabriel - Ficha Online V36</title>
+  <title>RPG Gabriel - Ficha Online V37</title>
   <style>
     :root{
       --bg:#090b10;
@@ -1557,9 +1557,123 @@ textarea.huge{min-height:200px}
   font-weight:950;
 }
 
+
+/* V37 - tela de celular: sem passo-a-passo na ficha, armas por lista e cards */
+.flow-panel{display:none !important}
+.quick-weapon-row{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:8px;
+  align-items:end;
+  margin-bottom:8px;
+}
+.available-attacks{
+  margin:8px 0;
+}
+.available-title{
+  font-size:11px;
+  color:#735d42;
+  text-transform:uppercase;
+  font-weight:950;
+  letter-spacing:.07em;
+  margin-bottom:5px;
+}
+.available-attack-scroll{
+  display:flex;
+  gap:6px;
+  overflow-x:auto;
+  padding-bottom:5px;
+  -webkit-overflow-scrolling:touch;
+}
+.available-attack-chip{
+  flex:0 0 auto;
+  border:1px solid rgba(36,27,20,.25);
+  border-radius:999px;
+  background:#fff7e8;
+  color:#2d2115;
+  padding:7px 10px;
+  font-weight:900;
+  white-space:nowrap;
+}
+.available-attack-chip.added{
+  background:#dff0cf;
+  color:#2b4d18;
+}
+.attack-cards{
+  display:grid;
+  gap:8px;
+}
+.attack-card{
+  border:1px solid rgba(36,27,20,.24);
+  border-radius:14px;
+  background:rgba(255,250,240,.64);
+  padding:9px;
+  display:grid;
+  gap:7px;
+}
+.attack-card-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+}
+.attack-card-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  color:#735d42;
+  font-size:12px;
+  font-weight:850;
+}
+.attack-card-meta span{
+  border:1px solid rgba(36,27,20,.18);
+  border-radius:999px;
+  padding:4px 7px;
+  background:#f4ead7;
+}
+.attack-card-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr auto;
+  gap:6px;
+}
+.attack-table-wrap{
+  display:none;
+  overflow:auto;
+}
+.mobile-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+}
+.item-object-builder{
+  grid-template-columns:1fr 1fr !important;
+}
+.item-object-builder .object-wide{
+  grid-column:1/-1;
+}
+@media(min-width:901px){
+  .attack-table-wrap{display:block}
+}
+@media(max-width:700px){
+  .quick-weapon-row,
+  .attack-card-actions,
+  .mobile-actions{
+    grid-template-columns:1fr;
+  }
+  #attacksPanel .calc-note,
+  #inventoryPanel .calc-note{
+    font-size:11px;
+  }
+  .object-card{
+    padding:8px;
+  }
+  .inventory-summary{
+    grid-template-columns:1fr !important;
+  }
+}
+
 </style>
 </head>
-<!-- RPGGABRIEL V36 CAMPOS CONTEXTUAIS -->
+<!-- RPGGABRIEL V37 MOBILE USO REAL -->
 <body class="menu-open">
   <section class="menu-screen" id="menuScreen">
     <div class="menu-shell">
@@ -1741,30 +1855,6 @@ textarea.huge{min-height:200px}
           <div id="classProgressSummary" class="class-progress-summary"></div>
           <div id="classRewardsSummary" class="class-rewards-summary"></div>
         </div>
-        <div class="panel flow-panel" id="characterFlowPanel">
-          <div class="flow-top">
-            <div>
-              <h3>Fluxo da ficha</h3>
-              <p class="sheet-note">Primeiro cria a ficha. Depois usa em jogo. Equipamento e ouro entram sempre no inventário.</p>
-            </div>
-            <span class="class-badge" id="flowModeBadge">Modo criação</span>
-          </div>
-          <div id="characterFlowSummary" class="flow-summary"></div>
-          <details class="clean-edit-details flow-details">
-            <summary>Passo a passo para criar a ficha</summary>
-            <div class="flow-steps">
-              <button class="flow-step-btn" type="button" data-flow-tab="sheetPage" data-flow-focus="[data-path='meta.nomePersonagem']">1. Nome e identidade</button>
-              <button class="flow-step-btn" type="button" data-flow-tab="sheetPage" data-flow-focus="#characterClassSelect">2. Classe e nível</button>
-              <button class="flow-step-btn" type="button" data-flow-tab="sheetPage" data-flow-focus="[data-path='meta.raca']">3. Raça e antecedente</button>
-              <button class="flow-step-btn" type="button" data-flow-tab="sheetPage" data-flow-focus="#abilityList">4. Atributos</button>
-              <button class="flow-step-btn" type="button" data-flow-tab="sheetPage" data-flow-focus="[data-path='vida.maximos']">5. PV e defesa</button>
-              <button class="flow-step-btn" type="button" data-flow-tab="sheetPage" data-flow-focus="#inventoryPanel">6. Inventário, equipamento e ouro</button>
-              <button class="flow-step-btn" type="button" data-flow-tab="spellsPage" data-flow-focus="#spellbookPanel">7. Magias, se tiver</button>
-            </div>
-          </details>
-        </div>
-
-
         <div class="grid-main">
           <div>
             <div class="panel">
@@ -1820,8 +1910,8 @@ textarea.huge{min-height:200px}
                 <div id="rulesAuditSummary" class="rules-audit-box"></div>
                 <div class="rules-audit-actions">
                   <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                  <a class="btn small secondary" href="criador.html?v=36" target="_blank">Criador livre</a>
-                  <a class="btn small primary" href="livro-regras.html?v=36" target="_blank">Livro de Regras</a>
+                  <a class="btn small secondary" href="criador.html?v=37" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=37" target="_blank">Livro de Regras</a>
                 </div>
               </details>
             </div>
@@ -1875,15 +1965,24 @@ textarea.huge{min-height:200px}
             </div>
             <div class="panel" id="attacksPanel">
               <h3>Ataques / Armas automáticos</h3>
-              <p class="calc-note">V22: bônus de ataque e dano calculados por atributo + proficiência. Também rola ataque e dano.</p>
-              <div class="weapon-builder">
-                <div class="field"><label>Arma / Ataque</label><input id="weaponName" placeholder="Ex.: Espada longa"></div>
-                <div class="field"><label>Atributo</label><select id="weaponAbility"></select></div>
-                <div class="field"><label>Dano</label><input id="weaponDamage" placeholder="Ex.: 1d8"></div>
-                <div class="field"><label>Tipo</label><input id="weaponType" placeholder="Cortante"></div>
-                <button class="btn small primary" id="addWeaponBtn" type="button">Adicionar</button>
+              <p class="calc-note">Escolha uma arma da lista. A ficha calcula ataque e dano. No celular, use os cards abaixo.</p>
+              <div class="quick-weapon-row">
+                <div class="field"><label>Lista de armas</label><select id="weaponPresetSelect"></select></div>
+                <button class="btn small primary" id="addPresetWeaponBtn" type="button">Adicionar arma</button>
               </div>
-              <div style="overflow:auto">
+              <details class="clean-edit-details">
+                <summary>Adicionar ataque manual</summary>
+                <div class="weapon-builder">
+                  <div class="field"><label>Arma / Ataque</label><input id="weaponName" placeholder="Ex.: Espada longa"></div>
+                  <div class="field"><label>Atributo</label><select id="weaponAbility"></select></div>
+                  <div class="field"><label>Dano</label><input id="weaponDamage" placeholder="Ex.: 1d8"></div>
+                  <div class="field"><label>Tipo</label><input id="weaponType" placeholder="Cortante"></div>
+                  <button class="btn small secondary" id="addWeaponBtn" type="button">Adicionar manual</button>
+                </div>
+              </details>
+              <div class="available-attacks" id="availableAttackList"></div>
+              <div class="attack-cards" id="attackCards"></div>
+              <div class="attack-table-wrap">
                 <table class="attack-table">
                   <thead><tr><th>Nome</th><th>Atributo</th><th>Prof.</th><th>Bônus</th><th>Dano</th><th>Ações</th></tr></thead>
                   <tbody id="attacksBody"></tbody>
@@ -1893,7 +1992,7 @@ textarea.huge{min-height:200px}
             </div>
             <div class="panel" id="inventoryPanel">
               <h3>Inventário por objetos</h3>
-              <p class="calc-note">V30: inventário não é texto solto. Cada item é um objeto com nome, quantidade, peso, categoria, origem e descrição.</p>
+              <p class="calc-note">Inventário é a fonte única: equipamento, ouro, tesouro e recompensas aparecem aqui.</p>
               <div class="coins">
                 <div class="coin"><label>PC</label><input data-path="equipamento.moedas.pc" type="number"></div>
                 <div class="coin"><label>PP</label><input data-path="equipamento.moedas.pp" type="number"></div>
@@ -1906,18 +2005,23 @@ textarea.huge{min-height:200px}
                 <div class="inv-stat"><span>Capacidade</span><b id="carryCapacity">0 kg</b></div>
                 <div class="inv-stat"><span>Situação</span><b id="carryStatus">Livre</b></div>
               </div>
-              <div class="object-builder item-object-builder">
-                <div class="field"><label>Nome do item</label><input id="itemName" placeholder="Ex.: Corda de cânhamo"></div>
-                <div class="field"><label>Qtd.</label><input id="itemQty" type="number" value="1" min="1"></div>
-                <div class="field"><label>Peso kg</label><input id="itemWeight" type="number" value="0" min="0" step="0.1"></div>
-                <div class="field"><label>Categoria</label><input id="itemCategory" placeholder="arma, kit, tesouro..."></div>
-                <div class="field"><label>Origem</label><input id="itemOrigin" placeholder="classe, raça, antecedente, compra..."></div>
-                <div class="field object-wide"><label>Descrição</label><input id="itemDesc" placeholder="Observação do item"></div>
-                <button class="btn small primary" id="addItemBtn" type="button">Adicionar objeto</button>
+              <div class="inventory-actions mobile-actions">
+                <button class="btn small primary" id="syncInventoryBtn" type="button">Sincronizar recebidos</button>
+                <button class="btn small secondary" id="addQuickItemOpenBtn" type="button">Adicionar item</button>
               </div>
-              <div class="inventory-actions">
+              <details class="clean-edit-details" id="manualItemDetails">
+                <summary>Adicionar item manual</summary>
+                <div class="object-builder item-object-builder">
+                  <div class="field"><label>Nome do item</label><input id="itemName" placeholder="Ex.: Corda de cânhamo"></div>
+                  <div class="field"><label>Qtd.</label><input id="itemQty" type="number" value="1" min="1"></div>
+                  <div class="field"><label>Peso kg</label><input id="itemWeight" type="number" value="0" min="0" step="0.1"></div>
+                  <div class="field"><label>Categoria</label><input id="itemCategory" placeholder="arma, kit, tesouro..."></div>
+                  <div class="field"><label>Origem</label><input id="itemOrigin" placeholder="compra, saque, mestre..."></div>
+                  <div class="field object-wide"><label>Descrição</label><input id="itemDesc" placeholder="Observação do item"></div>
+                  <button class="btn small primary" id="addItemBtn" type="button">Adicionar objeto</button>
+                </div>
                 <button class="btn small secondary" id="convertLegacyInventoryBtn" type="button">Converter texto antigo em objetos</button>
-              </div>
+              </details>
               <div class="item-list" id="inventoryList"></div>
               <details class="clean-edit-details">
                 <summary>Legado técnico: texto antigo preservado</summary>
@@ -3875,13 +3979,26 @@ textarea.huge{min-height:200px}
 
     const WEAPON_PRESETS = {
       'Ataque desarmado': {ability:'forca', damage:'1', type:'concussão', proficient:true, range:'corpo a corpo'},
-      'Adaga': {ability:'destreza', damage:'1d4', type:'perfurante', proficient:true, range:'6/18m'},
-      'Espada curta': {ability:'destreza', damage:'1d6', type:'perfurante', proficient:true, range:'corpo a corpo'},
-      'Espada longa': {ability:'forca', damage:'1d8', type:'cortante', proficient:true, range:'corpo a corpo'},
-      'Arco curto': {ability:'destreza', damage:'1d6', type:'perfurante', proficient:true, range:'24/96m'},
-      'Arco longo': {ability:'destreza', damage:'1d8', type:'perfurante', proficient:true, range:'45/180m'},
-      'Besta leve': {ability:'destreza', damage:'1d8', type:'perfurante', proficient:true, range:'24/96m'},
-      'Bordão': {ability:'forca', damage:'1d6', type:'concussão', proficient:true, range:'corpo a corpo'}
+      'Adaga': {ability:'destreza', damage:'1d4', type:'perfurante', proficient:true, range:'6/18m', weight:0.5},
+      'Azagaia': {ability:'forca', damage:'1d6', type:'perfurante', proficient:true, range:'9/36m', weight:1},
+      'Bordão': {ability:'forca', damage:'1d6', type:'concussão', proficient:true, range:'corpo a corpo', weight:2},
+      'Clava': {ability:'forca', damage:'1d4', type:'concussão', proficient:true, range:'corpo a corpo', weight:1},
+      'Foice curta': {ability:'forca', damage:'1d4', type:'cortante', proficient:true, range:'corpo a corpo', weight:1},
+      'Lança': {ability:'forca', damage:'1d6', type:'perfurante', proficient:true, range:'6/18m', weight:1.5},
+      'Maça': {ability:'forca', damage:'1d6', type:'concussão', proficient:true, range:'corpo a corpo', weight:2},
+      'Machadinha': {ability:'forca', damage:'1d6', type:'cortante', proficient:true, range:'6/18m', weight:1},
+      'Martelo leve': {ability:'forca', damage:'1d4', type:'concussão', proficient:true, range:'6/18m', weight:1},
+      'Espada curta': {ability:'destreza', damage:'1d6', type:'perfurante', proficient:true, range:'corpo a corpo', weight:1},
+      'Espada longa': {ability:'forca', damage:'1d8', type:'cortante', proficient:true, range:'corpo a corpo', weight:1.5},
+      'Rapieira': {ability:'destreza', damage:'1d8', type:'perfurante', proficient:true, range:'corpo a corpo', weight:1},
+      'Cimitarra': {ability:'destreza', damage:'1d6', type:'cortante', proficient:true, range:'corpo a corpo', weight:1.5},
+      'Machado grande': {ability:'forca', damage:'1d12', type:'cortante', proficient:true, range:'corpo a corpo', weight:3.5},
+      'Montante': {ability:'forca', damage:'2d6', type:'cortante', proficient:true, range:'corpo a corpo', weight:3},
+      'Arco curto': {ability:'destreza', damage:'1d6', type:'perfurante', proficient:true, range:'24/96m', weight:1},
+      'Arco longo': {ability:'destreza', damage:'1d8', type:'perfurante', proficient:true, range:'45/180m', weight:1},
+      'Besta leve': {ability:'destreza', damage:'1d8', type:'perfurante', proficient:true, range:'24/96m', weight:2.5},
+      'Besta de mão': {ability:'destreza', damage:'1d6', type:'perfurante', proficient:true, range:'9/36m', weight:1.5},
+      'Besta pesada': {ability:'destreza', damage:'1d10', type:'perfurante', proficient:true, range:'30/120m', weight:9}
     };
 
     function ensureCombatInventoryData(c){
@@ -3937,8 +4054,9 @@ textarea.huge{min-height:200px}
     function addAttackFromFields(){
       const c = activeChar(); if(!c) return;
       ensureCombatInventoryData(c);
-      const name = $('#weaponName').value.trim();
-      if(!name){ notify('Informe o nome da arma/ataque.'); return; }
+      const selectedPreset = $('#weaponPresetSelect') ? $('#weaponPresetSelect').value : '';
+      const name = $('#weaponName').value.trim() || selectedPreset;
+      if(!name){ notify('Escolha uma arma da lista ou informe o nome.'); return; }
       const preset = WEAPON_PRESETS[name] || {};
       const atk = {
         id:'atk_'+Math.random().toString(36).slice(2,9),
@@ -3996,34 +4114,116 @@ textarea.huge{min-height:200px}
           sel.appendChild(opt);
         });
       }
+      const presetSel = $('#weaponPresetSelect');
+      if(presetSel){
+        const current = presetSel.value;
+        presetSel.innerHTML = '<option value="">Escolher arma da lista</option>' + Object.keys(WEAPON_PRESETS).sort((a,b)=>a.localeCompare(b,'pt-BR')).map(name=>`<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`).join('');
+        if(current) presetSel.value = current;
+      }
+    }
+
+    function weaponFromPresetName(name){
+      const p = WEAPON_PRESETS[name] || {};
+      return {
+        id:'atk_'+Math.random().toString(36).slice(2,9),
+        name,
+        ability:p.ability || 'forca',
+        damage:p.damage || '1',
+        type:p.type || '',
+        proficient:p.proficient !== false,
+        range:p.range || ''
+      };
+    }
+
+    function addAttackByName(name){
+      const c = activeChar(); if(!c) return;
+      ensureCombatInventoryData(c);
+      if(!name){ notify('Escolha uma arma.'); return; }
+      if(c.combate.ataques.some(a=>String(a.name || a.nome).toLowerCase() === String(name).toLowerCase())){
+        notify('Esse ataque já está cadastrado.');
+        return;
+      }
+      c.combate.ataques.push(weaponFromPresetName(name));
+      saveLocal(false);
+      renderForm();
+      notify('Ataque adicionado.');
+    }
+
+    function addPresetAttack(){
+      const name = $('#weaponPresetSelect') ? $('#weaponPresetSelect').value : '';
+      addAttackByName(name);
+    }
+
+    function inventoryWeapons(c){
+      ensureObjectSheetData(c);
+      return (c.equipamento.itens || []).filter(i=>{
+        const txt = `${i.nome || ''} ${i.categoria || ''} ${i.descricao || ''}`.toLowerCase();
+        return /arma|espada|arco|besta|adaga|lança|machado|maça|bordão|cimitarra|rapieira|azagaia|clava|martelo/.test(txt);
+      }).map(i=>i.nome).filter(Boolean);
+    }
+
+    function renderAvailableAttacks(){
+      const c = activeChar(); if(!c) return;
+      const box = $('#availableAttackList'); if(!box) return;
+      const names = Array.from(new Set([...inventoryWeapons(c), ...Object.keys(WEAPON_PRESETS)])).slice(0,32);
+      box.innerHTML = `<div class="available-title">Ataques disponíveis</div><div class="available-attack-scroll">${names.map(name=>{
+        const already = c.combate.ataques.some(a=>String(a.name||a.nome).toLowerCase() === String(name).toLowerCase());
+        return `<button class="available-attack-chip ${already?'added':''}" type="button" data-add-available-attack="${escapeHtml(name)}">${already?'✓ ':''}${escapeHtml(name)}</button>`;
+      }).join('')}</div>`;
     }
 
     function renderAttacks(){
       const c=activeChar(); if(!c) return;
       ensureCombatInventoryData(c);
       renderWeaponSelects();
-      const body = $('#attacksBody'); if(!body) return;
+      renderAvailableAttacks();
+      const body = $('#attacksBody');
+      const cards = $('#attackCards');
       if(!c.combate.ataques.length){
-        body.innerHTML = '<tr><td colspan="6">Nenhum ataque cadastrado.</td></tr>';
+        if(body) body.innerHTML = '<tr><td colspan="6">Nenhum ataque cadastrado.</td></tr>';
+        if(cards) cards.innerHTML = '<div class="clean-empty">Nenhum ataque cadastrado. Toque em uma arma da lista acima.</div>';
         return;
       }
-      body.innerHTML = c.combate.ataques.map(a=>{
+      const rows = c.combate.ataques.map(a=>{
         const abilityLabel = (abilities.find(([id])=>id===(a.ability||a.atributo))||[])[1] || a.ability || '-';
         const bonus = attackBonus(c,a);
         const dmg = attackDamageText(c,a);
-        return `<tr>
+        return {a, abilityLabel, bonus, dmg};
+      });
+      if(body){
+        body.innerHTML = rows.map(({a,abilityLabel,bonus,dmg})=>`<tr>
           <td><b>${escapeHtml(a.name || a.nome || '-')}</b><br><span class="attack-auto-chip">${escapeHtml(a.range || '')}</span></td>
           <td>${escapeHtml(abilityLabel)}</td>
           <td>${a.proficient === false ? 'Não' : 'Sim'}</td>
           <td><b>${fmt(bonus)}</b></td>
           <td>${escapeHtml(dmg)}</td>
           <td><div class="attack-actions">
-            <button class="btn small secondary" data-roll-attack="${escapeHtml(a.id)}">Rolar ataque</button>
-            <button class="btn small green" data-roll-damage="${escapeHtml(a.id)}">Rolar dano</button>
+            <button class="btn small secondary" data-roll-attack="${escapeHtml(a.id)}">Ataque</button>
+            <button class="btn small green" data-roll-damage="${escapeHtml(a.id)}">Dano</button>
             <button class="btn small danger" data-remove-attack="${escapeHtml(a.id)}">Remover</button>
           </div></td>
-        </tr>`;
-      }).join('');
+        </tr>`).join('');
+      }
+      if(cards){
+        cards.innerHTML = rows.map(({a,abilityLabel,bonus,dmg})=>`
+          <div class="attack-card">
+            <div class="attack-card-top">
+              <b>${escapeHtml(a.name || a.nome || '-')}</b>
+              <span class="attack-auto-chip">${fmt(bonus)}</span>
+            </div>
+            <div class="attack-card-meta">
+              <span>${escapeHtml(abilityLabel)}</span>
+              <span>${escapeHtml(dmg)}</span>
+              ${a.range ? `<span>${escapeHtml(a.range)}</span>` : ''}
+            </div>
+            <div class="attack-card-actions">
+              <button class="btn small secondary" data-roll-attack="${escapeHtml(a.id)}">Rolar ataque</button>
+              <button class="btn small green" data-roll-damage="${escapeHtml(a.id)}">Rolar dano</button>
+              <button class="btn small danger" data-remove-attack="${escapeHtml(a.id)}">Remover</button>
+            </div>
+          </div>
+        `).join('');
+      }
     }
 
     function renderRollLog(){
@@ -4068,6 +4268,16 @@ textarea.huge{min-height:200px}
       saveLocal(false);
       renderForm();
       notify('Descanso longo aplicado.');
+    }
+
+
+    function forceSyncInventory(){
+      const c = activeChar(); if(!c) return;
+      ensureObjectSheetData(c);
+      syncGrantedInventoryObjects(c);
+      saveLocal(false);
+      renderForm();
+      notify('Inventário sincronizado.');
     }
 
     function addInventoryItem(){
@@ -4397,7 +4607,8 @@ textarea.huge{min-height:200px}
         peso: Math.max(0, num(i.peso || i.weight || 0) || 0),
         categoria: i.categoria || i.category || '',
         origem: i.origem || i.origin || '',
-        descricao: i.descricao || i.desc || ''
+        descricao: i.descricao || i.desc || '',
+        grantKey: i.grantKey || ''
       })).filter(i=>i.nome);
       c.proficiencias = c.proficiencias || {};
       c.proficiencias.manuais = Array.isArray(c.proficiencias.manuais) ? c.proficiencias.manuais : [];
@@ -5107,6 +5318,9 @@ textarea.huge{min-height:200px}
         }
       });
       document.addEventListener('click', e=>{
+        const addAvailAtk = e.target.closest('[data-add-available-attack]');
+        if(addAvailAtk){ addAttackByName(addAvailAtk.dataset.addAvailableAttack); return; }
+
         const pendingApply = e.target.closest('[data-apply-pending-choice]');
         if(pendingApply){ applyPendingChoice(pendingApply.dataset.applyPendingChoice); return; }
 
