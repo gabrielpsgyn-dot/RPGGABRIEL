@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPG Gabriel - Ficha Online V18</title>
+  <title>RPG Gabriel - Ficha Online V19</title>
   <style>
     :root{
       --bg:#090b10;
@@ -671,6 +671,28 @@
       margin-bottom:10px;
     }
 
+
+    .class-progress-panel{margin:10px 0 12px}
+    .class-progress-top{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:start}
+    .class-progress-top h3{margin-bottom:2px}
+    .class-badge{display:inline-flex;align-items:center;justify-content:center;min-height:32px;border-radius:999px;padding:6px 10px;background:#2d2115;color:#f8ead0;border:1px solid rgba(36,27,20,.35);font-size:12px;font-weight:950;white-space:nowrap}
+    .class-progress-summary{display:grid;gap:10px;margin-top:10px}
+    .class-progress-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+    .class-stat{border:1px solid rgba(36,27,20,.20);border-radius:12px;background:rgba(255,250,240,.58);padding:8px;min-height:68px}
+    .class-stat span{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:#735d42;font-weight:950;margin-bottom:4px}
+    .class-stat b{font-size:15px;color:#2d2115;line-height:1.2}
+    .class-slots{display:flex;flex-wrap:wrap;gap:6px}
+    .class-slot-pill,.class-feature-pill{display:inline-flex;align-items:center;gap:5px;border:1px solid rgba(36,27,20,.24);background:#f2dfbb;color:#3d2b19;border-radius:999px;padding:5px 8px;font-size:11px;font-weight:900}
+    .class-slot-pill.empty{background:#eee0c3;color:#725b42}
+    .class-feature-list{display:flex;flex-wrap:wrap;gap:6px}
+    .class-feature-box{border:1px solid rgba(36,27,20,.20);border-radius:12px;background:rgba(255,250,240,.58);padding:8px}
+    .class-feature-box span{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:#735d42;font-weight:950;margin-bottom:6px}
+    .class-empty{border:1px dashed rgba(36,27,20,.30);border-radius:12px;padding:10px;background:rgba(255,250,240,.44);color:#735d42;font-size:12px;font-weight:850}
+    @media(max-width:980px){.class-progress-grid{grid-template-columns:repeat(2,1fr)}.class-progress-top{grid-template-columns:1fr}}
+    @media(max-width:520px){.class-progress-grid{grid-template-columns:1fr}.class-slot-pill,.class-feature-pill{font-size:10px}}
+
+    .slot-total-note{font-size:10px;color:#735d42;font-weight:850;text-align:center;margin-top:-2px}
+    .spell-slot-used-card.slot-empty{display:none}
   </style>
 </head>
 <body class="menu-open">
@@ -832,6 +854,16 @@
           </div>
         </div>
 
+        <div class="panel class-progress-panel" id="classProgressPanel">
+          <div class="class-progress-top">
+            <div>
+              <h3>Progressão da classe</h3>
+              <p class="sheet-note">Aplicado automaticamente pela classe e nível: dado de vida, salvaguardas, conjuração, espaços e habilidades informativas.</p>
+            </div>
+            <span class="class-badge" id="classAutoBadge">Classe não definida</span>
+          </div>
+          <div id="classProgressSummary" class="class-progress-summary"></div>
+        </div>
 
         <div class="grid-main">
           <div>
@@ -1153,8 +1185,92 @@
       'paladin':'Paladino',
       'patrulheiro':'Patrulheiro',
       'ranger':'Patrulheiro'
+
     };
 
+    const FULL_CASTER_SLOTS = {
+      1:[2,0,0,0,0,0,0,0,0],
+      2:[3,0,0,0,0,0,0,0,0],
+      3:[4,2,0,0,0,0,0,0,0],
+      4:[4,3,0,0,0,0,0,0,0],
+      5:[4,3,2,0,0,0,0,0,0],
+      6:[4,3,3,0,0,0,0,0,0],
+      7:[4,3,3,1,0,0,0,0,0],
+      8:[4,3,3,2,0,0,0,0,0],
+      9:[4,3,3,3,1,0,0,0,0],
+      10:[4,3,3,3,2,0,0,0,0],
+      11:[4,3,3,3,2,1,0,0,0],
+      12:[4,3,3,3,2,1,0,0,0],
+      13:[4,3,3,3,2,1,1,0,0],
+      14:[4,3,3,3,2,1,1,0,0],
+      15:[4,3,3,3,2,1,1,1,0],
+      16:[4,3,3,3,2,1,1,1,0],
+      17:[4,3,3,3,2,1,1,1,1],
+      18:[4,3,3,3,3,1,1,1,1],
+      19:[4,3,3,3,3,2,1,1,1],
+      20:[4,3,3,3,3,2,2,1,1]
+    };
+
+    const HALF_CASTER_SLOTS = {
+      1:[0,0,0,0,0,0,0,0,0],
+      2:[2,0,0,0,0,0,0,0,0],
+      3:[3,0,0,0,0,0,0,0,0],
+      4:[3,0,0,0,0,0,0,0,0],
+      5:[4,2,0,0,0,0,0,0,0],
+      6:[4,2,0,0,0,0,0,0,0],
+      7:[4,3,0,0,0,0,0,0,0],
+      8:[4,3,0,0,0,0,0,0,0],
+      9:[4,3,2,0,0,0,0,0,0],
+      10:[4,3,2,0,0,0,0,0,0],
+      11:[4,3,3,0,0,0,0,0,0],
+      12:[4,3,3,0,0,0,0,0,0],
+      13:[4,3,3,1,0,0,0,0,0],
+      14:[4,3,3,1,0,0,0,0,0],
+      15:[4,3,3,2,0,0,0,0,0],
+      16:[4,3,3,2,0,0,0,0,0],
+      17:[4,3,3,3,1,0,0,0,0],
+      18:[4,3,3,3,1,0,0,0,0],
+      19:[4,3,3,3,2,0,0,0,0],
+      20:[4,3,3,3,2,0,0,0,0]
+    };
+
+    const PACT_CASTER_SLOTS = {
+      1:{slotLevel:1,total:1},
+      2:{slotLevel:1,total:2},
+      3:{slotLevel:2,total:2},
+      4:{slotLevel:2,total:2},
+      5:{slotLevel:3,total:2},
+      6:{slotLevel:3,total:2},
+      7:{slotLevel:4,total:2},
+      8:{slotLevel:4,total:2},
+      9:{slotLevel:5,total:2},
+      10:{slotLevel:5,total:2},
+      11:{slotLevel:5,total:3},
+      12:{slotLevel:5,total:3},
+      13:{slotLevel:5,total:3},
+      14:{slotLevel:5,total:3},
+      15:{slotLevel:5,total:3},
+      16:{slotLevel:5,total:3},
+      17:{slotLevel:5,total:4},
+      18:{slotLevel:5,total:4},
+      19:{slotLevel:5,total:4},
+      20:{slotLevel:5,total:4}
+    };
+
+    const CLASS_RULES = {
+      'Bárbaro': { hitDie:'d12', saves:['forca','constituicao'], casting:'none', spellAbility:'', primary:['forca','constituicao'], features:{1:['Fúria','Defesa sem Armadura'],2:['Ataque Descuidado','Sentido de Perigo'],3:['Caminho Primitivo'],4:['Melhoria de atributo'],5:['Ataque Extra','Movimento Rápido'],7:['Instinto Selvagem'],9:['Crítico Brutal'],11:['Fúria Implacável'],15:['Fúria Persistente'],20:['Campeão Primitivo']} },
+      'Bardo': { hitDie:'d8', saves:['destreza','carisma'], casting:'full', spellAbility:'carisma', primary:['carisma','destreza'], features:{1:['Inspiração de Bardo','Conjuração'],2:['Pau para Toda Obra','Canção de Descanso'],3:['Colégio de Bardo','Especialização'],4:['Melhoria de atributo'],5:['Fonte de Inspiração'],6:['Característica de Colégio'],10:['Segredos Mágicos'],20:['Inspiração Superior']} },
+      'Bruxo': { hitDie:'d8', saves:['sabedoria','carisma'], casting:'pact', spellAbility:'carisma', primary:['carisma','constituicao'], features:{1:['Patrono Transcendental','Magia de Pacto'],2:['Invocações Místicas'],3:['Dádiva do Pacto'],4:['Melhoria de atributo'],6:['Característica de Patrono'],11:['Arcano Místico'],20:['Mestre Místico']} },
+      'Clérigo': { hitDie:'d8', saves:['sabedoria','carisma'], casting:'full', spellAbility:'sabedoria', primary:['sabedoria','constituicao'], features:{1:['Conjuração','Domínio Divino'],2:['Canalizar Divindade'],4:['Melhoria de atributo'],5:['Destruir Mortos-vivos'],8:['Característica de Domínio'],10:['Intervenção Divina'],20:['Intervenção Divina aprimorada']} },
+      'Druida': { hitDie:'d8', saves:['inteligencia','sabedoria'], casting:'full', spellAbility:'sabedoria', primary:['sabedoria','constituicao'], features:{1:['Druídico','Conjuração'],2:['Forma Selvagem','Círculo Druídico'],4:['Melhoria de atributo'],18:['Corpo Atemporal','Magias Bestiais'],20:['Arquedruida']} },
+      'Feiticeiro': { hitDie:'d6', saves:['constituicao','carisma'], casting:'full', spellAbility:'carisma', primary:['carisma','constituicao'], features:{1:['Conjuração','Origem de Feitiçaria'],2:['Fonte de Magia'],3:['Metamagia'],4:['Melhoria de atributo'],20:['Restauração Mística']} },
+      'Guerreiro': { hitDie:'d10', saves:['forca','constituicao'], casting:'none', spellAbility:'', primary:['forca','destreza','constituicao'], features:{1:['Estilo de Luta','Retomar o Fôlego'],2:['Surto de Ação'],3:['Arquétipo Marcial'],4:['Melhoria de atributo'],5:['Ataque Extra'],9:['Indomável'],20:['Ataque Extra aprimorado']} },
+      'Ladino': { hitDie:'d8', saves:['destreza','inteligencia'], casting:'none', spellAbility:'', primary:['destreza','inteligencia'], features:{1:['Especialização','Ataque Furtivo','Gíria de Ladrão'],2:['Ação Ardilosa'],3:['Arquétipo de Ladino'],4:['Melhoria de atributo'],5:['Esquiva Sobrenatural'],7:['Evasão'],11:['Talento Confiável'],20:['Golpe de Sorte']} },
+      'Mago': { hitDie:'d6', saves:['inteligencia','sabedoria'], casting:'full', spellAbility:'inteligencia', primary:['inteligencia','destreza'], features:{1:['Conjuração','Recuperação Arcana'],2:['Tradição Arcana'],4:['Melhoria de atributo'],18:['Dominar Magia'],20:['Magias Assinatura']} },
+      'Monge': { hitDie:'d8', saves:['forca','destreza'], casting:'none', spellAbility:'sabedoria', primary:['destreza','sabedoria'], features:{1:['Defesa sem Armadura','Artes Marciais'],2:['Ki','Movimento sem Armadura'],3:['Tradição Monástica','Defletir Projéteis'],4:['Melhoria de atributo','Queda Lenta'],5:['Ataque Extra','Ataque Atordoante'],7:['Evasão','Mente Tranquila'],14:['Alma de Diamante'],20:['Eu Perfeito']} },
+      'Paladino': { hitDie:'d10', saves:['sabedoria','carisma'], casting:'half', spellAbility:'carisma', primary:['forca','carisma'], features:{1:['Sentido Divino','Cura pelas Mãos'],2:['Estilo de Luta','Conjuração','Destruição Divina'],3:['Juramento Sagrado'],4:['Melhoria de atributo'],5:['Ataque Extra'],6:['Aura de Proteção'],10:['Aura de Coragem'],20:['Característica final de Juramento']} },
+      'Patrulheiro': { hitDie:'d10', saves:['forca','destreza'], casting:'half', spellAbility:'sabedoria', primary:['destreza','sabedoria'], features:{1:['Inimigo Favorito','Explorador Natural'],2:['Estilo de Luta','Conjuração'],3:['Arquétipo de Patrulheiro'],4:['Melhoria de atributo'],5:['Ataque Extra'],8:['Passo da Terra'],10:['Esconder-se à Vista'],20:['Matador de Inimigos']} }
+    };
 
     const abilities = [
       ['forca','Força','For'],
@@ -1231,7 +1347,7 @@
       return {
         id: uid(),
         campaignId: CAMPAIGN_ID,
-        schemaVersion: 18,
+        schemaVersion: 19,
         createdAt: now(),
         updatedAt: now(),
         meta:{nomePersonagem:'Novo Personagem',classe:'',nivel:1,classeNivel:'',nivel:1,antecedente:'',nomeJogador:'',raca:'',alinhamento:'',experiencia:0,inspiracao:false,bonusProficiencia:2},
@@ -1315,9 +1431,134 @@
       return 10 + calcSkillBonus(c,'percepcao');
     }
 
+
+    function getClassRule(c){
+      ensureClassLevelData(c);
+      const cls = c && c.meta ? normalizeClassName(c.meta.classe) : '';
+      return CLASS_RULES[cls] || null;
+    }
+
+    function getClassSpellSlots(cls, level){
+      const rule = CLASS_RULES[cls];
+      level = clamp(num(level)||1,1,20);
+      const empty = [0,0,0,0,0,0,0,0,0];
+      if(!rule || rule.casting === 'none') return empty;
+      if(rule.casting === 'full') return FULL_CASTER_SLOTS[level] || empty;
+      if(rule.casting === 'half') return HALF_CASTER_SLOTS[level] || empty;
+      if(rule.casting === 'pact'){
+        const pact = PACT_CASTER_SLOTS[level];
+        const arr = [...empty];
+        if(pact) arr[pact.slotLevel - 1] = pact.total;
+        return arr;
+      }
+      return empty;
+    }
+
+    function classSlotLabel(cls, level){
+      const rule = CLASS_RULES[cls];
+      if(!rule || rule.casting === 'none') return 'Sem espaços de magia pela classe.';
+      const slots = getClassSpellSlots(cls, level);
+      const labels = slots.map((q,idx)=>q ? `${idx+1}º: ${q}` : '').filter(Boolean);
+      if(rule.casting === 'pact') return labels.length ? `Pacto: ${labels.join(' • ')}` : 'Sem espaços de pacto.';
+      return labels.length ? labels.join(' • ') : 'Sem espaços neste nível.';
+    }
+
+    function featuresForClassLevel(rule, level){
+      if(!rule || !rule.features) return [];
+      const out = [];
+      Object.keys(rule.features).map(Number).sort((a,b)=>a-b).forEach(lv=>{
+        if(lv <= level){
+          (rule.features[lv] || []).forEach(name=>out.push({level:lv, name}));
+        }
+      });
+      return out;
+    }
+
+    function applyClassProgression(c){
+      if(!c) return;
+      ensureClassLevelData(c);
+      const cls = c.meta.classe || '';
+      const rule = CLASS_RULES[cls];
+      const level = getCharacterLevel(c);
+      c.classeInfo = c.classeInfo || {};
+      c.classeInfo.nome = cls;
+      c.classeInfo.nivel = level;
+      if(!rule) return;
+
+      c.classeInfo.dadoVida = rule.hitDie;
+      c.classeInfo.salvaguardas = [...rule.saves];
+      c.classeInfo.atributoConjuracao = rule.spellAbility || '';
+      c.classeInfo.tipoConjuracao = rule.casting;
+      c.classeInfo.atributosPrincipais = [...(rule.primary || [])];
+
+      c.vida = c.vida || {};
+      c.vida.dadoVida = rule.hitDie;
+      c.vida.dadoVidaTotal = String(level);
+
+      c.atributos = c.atributos || blankAbilities();
+      abilities.forEach(([k])=>{
+        c.atributos[k] = c.atributos[k] || {valor:10,modificadorManual:'',salvaguardaProficiente:false};
+      });
+      (rule.saves || []).forEach(k=>{
+        if(c.atributos[k]) c.atributos[k].salvaguardaProficiente = true;
+      });
+
+      c.magia = c.magia || {};
+      if(rule.casting !== 'none'){
+        c.magia.classeConjuradora = cls;
+        if(rule.spellAbility) c.magia.atributoConjuracao = rule.spellAbility;
+      }
+      c.magia.niveis = c.magia.niveis || blankMagicLevels();
+      const slots = getClassSpellSlots(cls, level);
+      for(let i=1;i<=9;i++){
+        c.magia.niveis[i] = c.magia.niveis[i] || {titulo:'',espacosTotais:'',espacosUsados:'',magias:blankSpellRows(i)};
+        const total = slots[i-1] || 0;
+        c.magia.niveis[i].espacosTotais = total ? String(total) : '';
+        const used = num(c.magia.niveis[i].espacosUsados);
+        if(total && used > total) c.magia.niveis[i].espacosUsados = String(total);
+        if(!total && used === 0) c.magia.niveis[i].espacosUsados = '';
+      }
+    }
+
+    function renderClassProgress(){
+      const c = activeChar();
+      const box = $('#classProgressSummary');
+      const badge = $('#classAutoBadge');
+      if(!box || !badge || !c) return;
+      ensureClassLevelData(c);
+      applyClassProgression(c);
+      const cls = c.meta.classe || '';
+      const level = getCharacterLevel(c);
+      const rule = CLASS_RULES[cls];
+      if(!rule){
+        badge.textContent = 'Classe não definida';
+        box.innerHTML = '<div class="class-empty">Escolha uma classe para aplicar dado de vida, salvaguardas, conjuração e progressão.</div>';
+        return;
+      }
+      badge.textContent = `${cls} nível ${level}`;
+      const saves = (rule.saves || []).map(k => (abilities.find(([id])=>id===k) || [k,k])[1]).join(' e ');
+      const primaries = (rule.primary || []).map(k => (abilities.find(([id])=>id===k) || [k,k])[1]).join(', ') || '-';
+      const spellAbility = rule.spellAbility ? (abilities.find(([id])=>id===rule.spellAbility) || [null,rule.spellAbility])[1] : 'Não conjurador';
+      const slots = getClassSpellSlots(cls, level);
+      const slotPills = slots.map((q,idx)=>q ? `<span class="class-slot-pill">${idx+1}º círculo: ${q}</span>` : '').filter(Boolean).join('') || '<span class="class-slot-pill empty">Sem espaços neste nível</span>';
+      const features = featuresForClassLevel(rule, level).map(f=>`<span class="class-feature-pill">Nv. ${f.level}: ${escapeHtml(f.name)}</span>`).join('') || '<span class="class-feature-pill">Sem habilidades listadas</span>';
+      box.innerHTML = `
+        <div class="class-progress-grid">
+          <div class="class-stat"><span>Dado de vida</span><b>${escapeHtml(rule.hitDie)}</b></div>
+          <div class="class-stat"><span>Salvaguardas</span><b>${escapeHtml(saves || '-')}</b></div>
+          <div class="class-stat"><span>Atributos fortes</span><b>${escapeHtml(primaries)}</b></div>
+          <div class="class-stat"><span>Conjuração</span><b>${escapeHtml(rule.casting === 'full' ? 'Completa' : rule.casting === 'half' ? 'Meia' : rule.casting === 'pact' ? 'Pacto' : 'Não')}</b></div>
+          <div class="class-stat"><span>Atributo mágico</span><b>${escapeHtml(spellAbility)}</b></div>
+        </div>
+        <div class="class-feature-box"><span>Espaços de magia do nível atual</span><div class="class-slots">${slotPills}</div></div>
+        <div class="class-feature-box"><span>Habilidades recebidas até o nível ${level}</span><div class="class-feature-list">${features}</div></div>
+      `;
+    }
+
     function applyRuleEngine(c){
       if(!c) return;
-      c.schemaVersion = Math.max(num(c.schemaVersion)||0, 18);
+      c.schemaVersion = Math.max(num(c.schemaVersion)||0, 19);
+      applyClassProgression(c);
       c.meta = c.meta || {};
       c.combate = c.combate || {};
       c.proficiencias = c.proficiencias || {};
@@ -1400,9 +1641,10 @@
       const levels = Array.from({length:9},(_,idx)=>{
         const level=idx+1;
         return `
-          <div class="spell-slot-used-card">
+          <div class="spell-slot-used-card" data-slot-card="${level}">
             <div class="spell-level">${level}</div>
             <div class="field"><label>Usados</label><input data-path="magia.niveis.${level}.espacosUsados" placeholder="0"></div>
+            <div class="slot-total-note" data-slot-total-note="${level}">Total pela classe: -</div>
             <button type="button" class="btn secondary small" data-recover-slot="${level}">-1 usado</button>
           </div>
         `;
@@ -1410,7 +1652,7 @@
       $('#spellGrid').innerHTML = `
         <div class="spell-slots-compact-title">
           <h3>Espaços usados</h3>
-          <p class="sheet-note">Mostra só quantos espaços já foram usados em cada círculo.</p>
+          <p class="sheet-note">A V19 calcula o total pela classe. A tela mostra apenas os círculos disponíveis ou usados.</p>
         </div>
         <div class="spell-slots-used-grid">${levels}</div>
       `;
@@ -1791,6 +2033,20 @@
     }
 
 
+
+    function renderSpellSlotsClassTotals(){
+      const c = activeChar(); if(!c) return;
+      applyClassProgression(c);
+      for(let i=1;i<=9;i++){
+        const card = document.querySelector(`[data-slot-card="${i}"]`);
+        const note = document.querySelector(`[data-slot-total-note="${i}"]`);
+        const total = num(getByPath(c,`magia.niveis.${i}.espacosTotais`));
+        const used = num(getByPath(c,`magia.niveis.${i}.espacosUsados`));
+        if(note) note.textContent = total ? `Total pela classe: ${total}` : 'Sem espaço neste círculo';
+        if(card) card.classList.toggle('slot-empty', !total && !used);
+      }
+    }
+
     function renderForm(){
       const c=activeChar();
       if(!c) return;
@@ -1802,12 +2058,14 @@
         if(el.type === 'checkbox') el.checked = !!val;
         else if(document.activeElement !== el) el.value = val ?? '';
       });
+      renderClassProgress();
       renderDashboard();
       renderCalcs();
       renderImages();
       renderMenu();
       const jsonBox = $('#jsonBox'); if(jsonBox) jsonBox.value = JSON.stringify(c,null,2);
       renderSpellbookUI();
+      renderSpellSlotsClassTotals();
       applyDefaultSpellClassFilter(false);
     }
 
@@ -2162,6 +2420,8 @@
           if(sf){ delete sf.dataset.manualClassFilter; applyDefaultSpellClassFilter(true); }
         }
         applyRuleEngine(c);
+        renderClassProgress();
+        renderSpellSlotsClassTotals();
         renderDashboard(); renderCalcs(); scheduleSave();
       });
       document.addEventListener('change', e=>{
@@ -2170,6 +2430,8 @@
           const c=activeChar(); if(!c) return;
           setByPath(c, el.dataset.path, el.checked);
           applyRuleEngine(c);
+        renderClassProgress();
+        renderSpellSlotsClassTotals();
         renderDashboard(); renderCalcs(); scheduleSave();
         }
       });

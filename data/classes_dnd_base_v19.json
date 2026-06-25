@@ -1,0 +1,77 @@
+{
+  "versao": "V19",
+  "classes": [
+    {
+      "classe": "Bárbaro",
+      "dado_vida": "d12",
+      "salvaguardas": "Força, Constituição",
+      "conjuracao": "Não conjurador"
+    },
+    {
+      "classe": "Bardo",
+      "dado_vida": "d8",
+      "salvaguardas": "Destreza, Carisma",
+      "conjuracao": "Carisma, conjurador completo"
+    },
+    {
+      "classe": "Bruxo",
+      "dado_vida": "d8",
+      "salvaguardas": "Sabedoria, Carisma",
+      "conjuracao": "Carisma, pacto"
+    },
+    {
+      "classe": "Clérigo",
+      "dado_vida": "d8",
+      "salvaguardas": "Sabedoria, Carisma",
+      "conjuracao": "Sabedoria, conjurador completo"
+    },
+    {
+      "classe": "Druida",
+      "dado_vida": "d8",
+      "salvaguardas": "Inteligência, Sabedoria",
+      "conjuracao": "Sabedoria, conjurador completo"
+    },
+    {
+      "classe": "Feiticeiro",
+      "dado_vida": "d6",
+      "salvaguardas": "Constituição, Carisma",
+      "conjuracao": "Carisma, conjurador completo"
+    },
+    {
+      "classe": "Guerreiro",
+      "dado_vida": "d10",
+      "salvaguardas": "Força, Constituição",
+      "conjuracao": "Não conjurador"
+    },
+    {
+      "classe": "Ladino",
+      "dado_vida": "d8",
+      "salvaguardas": "Destreza, Inteligência",
+      "conjuracao": "Não conjurador"
+    },
+    {
+      "classe": "Mago",
+      "dado_vida": "d6",
+      "salvaguardas": "Inteligência, Sabedoria",
+      "conjuracao": "Inteligência, conjurador completo"
+    },
+    {
+      "classe": "Monge",
+      "dado_vida": "d8",
+      "salvaguardas": "Força, Destreza",
+      "conjuracao": "Não conjurador"
+    },
+    {
+      "classe": "Paladino",
+      "dado_vida": "d10",
+      "salvaguardas": "Sabedoria, Carisma",
+      "conjuracao": "Carisma, meio conjurador"
+    },
+    {
+      "classe": "Patrulheiro",
+      "dado_vida": "d10",
+      "salvaguardas": "Força, Destreza",
+      "conjuracao": "Sabedoria, meio conjurador"
+    }
+  ]
+}
