@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPG Gabriel - Ficha Online V38</title>
+  <title>RPG Gabriel - Ficha Online V39</title>
   <style>
     :root{
       --bg:#090b10;
@@ -1697,9 +1697,40 @@ textarea.huge{min-height:200px}
   font-weight:850;
 }
 
+
+/* V39 - só usa arma possuída e proficiência afeta ataque */
+.quick-inventory-tools{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:8px;
+  align-items:end;
+  margin:8px 0;
+}
+.available-attack-chip.prof{
+  border-color:#4f7b2a;
+}
+.available-attack-chip.noprof{
+  border-color:#9b6a2d;
+  background:#fff3dd;
+}
+.object-card-actions{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+@media(max-width:700px){
+  .quick-inventory-tools{
+    grid-template-columns:1fr;
+  }
+  .quick-inventory-tools .btn{
+    width:100%;
+  }
+}
+
 </style>
 </head>
-<!-- RPGGABRIEL V38 CORRECAO RENDER INVENTARIO ARMAS -->
+<!-- RPGGABRIEL V39 INVENTARIO PROFICIENCIA ARMAS -->
 <body class="menu-open">
   <section class="menu-screen" id="menuScreen">
     <div class="menu-shell">
@@ -1936,8 +1967,8 @@ textarea.huge{min-height:200px}
                 <div id="rulesAuditSummary" class="rules-audit-box"></div>
                 <div class="rules-audit-actions">
                   <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                  <a class="btn small secondary" href="criador.html?v=38" target="_blank">Criador livre</a>
-                  <a class="btn small primary" href="livro-regras.html?v=38" target="_blank">Livro de Regras</a>
+                  <a class="btn small secondary" href="criador.html?v=39" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=39" target="_blank">Livro de Regras</a>
                 </div>
               </details>
             </div>
@@ -1991,10 +2022,10 @@ textarea.huge{min-height:200px}
             </div>
             <div class="panel" id="attacksPanel">
               <h3>Ataques / Armas automáticos</h3>
-              <p class="calc-note">Escolha uma arma da lista. A ficha calcula ataque e dano. No celular, use os cards abaixo.</p>
+              <p class="calc-note">Só aparecem armas que estão no inventário. Proficiência soma o bônus de proficiência no ataque, não no dano.</p>
               <div class="quick-weapon-row">
-                <div class="field"><label>Lista de armas</label><select id="weaponPresetSelect"></select><small class="context-hint" id="weaponListStatus"></small></div>
-                <button class="btn small primary" id="addPresetWeaponBtn" type="button">Adicionar arma</button>
+                <div class="field"><label>Armas no inventário</label><select id="weaponPresetSelect"></select><small class="context-hint" id="weaponListStatus"></small></div>
+                <button class="btn small primary" id="addPresetWeaponBtn" type="button">Adicionar ataque</button>
               </div>
               <details class="clean-edit-details">
                 <summary>Adicionar ataque manual</summary>
@@ -2035,6 +2066,17 @@ textarea.huge{min-height:200px}
                 <button class="btn small primary" id="syncInventoryBtn" type="button">Sincronizar recebidos</button>
                 <button class="btn small secondary" id="addQuickItemOpenBtn" type="button">Adicionar item</button>
               </div>
+              <div class="quick-inventory-tools">
+                <div class="field"><label>Adicionar arma ao inventário</label><select id="weaponInventorySelect"></select></div>
+                <button class="btn small secondary" id="addWeaponToInventoryBtn" type="button">Adicionar arma</button>
+              </div>
+              <details class="clean-edit-details">
+                <summary>Adicionar pergaminho / consumível</summary>
+                <div class="quick-inventory-tools">
+                  <div class="field"><label>Pergaminho / item mágico</label><input id="scrollItemName" placeholder="Ex.: Pergaminho de Mísseis Mágicos"></div>
+                  <button class="btn small secondary" id="addScrollItemBtn" type="button">Adicionar pergaminho</button>
+                </div>
+              </details>
               <details class="clean-edit-details" id="manualItemDetails">
                 <summary>Adicionar item manual</summary>
                 <div class="object-builder item-object-builder">
@@ -4004,7 +4046,7 @@ textarea.huge{min-height:200px}
 
 
     const WEAPON_PRESETS = {
-      'Ataque desarmado': {ability:'forca', damage:'1', type:'concussão', proficient:true, range:'corpo a corpo'},
+      'Ataque desarmado': {ability:'forca', damage:'1', type:'concussão', proficient:hasWeaponProficiency(c,name), range:'corpo a corpo'},
       'Adaga': {ability:'destreza', damage:'1d4', type:'perfurante', proficient:true, range:'6/18m', weight:0.5},
       'Azagaia': {ability:'forca', damage:'1d6', type:'perfurante', proficient:true, range:'9/36m', weight:1},
       'Bordão': {ability:'forca', damage:'1d6', type:'concussão', proficient:true, range:'corpo a corpo', weight:2},
@@ -4027,6 +4069,25 @@ textarea.huge{min-height:200px}
       'Besta pesada': {ability:'destreza', damage:'1d10', type:'perfurante', proficient:true, range:'30/120m', weight:9}
     };
 
+    const SIMPLE_WEAPONS = ['Ataque desarmado','Adaga','Azagaia','Bordão','Clava','Foice curta','Lança','Maça','Machadinha','Martelo leve'];
+    const MARTIAL_WEAPONS = ['Espada curta','Espada longa','Rapieira','Cimitarra','Machado grande','Montante','Arco curto','Arco longo','Besta leve','Besta de mão','Besta pesada'];
+    const CLASS_WEAPON_PROFICIENCIES = {
+      'Bárbaro':['simples','marciais'],
+      'Bardo':['simples','Besta de mão','Espada longa','Rapieira','Espada curta'],
+      'Bruxo':['simples'],
+      'Clérigo':['simples'],
+      'Druida':['Clava','Adaga','Azagaia','Maça','Bordão','Cimitarra','Foice curta','Lança'],
+      'Feiticeiro':['Adaga','Bordão','Besta leve'],
+      'Guerreiro':['simples','marciais'],
+      'Ladino':['simples','Besta de mão','Espada longa','Rapieira','Espada curta'],
+      'Mago':['Adaga','Bordão','Besta leve'],
+      'Monge':['simples','Espada curta'],
+      'Paladino':['simples','marciais'],
+      'Patrulheiro':['simples','marciais']
+    };
+
+
+
     function ensureCombatInventoryData(c){
       if(!c) return;
       c.combate = c.combate || {};
@@ -4039,7 +4100,8 @@ textarea.huge{min-height:200px}
 
     function attackBonus(c, atk){
       const ability = atk.ability || atk.atributo || 'forca';
-      return getMod(c, ability) + (atk.proficient === false ? 0 : profBonus(c));
+      const weaponName = atk.name || atk.nome || '';
+      return getMod(c, ability) + (hasWeaponProficiency(c, weaponName) ? profBonus(c) : 0);
     }
 
     function attackDamageText(c, atk){
@@ -4084,6 +4146,8 @@ textarea.huge{min-height:200px}
       const name = $('#weaponName').value.trim() || selectedPreset;
       if(!name){ notify('Escolha uma arma da lista ou informe o nome.'); return; }
       const preset = WEAPON_PRESETS[name] || {};
+      const owned = inventoryWeapons(c).map(normWeaponName);
+      if(!owned.includes(normWeaponName(name))){ notify('Cadastre esta arma no inventário antes de criar o ataque.'); return; }
       const atk = {
         id:'atk_'+Math.random().toString(36).slice(2,9),
         name,
@@ -4140,16 +4204,75 @@ textarea.huge{min-height:200px}
           sel.appendChild(opt);
         });
       }
+
+      const c = activeChar();
+      const invWeapons = c ? inventoryWeapons(c) : [];
+
       const presetSel = $('#weaponPresetSelect');
       if(presetSel){
         const current = presetSel.value;
-        presetSel.innerHTML = '<option value="">Escolher arma da lista</option>' + Object.keys(WEAPON_PRESETS).sort((a,b)=>a.localeCompare(b,'pt-BR')).map(name=>`<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`).join('');
-        if(current) presetSel.value = current;
-        const st = $('#weaponListStatus'); if(st) st.textContent = Object.keys(WEAPON_PRESETS).length + ' armas disponíveis';
+        presetSel.innerHTML = '<option value="">Escolher arma possuída</option>' + invWeapons.map(name=>`<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`).join('');
+        if(current && invWeapons.includes(current)) presetSel.value = current;
+        const st = $('#weaponListStatus'); if(st) st.textContent = invWeapons.length ? `${invWeapons.length} arma(s) no inventário` : 'Nenhuma arma no inventário';
+      }
+
+      const invSel = $('#weaponInventorySelect');
+      if(invSel){
+        const current = invSel.value;
+        invSel.innerHTML = '<option value="">Escolher arma do livro</option>' + Object.keys(WEAPON_PRESETS).sort((a,b)=>a.localeCompare(b,'pt-BR')).map(name=>`<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`).join('');
+        if(current) invSel.value = current;
       }
     }
 
+
+    function normWeaponName(name){
+      return String(name || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,' ').trim();
+    }
+
+    function weaponGroup(name){
+      const n = normWeaponName(name);
+      if(SIMPLE_WEAPONS.some(w=>normWeaponName(w) === n)) return 'simples';
+      if(MARTIAL_WEAPONS.some(w=>normWeaponName(w) === n)) return 'marciais';
+      return '';
+    }
+
+    function weaponProficiencySources(c){
+      const cls = c && c.meta ? c.meta.classe || '' : '';
+      const race = c && c.meta ? normalizeRaceName(c.meta.raca || '') : '';
+      const clsRule = getAllClassRules()[cls] || {};
+      const raceRule = getAllRaceRules()[race] || {};
+      const sources = [
+        ...(CLASS_WEAPON_PROFICIENCIES[cls] || []),
+        ...(String(clsRule.proficiencies || '').split(/\n|,/).map(x=>x.trim()).filter(Boolean)),
+        ...((raceRule.proficiencies || []).map(x=>String(x)))
+      ];
+      if(c && c.proficiencias && Array.isArray(c.proficiencias.manuais)){
+        c.proficiencias.manuais.forEach(p=>sources.push(p.nome || ''));
+      }
+      return sources;
+    }
+
+    function hasWeaponProficiency(c, name){
+      const group = weaponGroup(name);
+      const n = normWeaponName(name);
+      const sources = weaponProficiencySources(c).map(normWeaponName);
+      if(group === 'simples' && sources.some(s=>s.includes('simples') || s.includes('armas simples'))) return true;
+      if(group === 'marciais' && sources.some(s=>s.includes('marciais') || s.includes('armas marciais'))) return true;
+      if(sources.some(s=>s === n || s.includes(n) || n.includes(s))) return true;
+      if(sources.some(s=>s.includes('armas anas') && ['machadinha','machado grande'].some(w=>n.includes(normWeaponName(w))))) return true;
+      if(sources.some(s=>s.includes('espada longa') && n.includes('espada longa'))) return true;
+      if(sources.some(s=>s.includes('espada curta') && n.includes('espada curta'))) return true;
+      if(sources.some(s=>s.includes('arco longo') && n.includes('arco longo'))) return true;
+      if(sources.some(s=>s.includes('arco curto') && n.includes('arco curto'))) return true;
+      return false;
+    }
+
+    function weaponProficiencyText(c, name){
+      return hasWeaponProficiency(c, name) ? `Proficiência: sim (+${profBonus(c)} no ataque)` : 'Proficiência: não';
+    }
+
     function weaponFromPresetName(name){
+      const c = activeChar();
       const p = WEAPON_PRESETS[name] || {};
       return {
         id:'atk_'+Math.random().toString(36).slice(2,9),
@@ -4157,7 +4280,7 @@ textarea.huge{min-height:200px}
         ability:p.ability || 'forca',
         damage:p.damage || '1',
         type:p.type || '',
-        proficient:p.proficient !== false,
+        proficient: c ? hasWeaponProficiency(c, name) : false,
         range:p.range || ''
       };
     }
@@ -4165,7 +4288,13 @@ textarea.huge{min-height:200px}
     function addAttackByName(name){
       const c = activeChar(); if(!c) return;
       ensureCombatInventoryData(c);
-      if(!name){ notify('Escolha uma arma.'); return; }
+      ensureObjectSheetData(c);
+      if(!name){ notify('Escolha uma arma que esteja no inventário.'); return; }
+      const owned = inventoryWeapons(c).map(normWeaponName);
+      if(!owned.includes(normWeaponName(name))){
+        notify('Você só pode criar ataque com arma que está no inventário.');
+        return;
+      }
       if(c.combate.ataques.some(a=>String(a.name || a.nome).toLowerCase() === String(name).toLowerCase())){
         notify('Esse ataque já está cadastrado.');
         return;
@@ -4173,7 +4302,7 @@ textarea.huge{min-height:200px}
       c.combate.ataques.push(weaponFromPresetName(name));
       saveLocal(false);
       renderForm();
-      notify('Ataque adicionado.');
+      notify(hasWeaponProficiency(c,name) ? 'Ataque adicionado com proficiência.' : 'Ataque adicionado sem proficiência.');
     }
 
     function addPresetAttack(){
@@ -4183,20 +4312,25 @@ textarea.huge{min-height:200px}
 
     function inventoryWeapons(c){
       ensureObjectSheetData(c);
-      return (c.equipamento.itens || []).filter(i=>{
+      return Array.from(new Set((c.equipamento.itens || []).filter(i=>{
         const txt = `${i.nome || ''} ${i.categoria || ''} ${i.descricao || ''}`.toLowerCase();
-        return /arma|espada|arco|besta|adaga|lança|machado|maça|bordão|cimitarra|rapieira|azagaia|clava|martelo/.test(txt);
-      }).map(i=>i.nome).filter(Boolean);
+        return /arma|espada|arco|besta|adaga|lança|machado|maça|bordão|cimitarra|rapieira|azagaia|clava|martelo|montante|foice/.test(txt) || !!WEAPON_PRESETS[i.nome];
+      }).map(i=>i.nome).filter(Boolean)));
     }
 
     function renderAvailableAttacks(){
       const c = activeChar(); if(!c) return;
       const box = $('#availableAttackList'); if(!box) return;
-      const names = Array.from(new Set([...inventoryWeapons(c), ...Object.keys(WEAPON_PRESETS)])).slice(0,32);
-      box.innerHTML = `<div class="available-title">Ataques disponíveis</div><div class="available-attack-scroll">${names.map(name=>{
+      const names = inventoryWeapons(c);
+      if(!names.length){
+        box.innerHTML = '<div class="clean-empty">Nenhuma arma no inventário. Adicione uma arma no Inventário ou sincronize os recebidos.</div>';
+        return;
+      }
+      box.innerHTML = `<div class="available-title">Ataques disponíveis a partir do inventário</div><div class="available-attack-scroll">${names.map(name=>{
         c.combate = c.combate || {}; c.combate.ataques = c.combate.ataques || [];
         const already = c.combate.ataques.some(a=>String(a.name||a.nome).toLowerCase() === String(name).toLowerCase());
-        return `<button class="available-attack-chip ${already?'added':''}" type="button" data-add-available-attack="${escapeHtml(name)}">${already?'✓ ':''}${escapeHtml(name)}</button>`;
+        const prof = hasWeaponProficiency(c,name);
+        return `<button class="available-attack-chip ${already?'added':''} ${prof?'prof':'noprof'}" type="button" data-add-available-attack="${escapeHtml(name)}">${already?'✓ ':''}${escapeHtml(name)} · ${prof?'prof.':'sem prof.'}</button>`;
       }).join('')}</div>`;
     }
 
@@ -4222,7 +4356,7 @@ textarea.huge{min-height:200px}
         body.innerHTML = rows.map(({a,abilityLabel,bonus,dmg})=>`<tr>
           <td><b>${escapeHtml(a.name || a.nome || '-')}</b><br><span class="attack-auto-chip">${escapeHtml(a.range || '')}</span></td>
           <td>${escapeHtml(abilityLabel)}</td>
-          <td>${a.proficient === false ? 'Não' : 'Sim'}</td>
+          <td>${hasWeaponProficiency(c, a.name || a.nome) ? 'Sim' : 'Não'}</td>
           <td><b>${fmt(bonus)}</b></td>
           <td>${escapeHtml(dmg)}</td>
           <td><div class="attack-actions">
@@ -4243,6 +4377,7 @@ textarea.huge{min-height:200px}
               <span>${escapeHtml(abilityLabel)}</span>
               <span>${escapeHtml(dmg)}</span>
               ${a.range ? `<span>${escapeHtml(a.range)}</span>` : ''}
+              <span>${escapeHtml(weaponProficiencyText(c, a.name || a.nome))}</span>
             </div>
             <div class="attack-card-actions">
               <button class="btn small secondary" data-roll-attack="${escapeHtml(a.id)}">Rolar ataque</button>
@@ -4298,6 +4433,64 @@ textarea.huge{min-height:200px}
       notify('Descanso longo aplicado.');
     }
 
+
+
+    function addWeaponToInventory(){
+      const c = activeChar(); if(!c) return;
+      ensureObjectSheetData(c);
+      const name = $('#weaponInventorySelect') ? $('#weaponInventorySelect').value : '';
+      if(!name){ notify('Escolha uma arma do livro.'); return; }
+      if((c.equipamento.itens || []).some(i=>normWeaponName(i.nome) === normWeaponName(name))){
+        notify('Essa arma já está no inventário.');
+        return;
+      }
+      const p = WEAPON_PRESETS[name] || {};
+      c.equipamento.itens.push({
+        id:'item_'+Math.random().toString(36).slice(2,9),
+        nome:name,
+        qtd:1,
+        peso:p.weight || 0,
+        categoria:'arma',
+        origem:'adicionado pelo jogador',
+        descricao:`${p.damage || ''} ${p.type || ''}${p.range ? ' · alcance '+p.range : ''}`.trim()
+      });
+      saveLocal(false);
+      renderForm();
+      notify('Arma adicionada ao inventário.');
+    }
+
+    function addScrollToInventory(){
+      const c = activeChar(); if(!c) return;
+      ensureObjectSheetData(c);
+      const nameRaw = $('#scrollItemName') ? $('#scrollItemName').value.trim() : '';
+      if(!nameRaw){ notify('Informe o nome do pergaminho.'); return; }
+      const name = /^pergaminho/i.test(nameRaw) ? nameRaw : 'Pergaminho de ' + nameRaw;
+      c.equipamento.itens.push({
+        id:'item_'+Math.random().toString(36).slice(2,9),
+        nome:name,
+        qtd:1,
+        peso:0,
+        categoria:'pergaminho',
+        origem:'inventário',
+        descricao:'Consumível mágico. Pode ser usado ou copiado para o grimório conforme regra do livro.'
+      });
+      $('#scrollItemName').value='';
+      saveLocal(false);
+      renderForm();
+      notify('Pergaminho adicionado ao inventário.');
+    }
+
+    function consumeInventoryItem(id){
+      const c = activeChar(); if(!c) return;
+      ensureObjectSheetData(c);
+      const item = c.equipamento.itens.find(i=>i.id===id);
+      if(!item) return;
+      if((num(item.qtd)||1) > 1) item.qtd = (num(item.qtd)||1) - 1;
+      else c.equipamento.itens = c.equipamento.itens.filter(i=>i.id!==id);
+      saveLocal(false);
+      renderForm();
+      notify('Item consumido/usado.');
+    }
 
     function forceSyncInventory(){
       const c = activeChar(); if(!c) return;
@@ -4360,7 +4553,10 @@ textarea.huge{min-height:200px}
         <div class="object-card">
           <div class="object-card-top">
             <div class="object-card-title">${escapeHtml(i.nome)}</div>
-            <button class="btn small danger" data-remove-item="${escapeHtml(i.id)}">Remover</button>
+            <div class="object-card-actions">
+              ${/pergaminho|poção|pocao|consumível|consumivel/i.test(String(i.categoria||'')+' '+String(i.nome||'')) ? `<button class="btn small green" data-consume-item="${escapeHtml(i.id)}">Usar</button>` : ''}
+              <button class="btn small danger" data-remove-item="${escapeHtml(i.id)}">Remover</button>
+            </div>
           </div>
           <div class="object-meta">
             <span class="object-pill">${num(i.qtd)||1}x</span>
@@ -5351,6 +5547,16 @@ textarea.huge{min-height:200px}
         }
       });
       document.addEventListener('click', e=>{
+        const addWeaponInv = e.target.closest('#addWeaponToInventoryBtn');
+        if(addWeaponInv){ addWeaponToInventory(); return; }
+
+        const addScrollInv = e.target.closest('#addScrollItemBtn');
+        if(addScrollInv){ addScrollToInventory(); return; }
+
+        const consumeItemBtn = e.target.closest('[data-consume-item]');
+        if(consumeItemBtn){ consumeInventoryItem(consumeItemBtn.dataset.consumeItem); return; }
+
+
         const addPresetBtn = e.target.closest('#addPresetWeaponBtn');
         if(addPresetBtn){ addPresetAttack(); return; }
 
