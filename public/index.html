@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPG Gabriel - Ficha Online V19</title>
+  <title>RPG Gabriel - Ficha Online V20</title>
   <style>
     :root{
       --bg:#090b10;
@@ -693,6 +693,14 @@
 
     .slot-total-note{font-size:10px;color:#735d42;font-weight:850;text-align:center;margin-top:-2px}
     .spell-slot-used-card.slot-empty{display:none}
+
+    .race-progress-panel{margin:10px 0 12px;border-color:#7b5b32;background:linear-gradient(180deg,#fff7e8,#ead8b7)}
+    .race-trait-list,.race-lang-list,.race-res-list{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
+    .race-trait-pill{display:inline-flex;align-items:center;border-radius:999px;border:1px solid rgba(36,27,20,.22);background:#fff6e2;color:#3d2b1c;padding:6px 9px;font-size:12px;font-weight:850}
+    .race-trait-pill.warn{background:#f3e0c4;color:#5f3b1b}
+    .race-feature-box{margin-top:10px;border:1px solid rgba(36,27,20,.18);background:rgba(255,255,255,.35);border-radius:14px;padding:10px}
+    .race-feature-box > span{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#70553b;font-weight:950;margin-bottom:6px}
+
   </style>
 </head>
 <body class="menu-open">
@@ -832,11 +840,21 @@
               <input data-path="meta.raca" list="raceOptions" placeholder="Escolher ou digitar">
               <datalist id="raceOptions">
                 <option value="Anão"></option>
+                <option value="Anão da Colina"></option>
+                <option value="Anão da Montanha"></option>
                 <option value="Elfo"></option>
+                <option value="Alto Elfo"></option>
+                <option value="Elfo da Floresta"></option>
+                <option value="Elfo Negro"></option>
                 <option value="Halfling"></option>
+                <option value="Halfling Pés-Leves"></option>
+                <option value="Halfling Robusto"></option>
                 <option value="Humano"></option>
+                <option value="Humano Variante"></option>
                 <option value="Draconato"></option>
                 <option value="Gnomo"></option>
+                <option value="Gnomo da Floresta"></option>
+                <option value="Gnomo das Rochas"></option>
                 <option value="Meio-Elfo"></option>
                 <option value="Meio-Orc"></option>
                 <option value="Tiefling"></option>
@@ -863,6 +881,17 @@
             <span class="class-badge" id="classAutoBadge">Classe não definida</span>
           </div>
           <div id="classProgressSummary" class="class-progress-summary"></div>
+        </div>
+
+        <div class="panel race-progress-panel" id="raceProgressPanel">
+          <div class="class-progress-top">
+            <div>
+              <h3>Raça / Linhagem</h3>
+              <p class="sheet-note">Aplicado automaticamente pela raça: tamanho, deslocamento, visão no escuro, idiomas, resistências, proficiências e traços raciais.</p>
+            </div>
+            <span class="class-badge" id="raceAutoBadge">Raça não definida</span>
+          </div>
+          <div id="raceProgressSummary" class="class-progress-summary"></div>
         </div>
 
         <div class="grid-main">
@@ -1272,6 +1301,36 @@
       'Patrulheiro': { hitDie:'d10', saves:['forca','destreza'], casting:'half', spellAbility:'sabedoria', primary:['destreza','sabedoria'], features:{1:['Inimigo Favorito','Explorador Natural'],2:['Estilo de Luta','Conjuração'],3:['Arquétipo de Patrulheiro'],4:['Melhoria de atributo'],5:['Ataque Extra'],8:['Passo da Terra'],10:['Esconder-se à Vista'],20:['Matador de Inimigos']} }
     };
 
+
+    const RACE_RULES = {
+      'Anão': {size:'Médio', speed:'7,5m', darkvision:'18m', languages:['Comum','Anão'], resistances:['Veneno'], skills:[], proficiencies:['Ferramenta de artesão à escolha','Armas anãs'], traits:['Resiliência Anã','Treinamento Anão de Combate','Conhecimento em Pedra'], note:'Base geral de anão. Escolha sub-raça quando quiser aplicar detalhes de Colina ou Montanha.'},
+      'Anão da Colina': {parent:'Anão', size:'Médio', speed:'7,5m', darkvision:'18m', languages:['Comum','Anão'], resistances:['Veneno'], skills:[], proficiencies:['Ferramenta de artesão à escolha','Armas anãs'], traits:['Resiliência Anã','Treinamento Anão de Combate','Conhecimento em Pedra','Tenacidade Anã'], note:'+1 PV por nível deve ser considerado manualmente até criarmos bônus raciais de vida.'},
+      'Anão da Montanha': {parent:'Anão', size:'Médio', speed:'7,5m', darkvision:'18m', languages:['Comum','Anão'], resistances:['Veneno'], skills:[], proficiencies:['Ferramenta de artesão à escolha','Armas anãs','Armaduras leves e médias'], traits:['Resiliência Anã','Treinamento Anão de Combate','Conhecimento em Pedra','Treinamento com Armaduras Anãs'], note:'Bom para personagens marciais.'},
+      'Elfo': {size:'Médio', speed:'9m', darkvision:'18m', languages:['Comum','Élfico'], resistances:[], skills:['percepcao'], proficiencies:['Percepção'], traits:['Visão no Escuro','Sentidos Aguçados','Ancestral Feérico','Transe'], note:'Base geral de elfo. Escolha sub-raça para detalhes de Alto Elfo, Floresta ou Negro.'},
+      'Alto Elfo': {parent:'Elfo', size:'Médio', speed:'9m', darkvision:'18m', languages:['Comum','Élfico','Um idioma extra'], resistances:[], skills:['percepcao'], proficiencies:['Percepção','Espada longa, espada curta, arco longo e arco curto'], traits:['Visão no Escuro','Sentidos Aguçados','Ancestral Feérico','Transe','Truque de Mago','Treinamento Élfico com Armas'], note:'Adicionar manualmente o truque racial escolhido.'},
+      'Elfo da Floresta': {parent:'Elfo', size:'Médio', speed:'10,5m', darkvision:'18m', languages:['Comum','Élfico'], resistances:[], skills:['percepcao'], proficiencies:['Percepção','Espada longa, espada curta, arco longo e arco curto'], traits:['Visão no Escuro','Sentidos Aguçados','Ancestral Feérico','Transe','Pés Ligeiros','Máscara da Natureza'], note:'Deslocamento racial maior.'},
+      'Elfo Negro': {parent:'Elfo', size:'Médio', speed:'9m', darkvision:'36m', languages:['Comum','Élfico'], resistances:[], skills:['percepcao'], proficiencies:['Percepção','Rapieira, espada curta e besta de mão'], traits:['Visão no Escuro Superior','Sentidos Aguçados','Ancestral Feérico','Transe','Sensibilidade à Luz Solar','Magia Drow'], note:'Magias raciais devem ser lançadas manualmente até criarmos magias raciais automáticas.'},
+      'Halfling': {size:'Pequeno', speed:'7,5m', darkvision:'Não', languages:['Comum','Halfling'], resistances:[], skills:[], proficiencies:[], traits:['Sortudo','Bravura','Agilidade Halfling'], note:'Base geral de halfling.'},
+      'Halfling Pés-Leves': {parent:'Halfling', size:'Pequeno', speed:'7,5m', darkvision:'Não', languages:['Comum','Halfling'], resistances:[], skills:[], proficiencies:[], traits:['Sortudo','Bravura','Agilidade Halfling','Furtividade Natural'], note:'Pode tentar se esconder atrás de criaturas maiores.'},
+      'Halfling Robusto': {parent:'Halfling', size:'Pequeno', speed:'7,5m', darkvision:'Não', languages:['Comum','Halfling'], resistances:['Veneno'], skills:[], proficiencies:[], traits:['Sortudo','Bravura','Agilidade Halfling','Resiliência dos Robustos'], note:'Tem resistência contra veneno.'},
+      'Humano': {size:'Médio', speed:'9m', darkvision:'Não', languages:['Comum','Um idioma extra'], resistances:[], skills:[], proficiencies:[], traits:['Versatilidade Humana'], note:'Aumentos de atributo ainda devem ser controlados manualmente nos valores da ficha.'},
+      'Humano Variante': {parent:'Humano', size:'Médio', speed:'9m', darkvision:'Não', languages:['Comum','Um idioma extra'], resistances:[], skills:[], proficiencies:['Uma perícia à escolha'], traits:['Talento Inicial','Versatilidade Humana'], note:'Escolher manualmente a perícia e o talento.'},
+      'Draconato': {size:'Médio', speed:'9m', darkvision:'Não', languages:['Comum','Dracônico'], resistances:['Dano conforme ancestralidade dracônica'], skills:[], proficiencies:[], traits:['Ancestralidade Dracônica','Arma de Sopro','Resistência a Dano'], note:'Escolher manualmente o tipo de dragão e dano.'},
+      'Gnomo': {size:'Pequeno', speed:'7,5m', darkvision:'18m', languages:['Comum','Gnômico'], resistances:[], skills:[], proficiencies:[], traits:['Visão no Escuro','Astúcia Gnômica'], note:'Base geral de gnomo.'},
+      'Gnomo da Floresta': {parent:'Gnomo', size:'Pequeno', speed:'7,5m', darkvision:'18m', languages:['Comum','Gnômico'], resistances:[], skills:[], proficiencies:[], traits:['Visão no Escuro','Astúcia Gnômica','Ilusionista Nato','Falar com Bestas Pequenas'], note:'Adicionar manualmente o truque Ilusão Menor se usado.'},
+      'Gnomo das Rochas': {parent:'Gnomo', size:'Pequeno', speed:'7,5m', darkvision:'18m', languages:['Comum','Gnômico'], resistances:[], skills:[], proficiencies:['Ferramentas de artesão'], traits:['Visão no Escuro','Astúcia Gnômica','Conhecimento de Artífice','Engenhoqueiro'], note:'Controle as engenhocas em equipamentos ou notas.'},
+      'Meio-Elfo': {size:'Médio', speed:'9m', darkvision:'18m', languages:['Comum','Élfico','Um idioma extra'], resistances:[], skills:[], proficiencies:['Duas perícias à escolha'], traits:['Visão no Escuro','Ancestral Feérico','Versatilidade em Perícia'], note:'Escolher manualmente as duas perícias.'},
+      'Meio-Orc': {size:'Médio', speed:'9m', darkvision:'18m', languages:['Comum','Orc'], resistances:[], skills:['intimidacao'], proficiencies:['Intimidação'], traits:['Visão no Escuro','Ameaçador','Resistência Implacável','Ataques Selvagens'], note:'Intimidação é marcada automaticamente.'},
+      'Tiefling': {size:'Médio', speed:'9m', darkvision:'18m', languages:['Comum','Infernal'], resistances:['Fogo'], skills:[], proficiencies:[], traits:['Visão no Escuro','Resistência Infernal','Legado Infernal'], note:'Magias raciais devem ser adicionadas manualmente por enquanto.'},
+      'Aasimar': {size:'Médio', speed:'9m', darkvision:'18m', languages:['Comum','Celestial'], resistances:['Radiante','Necrótico'], skills:[], proficiencies:[], traits:['Visão no Escuro','Resistência Celestial','Mãos Curativas','Portador da Luz'], note:'Variações de aasimar serão detalhadas em versão futura.'},
+      'Genasi': {size:'Médio', speed:'9m', darkvision:'Variável', languages:['Comum','Primordial'], resistances:['Conforme elemento'], skills:[], proficiencies:[], traits:['Herança Elemental'], note:'Escolher manualmente o elemento: ar, terra, fogo ou água.'},
+      'Goliath': {size:'Médio', speed:'9m', darkvision:'Não', languages:['Comum','Gigante'], resistances:[], skills:['atletismo'], proficiencies:['Atletismo'], traits:['Atleta Natural','Resistência da Pedra','Compleição Poderosa','Nascido nas Montanhas'], note:'Atletismo é marcado automaticamente.'},
+      'Tabaxi': {size:'Médio', speed:'9m', darkvision:'18m', languages:['Comum','Um idioma extra'], resistances:[], skills:['furtividade','percepcao'], proficiencies:['Furtividade','Percepção'], traits:['Visão no Escuro','Agilidade Felina','Garras de Gato','Talento de Gato'], note:'Furtividade e Percepção são marcadas automaticamente.'},
+      'Tritão': {size:'Médio', speed:'9m / natação 9m', darkvision:'Não', languages:['Comum','Primordial'], resistances:['Frio'], skills:[], proficiencies:[], traits:['Anfíbio','Controle do Ar e Água','Emissário do Mar','Guardiões das Profundezas'], note:'Controle de magias raciais ainda manual.'},
+      'Kobold': {size:'Pequeno', speed:'9m', darkvision:'18m', languages:['Comum','Dracônico'], resistances:[], skills:[], proficiencies:[], traits:['Visão no Escuro','Grito Dracônico','Legado Kobold'], note:'Traços podem variar por versão/mesa.'},
+      'Orc': {size:'Médio', speed:'9m', darkvision:'18m', languages:['Comum','Orc'], resistances:[], skills:['intimidacao'], proficiencies:['Intimidação'], traits:['Visão no Escuro','Agressivo','Compleição Poderosa'], note:'Intimidação é marcada automaticamente.'}
+    };
+
     const abilities = [
       ['forca','Força','For'],
       ['destreza','Destreza','Des'],
@@ -1347,7 +1406,7 @@
       return {
         id: uid(),
         campaignId: CAMPAIGN_ID,
-        schemaVersion: 19,
+        schemaVersion: 20,
         createdAt: now(),
         updatedAt: now(),
         meta:{nomePersonagem:'Novo Personagem',classe:'',nivel:1,classeNivel:'',nivel:1,antecedente:'',nomeJogador:'',raca:'',alinhamento:'',experiencia:0,inspiracao:false,bonusProficiencia:2},
@@ -1363,7 +1422,8 @@
         caracteristicasTalentos:{principais:''},
         descricao:{idade:'',altura:'',peso:'',corOlhos:'',corPele:'',corCabelo:'',aparenciaTexto:'',aparenciaImagem:'',historia:'',aliadosOrganizacoes:'',simboloNome:'',simboloImagem:'',caracteristicasAdicionais:'',tesouros:''},
         campanha:{marcaCampanha:'',mareAtual:'',faccao:'',segredoAtivo:'',fraseChave:'',pressagioCurto:'',reliquia:'',corrupcao:0,marcadoPelaMare:false,ouviuThalassyr:false,viuRitual:false,efeitoCorrupcao:'',cifraMares:'',pistasDecifradas:'',vinculoSaltmarsh:'',aliadosRivais:'',ritualAntigo:'',sonhosPressagios:''},
-        magia:{classeConjuradora:'',atributoConjuracao:'',cdMagias:'',modificadorAtaqueMagico:'',truques:blankCantrips(),niveis:blankMagicLevels()}
+        magia:{classeConjuradora:'',atributoConjuracao:'',cdMagias:'',modificadorAtaqueMagico:'',truques:blankCantrips(),niveis:blankMagicLevels()},
+        racaInfo:{nome:'',tamanho:'',deslocamento:'',visaoEscuro:'',idiomas:[],resistencias:[],proficiencias:[],tracos:[],observacao:''}
       };
     }
 
@@ -1431,6 +1491,95 @@
       return 10 + calcSkillBonus(c,'percepcao');
     }
 
+
+
+    function normalizeRaceName(value){
+      const raw = String(value || '').trim();
+      if(!raw) return '';
+      const plain = raw.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+      const aliases = {
+        'anao':'Anão','anao da colina':'Anão da Colina','anao da montanha':'Anão da Montanha',
+        'elfo':'Elfo','alto elfo':'Alto Elfo','elfo alto':'Alto Elfo','elfo da floresta':'Elfo da Floresta','elfo negro':'Elfo Negro','drow':'Elfo Negro',
+        'halfling':'Halfling','halfling pes-leves':'Halfling Pés-Leves','halfling pes leves':'Halfling Pés-Leves','halfling robusto':'Halfling Robusto',
+        'humano':'Humano','humano variante':'Humano Variante','draconato':'Draconato','gnomo':'Gnomo','gnomo da floresta':'Gnomo da Floresta','gnomo das rochas':'Gnomo das Rochas',
+        'meio-elfo':'Meio-Elfo','meio elfo':'Meio-Elfo','meio-orc':'Meio-Orc','meio orc':'Meio-Orc','tiefling':'Tiefling','aasimar':'Aasimar','genasi':'Genasi','goliath':'Goliath','golias':'Goliath','tabaxi':'Tabaxi','tritao':'Tritão','kobold':'Kobold','orc':'Orc'
+      };
+      return aliases[plain] || Object.keys(RACE_RULES).find(k => k.toLowerCase() === raw.toLowerCase()) || raw;
+    }
+
+    function raceSkillLabel(key){
+      const found = skills.find(([id])=>id===key);
+      if(found) return found[1];
+      const ability = abilities.find(([id])=>id===key);
+      return ability ? ability[1] : key;
+    }
+
+    function applyRaceProgression(c){
+      if(!c) return;
+      c.meta = c.meta || {};
+      c.meta.raca = normalizeRaceName(c.meta.raca || '');
+      const race = c.meta.raca || '';
+      const rule = RACE_RULES[race];
+      c.racaInfo = c.racaInfo || {};
+      c.racaInfo.nome = race;
+      if(!rule) return;
+
+      const previousApplied = c.racaInfo.appliedName || '';
+      c.racaInfo.appliedName = race;
+      c.racaInfo.tamanho = rule.size || '';
+      c.racaInfo.deslocamento = rule.speed || '';
+      c.racaInfo.visaoEscuro = rule.darkvision || '';
+      c.racaInfo.idiomas = [...(rule.languages || [])];
+      c.racaInfo.resistencias = [...(rule.resistances || [])];
+      c.racaInfo.proficiencias = [...(rule.proficiencies || [])];
+      c.racaInfo.tracos = [...(rule.traits || [])];
+      c.racaInfo.observacao = rule.note || '';
+
+      c.combate = c.combate || {};
+      if(rule.speed && (!c.combate.deslocamento || previousApplied !== race)){
+        c.combate.deslocamento = rule.speed;
+      }
+
+      c.pericias = c.pericias || blankSkills();
+      (rule.skills || []).forEach(k=>{
+        c.pericias[k] = c.pericias[k] || {proficiente:false};
+        c.pericias[k].proficiente = true;
+      });
+    }
+
+    function renderRaceProgress(){
+      const c = activeChar();
+      const box = $('#raceProgressSummary');
+      const badge = $('#raceAutoBadge');
+      if(!box || !badge || !c) return;
+      applyRaceProgression(c);
+      const race = c.meta.raca || '';
+      const rule = RACE_RULES[race];
+      if(!rule){
+        badge.textContent = 'Raça não definida';
+        box.innerHTML = '<div class="class-empty">Escolha uma raça/linhagem para aplicar tamanho, deslocamento, idiomas, visão, resistências e traços raciais.</div>';
+        return;
+      }
+      badge.textContent = race;
+      const languages = (rule.languages || []).map(x=>`<span class="race-trait-pill">${escapeHtml(x)}</span>`).join('') || '<span class="race-trait-pill warn">Sem idiomas listados</span>';
+      const resist = (rule.resistances || []).map(x=>`<span class="race-trait-pill">${escapeHtml(x)}</span>`).join('') || '<span class="race-trait-pill warn">Sem resistência racial</span>';
+      const profs = (rule.proficiencies || []).map(x=>`<span class="race-trait-pill">${escapeHtml(x)}</span>`).join('') || '<span class="race-trait-pill warn">Sem proficiência racial fixa</span>';
+      const traits = (rule.traits || []).map(x=>`<span class="race-trait-pill">${escapeHtml(x)}</span>`).join('') || '<span class="race-trait-pill warn">Sem traços listados</span>';
+      const skillsAuto = (rule.skills || []).map(k=>raceSkillLabel(k)).join(', ') || '-';
+      box.innerHTML = `
+        <div class="class-progress-grid">
+          <div class="class-stat"><span>Tamanho</span><b>${escapeHtml(rule.size || '-')}</b></div>
+          <div class="class-stat"><span>Deslocamento</span><b>${escapeHtml(rule.speed || '-')}</b></div>
+          <div class="class-stat"><span>Visão no escuro</span><b>${escapeHtml(rule.darkvision || '-')}</b></div>
+          <div class="class-stat"><span>Perícias automáticas</span><b>${escapeHtml(skillsAuto)}</b></div>
+        </div>
+        <div class="race-feature-box"><span>Idiomas</span><div class="race-lang-list">${languages}</div></div>
+        <div class="race-feature-box"><span>Resistências</span><div class="race-res-list">${resist}</div></div>
+        <div class="race-feature-box"><span>Proficiências raciais</span><div class="race-trait-list">${profs}</div></div>
+        <div class="race-feature-box"><span>Traços raciais</span><div class="race-trait-list">${traits}</div></div>
+        ${rule.note ? `<div class="race-feature-box"><span>Observação</span><div class="sheet-note">${escapeHtml(rule.note)}</div></div>` : ''}
+      `;
+    }
 
     function getClassRule(c){
       ensureClassLevelData(c);
@@ -1557,8 +1706,9 @@
 
     function applyRuleEngine(c){
       if(!c) return;
-      c.schemaVersion = Math.max(num(c.schemaVersion)||0, 19);
+      c.schemaVersion = Math.max(num(c.schemaVersion)||0, 20);
       applyClassProgression(c);
+      applyRaceProgression(c);
       c.meta = c.meta || {};
       c.combate = c.combate || {};
       c.proficiencias = c.proficiencias || {};
@@ -2059,6 +2209,7 @@
         else if(document.activeElement !== el) el.value = val ?? '';
       });
       renderClassProgress();
+      renderRaceProgress();
       renderDashboard();
       renderCalcs();
       renderImages();
@@ -2420,7 +2571,9 @@
           if(sf){ delete sf.dataset.manualClassFilter; applyDefaultSpellClassFilter(true); }
         }
         applyRuleEngine(c);
+        if(el.dataset.path === 'meta.raca') renderForm();
         renderClassProgress();
+        renderRaceProgress();
         renderSpellSlotsClassTotals();
         renderDashboard(); renderCalcs(); scheduleSave();
       });
@@ -2431,6 +2584,7 @@
           setByPath(c, el.dataset.path, el.checked);
           applyRuleEngine(c);
         renderClassProgress();
+        renderRaceProgress();
         renderSpellSlotsClassTotals();
         renderDashboard(); renderCalcs(); scheduleSave();
         }

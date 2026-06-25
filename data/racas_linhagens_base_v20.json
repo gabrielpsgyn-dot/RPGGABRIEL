@@ -1,0 +1,33 @@
+{
+  "versao": "V20",
+  "descricao": "Base inicial de raças e linhagens para ficha online RPG Gabriel.",
+  "observacao": "Aumentos de atributo, sub-raças completas e magias raciais podem ser detalhados em versões futuras.",
+  "racas": [
+    "Anão",
+    "Anão da Colina",
+    "Anão da Montanha",
+    "Elfo",
+    "Alto Elfo",
+    "Elfo da Floresta",
+    "Elfo Negro",
+    "Halfling",
+    "Halfling Pés-Leves",
+    "Halfling Robusto",
+    "Humano",
+    "Humano Variante",
+    "Draconato",
+    "Gnomo",
+    "Gnomo da Floresta",
+    "Gnomo das Rochas",
+    "Meio-Elfo",
+    "Meio-Orc",
+    "Tiefling",
+    "Aasimar",
+    "Genasi",
+    "Goliath",
+    "Tabaxi",
+    "Tritão",
+    "Kobold",
+    "Orc"
+  ]
+}
