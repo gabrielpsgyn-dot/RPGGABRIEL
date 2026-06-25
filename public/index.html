@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPG Gabriel - Ficha Online V26</title>
+  <title>RPG Gabriel - Ficha Online V26.1</title>
   <style>
     :root{
       --bg:#090b10;
@@ -751,6 +751,11 @@
 .rules-audit-row small{color:var(--muted);line-height:1.35}
 .rules-audit-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
 
+
+.inventory-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.inventory-warning{border:1px solid var(--line);border-radius:12px;background:rgba(180,115,45,.12);padding:8px 10px;color:var(--muted);font-size:12px;font-weight:800;line-height:1.35;margin:8px 0}
+.book-audit-note{border:1px solid var(--line);border-radius:12px;background:rgba(120,75,30,.10);padding:8px 10px;color:var(--muted);font-size:12px;font-weight:800;line-height:1.35;margin:8px 0}
+
 </style>
 </head>
 <body class="menu-open">
@@ -983,11 +988,11 @@
             </div>
             <div class="panel rules-audit-panel" id="rulesAuditPanel">
               <h3>Conferência do livro / regras</h3>
-              <p class="sheet-note">Mostra se classe, raça e antecedente estão aplicados na ficha. Use para manter o personagem alinhado com a base cadastrada.</p>
+              <p class="sheet-note">Mostra se classe, raça e antecedente estão aplicados na ficha. Para ficar 100% igual ao livro, use o Criador de Regras para cadastrar/revisar a base completa.</p>
               <div id="rulesAuditSummary" class="rules-audit-box"></div>
               <div class="rules-audit-actions">
                 <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                <a class="btn small primary" href="criador.html?v=26" target="_blank">Criar/editar regras</a>
+                <a class="btn small primary" href="criador.html?v=26_1" target="_blank">Criar/editar regras</a>
               </div>
             </div>
           </div>
@@ -1057,8 +1062,8 @@
               <div class="roll-log" id="rollLog"></div>
             </div>
             <div class="panel" id="inventoryPanel">
-              <h3>Inventário, carga e moedas</h3>
-              <p class="calc-note">V24: moedas, itens com quantidade/peso, peso total e capacidade de carga.</p>
+              <h3>Inventário único do personagem</h3>
+              <p class="calc-note">V26.1: inventário unificado. O texto antigo do personagem e os itens com peso ficam no mesmo bloco.</p>
               <div class="coins">
                 <div class="coin"><label>PC</label><input data-path="equipamento.moedas.pc" type="number"></div>
                 <div class="coin"><label>PP</label><input data-path="equipamento.moedas.pp" type="number"></div>
@@ -1079,8 +1084,12 @@
                 <button class="btn small primary" id="addItemBtn" type="button">Adicionar</button>
               </div>
               <div class="item-list" id="inventoryList"></div>
-              <label class="label">Anotações livres</label>
-              <textarea data-path="equipamento.texto" class="tall"></textarea>
+              <label class="label">Inventário antigo / descrição livre do personagem</label>
+              <textarea data-path="equipamento.texto" id="inventoryText" class="tall" placeholder="Tudo que já estava no inventário do personagem continua aqui."></textarea>
+              <div class="inventory-actions">
+                <button class="btn small secondary" id="syncTextInventoryBtn" type="button">Importar linhas deste texto para itens</button>
+                <button class="btn small secondary" id="appendItemsToTextBtn" type="button">Atualizar texto com itens cadastrados</button>
+              </div>
             </div>
           </div>
 
@@ -2971,15 +2980,23 @@
       const wEl=$('#inventoryWeight'); if(wEl) wEl.textContent = total.toFixed(1).replace('.0','') + ' kg';
       const cEl=$('#carryCapacity'); if(cEl) cEl.textContent = cap.toFixed(1).replace('.0','') + ' kg';
       const sEl=$('#carryStatus'); if(sEl) sEl.textContent = status;
+
       const list=$('#inventoryList'); if(!list) return;
-      list.innerHTML = c.equipamento.itens.length ? c.equipamento.itens.map(i=>`
+      const oldLines = splitInventoryTextLines(c.equipamento.texto || '');
+      const oldBox = oldLines.length
+        ? `<div class="inventory-warning"><b>Inventário original do personagem:</b><br>${oldLines.map(x=>escapeHtml(x)).join('<br>')}</div>`
+        : `<div class="inventory-warning">Nenhum texto antigo de inventário preenchido.</div>`;
+
+      const structured = c.equipamento.itens.length ? c.equipamento.itens.map(i=>`
         <div class="item-pill">
           <b>${escapeHtml(i.nome)}</b>
           <span>${num(i.qtd)||1}x</span>
           <span>${((num(i.qtd)||1)*(num(i.peso)||0)).toFixed(1).replace('.0','')} kg</span>
           <button class="btn small danger" data-remove-item="${escapeHtml(i.id)}">Remover</button>
         </div>
-      `).join('') : '<div class="roll-item">Nenhum item cadastrado.</div>';
+      `).join('') : '<div class="roll-item">Nenhum item estruturado cadastrado.</div>';
+
+      list.innerHTML = oldBox + structured;
     }
 
 
@@ -3128,6 +3145,66 @@
       saveLocal(false);
       renderForm();
       notify('Equipamento do antecedente aplicado ao inventário.');
+    }
+
+
+    function splitInventoryTextLines(text){
+      return String(text || '')
+        .split(/\n|;/)
+        .map(x=>x.trim())
+        .filter(Boolean);
+    }
+
+    function normalizeInventoryTextName(line){
+      return String(line || '')
+        .replace(/^\s*[-•]\s*/, '')
+        .replace(/^\s*\d+x?\s+/i, '')
+        .replace(/\s+—.*$/,'')
+        .replace(/\s+/g,' ')
+        .trim();
+    }
+
+    function importTextInventoryToItems(){
+      const c = activeChar(); if(!c) return;
+      ensureCombatInventoryData(c);
+      const lines = splitInventoryTextLines(c.equipamento.texto || '');
+      let added = 0;
+      lines.forEach(line=>{
+        const name = normalizeInventoryTextName(line);
+        if(!name) return;
+        if(c.equipamento.itens.some(i=>String(i.nome || '').toLowerCase() === name.toLowerCase())) return;
+        c.equipamento.itens.push({
+          id:'item_'+Math.random().toString(36).slice(2,9),
+          nome:name,
+          qtd:1,
+          peso:0,
+          categoria:'Inventário original'
+        });
+        added++;
+      });
+      saveLocal(false);
+      renderForm();
+      notify(added ? `${added} item(ns) importado(s) do inventário original.` : 'Nada novo para importar.');
+    }
+
+    function appendStructuredItemsToText(){
+      const c = activeChar(); if(!c) return;
+      ensureCombatInventoryData(c);
+      const existing = splitInventoryTextLines(c.equipamento.texto || '');
+      const existingLower = existing.map(x=>normalizeInventoryTextName(x).toLowerCase());
+      const extra = [];
+      c.equipamento.itens.forEach(i=>{
+        if(!i.nome) return;
+        const name = normalizeInventoryTextName(i.nome);
+        if(existingLower.includes(name.toLowerCase())) return;
+        extra.push(`${i.qtd || 1}x ${i.nome}${i.categoria ? ' — '+i.categoria : ''}`);
+      });
+      if(extra.length){
+        c.equipamento.texto = [...existing, ...extra].join('\n');
+      }
+      saveLocal(false);
+      renderForm();
+      notify(extra.length ? 'Texto do inventário atualizado.' : 'O texto já contém os itens cadastrados.');
     }
 
     function renderForm(){
