@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPG Gabriel - Ficha Online V16.8</title>
+  <title>RPG Gabriel - Ficha Online V18</title>
   <style>
     :root{
       --bg:#090b10;
@@ -637,6 +637,40 @@
       text-align:center;
     }
 
+
+    .auto-rule-value{
+      min-height:38px;
+      display:grid;
+      place-items:center;
+      border:1px solid rgba(36,27,20,.22);
+      border-radius:12px;
+      background:linear-gradient(180deg,#f8ead0,#ead3aa);
+      color:#241810;
+      font-size:18px;
+      font-weight:950;
+      padding:7px 10px;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.45);
+    }
+    .auto-rule-note{
+      display:block;
+      margin-top:4px;
+      color:#735d42;
+      font-size:10px;
+      font-weight:800;
+      line-height:1.25;
+    }
+    .rule-engine-box{
+      border:1px solid rgba(36,27,20,.22);
+      border-radius:14px;
+      background:rgba(214,168,90,.13);
+      padding:9px 10px;
+      color:#4c3824;
+      font-size:12px;
+      font-weight:800;
+      line-height:1.35;
+      margin-bottom:10px;
+    }
+
   </style>
 </head>
 <body class="menu-open">
@@ -803,13 +837,18 @@
           <div>
             <div class="panel">
               <h3>Atributos</h3>
+              <div class="rule-engine-box">Motor de regras ativo: nível, proficiência, iniciativa, salvaguardas, perícias, sabedoria passiva, CD e ataque mágico são calculados automaticamente.</div>
               <div class="ability-list" id="abilityList"></div>
             </div>
             <div class="panel">
               <h3>Inspiração / Proficiência</h3>
               <div class="row-2">
                 <label class="inline"><input type="checkbox" data-path="meta.inspiracao"> Inspiração</label>
-                <div class="field"><label>Bônus de proficiência</label><input data-path="meta.bonusProficiencia" type="number"></div>
+                <div class="field">
+                  <label>Bônus de proficiência</label>
+                  <strong class="auto-rule-value" id="profBonusAuto">+2</strong>
+                  <small class="auto-rule-note">Automático pelo nível.</small>
+                </div>
               </div>
             </div>
             <div class="panel">
@@ -829,7 +868,11 @@
               <h3>Defesa e combate</h3>
               <div class="row-3">
                 <div class="field"><label>Classe de armadura</label><input data-path="combate.classeArmadura" type="number"></div>
-                <div class="field"><label>Iniciativa</label><input data-path="combate.iniciativa"></div>
+                <div class="field">
+                  <label>Iniciativa</label>
+                  <strong class="auto-rule-value" id="initiativeAuto">+0</strong>
+                  <small class="auto-rule-note">Modificador de Destreza.</small>
+                </div>
                 <div class="field"><label>Deslocamento</label><input data-path="combate.deslocamento"></div>
               </div>
             </div>
@@ -881,7 +924,11 @@
             </div>
             <div class="panel">
               <h3>Sabedoria passiva</h3>
-              <div class="field"><label>Sabedoria passiva</label><input data-path="proficiencias.sabedoriaPassiva"></div>
+              <div class="field">
+                <label>Sabedoria passiva</label>
+                <strong class="auto-rule-value" id="passiveWisdomAuto">10</strong>
+                <small class="auto-rule-note">10 + Percepção.</small>
+              </div>
               <div class="status-line" id="passiveCalc">Calculado: -</div>
             </div>
             <div class="panel">
@@ -956,8 +1003,16 @@
         <div class="spell-head">
           <div class="field"><label>Classe conjuradora</label><input data-path="magia.classeConjuradora"></div>
           <div class="field"><label>Atributo de conjuração</label><select data-path="magia.atributoConjuracao" id="spellAbility"></select></div>
-          <div class="field"><label>CD das magias</label><input data-path="magia.cdMagias"></div>
-          <div class="field"><label>Ataque mágico</label><input data-path="magia.modificadorAtaqueMagico"></div>
+          <div class="field">
+            <label>CD das magias</label>
+            <strong class="auto-rule-value" id="spellDcAuto">-</strong>
+            <small class="auto-rule-note">8 + proficiência + atributo.</small>
+          </div>
+          <div class="field">
+            <label>Ataque mágico</label>
+            <strong class="auto-rule-value" id="spellAttackAuto">-</strong>
+            <small class="auto-rule-note">Proficiência + atributo.</small>
+          </div>
         </div>
 
         <div class="panel spellbook-panel spellbank-panel spellbank-collapsed" id="spellBankPanel">
@@ -1176,7 +1231,7 @@
       return {
         id: uid(),
         campaignId: CAMPAIGN_ID,
-        schemaVersion: 11,
+        schemaVersion: 18,
         createdAt: now(),
         updatedAt: now(),
         meta:{nomePersonagem:'Novo Personagem',classe:'',nivel:1,classeNivel:'',nivel:1,antecedente:'',nomeJogador:'',raca:'',alinhamento:'',experiencia:0,inspiracao:false,bonusProficiencia:2},
@@ -1214,6 +1269,8 @@
       abilities.forEach(([k])=>{
         if(m.atributos && m.atributos[k]) m.atributos[k].modificadorManual = '';
       });
+      ensureClassLevelData(m);
+      applyRuleEngine(m);
       return m;
     }
     function activeChar(){ return state.characters.find(c=>c.id===state.activeId) || null; }
@@ -1221,7 +1278,59 @@
     function getMod(c,k){
       return attrMod(getByPath(c,'atributos.'+k+'.valor'));
     }
-    function profBonus(c){ return num(getByPath(c,'meta.bonusProficiencia') || 0); }
+    function getCharacterLevel(c){
+      const direct = num(getByPath(c,'meta.nivel'));
+      if(direct) return clamp(direct,1,20);
+      const fromText = String(getByPath(c,'meta.classeNivel') || '').match(/\b(1[0-9]|20|[1-9])\b/);
+      return fromText ? clamp(num(fromText[1]),1,20) : 1;
+    }
+
+    function levelProfBonus(level){
+      level = clamp(num(level)||1,1,20);
+      if(level >= 17) return 6;
+      if(level >= 13) return 5;
+      if(level >= 9) return 4;
+      if(level >= 5) return 3;
+      return 2;
+    }
+
+    function profBonus(c){ return levelProfBonus(getCharacterLevel(c)); }
+
+    function spellAbilityKey(c){
+      return getByPath(c,'magia.atributoConjuracao') || '';
+    }
+
+    function spellAttackBonus(c){
+      const key = spellAbilityKey(c);
+      if(!key) return null;
+      return profBonus(c) + getMod(c,key);
+    }
+
+    function spellSaveDc(c){
+      const atk = spellAttackBonus(c);
+      return atk === null ? null : 8 + atk;
+    }
+
+    function passiveWisdom(c){
+      return 10 + calcSkillBonus(c,'percepcao');
+    }
+
+    function applyRuleEngine(c){
+      if(!c) return;
+      c.schemaVersion = Math.max(num(c.schemaVersion)||0, 18);
+      c.meta = c.meta || {};
+      c.combate = c.combate || {};
+      c.proficiencias = c.proficiencias || {};
+      c.magia = c.magia || {};
+      c.meta.bonusProficiencia = profBonus(c);
+      c.combate.iniciativa = fmt(getMod(c,'destreza'));
+      c.proficiencias.sabedoriaPassiva = passiveWisdom(c);
+      const atk = spellAttackBonus(c);
+      const dc = spellSaveDc(c);
+      c.magia.modificadorAtaqueMagico = atk === null ? '' : fmt(atk);
+      c.magia.cdMagias = dc === null ? '' : String(dc);
+    }
+
 
     function renderStatic(){
       $('#abilityList').innerHTML = abilities.map(([k,label])=>`
@@ -1686,6 +1795,7 @@
       const c=activeChar();
       if(!c) return;
       ensureClassLevelData(c);
+      applyRuleEngine(c);
       $all('[data-path]').forEach(el=>{
         const path=el.dataset.path;
         const val=getByPath(c,path);
@@ -1740,6 +1850,12 @@
 
     function renderCalcs(){
       const c=activeChar(); if(!c) return;
+      applyRuleEngine(c);
+
+      const profEl = $('#profBonusAuto'); if(profEl) profEl.textContent = fmt(profBonus(c));
+      const initEl = $('#initiativeAuto'); if(initEl) initEl.textContent = fmt(getMod(c,'destreza'));
+      const passiveEl = $('#passiveWisdomAuto'); if(passiveEl) passiveEl.textContent = String(passiveWisdom(c));
+
       abilities.forEach(([k])=>{
         const proficient = !!getByPath(c,'atributos.'+k+'.salvaguardaProficiente');
         const save = calcSaveBonus(c,k);
@@ -1749,19 +1865,20 @@
         const modInput = $(`[data-mod-input="${k}"]`);
         if(modInput) modInput.textContent = fmt(getMod(c,k));
       });
+
       skills.forEach(([k,label,ability])=>{
         const total = calcSkillBonus(c,k);
         const el = $(`[data-skill-bonus="${k}"]`); if(el) el.textContent = fmt(total);
         const linked = $(`[data-linked-skill-bonus="${k}"]`); if(linked) linked.textContent = fmt(total);
       });
-      const perception = getMod(c,'sabedoria') + (getByPath(c,'pericias.percepcao.proficiente') ? profBonus(c) : 0);
-      $('#passiveCalc').textContent = 'Calculado: ' + (10 + perception);
-      const spellAttr = c.magia.atributoConjuracao;
-      if(spellAttr){
-        const atk = profBonus(c) + getMod(c,spellAttr);
-        if(!c.magia.modificadorAtaqueMagico) $all('[data-path="magia.modificadorAtaqueMagico"]').forEach(el=>el.placeholder=fmt(atk));
-        if(!c.magia.cdMagias) $all('[data-path="magia.cdMagias"]').forEach(el=>el.placeholder=String(8+atk));
-      }
+
+      const perception = calcSkillBonus(c,'percepcao');
+      $('#passiveCalc').textContent = 'Calculado: 10 + Percepção ' + fmt(perception) + ' = ' + passiveWisdom(c);
+
+      const atk = spellAttackBonus(c);
+      const dc = spellSaveDc(c);
+      const atkEl = $('#spellAttackAuto'); if(atkEl) atkEl.textContent = atk === null ? '-' : fmt(atk);
+      const dcEl = $('#spellDcAuto'); if(dcEl) dcEl.textContent = dc === null ? '-' : String(dc);
     }
 
     function renderImages(){
@@ -1771,7 +1888,7 @@
     }
 
     function saveLocal(show=false){
-      const c=activeChar(); if(c) c.updatedAt=now();
+      const c=activeChar(); if(c){ applyRuleEngine(c); c.updatedAt=now(); }
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state.characters));
       localStorage.setItem(ACTIVE_KEY, state.activeId || '');
       if(show) toast('Ficha salva localmente.');
@@ -2044,6 +2161,7 @@
           const sf = $('#spellClassFilter');
           if(sf){ delete sf.dataset.manualClassFilter; applyDefaultSpellClassFilter(true); }
         }
+        applyRuleEngine(c);
         renderDashboard(); renderCalcs(); scheduleSave();
       });
       document.addEventListener('change', e=>{
@@ -2051,7 +2169,8 @@
         if(el.dataset.path && el.type==='checkbox'){
           const c=activeChar(); if(!c) return;
           setByPath(c, el.dataset.path, el.checked);
-          renderDashboard(); renderCalcs(); scheduleSave();
+          applyRuleEngine(c);
+        renderDashboard(); renderCalcs(); scheduleSave();
         }
       });
       document.addEventListener('click', e=>{
@@ -2085,6 +2204,8 @@
           let next=num(getByPath(c,'meta.nivel') || 1) + delta;
           next = clamp(next, 1, 20);
           setByPath(c,'meta.nivel',next);
+          ensureClassLevelData(c);
+          applyRuleEngine(c);
           renderDashboard(); renderCalcs(); saveLocal(false); renderForm();
           return;
         }
