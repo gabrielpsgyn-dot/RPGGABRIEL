@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPG Gabriel - Ficha Online V39</title>
+  <title>RPG Gabriel - Ficha Online V40</title>
   <style>
     :root{
       --bg:#090b10;
@@ -1728,9 +1728,22 @@ textarea.huge{min-height:200px}
   }
 }
 
+
+/* V40 - protege lista de personagens mesmo se um painel quebrar */
+#menuCharacterList:empty::before{
+  content:'Carregando personagens...';
+  display:block;
+  padding:12px;
+  border:1px dashed rgba(36,27,20,.25);
+  border-radius:12px;
+  background:#fff7e8;
+  color:#735d42;
+  font-weight:900;
+}
+
 </style>
 </head>
-<!-- RPGGABRIEL V39 INVENTARIO PROFICIENCIA ARMAS -->
+<!-- RPGGABRIEL V40 SAFE RENDER PERSONAGENS -->
 <body class="menu-open">
   <section class="menu-screen" id="menuScreen">
     <div class="menu-shell">
@@ -1967,8 +1980,8 @@ textarea.huge{min-height:200px}
                 <div id="rulesAuditSummary" class="rules-audit-box"></div>
                 <div class="rules-audit-actions">
                   <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                  <a class="btn small secondary" href="criador.html?v=39" target="_blank">Criador livre</a>
-                  <a class="btn small primary" href="livro-regras.html?v=39" target="_blank">Livro de Regras</a>
+                  <a class="btn small secondary" href="criador.html?v=40" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=40" target="_blank">Livro de Regras</a>
                 </div>
               </details>
             </div>
@@ -2554,6 +2567,16 @@ textarea.huge{min-height:200px}
       return Math.floor((value - 10) / 2);
     }
     function toast(msg){ const el=$('#toast'); el.textContent=msg; el.classList.add('show'); clearTimeout(el._t); el._t=setTimeout(()=>el.classList.remove('show'),2600); }
+    function safeCall(label, fn){
+      try{
+        if(typeof fn === 'function') return fn();
+      }catch(e){
+        console.error('[RPGGABRIEL_SAFE_RENDER]', label, e);
+        const badge = document.getElementById('onlineBadge');
+        if(badge) badge.textContent = 'Aviso: parte da ficha falhou em '+label+'. Lista de personagens preservada.';
+      }
+    }
+
 
     function getByPath(obj,path){
       return String(path).split('.').reduce((a,k)=> a == null ? undefined : a[k], obj);
@@ -3665,6 +3688,8 @@ textarea.huge{min-height:200px}
 
     function renderMenu(){
       const list=$('#menuCharacterList');
+      if(!list) return;
+      if(!Array.isArray(state.characters)) state.characters = [];
       list.innerHTML = state.characters.map(c=>`
         <button class="char-card ${c.id===state.activeId?'active':''}" data-menu-id="${c.id}">
           <b>${escapeHtml(c.meta.nomePersonagem || 'Sem nome')}</b>
@@ -5148,33 +5173,35 @@ textarea.huge{min-height:200px}
 
     function renderForm(){
       const c=activeChar();
+      safeCall('renderMenu', renderMenu);
       if(!c) return;
-      ensureClassLevelData(c);
-      applyRuleEngine(c);
-      $all('[data-path]').forEach(el=>{
+      safeCall('ensureClassLevelData', ()=>ensureClassLevelData(c));
+      safeCall('applyRuleEngine', ()=>applyRuleEngine(c));
+      safeCall('bindDataPaths', ()=>$all('[data-path]').forEach(el=>{
         const path=el.dataset.path;
         const val=getByPath(c,path);
         if(el.type === 'checkbox') el.checked = !!val;
         else if(document.activeElement !== el) el.value = val ?? '';
+      }));
+      safeCall('refreshCustomRuleOptions', refreshCustomRuleOptions);
+      safeCall('renderClassPathOptions', renderClassPathOptions);
+      safeCall('renderClassProgress', renderClassProgress);
+      safeCall('renderRaceProgress', renderRaceProgress);
+      safeCall('renderBackgroundProgress', renderBackgroundProgress);
+      safeCall('renderDashboard', renderDashboard);
+      safeCall('renderCalcs', renderCalcs);
+      safeCall('renderImages', renderImages);
+      safeCall('renderAttacks', renderAttacks);
+      safeCall('renderInventory', renderInventory);
+      safeCall('renderRollLog', renderRollLog);
+      safeCall('renderFeats', renderFeats);
+      safeCall('renderProficiencySummary', renderProficiencySummary);
+      safeCall('jsonBox', ()=>{
+        const jsonBox = $('#jsonBox'); if(jsonBox) jsonBox.value = JSON.stringify(c,null,2);
       });
-      refreshCustomRuleOptions();
-      renderClassPathOptions();
-      renderClassProgress();
-      renderRaceProgress();
-      renderBackgroundProgress();
-      renderDashboard();
-      renderCalcs();
-      renderImages();
-      renderMenu();
-      renderAttacks();
-      renderInventory();
-      renderRollLog();
-      renderFeats();
-      renderProficiencySummary();
-      const jsonBox = $('#jsonBox'); if(jsonBox) jsonBox.value = JSON.stringify(c,null,2);
-      renderSpellbookUI();
-      renderSpellSlotsClassTotals();
-      applyDefaultSpellClassFilter(false);
+      safeCall('renderSpellbookUI', renderSpellbookUI);
+      safeCall('renderSpellSlotsClassTotals', renderSpellSlotsClassTotals);
+      safeCall('applyDefaultSpellClassFilter', ()=>applyDefaultSpellClassFilter(false));
     }
 
     function renderDashboard(){
@@ -5732,12 +5759,13 @@ textarea.huge{min-height:200px}
       document.addEventListener('change', e=>{ const slot=e.target.closest('[data-use-slot]'); if(slot) updateSpellUsePreview(slot.dataset.useSlot); });
     }
 
-    renderStatic();
-    loadStore();
-    bindEvents();
-    renderForm();
-    refreshOnline();
-    startOnlineSync();
+    safeCall('renderStatic', renderStatic);
+    safeCall('loadStore', loadStore);
+    safeCall('renderMenu', renderMenu);
+    safeCall('bindEvents', bindEvents);
+    safeCall('renderForm', renderForm);
+    safeCall('refreshOnline', refreshOnline);
+    safeCall('startOnlineSync', startOnlineSync);
   </script>
 <!-- RPGGABRIEL V16.2 SPELL SLOT UX -->
 </body>
