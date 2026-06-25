@@ -18,7 +18,7 @@ export default {
         return json({
           ok: true,
           app: "Ghosts of Saltmarsh - Ficha Online API",
-          version: "2.6.0-class-reward-engine",
+          version: "2.7.0-reward-objects",
           loginMode: "character_click_standard_password",
           time: new Date().toISOString()
         });

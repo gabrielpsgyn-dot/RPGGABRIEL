@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Livro de Regras do Gabriel - V33</title>
+  <title>Livro de Regras do Gabriel - V34</title>
   <style>
     :root{--bg:#201107;--wood:#432814;--paper:#f1dfba;--paper2:#d7b77f;--ink:#241306;--muted:#695137;--line:#8d5e2f;--gold:#bd8539;--ok:#3f6d2a;--warn:#916414;--bad:#8b2f28;--ui:"Trebuchet MS",system-ui,sans-serif}
     *{box-sizing:border-box} body{margin:0;background:radial-gradient(circle at 20% 0,#5a3519,#201107 55%,#100804);color:var(--ink);font-family:var(--ui)}
@@ -26,8 +26,8 @@
       <p>Base oficial do seu livro. Cadastre o texto completo e marque o status de revisão. A ficha passa a usar classes, raças, antecedentes e talentos daqui.</p>
     </div>
     <div class="actions">
-      <a class="btn secondary" href="index.html?v=33">Voltar para ficha</a>
-      <a class="btn secondary" href="criador.html?v=33">Criador livre</a>
+      <a class="btn secondary" href="index.html?v=34">Voltar para ficha</a>
+      <a class="btn secondary" href="criador.html?v=34">Criador livre</a>
       <button class="btn secondary" id="exportBtn">Exportar JSON</button>
       <button class="btn secondary" id="importBtn">Importar JSON</button>
     </div>
@@ -61,6 +61,7 @@
         <div class="field"><label>Atributos principais</label><input id="classPrimary" placeholder="inteligencia, constituicao"></div>
         <div class="field"><label>Proficiências de armas/armaduras/ferramentas</label><textarea id="classProficiencies"></textarea></div>
         <div class="field"><label>Habilidades por nível</label><textarea id="classFeatures" placeholder="1: Conjuração; Recuperação Arcana&#10;2: Tradição Arcana"></textarea></div>
+        <div class="field"><label>Recompensas por nível em JSON</label><textarea id="classRewardsJson" placeholder='{"1":[{"tipo":"item","nome":"Espada curta","quantidade":1,"modo":"fixo"}],"2":[{"tipo":"escolha","nome":"Escolher círculo","opcoes":["Fogo","Lua"]}]}'></textarea></div>
       </div>
     </div>
     <div class="field"><label>Texto completo do seu livro</label><textarea class="big" id="classText"></textarea></div>
@@ -179,7 +180,7 @@ function render(){
   const rows=[]; Object.entries(d).forEach(([type,obj])=>Object.entries(obj||{}).forEach(([name,row])=>rows.push({type,name,row})));
   $('#reviewList').innerHTML=rows.length?rows.map(r=>item(r.type,r.name,r.row)).join(''):'<div class="item">Nenhuma regra cadastrada.</div>';
 }
-function saveClass(){const d=load(),n=$('#className').value.trim();if(!n)return alert('Nome obrigatório');d.classes[n]={status:$('#classStatus').value,source:$('#classSource').value,hitDie:$('#classHitDie').value,saves:split($('#classSaves').value),casting:$('#classCasting').value,spellAbility:$('#classSpellAbility').value,primary:split($('#classPrimary').value),proficiencies:$('#classProficiencies').value,features:features($('#classFeatures').value),text:$('#classText').value};save(d);clearClass();setTab('review')}
+function saveClass(){const d=load(),n=$('#className').value.trim();if(!n)return alert('Nome obrigatório');d.classes[n]={status:$('#classStatus').value,source:$('#classSource').value,hitDie:$('#classHitDie').value,saves:split($('#classSaves').value),casting:$('#classCasting').value,spellAbility:$('#classSpellAbility').value,primary:split($('#classPrimary').value),proficiencies:$('#classProficiencies').value,features:features($('#classFeatures').value),rewardsByLevel:(()=>{try{return $('#classRewardsJson') && $('#classRewardsJson').value.trim()?JSON.parse($('#classRewardsJson').value):{}}catch(e){alert('JSON de recompensas inválido: '+e.message);throw e}})(),text:$('#classText').value};save(d);clearClass();setTab('review')}
 function saveRace(){const d=load(),n=$('#raceName').value.trim();if(!n)return alert('Nome obrigatório');d.races[n]={status:$('#raceStatus').value,source:$('#raceSource').value,size:$('#raceSize').value,speed:$('#raceSpeed').value,darkvision:$('#raceDark').value,skills:split($('#raceSkills').value),languages:split($('#raceLanguages').value),resistances:split($('#raceResist').value),proficiencies:split($('#raceProf').value),traits:lines($('#raceTraits').value),text:$('#raceText').value};save(d);clearRace();setTab('review')}
 function saveBg(){const d=load(),n=$('#bgName').value.trim();if(!n)return alert('Nome obrigatório');d.backgrounds[n]={status:$('#bgStatus').value,source:$('#bgSource').value,skills:split($('#bgSkills').value),languages:split($('#bgLanguages').value),tools:split($('#bgTools').value),equipment:lines($('#bgEquipment').value),feature:$('#bgFeature').value,personality:$('#bgPersonality').value,text:$('#bgText').value,summary:$('#bgText').value.slice(0,160)};save(d);clearBg();setTab('review')}
 function saveFeat(){const d=load(),n=$('#featName').value.trim();if(!n)return alert('Nome obrigatório');d.feats[n]={status:$('#featStatus').value,source:$('#featSource').value,tags:split($('#featTags').value),summary:$('#featSummary').value,note:$('#featNote').value,text:$('#featText').value};save(d);clearFeat();setTab('review')}
@@ -190,7 +191,7 @@ function clearBg(){$$('#backgroundPage input,#backgroundPage textarea').forEach(
 function clearFeat(){$$('#featPage input,#featPage textarea').forEach(x=>x.value='');$('#featStatus').value='pendente'}
 function clearCat(){$$('#catalogPage input,#catalogPage textarea').forEach(x=>x.value='');$('#catStatus').value='pendente'}
 function del(type,name){const d=load();if(!confirm('Excluir '+name+'?'))return;delete d[type][name];save(d)}
-function edit(type,name){const d=load(),r=d[type][name];if(type==='classes'){setTab('class');$('#className').value=name;$('#classStatus').value=r.status||'pendente';$('#classSource').value=r.source||'';$('#classHitDie').value=r.hitDie||'';$('#classSaves').value=(r.saves||[]).join(', ');$('#classCasting').value=r.casting||'none';$('#classSpellAbility').value=r.spellAbility||'';$('#classPrimary').value=(r.primary||[]).join(', ');$('#classProficiencies').value=r.proficiencies||'';$('#classFeatures').value=Object.entries(r.features||{}).map(([lv,a])=>`${lv}: ${(a||[]).join('; ')}`).join('\n');$('#classText').value=r.text||''}
+function edit(type,name){const d=load(),r=d[type][name];if(type==='classes'){setTab('class');$('#className').value=name;$('#classStatus').value=r.status||'pendente';$('#classSource').value=r.source||'';$('#classHitDie').value=r.hitDie||'';$('#classSaves').value=(r.saves||[]).join(', ');$('#classCasting').value=r.casting||'none';$('#classSpellAbility').value=r.spellAbility||'';$('#classPrimary').value=(r.primary||[]).join(', ');$('#classProficiencies').value=r.proficiencies||'';$('#classFeatures').value=Object.entries(r.features||{}).map(([lv,a])=>`${lv}: ${(a||[]).join('; ')}`).join('\n');$('#classText').value=r.text||'';if($('#classRewardsJson'))$('#classRewardsJson').value=JSON.stringify(r.rewardsByLevel||{},null,2)}
 if(type==='races'){setTab('race');$('#raceName').value=name;$('#raceStatus').value=r.status||'pendente';$('#raceSource').value=r.source||'';$('#raceSize').value=r.size||'';$('#raceSpeed').value=r.speed||'';$('#raceDark').value=r.darkvision||'';$('#raceSkills').value=(r.skills||[]).join(', ');$('#raceLanguages').value=(r.languages||[]).join(', ');$('#raceResist').value=(r.resistances||[]).join(', ');$('#raceProf').value=(r.proficiencies||[]).join(', ');$('#raceTraits').value=(r.traits||[]).join('\n');$('#raceText').value=r.text||''}
 if(type==='backgrounds'){setTab('background');$('#bgName').value=name;$('#bgStatus').value=r.status||'pendente';$('#bgSource').value=r.source||'';$('#bgSkills').value=(r.skills||[]).join(', ');$('#bgLanguages').value=(r.languages||[]).join(', ');$('#bgTools').value=(r.tools||[]).join(', ');$('#bgEquipment').value=(r.equipment||[]).join('\n');$('#bgFeature').value=r.feature||'';$('#bgPersonality').value=r.personality||'';$('#bgText').value=r.text||''}
 if(type==='feats'){setTab('feat');$('#featName').value=name;$('#featStatus').value=r.status||'pendente';$('#featSource').value=r.source||'';$('#featTags').value=(r.tags||[]).join(', ');$('#featSummary').value=r.summary||'';$('#featNote').value=r.note||'';$('#featText').value=r.text||''}

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPG Gabriel - Ficha Online V33</title>
+  <title>RPG Gabriel - Ficha Online V34</title>
   <style>
     :root{
       --bg:#090b10;
@@ -1481,9 +1481,22 @@ textarea.huge{min-height:200px}
   }
 }
 
+
+/* V34 - recompensa é objeto: fixo aplica, escolha pergunta */
+.reward-schema-note{
+  border:1px solid rgba(36,27,20,.22);
+  border-radius:12px;
+  background:#fff7e2;
+  padding:8px 10px;
+  color:#704708;
+  font-size:12px;
+  font-weight:850;
+  line-height:1.35;
+}
+
 </style>
 </head>
-<!-- RPGGABRIEL V33 PROGRESSAO RECOMPENSAS -->
+<!-- RPGGABRIEL V34 RECOMPENSAS COMO OBJETOS -->
 <body class="menu-open">
   <section class="menu-screen" id="menuScreen">
     <div class="menu-shell">
@@ -1744,8 +1757,8 @@ textarea.huge{min-height:200px}
                 <div id="rulesAuditSummary" class="rules-audit-box"></div>
                 <div class="rules-audit-actions">
                   <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                  <a class="btn small secondary" href="criador.html?v=33" target="_blank">Criador livre</a>
-                  <a class="btn small primary" href="livro-regras.html?v=33" target="_blank">Livro de Regras</a>
+                  <a class="btn small secondary" href="criador.html?v=34" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=34" target="_blank">Livro de Regras</a>
                 </div>
               </details>
             </div>
@@ -2121,94 +2134,30 @@ textarea.huge{min-height:200px}
 
 
     const CLASS_ADVANCEMENT_RULES = {
-      'Bárbaro': {
-        pathLevel:3, pathLabel:'Caminho Primitivo',
-        paths:['Caminho do Berserker','Caminho do Totem','Caminho personalizado do livro'],
-        choicesByLevel:{3:['Escolher Caminho Primitivo']},
-        levelEquipment:{1:['4 azagaias']},
-        levelChoices:{1:['Escolher arma principal do bárbaro']}
-      },
-      'Bardo': {
-        pathLevel:3, pathLabel:'Colégio de Bardo',
-        paths:['Colégio do Conhecimento','Colégio da Bravura','Colégio personalizado do livro'],
-        choicesByLevel:{1:['Escolher instrumento musical'],3:['Escolher Colégio de Bardo']},
-        levelEquipment:{1:['Instrumento musical']},
-        levelSpells:{1:['Truques e magias de bardo conforme Livro de Regras']}
-      },
-      'Bruxo': {
-        pathLevel:1, pathLabel:'Patrono',
-        paths:['Arquifada','Infernal','Grande Antigo','Patrono personalizado do livro'],
-        choicesByLevel:{1:['Escolher Patrono'],3:['Escolher Dádiva do Pacto']},
-        levelSpells:{1:['Magias de pacto conforme Patrono']}
-      },
-      'Clérigo': {
-        pathLevel:1, pathLabel:'Domínio Divino',
-        paths:['Domínio da Vida','Domínio da Luz','Domínio da Guerra','Domínio personalizado do livro'],
-        choicesByLevel:{1:['Escolher Domínio Divino']},
-        levelSpells:{1:['Magias de domínio conforme Livro de Regras']}
-      },
+      'Bárbaro': { pathLevel:3, pathLabel:'Caminho Primitivo', paths:['Caminho do Berserker','Caminho do Totem','Caminho personalizado do livro'], choicesByLevel:{3:[{tipo:'escolha', nome:'Escolher Caminho Primitivo', origem:'classe', modo:'escolha'}]} },
+      'Bardo': { pathLevel:3, pathLabel:'Colégio de Bardo', paths:['Colégio do Conhecimento','Colégio da Bravura','Colégio personalizado do livro'], choicesByLevel:{3:[{tipo:'escolha', nome:'Escolher Colégio de Bardo', origem:'classe', modo:'escolha'}]} },
+      'Bruxo': { pathLevel:1, pathLabel:'Patrono', paths:['Arquifada','Infernal','Grande Antigo','Patrono personalizado do livro'], choicesByLevel:{1:[{tipo:'escolha', nome:'Escolher Patrono', origem:'classe', modo:'escolha'}],3:[{tipo:'escolha', nome:'Escolher Dádiva do Pacto', origem:'classe', modo:'escolha'}]} },
+      'Clérigo': { pathLevel:1, pathLabel:'Domínio Divino', paths:['Domínio da Vida','Domínio da Luz','Domínio da Guerra','Domínio personalizado do livro'], choicesByLevel:{1:[{tipo:'escolha', nome:'Escolher Domínio Divino', origem:'classe', modo:'escolha'}]} },
       'Druida': {
         pathLevel:2, pathLabel:'Círculo Druídico',
         paths:['Círculo da Terra','Círculo da Lua','Círculo do Fogo','Círculo personalizado do livro'],
-        choicesByLevel:{1:['Escolher truques de druida'],2:['Escolher Círculo Druídico']},
-        levelEquipment:{1:['Foco druídico']},
-        levelSpells:{1:['Magias de druida preparadas conforme Sabedoria']},
+        choicesByLevel:{2:[{tipo:'escolha', nome:'Escolher Círculo Druídico', origem:'classe', modo:'escolha'}]},
         pathRewards:{
           'Círculo do Fogo':{
-            2:{ features:['Direcionamento elemental: fogo'], spells:['Magias de fogo do círculo conforme Livro de Regras'], choices:['Definir origem do fogo: círculo, linhagem, entidade ou evento da campanha'] }
+            2:{ features:[{tipo:'habilidade', nome:'Direcionamento elemental: fogo', origem:'Círculo do Fogo', modo:'fixo'}], choices:[{tipo:'escolha', nome:'Definir origem do fogo no livro/campanha', origem:'Círculo do Fogo', modo:'escolha'}] }
           },
-          'Círculo da Terra':{
-            2:{ features:['Direcionamento: terra/bioma'], choices:['Escolher terreno do círculo'] }
-          },
-          'Círculo da Lua':{
-            2:{ features:['Direcionamento: formas selvagens'] }
-          }
+          'Círculo da Terra':{ 2:{ features:[{tipo:'habilidade', nome:'Direcionamento: terra/bioma', origem:'Círculo da Terra', modo:'fixo'}], choices:[{tipo:'escolha', nome:'Definir terreno do círculo', origem:'Círculo da Terra', modo:'escolha'}] } },
+          'Círculo da Lua':{ 2:{ features:[{tipo:'habilidade', nome:'Direcionamento: formas selvagens', origem:'Círculo da Lua', modo:'fixo'}] } }
         }
       },
-      'Feiticeiro': {
-        pathLevel:1, pathLabel:'Origem de Feitiçaria',
-        paths:['Linhagem Dracônica','Magia Selvagem','Origem personalizada do livro'],
-        choicesByLevel:{1:['Escolher Origem de Feitiçaria'],3:['Escolher Metamagia']},
-        levelSpells:{1:['Magias conhecidas de feiticeiro']}
-      },
-      'Guerreiro': {
-        pathLevel:3, pathLabel:'Arquétipo Marcial',
-        paths:['Campeão','Mestre de Batalha','Cavaleiro Arcano','Arquétipo personalizado do livro'],
-        choicesByLevel:{1:['Escolher estilo de luta'],3:['Escolher Arquétipo Marcial']},
-        levelChoices:{1:['Escolher arma e armadura iniciais']}
-      },
-      'Ladino': {
-        pathLevel:3, pathLabel:'Arquétipo Ladino',
-        paths:['Assassino','Ladrão','Trapaceiro Arcano','Arquétipo personalizado do livro'],
-        choicesByLevel:{1:['Escolher especialização'],3:['Escolher Arquétipo Ladino']},
-        levelEquipment:{1:['Ferramentas de ladrão']}
-      },
-      'Mago': {
-        pathLevel:2, pathLabel:'Tradição Arcana',
-        paths:['Abjuração','Conjuração','Adivinhação','Encantamento','Evocação','Ilusão','Necromancia','Transmutação','Tradição personalizada do livro'],
-        choicesByLevel:{1:['Escolher magias iniciais no grimório'],2:['Escolher Tradição Arcana']},
-        levelEquipment:{1:['Grimório']},
-        levelSpells:{1:['Magias do grimório conforme Livro de Regras']}
-      },
-      'Monge': {
-        pathLevel:3, pathLabel:'Tradição Monástica',
-        paths:['Mão Aberta','Sombra','Quatro Elementos','Tradição personalizada do livro'],
-        choicesByLevel:{3:['Escolher Tradição Monástica']}
-      },
-      'Paladino': {
-        pathLevel:3, pathLabel:'Juramento Sagrado',
-        paths:['Devoção','Anciões','Vingança','Juramento personalizado do livro'],
-        choicesByLevel:{2:['Escolher estilo de luta'],3:['Escolher Juramento Sagrado']},
-        levelSpells:{2:['Magias de paladino preparadas']}
-      },
-      'Patrulheiro': {
-        pathLevel:3, pathLabel:'Arquétipo de Patrulheiro',
-        paths:['Caçador','Mestre das Bestas','Arquétipo personalizado do livro'],
-        choicesByLevel:{1:['Escolher inimigo favorito e terreno'],2:['Escolher estilo de luta'],3:['Escolher Arquétipo de Patrulheiro']},
-        levelSpells:{2:['Magias de patrulheiro conhecidas']}
-      }
+      'Feiticeiro': { pathLevel:1, pathLabel:'Origem de Feitiçaria', paths:['Linhagem Dracônica','Magia Selvagem','Origem personalizada do livro'], choicesByLevel:{1:[{tipo:'escolha', nome:'Escolher Origem de Feitiçaria', origem:'classe', modo:'escolha'}]} },
+      'Guerreiro': { pathLevel:3, pathLabel:'Arquétipo Marcial', paths:['Campeão','Mestre de Batalha','Cavaleiro Arcano','Arquétipo personalizado do livro'], choicesByLevel:{3:[{tipo:'escolha', nome:'Escolher Arquétipo Marcial', origem:'classe', modo:'escolha'}]} },
+      'Ladino': { pathLevel:3, pathLabel:'Arquétipo Ladino', paths:['Assassino','Ladrão','Trapaceiro Arcano','Arquétipo personalizado do livro'], choicesByLevel:{3:[{tipo:'escolha', nome:'Escolher Arquétipo Ladino', origem:'classe', modo:'escolha'}]} },
+      'Mago': { pathLevel:2, pathLabel:'Tradição Arcana', paths:['Abjuração','Conjuração','Adivinhação','Encantamento','Evocação','Ilusão','Necromancia','Transmutação','Tradição personalizada do livro'], choicesByLevel:{2:[{tipo:'escolha', nome:'Escolher Tradição Arcana', origem:'classe', modo:'escolha'}]} },
+      'Monge': { pathLevel:3, pathLabel:'Tradição Monástica', paths:['Mão Aberta','Sombra','Quatro Elementos','Tradição personalizada do livro'], choicesByLevel:{3:[{tipo:'escolha', nome:'Escolher Tradição Monástica', origem:'classe', modo:'escolha'}]} },
+      'Paladino': { pathLevel:3, pathLabel:'Juramento Sagrado', paths:['Devoção','Anciões','Vingança','Juramento personalizado do livro'], choicesByLevel:{3:[{tipo:'escolha', nome:'Escolher Juramento Sagrado', origem:'classe', modo:'escolha'}]} },
+      'Patrulheiro': { pathLevel:3, pathLabel:'Arquétipo de Patrulheiro', paths:['Caçador','Mestre das Bestas','Arquétipo personalizado do livro'], choicesByLevel:{3:[{tipo:'escolha', nome:'Escolher Arquétipo de Patrulheiro', origem:'classe', modo:'escolha'}]} }
     };
-
 
     const FULL_CASTER_SLOTS = {
       1:[2,0,0,0,0,0,0,0,0],
@@ -3104,7 +3053,7 @@ textarea.huge{min-height:200px}
     function getClassAdvanceRule(cls){
       const base = CLASS_ADVANCEMENT_RULES[cls] || {};
       const book = getAllClassRules()[cls] || {};
-      return {...base, ...book, pathRewards:{...(base.pathRewards||{}), ...(book.pathRewards||{})}};
+      return {...base, ...book, levelEquipment:{...(base.levelEquipment||{}), ...(book.levelEquipment||{}), ...(book.rewardsByLevel||{})}, pathRewards:{...(base.pathRewards||{}), ...(book.pathRewards||{})}};
     }
 
     function getClassPathOptions(cls){
@@ -3139,6 +3088,55 @@ textarea.huge{min-height:200px}
       select.disabled = !opts.length || (pathLevel && level < pathLevel);
     }
 
+
+    function rewardLabel(reward){
+      if(reward && typeof reward === 'object') return reward.nome || reward.name || reward.label || reward.descricao || reward.description || '';
+      return String(reward || '');
+    }
+
+    function rewardKind(reward, fallback='item'){
+      if(reward && typeof reward === 'object') return (reward.tipo || reward.kind || reward.type || fallback).toLowerCase();
+      const txt = String(reward || '').toLowerCase();
+      if(shouldBePendingChoice(txt)) return 'escolha';
+      if(parseCoinObjectsFromText(txt).length && inventoryNameWithoutCoins(txt).length < 3) return 'moeda';
+      return fallback;
+    }
+
+    function normalizeRewardObject(raw, fallbackKind='item', fallbackOrigin='regra'){
+      if(raw && typeof raw === 'object'){
+        const tipo = rewardKind(raw, fallbackKind);
+        return {
+          tipo,
+          nome: rewardLabel(raw),
+          quantidade: num(raw.quantidade || raw.qtd || raw.amount || 1) || 1,
+          peso: num(raw.peso || raw.weight || 0) || 0,
+          categoria: raw.categoria || raw.category || tipo,
+          origem: raw.origem || raw.origin || fallbackOrigin,
+          descricao: raw.descricao || raw.description || rewardLabel(raw),
+          modo: raw.modo || raw.mode || (tipo === 'escolha' ? 'escolha' : 'fixo'),
+          opcoes: Array.isArray(raw.opcoes) ? raw.opcoes : (Array.isArray(raw.options) ? raw.options : [])
+        };
+      }
+      const txt = String(raw || '').trim();
+      const tipo = rewardKind(txt, fallbackKind);
+      return {
+        tipo,
+        nome: txt,
+        quantidade: 1,
+        peso: 0,
+        categoria: fallbackKind,
+        origem: fallbackOrigin,
+        descricao: txt,
+        modo: tipo === 'escolha' ? 'escolha' : 'fixo',
+        opcoes: []
+      };
+    }
+
+    function normalizeRewardArray(arr, fallbackKind='item', fallbackOrigin='regra'){
+      return (arr || []).map(x=>normalizeRewardObject(x, fallbackKind, fallbackOrigin)).filter(x=>x.nome);
+    }
+
+
     function collectClassLevelRewards(c){
       if(!c) return {features:[], equipment:[], spells:[], choices:[], pathFeatures:[], pathSpells:[], pathEquipment:[], pathChoices:[]};
       ensureClassLevelData(c);
@@ -3148,41 +3146,41 @@ textarea.huge{min-height:200px}
       const adv = getClassAdvanceRule(cls);
       const out = {features:[], equipment:[], spells:[], choices:[], pathFeatures:[], pathSpells:[], pathEquipment:[], pathChoices:[]};
 
-      const addFromMap = (map, key) => {
+      const addFromMap = (map, key, kind, origin) => {
         const arr = map && (map[level] || map[String(level)]);
-        if(Array.isArray(arr)) arr.forEach(x=>out[key].push(x));
+        if(Array.isArray(arr)) normalizeRewardArray(arr, kind, origin).forEach(x=>out[key].push(x));
       };
 
-      addFromMap(adv.levelEquipment, 'equipment');
-      addFromMap(adv.equipmentByLevel, 'equipment');
-      addFromMap(adv.levelSpells, 'spells');
-      addFromMap(adv.spellsByLevel, 'spells');
-      addFromMap(adv.levelChoices, 'choices');
-      addFromMap(adv.choicesByLevel, 'choices');
+      addFromMap(adv.levelEquipment, 'equipment', 'item', 'classe');
+      addFromMap(adv.equipmentByLevel, 'equipment', 'item', 'classe');
+      addFromMap(adv.levelSpells, 'spells', 'magia', 'classe');
+      addFromMap(adv.spellsByLevel, 'spells', 'magia', 'classe');
+      addFromMap(adv.levelChoices, 'choices', 'escolha', 'classe');
+      addFromMap(adv.choicesByLevel, 'choices', 'escolha', 'classe');
 
       const rule = getAllClassRules()[cls] || {};
       const currentFeatures = (rule.features && (rule.features[level] || rule.features[String(level)])) || [];
-      currentFeatures.forEach(x=>out.features.push(x));
+      normalizeRewardArray(currentFeatures, 'habilidade', 'classe').forEach(x=>out.features.push(x));
 
       const pathData = adv.pathRewards && path ? adv.pathRewards[path] : null;
       const pathLevelData = pathData && (pathData[level] || pathData[String(level)]);
       if(pathLevelData){
-        (pathLevelData.features || []).forEach(x=>out.pathFeatures.push(x));
-        (pathLevelData.spells || []).forEach(x=>out.pathSpells.push(x));
-        (pathLevelData.equipment || []).forEach(x=>out.pathEquipment.push(x));
-        (pathLevelData.choices || []).forEach(x=>out.pathChoices.push(x));
+        normalizeRewardArray(pathLevelData.features, 'habilidade', path).forEach(x=>out.pathFeatures.push(x));
+        normalizeRewardArray(pathLevelData.spells, 'magia', path).forEach(x=>out.pathSpells.push(x));
+        normalizeRewardArray(pathLevelData.equipment, 'item', path).forEach(x=>out.pathEquipment.push(x));
+        normalizeRewardArray(pathLevelData.choices, 'escolha', path).forEach(x=>out.pathChoices.push(x));
       }
 
       const pathLevel = num(adv.pathLevel) || num(adv.subclassLevel) || 0;
       if(pathLevel && level >= pathLevel && getClassPathOptions(cls).length && !path){
-        out.choices.push(`Escolher ${adv.pathLabel || adv.subclassLabel || 'caminho/subclasse'}`);
+        out.choices.push(normalizeRewardObject({tipo:'escolha', nome:`Escolher ${adv.pathLabel || adv.subclassLabel || 'caminho/subclasse'}`, origem:'classe'}, 'escolha', 'classe'));
       }
       return out;
     }
 
     function renderRewardPills(title, items, cls=''){
       if(!items || !items.length) return '';
-      return `<div class="reward-group ${cls}"><b>${escapeHtml(title)}</b><div>${items.map(x=>`<span class="reward-pill">${escapeHtml(x)}</span>`).join('')}</div></div>`;
+      return `<div class="reward-group ${cls}"><b>${escapeHtml(title)}</b><div>${items.map(x=>`<span class="reward-pill">${escapeHtml(rewardLabel(x))}</span>`).join('')}</div></div>`;
     }
 
 
@@ -3276,8 +3274,8 @@ textarea.huge{min-height:200px}
       const rewards = collectClassLevelRewards(c);
       const currentHtml = [
         ...rewards.features,
-        ...rewards.pathFeatures.map(x=>`${path}: ${x}`)
-      ].map(x=>`<span class="class-feature-pill">${escapeHtml(x)}</span>`).join('') || '<span class="class-feature-pill">Sem habilidade listada neste nível</span>';
+        ...rewards.pathFeatures.map(x=>normalizeRewardObject({...x, nome:`${path}: ${rewardLabel(x)}`}, 'habilidade', path))
+      ].map(x=>`<span class="class-feature-pill">${escapeHtml(rewardLabel(x))}</span>`).join('') || '<span class="class-feature-pill">Sem habilidade listada neste nível</span>';
 
       box.innerHTML = `
         <div class="class-current-strip class-current-strip-clean">
@@ -4441,12 +4439,23 @@ textarea.huge{min-height:200px}
       ensureObjectSheetData(c);
       c.equipamento.coinGrantLedger = c.equipamento.coinGrantLedger || {};
 
-      equipment.forEach(raw=>{
-        const line = String(raw || '').trim();
+      normalizeRewardArray(equipment, 'item', sourceLabel).forEach(reward=>{
+        const line = rewardLabel(reward);
         if(!line) return;
 
-        if(shouldBePendingChoice(line)){
-          addPendingChoice(c, sourceKey, line, sourceLabel);
+        if(reward.tipo === 'escolha' || reward.modo === 'escolha'){
+          addPendingChoice(c, sourceKey, line, reward.origem || sourceLabel);
+          return;
+        }
+
+        if(reward.tipo === 'moeda'){
+          const code = String(reward.moeda || reward.coin || reward.codigo || reward.code || 'po').toLowerCase();
+          const amount = num(reward.quantidade || reward.valor || reward.amount) || 0;
+          const coinKey = `${sourceKey}|coin|${code}|${amount}|${line}`.toLowerCase();
+          if(amount && !c.equipamento.coinGrantLedger[coinKey]){
+            c.equipamento.moedas[code] = String((num(c.equipamento.moedas[code]) || 0) + amount);
+            c.equipamento.coinGrantLedger[coinKey] = true;
+          }
           return;
         }
 
@@ -4458,22 +4467,23 @@ textarea.huge{min-height:200px}
           }
         });
 
-        const itemName = inventoryNameWithoutCoins(line);
-        const hasOnlyCoin = !!parseCoinObjectsFromText(line).length && itemName.length < 3;
-        if(hasOnlyCoin) return;
+        const itemName = reward.nome && reward.tipo !== 'moeda' ? reward.nome : inventoryNameWithoutCoins(line);
+        const hasOnlyCoin = !!parseCoinObjectsFromText(line).length && inventoryNameWithoutCoins(line).length < 3;
+        if(hasOnlyCoin && reward.tipo !== 'item' && reward.tipo !== 'equipamento') return;
+
         const name = itemName || line;
         const grantKey = `${sourceKey}|item|${name}`.toLowerCase();
         if(c.equipamento.itens.some(i=>String(i.grantKey || '').toLowerCase() === grantKey)) return;
-        if(c.equipamento.itens.some(i=>String(i.nome || '').toLowerCase() === name.toLowerCase() && String(i.origem || '').toLowerCase() === sourceLabel.toLowerCase())) return;
+        if(c.equipamento.itens.some(i=>String(i.nome || '').toLowerCase() === name.toLowerCase() && String(i.origem || '').toLowerCase() === String(reward.origem || sourceLabel).toLowerCase())) return;
         c.equipamento.itens.push({
           id:'item_'+Math.random().toString(36).slice(2,9),
           grantKey,
           nome:name,
-          qtd:1,
-          peso:0,
-          categoria:'equipamento/recompensa',
-          origem:sourceLabel,
-          descricao:line
+          qtd:reward.quantidade || 1,
+          peso:reward.peso || 0,
+          categoria:reward.categoria || 'equipamento/recompensa',
+          origem:reward.origem || sourceLabel,
+          descricao:reward.descricao || line
         });
       });
     }
@@ -4498,8 +4508,8 @@ textarea.huge{min-height:200px}
       applyGrantedInventorySource(c, 'raca:'+race, 'raça', raceRule.equipment || []);
       applyGrantedInventorySource(c, 'antecedente:'+bg, 'antecedente', bgRule.equipment || []);
 
-      [...(rewards.choices||[]), ...(rewards.pathChoices||[])].forEach(x=>addPendingChoice(c, `classe:${cls}:nivel:${level}`, x, 'classe'));
-      [...(rewards.spells||[]), ...(rewards.pathSpells||[])].forEach(x=>addPendingChoice(c, `magia:${cls}:nivel:${level}`, x, 'magia'));
+      [...(rewards.choices||[]), ...(rewards.pathChoices||[])].forEach(x=>addPendingChoice(c, `classe:${cls}:nivel:${level}`, rewardLabel(x), x.origem || 'classe'));
+      [...(rewards.spells||[]), ...(rewards.pathSpells||[])].forEach(x=>addPendingChoice(c, `magia:${cls}:nivel:${level}`, rewardLabel(x), x.origem || 'magia'));
     }
 
     function renderCharacterFlow(){
