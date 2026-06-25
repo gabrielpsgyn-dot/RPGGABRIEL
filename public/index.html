@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPG Gabriel - Ficha Online V30</title>
+  <title>RPG Gabriel - Ficha Online V31</title>
   <style>
     :root{
       --bg:#090b10;
@@ -1285,9 +1285,51 @@ textarea.huge{min-height:200px}
   }
 }
 
+
+/* V31 - Pente fino da ficha inicial */
+.rules-audit-panel{display:none !important}
+.compact-stat-grid-3{grid-template-columns:repeat(3,minmax(0,1fr)) !important}
+.compact-stat-grid-2{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+.clean-summary-panel .object-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+}
+.clean-summary-panel .object-pill{
+  margin:0;
+}
+.object-pill small{
+  color:#6e563a;
+  font-weight:800;
+}
+.inline-remove{
+  border:0;
+  background:transparent;
+  color:#8b2f28;
+  font-weight:950;
+  padding:0 2px;
+  min-height:0;
+}
+#featsPanel .clean-empty,
+#inventoryPanel .clean-empty{
+  padding:8px 10px;
+  font-size:12px;
+}
+#featsPanel .calc-note,
+#inventoryPanel .calc-note,
+#proficiencySummaryPanel .calc-note{
+  font-size:11px;
+}
+#inventoryPanel .object-builder{
+  margin-top:8px;
+}
+@media(max-width:900px){
+  .compact-stat-grid-3,.compact-stat-grid-2{grid-template-columns:1fr !important}
+}
+
 </style>
 </head>
-<!-- RPGGABRIEL V30 FICHA POR OBJETOS -->
+<!-- RPGGABRIEL V31 PENTE FINO FICHA -->
 <body class="menu-open">
   <section class="menu-screen" id="menuScreen">
     <div class="menu-shell">
@@ -1523,8 +1565,8 @@ textarea.huge{min-height:200px}
                 <div id="rulesAuditSummary" class="rules-audit-box"></div>
                 <div class="rules-audit-actions">
                   <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                  <a class="btn small secondary" href="criador.html?v=30" target="_blank">Criador livre</a>
-                  <a class="btn small primary" href="livro-regras.html?v=30" target="_blank">Livro de Regras</a>
+                  <a class="btn small secondary" href="criador.html?v=31" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=31" target="_blank">Livro de Regras</a>
                 </div>
               </details>
             </div>
@@ -1630,13 +1672,7 @@ textarea.huge{min-height:200px}
           </div>
 
           <div>
-            <div class="panel">
-              <h3>Personalidade</h3>
-              <div class="field"><label>Traços</label><textarea data-path="personalidade.tracos"></textarea></div>
-              <div class="field"><label>Ideais</label><textarea data-path="personalidade.ideais"></textarea></div>
-              <div class="field"><label>Vínculos</label><textarea data-path="personalidade.vinculos"></textarea></div>
-              <div class="field"><label>Fraquezas</label><textarea data-path="personalidade.fraquezas"></textarea></div>
-            </div>
+
             <div class="panel">
               <h3>Sabedoria passiva</h3>
               <div class="field">
@@ -1722,6 +1758,14 @@ textarea.huge{min-height:200px}
                 <button class="btn secondary small" data-img-action="upload" data-img-path="descricao.simboloImagem">Enviar símbolo</button>
                 <button class="btn danger small" data-img-action="remove" data-img-path="descricao.simboloImagem">Remover</button>
               </div>
+            </div>
+
+            <div class="panel">
+              <h3>Personalidade</h3>
+              <div class="field"><label>Traços</label><textarea data-path="personalidade.tracos"></textarea></div>
+              <div class="field"><label>Ideais</label><textarea data-path="personalidade.ideais"></textarea></div>
+              <div class="field"><label>Vínculos</label><textarea data-path="personalidade.vinculos"></textarea></div>
+              <div class="field"><label>Fraquezas</label><textarea data-path="personalidade.fraquezas"></textarea></div>
             </div>
             <div class="panel">
               <h3>Características adicionais</h3>
@@ -2646,24 +2690,20 @@ textarea.huge{min-height:200px}
       const rule = getAllBackgroundRules()[bg];
       if(!rule){
         badge.textContent = 'Antecedente não definido';
-        box.innerHTML = '<div class="class-empty">Escolha um antecedente para aplicar perícias, idiomas, ferramentas, equipamento inicial e característica narrativa.</div>';
+        box.innerHTML = '<div class="class-empty">Escolha um antecedente. Perícias, idiomas e ferramentas aparecerão no painel único de Proficiências.</div>';
         return;
       }
       badge.textContent = bg;
-      const skillLabels = (rule.skills || []).map(k=>raceSkillLabel(k));
       const makePills = arr => (arr||[]).map(x=>`<span class="compact-pill">${escapeHtml(x)}</span>`).join('') || '<span class="compact-pill">-</span>';
       box.innerHTML = `
-        <div class="compact-stat-grid">
-          <div class="compact-stat"><span>Perícias</span><b>${escapeHtml(skillLabels.join(', ') || '-')}</b></div>
-          <div class="compact-stat"><span>Idiomas</span><b>${escapeHtml(String((rule.languages || []).length || 0))}</b></div>
-          <div class="compact-stat"><span>Ferramentas</span><b>${escapeHtml(String((rule.tools || []).length || 0))}</b></div>
+        <div class="compact-stat-grid compact-stat-grid-2">
           <div class="compact-stat"><span>Característica</span><b>${escapeHtml(rule.feature || '-')}</b></div>
+          <div class="compact-stat"><span>Equipamento</span><b>${escapeHtml(String((rule.equipment || []).length || 0))} item(ns)</b></div>
         </div>
-        <div><div class="compact-label">Idiomas</div><div class="compact-inline-list">${makePills(rule.languages)}</div></div>
-        <div><div class="compact-label">Ferramentas / Kits</div><div class="compact-inline-list">${makePills(rule.tools)}</div></div>
-        <div class="background-action-row"><button class="btn small secondary" type="button" data-apply-background-equipment="1">Aplicar equipamento no inventário</button></div><details class="compact-details"><summary>Ver equipamentos e observações</summary>
+        <details class="compact-details"><summary>Equipamento e observações do antecedente</summary>
           <div><div class="compact-label">Equipamento inicial</div><div class="compact-inline-list">${makePills(rule.equipment)}</div></div>
-          ${rule.note ? `<div class="compact-note" style="margin-top:8px">${escapeHtml(rule.note)}</div>` : ''}
+          ${rule.summary || rule.note ? `<div class="compact-note" style="margin-top:8px">${escapeHtml(rule.summary || rule.note)}</div>` : ''}
+          <div class="background-action-row"><button class="btn small secondary" type="button" data-apply-background-equipment="1">Aplicar equipamento como objetos</button></div>
         </details>
       `;
     }
@@ -2732,23 +2772,20 @@ textarea.huge{min-height:200px}
       const rule = getAllRaceRules()[race];
       if(!rule){
         badge.textContent = 'Raça não definida';
-        box.innerHTML = '<div class="class-empty">Escolha uma raça/linhagem para aplicar tamanho, deslocamento, idiomas, visão, resistências e traços raciais.</div>';
+        box.innerHTML = '<div class="class-empty">Escolha uma raça/linhagem. As proficiências e idiomas aparecerão no painel único de Proficiências.</div>';
         return;
       }
       badge.textContent = race;
       const makePills = arr => (arr||[]).map(x=>`<span class="compact-pill">${escapeHtml(x)}</span>`).join('') || '<span class="compact-pill">-</span>';
-      const skillsAuto = (rule.skills || []).map(k=>raceSkillLabel(k)).join(', ') || '-';
       box.innerHTML = `
-        <div class="compact-stat-grid">
+        <div class="compact-stat-grid compact-stat-grid-3">
           <div class="compact-stat"><span>Tamanho</span><b>${escapeHtml(rule.size || '-')}</b></div>
           <div class="compact-stat"><span>Desloc.</span><b>${escapeHtml(rule.speed || '-')}</b></div>
-          <div class="compact-stat"><span>Visão escuro</span><b>${escapeHtml(rule.darkvision || '-')}</b></div>
-          <div class="compact-stat"><span>Perícias auto</span><b>${escapeHtml(skillsAuto)}</b></div>
+          <div class="compact-stat"><span>Visão</span><b>${escapeHtml(rule.darkvision || '-')}</b></div>
         </div>
-        <div><div class="compact-label">Idiomas e resistências</div><div class="compact-inline-list">${makePills(rule.languages)}${makePills(rule.resistances)}</div></div>
-        <details class="compact-details"><summary>Ver proficiências e traços raciais</summary>
-          <div><div class="compact-label">Proficiências raciais</div><div class="compact-inline-list">${makePills(rule.proficiencies)}</div></div>
-          <div style="margin-top:8px"><div class="compact-label">Traços raciais</div><div class="compact-inline-list">${makePills(rule.traits)}</div></div>
+        <details class="compact-details"><summary>Traços raciais</summary>
+          <div class="compact-inline-list">${makePills(rule.traits)}</div>
+          ${rule.resistances && rule.resistances.length ? `<div style="margin-top:8px"><div class="compact-label">Resistências</div><div class="compact-inline-list">${makePills(rule.resistances)}</div></div>` : ''}
           ${rule.note ? `<div class="compact-note" style="margin-top:8px">${escapeHtml(rule.note)}</div>` : ''}
         </details>
       `;
@@ -3789,7 +3826,7 @@ textarea.huge{min-height:200px}
           ${rule.summary ? `<div class="feat-note">${escapeHtml(rule.summary)}</div>` : ''}
           ${t.nota || rule.note ? `<div class="feat-note"><b>Nota:</b> ${escapeHtml(t.nota || rule.note)}</div>` : ''}
         </div>`;
-      }).join('') : '<div class="clean-empty">Nenhum talento escolhido para este personagem. A lista de talentos fica no Livro de Regras; aqui só aparece o que o personagem realmente tem.</div>';
+      }).join('') : '<div class="clean-empty">Nenhum talento escolhido.</div>';
     }
 
     function addBackgroundEquipment(){
@@ -3889,41 +3926,32 @@ textarea.huge{min-height:200px}
       const raceRule = getAllRaceRules()[normalizeRaceName(c.meta.raca || '')] || {};
       const bgRule = getAllBackgroundRules()[normalizeBackgroundName(c.meta.antecedente || '')] || {};
 
-      const objects = [];
-      (raceRule.skills || []).forEach(k=>objects.push({tipo:'perícia', nome:raceSkillLabel(k), origem:'raça'}));
-      (bgRule.skills || []).forEach(k=>objects.push({tipo:'perícia', nome:raceSkillLabel(k), origem:'antecedente'}));
-      (raceRule.languages || []).forEach(x=>objects.push({tipo:'idioma', nome:x, origem:'raça'}));
-      (bgRule.languages || []).forEach(x=>objects.push({tipo:'idioma', nome:x, origem:'antecedente'}));
-      (bgRule.tools || []).forEach(x=>objects.push({tipo:'ferramenta', nome:x, origem:'antecedente'}));
-      (raceRule.proficiencies || []).forEach(x=>objects.push({tipo:'proficiência', nome:x, origem:'raça'}));
-      String(clsRule.proficiencies || '').split(/\n|,/).map(x=>x.trim()).filter(Boolean).forEach(x=>objects.push({tipo:'proficiência', nome:x, origem:'classe'}));
-      (c.proficiencias.manuais || []).forEach(p=>objects.push({id:p.id, tipo:p.tipo, nome:p.nome, origem:p.origem, manual:true}));
+      const groups = { 'Perícias':[], 'Idiomas':[], 'Ferramentas':[], 'Proficiências':[] };
+      const add = (group, nome, origem, id='', manual=false)=>{
+        if(!nome) return;
+        const key = `${group}|${nome}|${origem}`.toLowerCase();
+        if(groups[group].some(x=>x.key===key)) return;
+        groups[group].push({key,nome,origem,id,manual});
+      };
 
-      const seen = new Set();
-      const clean = objects.filter(o=>{
-        const key = `${o.tipo}|${o.nome}|${o.origem}`.toLowerCase();
-        if(seen.has(key)) return false;
-        seen.add(key);
-        return o.nome;
-      });
+      (raceRule.skills || []).forEach(k=>add('Perícias', raceSkillLabel(k), 'raça'));
+      (bgRule.skills || []).forEach(k=>add('Perícias', raceSkillLabel(k), 'antecedente'));
+      (raceRule.languages || []).forEach(x=>add('Idiomas', x, 'raça'));
+      (bgRule.languages || []).forEach(x=>add('Idiomas', x, 'antecedente'));
+      (bgRule.tools || []).forEach(x=>add('Ferramentas', x, 'antecedente'));
+      (raceRule.proficiencies || []).forEach(x=>add('Proficiências', x, 'raça'));
+      String(clsRule.proficiencies || '').split(/\n|,/).map(x=>x.trim()).filter(Boolean).forEach(x=>add('Proficiências', x, 'classe'));
+      (c.proficiencias.manuais || []).forEach(p=>add(p.tipo === 'idioma' ? 'Idiomas' : p.tipo === 'ferramenta' ? 'Ferramentas' : p.tipo === 'pericia' ? 'Perícias' : 'Proficiências', p.nome, p.origem || 'manual', p.id, true));
 
-      if(!clean.length){
-        box.innerHTML = '<div class="clean-empty">Nenhuma proficiência/idioma definido como objeto. Cadastre no Livro de Regras ou adicione manualmente.</div>';
-        return;
-      }
+      const blocks = Object.entries(groups).map(([title,arr])=>{
+        if(!arr.length) return '';
+        const items = arr.map(o=>`
+          <span class="object-pill">${escapeHtml(o.nome)} <small>(${escapeHtml(o.origem || '-')})</small>${o.manual ? ` <button class="inline-remove" data-remove-manual-prof="${escapeHtml(o.id)}">×</button>` : ''}</span>
+        `).join('');
+        return `<div class="clean-row"><b>${title}</b><small><span class="object-meta">${items}</span></small></div>`;
+      }).filter(Boolean);
 
-      box.innerHTML = `<div class="proficiency-object-grid">${clean.map(o=>`
-        <div class="object-card">
-          <div class="object-card-top">
-            <div class="object-card-title">${escapeHtml(o.nome)}</div>
-            ${o.manual ? `<button class="btn small danger" data-remove-manual-prof="${escapeHtml(o.id)}">Remover</button>` : ''}
-          </div>
-          <div class="object-meta">
-            <span class="object-pill">${escapeHtml(o.tipo)}</span>
-            <span class="object-pill">origem: ${escapeHtml(o.origem || '-')}</span>
-          </div>
-        </div>
-      `).join('')}</div>`;
+      box.innerHTML = blocks.length ? blocks.join('') : '<div class="clean-empty">Nenhuma proficiência/idioma definido. Cadastre no Livro de Regras, raça, classe ou antecedente.</div>';
     }
 
 

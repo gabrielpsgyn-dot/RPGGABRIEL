@@ -18,7 +18,7 @@ export default {
         return json({
           ok: true,
           app: "Ghosts of Saltmarsh - Ficha Online API",
-          version: "2.3.0-object-based-sheet",
+          version: "2.4.0-clean-audit-sheet",
           loginMode: "character_click_standard_password",
           time: new Date().toISOString()
         });
