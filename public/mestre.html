@@ -3,813 +3,499 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mesa do Mestre - V44</title>
+  <title>Mesa do Mestre - V45</title>
   <style>
     :root{
-      --wood-dark:#160b05;
-      --wood-1:#2a1609;
-      --wood-2:#4b2b14;
-      --wood-3:#6b431f;
-      --paper:#e6d0a6;
-      --paper-light:#f3e3bf;
-      --paper-dark:#c6a675;
-      --ink:#241205;
-      --muted:#654726;
-      --line:#6f461f;
-      --gold:#a96f24;
-      --gold-light:#d7ae62;
-      --blood:#7c2520;
-      --blood-light:#ad4c41;
-      --heal:#425f31;
-      --blue:#40586b;
-      --shadow:0 18px 38px rgba(0,0,0,.30);
-      --r-xl:26px;
-      --r-lg:20px;
-      --r-md:14px;
-      --ui:"Trebuchet MS", Georgia, system-ui, sans-serif;
+      --bg:#170d07;
+      --panel:#f2dfb7;
+      --panel2:#fff5df;
+      --ink:#241407;
+      --muted:#6b5132;
+      --line:#7b542d;
+      --gold:#b9822e;
+      --red:#8b2f28;
+      --green:#4c7030;
+      --blue:#38566d;
+      --shadow:0 14px 34px rgba(0,0,0,.26);
+      --r:18px;
+      --font:"Trebuchet MS", system-ui, sans-serif;
     }
     *{box-sizing:border-box}
     body{
       margin:0;
       min-height:100vh;
-      font-family:var(--ui);
+      font-family:var(--font);
       color:var(--ink);
       background:
-        radial-gradient(circle at 18% 6%, rgba(215,174,98,.13), transparent 30%),
-        radial-gradient(circle at 86% 0%, rgba(230,208,166,.08), transparent 24%),
-        linear-gradient(90deg, rgba(0,0,0,.18), transparent 20%, transparent 80%, rgba(0,0,0,.18)),
-        repeating-linear-gradient(90deg, #1a0d06 0 34px, #241207 34px 38px, #3a210f 38px 82px, #4b2b14 82px 86px);
+        radial-gradient(circle at 20% 0%, rgba(217,172,95,.18), transparent 30%),
+        linear-gradient(90deg,#120904,#301b0c 50%,#120904);
+      padding-bottom:76px;
     }
     button,input,select,textarea{font:inherit}
     button{cursor:pointer}
-    .app{max-width:1840px;margin:0 auto;padding:16px;display:grid;gap:16px}
-    .card{
-      background:
-        linear-gradient(180deg,rgba(255,255,255,.18),transparent 18%),
-        linear-gradient(180deg,var(--paper-light),var(--paper));
-      border:2px solid var(--line);
-      border-radius:var(--r-xl);
-      box-shadow:var(--shadow), inset 0 1px 0 rgba(255,255,255,.55);
-      overflow:hidden;
+    .app{max-width:1180px;margin:0 auto;padding:10px;display:grid;gap:10px}
+    .topbar{
+      position:sticky;top:0;z-index:10;
+      display:grid;gap:8px;
+      background:linear-gradient(180deg,rgba(23,13,7,.96),rgba(23,13,7,.82));
+      padding:8px 0 10px;
+      backdrop-filter: blur(8px);
     }
-    .card.dark{
-      background:
-        linear-gradient(180deg,rgba(255,230,170,.12),transparent 30%),
-        linear-gradient(180deg,#3f2414,#271408);
-      color:var(--paper-light);
-      border-color:#b27c3a;
+    .brand-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}
+    .brand h1{margin:0;color:#ffe2aa;font-size:18px;line-height:1.1}
+    .brand small{display:block;color:#d0b177;font-weight:800;font-size:11px;margin-top:2px}
+    .auth{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px}
+    .auth input{
+      min-height:42px;border-radius:14px;border:1px solid #9b713f;background:#fff3d7;
+      padding:8px 10px;color:#1e1208;font-weight:900;
     }
-    .top{
-      display:grid;
-      grid-template-columns:minmax(0,1fr) auto;
-      gap:16px;
-      align-items:stretch;
-      padding:16px;
-    }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:14px;
-      min-width:0;
-    }
-    .seal{
-      width:56px;height:56px;border-radius:18px;
-      display:grid;place-items:center;
-      background:radial-gradient(circle at 32% 25%, #ffe1a3, #b67a2d 72%);
-      color:#261306;
-      font-size:20px;
-      font-weight:950;
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.62),0 10px 20px rgba(0,0,0,.25);
-      flex:0 0 auto;
-    }
-    h1,h2,h3{margin:0}
-    h1{font-size:26px;letter-spacing:.3px}
-    .subtitle{margin-top:5px;color:var(--muted);font-size:14px}
-    .login{
-      display:grid;
-      grid-template-columns:220px auto auto auto;
-      gap:10px;
-      align-items:end;
-      min-width:560px;
-    }
-    .field{display:grid;gap:5px}
-    .field label{
-      color:var(--muted);
-      text-transform:uppercase;
-      letter-spacing:.08em;
-      font-size:11px;
-      font-weight:900;
-    }
-    input,select,textarea{
-      width:100%;
-      min-height:42px;
-      padding:10px 12px;
-      border-radius:12px;
-      border:1px solid #a77f4f;
-      background:#fff8e8;
-      color:var(--ink);
-      outline:none;
-    }
-    input:focus,select:focus,textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(184,129,51,.16)}
     .btn{
-      min-height:42px;
-      padding:10px 14px;
-      border-radius:12px;
-      border:1px solid transparent;
-      font-weight:950;
-      letter-spacing:.1px;
-      box-shadow:0 8px 18px rgba(0,0,0,.14);
+      border:0;border-radius:14px;min-height:40px;padding:8px 11px;font-weight:950;
+      background:#e1bd76;color:#201207;box-shadow:inset 0 1px 0 rgba(255,255,255,.45);
     }
-    .btn.primary{background:linear-gradient(180deg,#e3c07d,#b37b35);color:#271407}
-    .btn.secondary{background:#f4e7cd;border-color:#9f7544;color:#5b3519;box-shadow:none}
-    .btn.ghost{background:transparent;border-color:#9f7544;color:#6b4627;box-shadow:none}
-    .btn.red{background:linear-gradient(180deg,#c96256,#8e2f29);color:#fff}
-    .btn.green{background:linear-gradient(180deg,#69865d,#48663e);color:#fff}
-    .btn.blue{background:linear-gradient(180deg,#6f8ca4,#496980);color:#fff}
-    .btn.small{min-height:34px;padding:7px 10px;font-size:12px;border-radius:10px}
-    .main-grid{
-      display:grid;
-      grid-template-columns:minmax(0,1fr) 410px;
-      gap:16px;
-      align-items:start;
+    .btn.primary{background:linear-gradient(180deg,#ffd07b,#b67822)}
+    .btn.green{background:linear-gradient(180deg,#95bd66,#4e7830);color:#fff}
+    .btn.red{background:linear-gradient(180deg,#c85b50,#8a2c25);color:#fff}
+    .btn.blue{background:linear-gradient(180deg,#6f91aa,#38566d);color:#fff}
+    .btn.ghost{background:#fff4dc;border:1px solid rgba(36,20,7,.22)}
+    .btn.small{min-height:32px;border-radius:11px;padding:5px 8px;font-size:12px}
+    .pill{display:inline-flex;align-items:center;gap:4px;border:1px solid rgba(36,20,7,.18);border-radius:999px;padding:4px 7px;background:#fff4dc;font-size:11px;font-weight:900;color:#5c3f20}
+    .panel{
+      background:linear-gradient(180deg,var(--panel2),var(--panel));
+      border:2px solid var(--line);
+      border-radius:var(--r);
+      box-shadow:var(--shadow), inset 0 1px 0 rgba(255,255,255,.5);
+      padding:10px;
+      overflow:hidden;
     }
-    .left{display:grid;gap:16px;min-width:0}
-    .right{display:grid;gap:16px;position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto;padding-right:2px}
-    .combat{
-      display:grid;
-      grid-template-columns:1.05fr 1fr;
-      gap:14px;
-      padding:16px;
-      align-items:stretch;
+    .panel h2,.panel h3{margin:0 0 8px;text-align:center;letter-spacing:.03em}
+    .screen{display:none;gap:10px}
+    .screen.active{display:grid}
+    .now-card{
+      display:grid;gap:8px;background:linear-gradient(180deg,#4b2b14,#2b1508);color:#ffe8bd;
+      border-color:#d0a15a;
     }
-    .turn-banner{
-      border:2px solid rgba(226,189,118,.52);
-      border-radius:22px;
-      padding:14px;
-      background:
-        radial-gradient(circle at 25% 0%,rgba(226,189,118,.20),transparent 36%),
-        linear-gradient(180deg,rgba(255,244,221,.08),rgba(0,0,0,.08));
-      min-height:232px;
-      display:grid;
-      gap:12px;
+    .now-title{font-size:11px;text-transform:uppercase;color:#d4ad66;font-weight:950;letter-spacing:.08em}
+    .now-name{font-size:23px;font-weight:950;line-height:1.1}
+    .now-sub{font-size:12px;color:#f0cf99;font-weight:850}
+    .status-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+    .stat{background:rgba(255,244,220,.12);border:1px solid rgba(255,226,170,.22);border-radius:12px;padding:7px;text-align:center}
+    .stat span{display:block;font-size:10px;color:#d7b77f;text-transform:uppercase;font-weight:950}
+    .stat b{font-size:18px;color:#fff0cb}
+    .quick-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+    .hp-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+    .hpbar{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center}
+    .track{height:11px;background:#d7c096;border:1px solid rgba(36,20,7,.25);border-radius:999px;overflow:hidden}
+    .fill{height:100%;background:linear-gradient(90deg,#608f39,#a9ca67)}
+    .fill.low{background:linear-gradient(90deg,#b9822e,#e3bd59)}
+    .fill.dead{background:linear-gradient(90deg,#7e2823,#c8584d)}
+    .toolbar{display:grid;grid-template-columns:1fr auto auto;gap:6px;align-items:center}
+    .toolbar input,.toolbar select,.field input,.field select,.field textarea{
+      width:100%;min-height:38px;border-radius:12px;border:1px solid rgba(36,20,7,.25);
+      background:#fff8ea;padding:7px 9px;color:#241407;font-weight:850;
     }
-    .turn-head{
-      display:grid;
-      grid-template-columns:78px 1fr;
-      gap:12px;
-      align-items:center;
+    .field label{display:block;font-size:11px;text-transform:uppercase;color:#674b2b;font-weight:950;margin-bottom:4px}
+    .list{display:grid;gap:7px}
+    .entity-card{
+      border:1px solid rgba(36,20,7,.22);background:rgba(255,250,240,.68);border-radius:14px;padding:8px;
+      display:grid;gap:6px;
     }
-    .avatar{
-      width:64px;height:64px;border-radius:18px;border:2px solid #9e7544;background:#fff5df;display:grid;place-items:center;text-align:center;overflow:hidden;color:#6b4627;font-size:11px;line-height:1.1;
-    }
-    .turn-head .avatar{width:78px;height:78px;border-color:var(--gold-light)}
+    .entity-card.active{outline:3px solid rgba(185,130,46,.55)}
+    .entity-card.dead{opacity:.62}
+    .entity-top{display:grid;grid-template-columns:44px 1fr auto;gap:8px;align-items:center}
+    .avatar{width:44px;height:44px;border-radius:13px;background:#d6bd8d;border:1px solid rgba(36,20,7,.22);display:grid;place-items:center;overflow:hidden;font-size:10px;text-align:center;font-weight:900;color:#674b2b}
     .avatar img{width:100%;height:100%;object-fit:cover}
-    .turn-kicker{
-      text-transform:uppercase;
-      letter-spacing:.1em;
-      color:var(--gold-light);
-      font-size:11px;
-      font-weight:950;
-    }
-    .turn-name{font-size:30px;font-weight:950;line-height:1.04;color:#fff2d2}
-    .turn-meta{font-size:14px;color:#dfc393;margin-top:4px}
-    .bar-row{display:grid;grid-template-columns:90px 1fr auto;gap:9px;align-items:center;font-weight:900;color:#f8e7c2}
-    .track{height:14px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(226,189,118,.25);overflow:hidden}
-    .fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#5d7e52,#9dbc82)}
-    .fill.low{background:linear-gradient(90deg,#a46b24,#e7bd68)}
-    .fill.dead{background:linear-gradient(90deg,#771f1d,#c15650)}
-    .fill.corr{background:linear-gradient(90deg,#684e86,#a786c8)}
-    .turn-actions{
-      border:2px solid rgba(226,189,118,.32);
-      border-radius:22px;
-      padding:14px;
-      background:rgba(255,244,221,.08);
-      display:grid;
-      gap:12px;
-      align-content:start;
-    }
-    .turn-controls{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
-    .turn-rank-note{font-size:12px;color:#dfc393;line-height:1.35}
-    .damage-panel{display:grid;grid-template-columns:110px 1fr;gap:10px;align-items:end}
-    .damage-buttons{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-    .quick-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-    .cond-row{display:flex;flex-wrap:wrap;gap:8px}
-    .cond{
-      min-height:34px;
-      padding:7px 10px;
-      border-radius:999px;
-      border:1px solid rgba(226,189,118,.35);
-      background:rgba(255,244,221,.06);
-      color:#f0d8aa;
-      font-weight:950;
-    }
-    .cond.active{background:#dfbc77;color:#281507;border-color:#f0d691}
-    .order-card{padding:16px}
-    .order-head{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:12px}
-    .order-head h2{font-size:24px}
-    .rank-list{display:grid;gap:8px}
-    .rank-item{
-      display:grid;
-      grid-template-columns:44px 1fr auto;
-      gap:10px;
-      align-items:center;
-      border:1px solid rgba(138,100,59,.32);
-      border-radius:16px;
-      padding:8px 10px;
-      background:rgba(255,248,232,.56);
-      cursor:pointer;
-    }
-    .rank-item:hover{background:#fff4dd}
-    .rank-item.active{
-      background:linear-gradient(180deg,#f4d58f,#dfb35c);
-      border-color:#8b5a20;
-      box-shadow:0 0 0 3px rgba(184,129,51,.18);
-    }
-    .rank-number{
-      width:34px;height:34px;border-radius:12px;
-      background:#6c4322;color:#ffe5b2;
-      display:grid;place-items:center;
-      font-weight:950;
-    }
-    .rank-item.active .rank-number{background:#2f1709}
-    .rank-name{font-weight:950;font-size:15px}
-    .rank-meta{font-size:12px;color:var(--muted)}
-    .rank-ini{font-size:20px;font-weight:950}
-    .summary{
-      display:grid;
-      grid-template-columns:repeat(6,minmax(100px,1fr));
-      gap:10px;
-      padding:0 16px 16px;
-    }
-    .summary-box{
-      border-radius:18px;
-      background:rgba(255,248,232,.58);
-      border:1px solid rgba(138,100,59,.22);
-      padding:12px;
-    }
-    .summary-box span{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-weight:950}
-    .summary-box b{display:block;font-size:28px;color:#5b3519}
-    .panel-header{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:14px 16px 0}
-    .panel-header h2{font-size:23px}
-    .body{padding:14px 16px 16px}
-    .filters{display:grid;grid-template-columns:1fr 160px 180px auto;gap:10px;align-items:end}
-    .badge{
-      display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:6px 10px;
-      border:1px solid rgba(138,100,59,.28);background:#fbefd6;color:#5e3b1e;font-weight:950;font-size:12px;
-    }
-    .badge.dark{border-color:rgba(226,189,118,.35);background:rgba(255,244,221,.08);color:#ead1a1}
-    .board{
-      background:linear-gradient(180deg,rgba(244,226,191,.93),rgba(214,188,139,.93));
-      border:3px solid #5b3519;
-      border-radius:30px;
-      padding:16px;
-      box-shadow:var(--shadow), inset 0 0 0 2px rgba(255,255,255,.22);
-    }
-    .board-title{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}
-    .board-title h2{font-size:26px}
-    .columns{display:grid;grid-template-columns:1.4fr .95fr .95fr;gap:14px}
-    .column{
-      background:rgba(255,248,232,.48);
-      border:1px solid rgba(138,100,59,.30);
-      border-radius:22px;
-      padding:14px;
-      min-height:260px;
-    }
-    .column-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-    .column h3{font-size:18px}
-    .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
-    .stack{display:grid;gap:10px}
-    .person-card,.local-card{
-      background:
-        radial-gradient(circle at 90% 0%,rgba(184,129,51,.10),transparent 28%),
-        linear-gradient(180deg,#fff1d2,#ead4a8);
-      border:2px solid #8d6437;
-      border-radius:24px;
-      padding:14px;
-      display:grid;
-      gap:10px;
-      color:var(--ink);
-      box-shadow:0 10px 20px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.62);
-    }
-    .person-card.active,.local-card.active{border-color:#b37b35;box-shadow:0 0 0 3px rgba(179,123,53,.22),0 16px 26px rgba(0,0,0,.22)}
-    .person-card.dead,.local-card.dead{background:linear-gradient(180deg,#f0d2c8,#ddb1a0);border-color:#a14b41}
-    .person-card.low,.local-card.low{border-color:#ad7a28}
-    .card-head{display:grid;grid-template-columns:64px 1fr;gap:12px;align-items:center}
-    .card-name{font-size:20px;line-height:1.04;font-weight:950}
-    .card-sub{font-size:13px;color:var(--muted);margin-top:3px}
-    .pills{display:flex;flex-wrap:wrap;gap:7px}
-    .pill{display:inline-flex;align-items:center;gap:6px;border:1px solid #8d6437;background:#fff6e3;color:#5d381d;border-radius:999px;padding:5px 9px;font-size:12px;font-weight:950}
-    .pill.gold{background:#e8c374;color:#2c1608;border-color:#9e681f}
-    .pill.red{background:#efd0c9;color:#742620;border-color:#a85d51}
-    .pill.green{background:#d7e6cc;color:#344e2e;border-color:#708e5d}
-    .pill.blue{background:#d7e5ed;color:#30495c;border-color:#6d8da2}
-    .mini-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
-    .stat{
-      background:rgba(255,255,255,.46);
-      border:1px solid rgba(138,100,59,.20);
-      border-radius:14px;
-      padding:8px 6px;
-      text-align:center;
-    }
-    .stat span{display:block;font-size:10px;font-weight:950;text-transform:uppercase;color:#7a624a;letter-spacing:.06em}
-    .stat b{display:block;margin-top:2px;font-size:17px}
-    .card-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-    .empty{border:2px dashed rgba(138,100,59,.32);background:rgba(255,255,255,.32);border-radius:18px;padding:16px;color:var(--muted)}
-    .side-card{background:linear-gradient(180deg,var(--paper-light),var(--paper));border:2px solid var(--line);border-radius:var(--r-xl);box-shadow:var(--shadow);overflow:hidden}
-    .details{padding:14px 16px 16px;display:grid;gap:12px}
-    .detail-hero{display:grid;grid-template-columns:64px 1fr;gap:12px;align-items:center}
+    .entity-name{font-weight:950;font-size:15px;line-height:1.1}
+    .entity-sub{font-size:11px;color:#6b5132;font-weight:850;margin-top:2px}
+    .entity-mini{display:flex;flex-wrap:wrap;gap:4px}
+    .entity-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+    .turn-list{display:grid;gap:6px}
+    .turn-item{display:grid;grid-template-columns:34px 1fr auto;gap:8px;align-items:center;padding:7px;border:1px solid rgba(36,20,7,.2);border-radius:12px;background:#fff6e4}
+    .turn-item.active{background:#ffe4a9;border-color:#b9822e}
+    .turn-rank{width:28px;height:28px;border-radius:10px;background:#70491f;color:#fff;display:grid;place-items:center;font-weight:950}
+    .conditions{display:flex;gap:6px;flex-wrap:wrap}
+    .cond{border:1px solid rgba(36,20,7,.22);background:#fff3d5;border-radius:999px;padding:7px 9px;font-size:12px;font-weight:950}
+    .cond.active{background:#8b2f28;color:#fff;border-color:#8b2f28}
+    .detail-grid{display:grid;gap:10px}
+    .detail-head{display:grid;grid-template-columns:64px 1fr;gap:10px;align-items:center}
+    .detail-head .avatar{width:64px;height:64px;border-radius:18px}
     .detail-name{font-size:22px;font-weight:950}
-    .detail-sub{font-size:13px;color:var(--muted)}
-    .detail-grid{display:grid;gap:8px}
-    .detail-row{display:grid;grid-template-columns:140px 1fr;gap:8px;border-bottom:1px dashed rgba(138,100,59,.30);padding-bottom:7px;font-size:13px}
-    .detail-row span{font-weight:950;color:var(--muted)}
-    .notes,.spells{
-      border:1px solid rgba(138,100,59,.20);
-      background:rgba(255,255,255,.40);
-      border-radius:16px;
-      padding:10px;
+    .detail-sub{font-size:12px;color:#6b5132;font-weight:850}
+    .edit-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .spell-list,.notes-list{display:grid;gap:5px;max-height:240px;overflow:auto}
+    .spell{border:1px solid rgba(36,20,7,.18);border-radius:12px;background:#fff8ea;padding:7px;font-size:12px;font-weight:850}
+    .bottom-nav{
+      position:fixed;left:0;right:0;bottom:0;z-index:30;
+      background:linear-gradient(180deg,rgba(23,13,7,.92),#170d07);
+      border-top:1px solid rgba(255,226,170,.25);
+      display:grid;grid-template-columns:repeat(5,1fr);gap:4px;padding:6px;
     }
-    .spell-list{display:grid;gap:7px;max-height:220px;overflow:auto;padding-right:3px}
-    .spell-item{display:flex;justify-content:space-between;gap:8px;background:#fff8e8;border:1px solid rgba(138,100,59,.20);border-radius:12px;padding:8px 10px;font-size:12px}
-    textarea{min-height:90px}
-    .local-panel .body{display:grid;gap:14px}
-    .add-grid{display:grid;grid-template-columns:1fr 100px 90px 90px auto;gap:8px;align-items:end}
-    .hidden{display:none!important}
-    .toast{
-      position:fixed;right:18px;bottom:18px;z-index:100;
-      background:#fff3dc;border:2px solid #8d6437;border-radius:14px;padding:12px 14px;
-      box-shadow:var(--shadow);opacity:0;transform:translateY(8px);transition:.18s ease;pointer-events:none;max-width:340px;
+    .nav-btn{min-height:54px;border-radius:14px;background:#2c180b;color:#f1d39e;border:1px solid rgba(255,226,170,.18);font-size:11px;font-weight:950}
+    .nav-btn.active{background:#b9822e;color:#1e1208}
+    .empty{padding:12px;border:1px dashed rgba(36,20,7,.25);border-radius:14px;background:#fff8ea;color:#6b5132;font-weight:850;text-align:center}
+    details{border:1px solid rgba(36,20,7,.18);border-radius:14px;background:rgba(255,248,234,.65);padding:8px}
+    summary{font-weight:950;color:#4b3015}
+    @media(min-width:900px){
+      .app{grid-template-columns:360px minmax(0,1fr);align-items:start}
+      .topbar{grid-column:1/-1}
+      .screen.active{display:grid}
+      .screen#screen-table.active{grid-template-columns:360px minmax(0,1fr)}
+      .screen:not(#screen-table).active{grid-column:1/-1}
+      .bottom-nav{max-width:520px;left:50%;transform:translateX(-50%);border-radius:20px 20px 0 0}
     }
-    .toast.show{opacity:1;transform:translateY(0)}
-
-    .compact-combat-card{
-      background:
-        radial-gradient(circle at 0 0, rgba(215,174,98,.16), transparent 30%),
-        linear-gradient(180deg,#2b1609,#1c0e05);
-      border-color:#7c4f27;
-    }
-    .compact-combat{
-      display:grid;
-      grid-template-columns:minmax(0,1fr) 420px 230px;
-      gap:12px;
-      padding:12px;
-      align-items:stretch;
-    }
-    .compact-target,.compact-actions,.compact-order{
-      background:rgba(243,227,191,.075);
-      border:1px solid rgba(215,174,98,.26);
-      border-radius:18px;
-      padding:10px;
-      min-width:0;
-    }
-    .compact-title-row{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:10px;
-      margin-bottom:8px;
-    }
-    .compact-title-row h2{
-      color:#f0d39c;
-      font-size:19px;
-      text-shadow:0 1px 0 rgba(0,0,0,.35);
-    }
-    .compact-combat .turn-banner{
-      border:0;
-      padding:0;
-      min-height:0;
-      background:transparent;
-      display:block;
-    }
-    .compact-combat .turn-head{
-      grid-template-columns:52px 1fr;
-      gap:10px;
-    }
-    .compact-combat .turn-head .avatar{
-      width:52px;
-      height:52px;
-      border-radius:14px;
-    }
-    .compact-combat .turn-kicker{
-      font-size:10px;
-      color:#d7ae62;
-    }
-    .compact-combat .turn-name{
-      font-size:20px;
-      color:#f3e3bf;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .compact-combat .turn-meta{
-      font-size:12px;
-      color:#caa66f;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .compact-combat .bar-row{
-      grid-template-columns:62px 1fr 62px;
-      gap:8px;
-      font-size:12px;
-    }
-    .compact-combat .track{
-      height:10px;
-    }
-    .compact-combat .mini-stats{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:6px;
-      margin-top:8px;
-    }
-    .compact-combat .stat{
-      padding:6px 4px;
-      border-radius:11px;
-      background:rgba(243,227,191,.10);
-      color:#f3e3bf;
-    }
-    .compact-combat .stat span{
-      color:#d0ad77;
-      font-size:9px;
-    }
-    .compact-combat .stat b{
-      color:#f3e3bf;
-      font-size:15px;
-    }
-    .compact-actions{
-      display:grid;
-      gap:8px;
-      align-content:start;
-    }
-    .compact-actions .turn-controls{
-      grid-template-columns:repeat(3,1fr);
-      gap:6px;
-    }
-    .damage-line{
-      display:grid;
-      grid-template-columns:74px repeat(3,1fr);
-      gap:6px;
-    }
-    .damage-line input{
-      min-height:34px;
-      padding:7px 8px;
-      border-radius:10px;
-    }
-    .compact-quick{
-      grid-template-columns:repeat(4,1fr);
-      gap:6px;
-    }
-    .compact-cond{
-      gap:6px;
-    }
-    .compact-cond .cond{
-      min-height:30px;
-      padding:5px 8px;
-      font-size:11px;
-      border-color:rgba(215,174,98,.35);
-      color:#d6bb88;
-      background:rgba(0,0,0,.12);
-    }
-    .compact-cond .cond.active{
-      background:#c89b58;
-      color:#211109;
-    }
-    .compact-order{
-      padding:8px;
-      max-height:245px;
-      overflow:auto;
-    }
-    .compact-order-head{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:8px;
-      margin-bottom:6px;
-      color:#e6d0a6;
-    }
-    .compact-order-head strong{
-      font-size:14px;
-    }
-    .compact-order-head small{
-      color:#caa66f;
-      font-size:11px;
-    }
-    .compact-order .rank-list{
-      gap:4px;
-    }
-    .compact-order .rank-item{
-      grid-template-columns:24px 1fr 34px;
-      gap:6px;
-      padding:5px 6px;
-      border-radius:10px;
-      background:rgba(243,227,191,.08);
-      border-color:rgba(215,174,98,.20);
-      color:#f3e3bf;
-    }
-    .compact-order .rank-item.active{
-      background:linear-gradient(180deg,#d7ae62,#9b6729);
-      color:#1b0d04;
-      box-shadow:none;
-    }
-    .compact-order .rank-number{
-      width:22px;
-      height:22px;
-      border-radius:7px;
-      font-size:11px;
-      background:#130903;
-      color:#e6d0a6;
-    }
-    .compact-order .rank-item.active .rank-number{
-      background:#1b0d04;
-      color:#f3e3bf;
-    }
-    .compact-order .rank-name{
-      font-size:12px;
-      line-height:1.1;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .compact-order .rank-meta{
-      display:none;
-    }
-    .compact-order .rank-ini{
-      font-size:13px;
-      text-align:right;
-    }
-    .board{
-      background:
-        radial-gradient(circle at 50% 0%, rgba(215,174,98,.18), transparent 34%),
-        linear-gradient(180deg,#d2b17a,#b88e55);
-      border-color:#3b2112;
-    }
-    .column{
-      background:rgba(255,244,221,.34);
-      border-color:rgba(82,47,20,.38);
-    }
-    .person-card,.local-card{
-      background:
-        linear-gradient(180deg,rgba(255,255,255,.20),transparent 20%),
-        linear-gradient(180deg,#efdcb4,#d3b278);
-      border-color:#6f461f;
-    }
-    .card.dark{
-      background:
-        radial-gradient(circle at 15% 0%, rgba(215,174,98,.15), transparent 28%),
-        linear-gradient(180deg,#2a1609,#170b04);
-    }
-
-    @media(max-width:1460px){
-      .columns{grid-template-columns:1fr}
-      .cards{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
-    }
-    @media(max-width:1320px){
-      .main-grid{grid-template-columns:1fr}
-      .right{position:relative;top:auto;max-height:none;overflow:visible}
-    }
-    @media(max-width:1020px){
-      .top{grid-template-columns:1fr}
-      .login{grid-template-columns:1fr 1fr;min-width:0}
-      .combat{grid-template-columns:1fr}
-      .compact-combat{grid-template-columns:1fr 260px}
-      .compact-order{grid-column:2;grid-row:1 / span 2}
-      .summary{grid-template-columns:repeat(3,1fr)}
-      .filters{grid-template-columns:1fr 1fr}
-      .filters .field:first-child{grid-column:1/-1}
-      .add-grid{grid-template-columns:1fr 1fr}
-      .add-grid .field:first-child{grid-column:1/-1}
-    }
-    @media(max-width:640px){
-      .app{padding:10px}
-      .login,.filters,.add-grid{grid-template-columns:1fr}
-      .summary{grid-template-columns:repeat(2,1fr)}
-      .mini-stats{grid-template-columns:repeat(2,1fr)}
-      .turn-controls,.damage-buttons,.quick-row{grid-template-columns:1fr 1fr}
-      .compact-combat{grid-template-columns:1fr}
-      .compact-order{grid-column:auto;grid-row:auto;max-height:180px}
-      .damage-line{grid-template-columns:1fr 1fr}
-      .detail-row{grid-template-columns:1fr}
+    @media(max-width:480px){
+      .app{padding:8px}
+      .brand-row{grid-template-columns:1fr}
+      .auth{grid-template-columns:1fr}
+      .status-grid{grid-template-columns:repeat(2,1fr)}
+      .quick-actions{grid-template-columns:1fr 1fr}
+      .entity-actions{grid-template-columns:1fr 1fr}
+      .edit-grid{grid-template-columns:1fr}
+      .hp-actions{grid-template-columns:repeat(2,1fr)}
+      .toolbar{grid-template-columns:1fr 1fr}
+      .toolbar input{grid-column:1/-1}
     }
   </style>
 </head>
 <body>
-<div class="app">
-  <section class="card top">
-    <div class="brand">
-      <div class="seal">DM</div>
-      <div>
-        <h1>Mesa do Mestre</h1>
-        <div class="subtitle">Visual compacta, medieval e com ordem de turno discreta.</div>
+  <main class="app">
+    <section class="topbar">
+      <div class="brand-row">
+        <div class="brand">
+          <h1>Mesa do Mestre</h1>
+          <small>V45 · tela de comando para sessão, turno, PV e condições</small>
+        </div>
+        <button class="btn ghost small" onclick="location.href='./?v=45'">Ficha</button>
       </div>
-    </div>
-    <div class="login">
-      <div class="field"><label>Senha</label><input id="masterPassword" type="password" placeholder="JOGADOR"></div>
-      <button class="btn primary" id="loadBtn">Carregar</button>
-      <button class="btn secondary" id="refreshBtn">Atualizar</button>
-      <button class="btn ghost" id="toggleLocalBtn">Inimigos/NPCs</button>
-    </div>
-  </section>
+      <div class="auth">
+        <input id="masterPassword" type="password" autocomplete="current-password" placeholder="Senha da mesa">
+        <button class="btn primary" id="loadBtn">Carregar mesa</button>
+      </div>
+    </section>
 
-  <div class="main-grid">
-    <main class="left">
-      <section class="card dark compact-combat-card">
-        <div class="compact-combat">
-          <div class="compact-target">
-            <div class="compact-title-row">
-              <h2>Combate</h2>
-              <span class="badge dark" id="roundBadge">Rodada 1</span>
-            </div>
-            <div id="turnBanner"></div>
-          </div>
-
-          <div class="compact-actions">
-            <div class="turn-controls">
-              <button class="btn small secondary" id="prevTurnBtn">← Anterior</button>
-              <button class="btn small primary" id="nextTurnBtn">Próximo →</button>
-              <button class="btn small ghost" id="resetRoundBtn">Nova rodada</button>
-            </div>
-            <div class="damage-line">
-              <input id="actionValue" type="number" min="0" value="1">
-              <button class="btn small red" id="damageBtn">Dano</button>
-              <button class="btn small green" id="healBtn">Cura</button>
-              <button class="btn small blue" id="setHpBtn">Definir HP</button>
-            </div>
-            <div class="quick-row compact-quick">
-              <button class="btn small secondary" data-set-value="1">1</button>
-              <button class="btn small secondary" data-set-value="5">5</button>
-              <button class="btn small secondary" data-set-value="10">10</button>
-              <button class="btn small secondary" data-set-value="20">20</button>
-            </div>
-            <div class="cond-row compact-cond" id="conditionButtons"></div>
-          </div>
-
-          <aside class="compact-order">
-            <div class="compact-order-head">
-              <strong>Ordem</strong>
-              <small id="turnNote">Iniciativa</small>
-            </div>
-            <div class="rank-list" id="turnOrderList"></div>
-          </aside>
+    <section class="screen active" id="screen-table">
+      <div class="panel now-card">
+        <div class="now-title">Agora na mesa</div>
+        <div id="nowBox">
+          <div class="empty">Carregue a mesa e selecione alguém.</div>
         </div>
-      </section>
+        <div class="quick-actions">
+          <button class="btn blue" id="prevTurnBtn">◀ Turno</button>
+          <button class="btn blue" id="nextTurnBtn">Turno ▶</button>
+          <button class="btn ghost" id="resetRoundBtn">Nova rodada</button>
+          <button class="btn green" id="saveSelectedBtn">Salvar selecionado</button>
+        </div>
+      </div>
 
-      <section class="card">
-        <div class="panel-header">
-          <h2>Resumo</h2>
-          <span class="badge" id="visibleBadge">0 visíveis</span>
+      <div class="panel">
+        <div class="toolbar">
+          <input id="searchInput" placeholder="Buscar jogador, inimigo, NPC...">
+          <select id="typeFilter">
+            <option value="">Todos</option>
+            <option value="player">Jogadores</option>
+            <option value="enemy">Inimigos</option>
+            <option value="npc">NPCs</option>
+          </select>
+          <select id="hpFilter">
+            <option value="">PV</option>
+            <option value="low">Baixo</option>
+            <option value="dead">Caído</option>
+          </select>
         </div>
-        <div class="summary">
-          <div class="summary-box"><span>Jogadores</span><b id="sumPlayers">0</b></div>
-          <div class="summary-box"><span>Inimigos</span><b id="sumEnemies">0</b></div>
-          <div class="summary-box"><span>NPCs</span><b id="sumNpcs">0</b></div>
-          <div class="summary-box"><span>Baixo HP</span><b id="sumLow">0</b></div>
-          <div class="summary-box"><span>Caídos</span><b id="sumDead">0</b></div>
-          <div class="summary-box"><span>Magias</span><b id="sumSpells">0</b></div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin:8px 0">
+          <span class="pill" id="countPlayers">PJ 0</span>
+          <span class="pill" id="countEnemies">Inimigos 0</span>
+          <span class="pill" id="countNpcs">NPCs 0</span>
+          <span class="pill" id="roundBadge">Rodada 1</span>
         </div>
-      </section>
+        <div class="list" id="entityList"></div>
+      </div>
 
-      <section class="card">
-        <div class="panel-header"><h2>Filtro</h2><span class="badge">mesa inteira</span></div>
-        <div class="body">
-          <div class="filters">
-            <div class="field"><label>Buscar</label><input id="searchInput" placeholder="Nome, jogador, classe, inimigo, NPC, nota..."></div>
-            <div class="field"><label>HP</label><select id="hpFilter"><option value="">Todos</option><option value="low">Baixo HP</option><option value="dead">Caídos</option></select></div>
-            <div class="field"><label>Tipo</label><select id="typeFilter"><option value="">Todos</option><option value="player">Jogadores</option><option value="enemy">Inimigos</option><option value="npc">NPCs</option></select></div>
-            <button class="btn secondary" id="clearFiltersBtn">Limpar</button>
-          </div>
-        </div>
-      </section>
+      <div class="panel" id="detailPanel">
+        <div id="detailBox" class="empty">Selecione um jogador, inimigo ou NPC.</div>
+      </div>
+    </section>
 
-      <section class="board">
-        <div class="board-title">
-          <h2>Mesa distribuída</h2>
-          <span class="badge">jogadores / inimigos / NPCs separados</span>
-        </div>
-        <div class="columns">
-          <div class="column">
-            <div class="column-head"><h3>Jogadores</h3><span class="badge" id="playersCount">0</span></div>
-            <div class="cards" id="playersBoard"></div>
-          </div>
-          <div class="column">
-            <div class="column-head"><h3>Inimigos</h3><span class="badge" id="enemiesCount">0</span></div>
-            <div class="stack" id="enemiesBoard"></div>
-          </div>
-          <div class="column">
-            <div class="column-head"><h3>NPCs</h3><span class="badge" id="npcsCount">0</span></div>
-            <div class="stack" id="npcsBoard"></div>
-          </div>
-        </div>
-      </section>
-    </main>
+    <section class="screen" id="screen-players">
+      <div class="panel">
+        <h2>Jogadores</h2>
+        <div class="list" id="playerList"></div>
+      </div>
+    </section>
 
-    <aside class="right">
-      <section class="side-card">
-        <div class="panel-header"><h2>Detalhes</h2><span class="badge" id="selectedTypeBadge">nenhum</span></div>
-        <div class="details" id="detailsPanel"><div class="empty">Selecione um alvo.</div></div>
-      </section>
-
-      <section class="side-card local-panel hidden" id="localPanel">
-        <div class="panel-header"><h2>Adicionar à mesa</h2><button class="btn small secondary" id="closeLocalBtn">Fechar</button></div>
-        <div class="body">
-          <div class="field"><label>Inimigo</label>
-            <div class="add-grid">
-              <div class="field"><input id="enemyName" placeholder="Nome"></div>
-              <div class="field"><input id="enemyRole" placeholder="Função"></div>
-              <div class="field"><input id="enemyHp" type="number" value="10"></div>
-              <div class="field"><input id="enemyAc" type="number" value="12"></div>
-              <button class="btn red" id="addEnemyBtn">Adicionar</button>
-            </div>
-          </div>
-          <div class="field"><label>NPC / Aliado</label>
-            <div class="add-grid">
-              <div class="field"><input id="npcName" placeholder="Nome"></div>
-              <div class="field"><input id="npcRole" placeholder="Papel"></div>
-              <div class="field"><input id="npcHp" type="number" value="10"></div>
-              <div class="field"><input id="npcAc" type="number" value="10"></div>
-              <button class="btn blue" id="addNpcBtn">Adicionar</button>
-            </div>
-          </div>
+    <section class="screen" id="screen-combat">
+      <div class="panel">
+        <h2>Ordem de Turno</h2>
+        <div class="quick-actions" style="margin-bottom:8px">
+          <button class="btn blue" id="prevTurnBtn2">◀ Anterior</button>
+          <button class="btn blue" id="nextTurnBtn2">Próximo ▶</button>
         </div>
-      </section>
-    </aside>
-  </div>
-</div>
-<div class="toast" id="toast"></div>
+        <div class="turn-list" id="turnList"></div>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-npcs">
+      <div class="panel">
+        <h2>Inimigos e NPCs</h2>
+        <div class="quick-actions" style="margin-bottom:8px">
+          <button class="btn red" id="addEnemyBtn">+ Inimigo</button>
+          <button class="btn blue" id="addNpcBtn">+ NPC</button>
+        </div>
+        <div class="list" id="localList"></div>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-notes">
+      <div class="panel">
+        <h2>Notas rápidas do Mestre</h2>
+        <div class="field">
+          <label>Nota da sessão</label>
+          <textarea id="sessionNotes" rows="10" placeholder="Anote pistas, decisões, tesouros, estado da cena..."></textarea>
+        </div>
+        <button class="btn primary" id="saveNotesBtn">Salvar notas</button>
+      </div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav">
+    <button class="nav-btn active" data-screen="screen-table">Mesa</button>
+    <button class="nav-btn" data-screen="screen-players">PJs</button>
+    <button class="nav-btn" data-screen="screen-combat">Turnos</button>
+    <button class="nav-btn" data-screen="screen-npcs">NPCs</button>
+    <button class="nav-btn" data-screen="screen-notes">Notas</button>
+  </nav>
+
+  <div id="toast" style="position:fixed;left:50%;bottom:84px;transform:translateX(-50%);background:#1d1008;color:#ffe4b8;border:1px solid #d09a50;border-radius:999px;padding:9px 13px;font-weight:950;opacity:0;pointer-events:none;transition:.2s;z-index:50"></div>
 
 <script>
 const API_BASE = location.origin;
 const CAMPAIGN_ID = 'ghosts-of-saltmarsh';
-const PASS_KEY = 'rpggabriel.master.password.v17';
-const LOCAL_ENEMIES = 'rpggabriel.master.enemies.v17';
-const LOCAL_NPCS = 'rpggabriel.master.npcs.v17';
-const TURN_KEY = 'rpggabriel.master.turn.v17';
-const CONDITIONS = ['Envenenado','Caído','Concentrando','Invisível'];
-const state = { players: [], enemies: loadLocal(LOCAL_ENEMIES, []), npcs: loadLocal(LOCAL_NPCS, []), selectedType:'', selectedId:'', round:1, turnIndex:0 };
+const PASS_KEY = 'rpggabriel.master.password.v45';
+const ENEMY_KEY = 'rpggabriel.master.enemies.v45';
+const NPC_KEY = 'rpggabriel.master.npcs.v45';
+const TURN_KEY = 'rpggabriel.master.turn.v45';
+const NOTES_KEY = 'rpggabriel.master.notes.v45';
+const CONDITIONS = ['Caído','Envenenado','Concentrando','Invisível','Atordoado','Agarrado','Assustado'];
+const state = {players:[], enemies:loadLocal(ENEMY_KEY,[]), npcs:loadLocal(NPC_KEY,[]), selectedType:'', selectedId:'', round:1, turnIndex:0};
 
 function $(s,r=document){return r.querySelector(s)}
+function $all(s,r=document){return Array.from(r.querySelectorAll(s))}
+function esc(v){return String(v??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]))}
 function num(v){const n=Number(v);return Number.isFinite(n)?n:0}
 function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
-function esc(v){return String(v??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]))}
-function toast(msg){const el=$('#toast');el.textContent=msg;el.classList.add('show');clearTimeout(window.__t);window.__t=setTimeout(()=>el.classList.remove('show'),2400)}
+function uid(p){return p+'_'+Math.random().toString(36).slice(2,9)}
 function loadLocal(k,f){try{return JSON.parse(localStorage.getItem(k)||JSON.stringify(f))}catch{return f}}
 function saveLocal(k,v){localStorage.setItem(k,JSON.stringify(v))}
-function uid(p){return p+'_'+Math.random().toString(36).slice(2,9)}
-function deepMerge(b,e){if(Array.isArray(b))return Array.isArray(e)?e:b;if(b&&typeof b==='object'){const o={...b};if(e&&typeof e==='object')Object.keys(e).forEach(k=>o[k]=deepMerge(b[k],e[k]));return o}return e!==undefined?e:b}
-function blankPlayer(){return {id:'',meta:{nomePersonagem:'',classe:'',classeNivel:'',nivel:1,raca:'',nomeJogador:''},vida:{atuais:0,maximos:0,temporarios:0},combate:{classeArmadura:'',iniciativa:'',deslocamento:''},atributos:{},pericias:{},proficiencia:{bonus:2},bonusProficiencia:2,campanha:{corrupcao:0,mareAtual:'',faccao:'',pistasDecifradas:'',pressagioCurto:'',marcadoPelaMare:false},magia:{truques:[],niveis:{},grimorio:[]},descricao:{aparenciaImagem:'',historia:''},personalidade:{vinculos:''},condicoes:[]}}
-function normalizePlayer(c){const p=deepMerge(blankPlayer(),c||{});p.id=(c&&c.id)||p.id;if(!p.meta.classe&&p.meta.classeNivel)p.meta.classe=String(p.meta.classeNivel).replace(/\bn[ií]vel\b.*$/i,'').replace(/\d+/g,'').replace(/[—-]/g,'').trim();if(!p.meta.nivel){const m=String(p.meta.classeNivel||'').match(/\b(1[0-9]|20|[1-9])\b/);p.meta.nivel=m?num(m[1]):1}p.condicoes=Array.isArray(p.condicoes)?p.condicoes:[];p.magia.grimorio=Array.isArray(p.magia.grimorio)?p.magia.grimorio:[];p.magia.truques=Array.isArray(p.magia.truques)?p.magia.truques:[];p.magia.niveis=p.magia.niveis||{};return p}
-function baseLocal(type){return {id:uid(type),type,name:'',role:'',hp:10,hpMax:10,ac:10,initiative:0,conditions:[],notes:'',image:'',spells:[]}}
+function toast(msg){const el=$('#toast');el.textContent=msg;el.style.opacity='1';clearTimeout(window.__toast);window.__toast=setTimeout(()=>el.style.opacity='0',2400)}
 
-function allEntities(){return [...state.players.map(d=>({type:'player',data:d})),...state.enemies.map(d=>({type:'enemy',data:d})),...state.npcs.map(d=>({type:'npc',data:d}))]}
-function findEntity(type,id){const arr=type==='player'?state.players:(type==='enemy'?state.enemies:state.npcs);return arr.find(x=>String(x.id)===String(id))||null}
-function selected(){return findEntity(state.selectedType,state.selectedId)}
+function password(){return $('#masterPassword').value.trim() || localStorage.getItem(PASS_KEY) || ''}
+function savePassword(){if($('#masterPassword').value.trim())localStorage.setItem(PASS_KEY,$('#masterPassword').value.trim())}
+function deepMerge(a,b){if(Array.isArray(a))return Array.isArray(b)?b:a;if(a&&typeof a==='object'){const o={...a};if(b&&typeof b==='object')Object.keys(b).forEach(k=>o[k]=deepMerge(a[k],b[k]));return o}return b!==undefined?b:a}
+function blankPlayer(){return {id:'',meta:{nomePersonagem:'',classe:'',classeNivel:'',nivel:1,raca:'',nomeJogador:''},vida:{atuais:0,maximos:0,temporarios:0},combate:{classeArmadura:'',iniciativa:'',deslocamento:''},atributos:{},pericias:{},proficiencia:{bonus:2},bonusProficiencia:2,campanha:{corrupcao:0,faccao:'',pistasDecifradas:'',pressagioCurto:''},magia:{truques:[],niveis:{},grimorio:[]},descricao:{aparenciaImagem:'',historia:''},condicoes:[]}}
+function normalizePlayer(c){const p=deepMerge(blankPlayer(),c||{});p.id=(c&&c.id)||p.id;if(!p.meta.classe&&p.meta.classeNivel)p.meta.classe=String(p.meta.classeNivel).replace(/\bn[ií]vel\b.*$/i,'').replace(/\d+/g,'').replace(/[—-]/g,'').trim();if(!p.meta.nivel){const m=String(p.meta.classeNivel||'').match(/\b(1[0-9]|20|[1-9])\b/);p.meta.nivel=m?num(m[1]):1}p.condicoes=Array.isArray(p.condicoes)?p.condicoes:[];p.magia.grimorio=Array.isArray(p.magia.grimorio)?p.magia.grimorio:[];p.magia.truques=Array.isArray(p.magia.truques)?p.magia.truques:[];p.magia.niveis=p.magia.niveis||{};return p}
+function baseLocal(type){return {id:uid(type),name:type==='enemy'?'Novo inimigo':'Novo NPC',role:'',hp:10,hpMax:10,ac:10,initiative:0,conditions:[],notes:'',image:'',spells:[]}}
+
+function all(){return [...state.players.map(data=>({type:'player',data})),...state.enemies.map(data=>({type:'enemy',data})),...state.npcs.map(data=>({type:'npc',data}))]}
+function arr(type){return type==='player'?state.players:(type==='enemy'?state.enemies:state.npcs)}
+function find(type,id){return arr(type).find(x=>String(x.id)===String(id))||null}
+function selected(){return find(state.selectedType,state.selectedId)}
 function nameOf(type,e){return type==='player'?(e.meta.nomePersonagem||'Sem nome'):(e.name||'Sem nome')}
 function subOf(type,e){return type==='player'?([e.meta.classe||e.meta.classeNivel,'Nv. '+levelOf(e),e.meta.raca].filter(Boolean).join(' • ')):[type==='enemy'?'Inimigo':'NPC',e.role].filter(Boolean).join(' • ')}
+function levelOf(p){const d=num(p.meta.nivel);if(d>0)return d;const m=String(p.meta.classeNivel||'').match(/\d+/);return m?num(m[0]):1}
 function hpOf(type,e){return type==='player'?{now:num(e.vida.atuais),max:num(e.vida.maximos),temp:num(e.vida.temporarios)}:{now:num(e.hp),max:num(e.hpMax),temp:0}}
-function iniOf(type,e){return type==='player'?num(e.combate.iniciativa):num(e.initiative)}
 function acOf(type,e){return type==='player'?(e.combate.classeArmadura||'-'):(e.ac||'-')}
+function iniOf(type,e){return type==='player'?num(e.combate.iniciativa):num(e.initiative)}
 function condOf(type,e){return type==='player'?(Array.isArray(e.condicoes)?e.condicoes:[]):(Array.isArray(e.conditions)?e.conditions:[])}
+function setCond(type,e,cond,on){const key=type==='player'?'condicoes':'conditions';e[key]=Array.isArray(e[key])?e[key]:[];if(on&&!e[key].includes(cond))e[key].push(cond);if(!on)e[key]=e[key].filter(x=>x!==cond)}
 function hpState(type,e){const h=hpOf(type,e);if(h.now<=0)return'dead';if(h.max&&h.now/h.max<=.35)return'low';return'ok'}
-function levelOf(p){const d=num(p.meta.nivel);if(d>0)return d;const m=String(p.meta.classeNivel||'').match(/(\d+)/);return m?num(m[1]):1}
-function spellsOf(p){const o=[];(p.magia.grimorio||[]).forEach(s=>{const n=s.nome_pt||s.nome||s.name;if(n)o.push({name:n,level:s.nivel===0?'Truque':(s.nivel||'?')+'º'})});(p.magia.truques||[]).forEach(s=>{if(s&&s.nome)o.push({name:s.nome,level:'Truque'})});for(let i=1;i<=9;i++){const sec=p.magia.niveis&&p.magia.niveis[i];const arr=sec&&Array.isArray(sec.magias)?sec.magias:[];arr.forEach(s=>{if(s&&s.nome)o.push({name:s.nome,level:i+'º'})})}return o}
+function spellsOf(p){const out=[];(p.magia.grimorio||[]).forEach(s=>{const n=s.nome_pt||s.nome||s.name;if(n)out.push({name:n,level:s.nivel===0?'Truque':(s.nivel||'?')+'º'})});(p.magia.truques||[]).forEach(s=>{if(s&&s.nome)out.push({name:s.nome,level:'Truque'})});for(let i=1;i<=9;i++){const sec=p.magia.niveis&&p.magia.niveis[i];const list=sec&&Array.isArray(sec.magias)?sec.magias:[];list.forEach(s=>{if(s&&s.nome)out.push({name:s.nome,level:i+'º'})})}return out}
 function attrMod(score){const v=Number(score);return Math.floor(((Number.isFinite(v)?v:10)-10)/2)}
 function passive(p){const wis=num(p.atributos?.sabedoria?.valor||10);const prof=num(p.proficiencia?.bonus||p.bonusProficiencia||0);return 10+attrMod(wis)+(p.pericias?.percepcao?.proficiente?prof:0)}
 
-function password(){return $('#masterPassword').value.trim()||localStorage.getItem(PASS_KEY)||''}
-async function apiFetch(path,options={}){const pwd=password();if(!pwd)throw new Error('Digite a senha.');localStorage.setItem(PASS_KEY,pwd);const headers={'Content-Type':'application/json','x-rpg-password':pwd,'x-campaign-id':CAMPAIGN_ID,'x-player-id':'mestre'};const res=await fetch(API_BASE+path,{...options,headers:{...headers,...(options.headers||{})}});const txt=await res.text();let data=null;try{data=txt?JSON.parse(txt):null}catch{data={ok:false,error:txt}}if(!res.ok||(data&&data.ok===false))throw new Error((data&&data.error)||'Erro HTTP '+res.status);return data||{}}
-async function loadPlayers(){try{$('#loadBtn').disabled=true;const listData=await apiFetch('/api/characters?campaignId='+encodeURIComponent(CAMPAIGN_ID),{method:'GET'});const list=Array.isArray(listData.characters)?listData.characters:[];const full=[];for(const item of list){const id=item.id||item.characterId;if(!id)continue;try{const detail=await apiFetch('/api/characters/'+encodeURIComponent(id)+'?campaignId='+encodeURIComponent(CAMPAIGN_ID),{method:'GET'});full.push(normalizePlayer(detail.character||item))}catch{full.push(normalizePlayer(item))}}state.players=full.sort((a,b)=>String(nameOf('player',a)).localeCompare(String(nameOf('player',b))));ensureSelection();renderAll();toast('Mesa carregada.')}catch(e){toast(e.message)}finally{$('#loadBtn').disabled=false}}
-async function savePlayer(p,msg){p.updatedAt=new Date().toISOString();await apiFetch('/api/characters/'+encodeURIComponent(p.id),{method:'PUT',body:JSON.stringify({character:p,campaignId:CAMPAIGN_ID})});renderAll();toast(msg||'Atualizado.')}
-function saveLocalBoards(){saveLocal(LOCAL_ENEMIES,state.enemies);saveLocal(LOCAL_NPCS,state.npcs)}
-function saveLocalEntity(type,e,msg){if(type==='enemy'){const i=state.enemies.findIndex(x=>x.id===e.id);if(i>=0)state.enemies[i]=e}else{const i=state.npcs.findIndex(x=>x.id===e.id);if(i>=0)state.npcs[i]=e}saveLocalBoards();renderAll();toast(msg||'Atualizado.')}
+async function apiFetch(path,options={}){
+  const pwd=password();if(!pwd)throw new Error('Digite a senha da mesa.');
+  localStorage.setItem(PASS_KEY,pwd);
+  const headers={'Content-Type':'application/json','x-rpg-password':pwd,'x-campaign-id':CAMPAIGN_ID,'x-player-id':'mestre'};
+  const res=await fetch(API_BASE+path,{...options,headers:{...headers,...(options.headers||{})}});
+  const txt=await res.text();let data={};try{data=txt?JSON.parse(txt):{}}catch{data={ok:false,error:txt}}
+  if(!res.ok||data.ok===false)throw new Error(data.error||('Erro HTTP '+res.status));
+  return data;
+}
+async function loadPlayers(){
+  try{
+    $('#loadBtn').disabled=true;savePassword();
+    const listData=await apiFetch('/api/characters?campaignId='+encodeURIComponent(CAMPAIGN_ID),{method:'GET'});
+    const list=Array.isArray(listData.characters)?listData.characters:[];
+    const full=[];
+    for(const item of list){
+      const id=item.id||item.characterId;if(!id)continue;
+      try{const detail=await apiFetch('/api/characters/'+encodeURIComponent(id)+'?campaignId='+encodeURIComponent(CAMPAIGN_ID),{method:'GET'});full.push(normalizePlayer(detail.character||item))}
+      catch{full.push(normalizePlayer(item))}
+    }
+    state.players=full.sort((a,b)=>nameOf('player',a).localeCompare(nameOf('player',b),'pt-BR'));
+    ensureSelection();renderAll();toast('Mesa carregada.');
+  }catch(e){toast(e.message)}
+  finally{$('#loadBtn').disabled=false}
+}
+async function savePlayer(p,msg){
+  p.updatedAt=new Date().toISOString();
+  await apiFetch('/api/characters/'+encodeURIComponent(p.id),{method:'PUT',body:JSON.stringify({character:p,campaignId:CAMPAIGN_ID})});
+  renderAll();toast(msg||'Personagem salvo.');
+}
+function saveBoards(){saveLocal(ENEMY_KEY,state.enemies);saveLocal(NPC_KEY,state.npcs)}
+function saveEntity(type,e,msg){if(type==='player')return savePlayer(e,msg);saveBoards();renderAll();toast(msg||'Salvo localmente.')}
 
-function getOrder(){return allEntities().sort((a,b)=>iniOf(b.type,b.data)-iniOf(a.type,a.data)||nameOf(a.type,a.data).localeCompare(nameOf(b.type,b.data)))}
-function activeTurn(){const order=getOrder();if(!order.length)return null;state.turnIndex=clamp(state.turnIndex,0,order.length-1);return order[state.turnIndex]}
+function order(){return all().sort((a,b)=>iniOf(b.type,b.data)-iniOf(a.type,a.data)||nameOf(a.type,a.data).localeCompare(nameOf(b.type,b.data),'pt-BR'))}
+function activeTurn(){const o=order();if(!o.length)return null;state.turnIndex=clamp(state.turnIndex,0,o.length-1);return o[state.turnIndex]}
 function persistTurn(){saveLocal(TURN_KEY,{round:state.round,turnIndex:state.turnIndex})}
 function restoreTurn(){const t=loadLocal(TURN_KEY,{round:1,turnIndex:0});state.round=t.round||1;state.turnIndex=t.turnIndex||0}
-function nextTurn(){const order=getOrder();if(!order.length)return;state.turnIndex++;if(state.turnIndex>=order.length){state.turnIndex=0;state.round++}const a=activeTurn();if(a)setSelected(a.type,a.data.id,false);persistTurn();renderAll()}
-function prevTurn(){const order=getOrder();if(!order.length)return;state.turnIndex--;if(state.turnIndex<0){state.turnIndex=Math.max(order.length-1,0);state.round=Math.max(1,state.round-1)}const a=activeTurn();if(a)setSelected(a.type,a.data.id,false);persistTurn();renderAll()}
-function resetRound(){state.round++;state.turnIndex=0;const a=activeTurn();if(a)setSelected(a.type,a.data.id,false);persistTurn();renderAll()}
-function setSelected(type,id,open=false){state.selectedType=type;state.selectedId=id;renderAll();if(open)document.querySelector('.right')?.scrollIntoView({behavior:'smooth',block:'start'})}
-function ensureSelection(){if(selected())return;const a=activeTurn();if(a){state.selectedType=a.type;state.selectedId=a.data.id;return}const first=allEntities()[0];if(first){state.selectedType=first.type;state.selectedId=first.data.id}}
+function nextTurn(){const o=order();if(!o.length)return;state.turnIndex++;if(state.turnIndex>=o.length){state.turnIndex=0;state.round++}const a=activeTurn();if(a)select(a.type,a.data.id);persistTurn();renderAll()}
+function prevTurn(){const o=order();if(!o.length)return;state.turnIndex--;if(state.turnIndex<0){state.turnIndex=Math.max(0,o.length-1);state.round=Math.max(1,state.round-1)}const a=activeTurn();if(a)select(a.type,a.data.id);persistTurn();renderAll()}
+function resetRound(){state.round++;state.turnIndex=0;persistTurn();renderAll()}
+function select(type,id){state.selectedType=type;state.selectedId=id;renderAll()}
+function ensureSelection(){if(selected())return;const a=activeTurn();if(a){state.selectedType=a.type;state.selectedId=a.data.id;return}const f=all()[0];if(f){state.selectedType=f.type;state.selectedId=f.data.id}}
 
-function visibleItems(){const q=String($('#searchInput')?.value||'').toLowerCase().trim();const hpF=$('#hpFilter')?.value||'';const typeF=$('#typeFilter')?.value||'';return allEntities().filter(it=>{if(typeF&&it.type!==typeF)return false;const e=it.data;const text=[nameOf(it.type,e),subOf(it.type,e),it.type==='player'?e.meta.nomeJogador:'',it.type==='player'?e.campanha.faccao:'',it.type==='player'?e.campanha.pistasDecifradas:e.notes].join(' ').toLowerCase();if(q&&!text.includes(q))return false;const hs=hpState(it.type,e);if(hpF==='low'&&hs!=='low')return false;if(hpF==='dead'&&hs!=='dead')return false;return true})}
+function visible(){
+  const q=String($('#searchInput')?.value||'').toLowerCase().trim();
+  const tf=$('#typeFilter')?.value||'';const hf=$('#hpFilter')?.value||'';
+  return all().filter(it=>{
+    if(tf&&it.type!==tf)return false;
+    const e=it.data;const hps=hpState(it.type,e);
+    if(hf&&hps!==hf)return false;
+    const text=[nameOf(it.type,e),subOf(it.type,e),it.type==='player'?e.meta.nomeJogador:'',it.type==='player'?e.campanha.faccao:e.role].join(' ').toLowerCase();
+    return !q||text.includes(q);
+  });
+}
+function hpBar(type,e){const h=hpOf(type,e);const pct=h.max?clamp(h.now/h.max*100,0,100):0;const st=hpState(type,e);return `<div class="hpbar"><span>PV</span><div class="track"><div class="fill ${st==='dead'?'dead':st==='low'?'low':''}" style="width:${pct}%"></div></div><b>${h.now}/${h.max||0}</b></div>`}
+function entityCard(type,e){
+  const active=state.selectedType===type&&String(state.selectedId)===String(e.id);
+  const st=hpState(type,e);const img=type==='player'?e.descricao?.aparenciaImagem:e.image;
+  return `<article class="entity-card ${active?'active':''} ${st}" data-select-type="${type}" data-select-id="${esc(e.id)}">
+    <div class="entity-top">
+      <div class="avatar">${img?`<img src="${esc(img)}">`:'Sem imagem'}</div>
+      <div><div class="entity-name">${esc(nameOf(type,e))}</div><div class="entity-sub">${esc(subOf(type,e))}</div></div>
+      <span class="pill">${type==='player'?'PJ':type==='enemy'?'MON':'NPC'}</span>
+    </div>
+    ${hpBar(type,e)}
+    <div class="entity-mini">
+      <span class="pill">CA ${esc(acOf(type,e))}</span>
+      <span class="pill">INI ${iniOf(type,e)}</span>
+      ${type==='player'?`<span class="pill">Pass. ${passive(e)}</span>`:''}
+      ${condOf(type,e).map(c=>`<span class="pill">${esc(c)}</span>`).join('')}
+    </div>
+    <div class="entity-actions">
+      <button class="btn small green" data-hp-delta="1" data-type="${type}" data-id="${esc(e.id)}">+1</button>
+      <button class="btn small green" data-hp-delta="5" data-type="${type}" data-id="${esc(e.id)}">+5</button>
+      <button class="btn small red" data-hp-delta="-1" data-type="${type}" data-id="${esc(e.id)}">-1</button>
+      <button class="btn small red" data-hp-delta="-5" data-type="${type}" data-id="${esc(e.id)}">-5</button>
+    </div>
+  </article>`;
+}
+function renderNow(){
+  const current=activeTurn();const sel=selected();const type=sel?state.selectedType:(current?current.type:'');const e=sel||(current?current.data:null);
+  if(!e){$('#nowBox').innerHTML='<div class="empty">Carregue a mesa e selecione alguém.</div>';return}
+  const h=hpOf(type,e);const spells=type==='player'?spellsOf(e).length:0;
+  $('#nowBox').innerHTML=`<div class="now-name">${esc(nameOf(type,e))}</div><div class="now-sub">${esc(subOf(type,e))}</div>
+  ${hpBar(type,e)}
+  <div class="status-grid">
+    <div class="stat"><span>CA</span><b>${esc(acOf(type,e))}</b></div>
+    <div class="stat"><span>INI</span><b>${iniOf(type,e)}</b></div>
+    <div class="stat"><span>Temp</span><b>${h.temp||0}</b></div>
+    <div class="stat"><span>Magias</span><b>${spells}</b></div>
+  </div>`;
+}
+function renderLists(){
+  $('#countPlayers').textContent='PJ '+state.players.length;
+  $('#countEnemies').textContent='Inimigos '+state.enemies.length;
+  $('#countNpcs').textContent='NPCs '+state.npcs.length;
+  $('#roundBadge').textContent='Rodada '+state.round;
+  $('#entityList').innerHTML=visible().map(it=>entityCard(it.type,it.data)).join('')||'<div class="empty">Nada encontrado.</div>';
+  $('#playerList').innerHTML=state.players.map(p=>entityCard('player',p)).join('')||'<div class="empty">Nenhum jogador carregado.</div>';
+  $('#localList').innerHTML=[...state.enemies.map(e=>entityCard('enemy',e)),...state.npcs.map(e=>entityCard('npc',e))].join('')||'<div class="empty">Nenhum inimigo/NPC criado.</div>';
+}
+function renderTurnList(){
+  const o=order();$('#roundBadge').textContent='Rodada '+state.round;
+  $('#turnList').innerHTML=o.map((it,i)=>`<div class="turn-item ${i===state.turnIndex?'active':''}" data-select-type="${it.type}" data-select-id="${esc(it.data.id)}">
+    <div class="turn-rank">${i+1}</div><div><b>${esc(nameOf(it.type,it.data))}</b><div class="entity-sub">${esc(subOf(it.type,it.data))}</div></div><b>${iniOf(it.type,it.data)}</b>
+  </div>`).join('')||'<div class="empty">Sem ordem de turno.</div>';
+}
+function renderDetail(){
+  const e=selected();const type=state.selectedType;
+  if(!e){$('#detailBox').innerHTML='<div class="empty">Selecione um jogador, inimigo ou NPC.</div>';return}
+  const h=hpOf(type,e);const cond=condOf(type,e);const img=type==='player'?e.descricao?.aparenciaImagem:e.image;const spells=type==='player'?spellsOf(e):[];
+  $('#detailBox').innerHTML=`<div class="detail-grid">
+    <div class="detail-head">
+      <div class="avatar">${img?`<img src="${esc(img)}">`:'Sem imagem'}</div>
+      <div><div class="detail-name">${esc(nameOf(type,e))}</div><div class="detail-sub">${esc(subOf(type,e))}</div></div>
+    </div>
+    ${hpBar(type,e)}
+    <div class="hp-actions">
+      <button class="btn green" data-hp-delta="10" data-type="${type}" data-id="${esc(e.id)}">Curar 10</button>
+      <button class="btn green" data-hp-delta="1" data-type="${type}" data-id="${esc(e.id)}">Curar 1</button>
+      <button class="btn red" data-hp-delta="-1" data-type="${type}" data-id="${esc(e.id)}">Dano 1</button>
+      <button class="btn red" data-hp-delta="-10" data-type="${type}" data-id="${esc(e.id)}">Dano 10</button>
+    </div>
+    <div class="edit-grid">
+      <div class="field"><label>PV atual</label><input data-edit="hp-now" value="${h.now}"></div>
+      <div class="field"><label>PV máximo</label><input data-edit="hp-max" value="${h.max}"></div>
+      <div class="field"><label>CA</label><input data-edit="ac" value="${esc(acOf(type,e))}"></div>
+      <div class="field"><label>Iniciativa</label><input data-edit="initiative" value="${iniOf(type,e)}"></div>
+    </div>
+    <div><label class="field"><span style="display:block;font-size:11px;text-transform:uppercase;color:#674b2b;font-weight:950;margin-bottom:4px">Condições</span></label><div class="conditions">${CONDITIONS.map(c=>`<button class="cond ${cond.includes(c)?'active':''}" data-condition="${esc(c)}">${esc(c)}</button>`).join('')}</div></div>
+    ${type==='player'?`<details open><summary>Magias e recursos visíveis</summary><div class="spell-list">${spells.slice(0,60).map(s=>`<div class="spell"><b>${esc(s.name)}</b><span class="pill">${esc(s.level)}</span></div>`).join('')||'<div class="empty">Sem magias visíveis.</div>'}</div></details>`:''}
+    <div class="field"><label>Notas do mestre para este alvo</label><textarea data-edit="notes" rows="4">${esc(type==='player'?(e.campanha.pressagioCurto||''):(e.notes||''))}</textarea></div>
+    <button class="btn primary" data-save-detail="1">Salvar alterações</button>
+  </div>`;
+}
+function renderAll(){ensureSelection();renderNow();renderLists();renderTurnList();renderDetail();}
 
-function renderSummary(){const all=allEntities();let low=0,dead=0,sp=0;all.forEach(it=>{const hs=hpState(it.type,it.data);if(hs==='low')low++;if(hs==='dead')dead++;if(it.type==='player')sp+=spellsOf(it.data).length});$('#sumPlayers').textContent=state.players.length;$('#sumEnemies').textContent=state.enemies.length;$('#sumNpcs').textContent=state.npcs.length;$('#sumLow').textContent=low;$('#sumDead').textContent=dead;$('#sumSpells').textContent=sp;$('#visibleBadge').textContent=visibleItems().length+' visíveis'}
-function renderTurnBanner(){const a=activeTurn();const e=selected()|| (a?a.data:null);const type=selected()?state.selectedType:(a?a.type:'');if(!e){$('#turnBanner').innerHTML='<div class="empty">Carregue a mesa para iniciar a ordem de jogar.</div>';$('#conditionButtons').innerHTML=CONDITIONS.map(c=>`<button class="cond" disabled>${esc(c)}</button>`).join('');return}const h=hpOf(type,e);const pct=h.max?clamp(h.now/h.max*100,0,100):0;const hs=hpState(type,e);const fillCls=hs==='dead'?'dead':(hs==='low'?'low':'');const img=type==='player'?e.descricao?.aparenciaImagem:e.image;const corr=type==='player'?clamp(num(e.campanha.corrupcao),0,10):0;$('#turnBanner').innerHTML=`<div class="turn-head"><div class="avatar">${img?`<img src="${esc(img)}">`:'Sem imagem'}</div><div><div class="turn-kicker">${type==='player'?'Jogador':type==='enemy'?'Inimigo':'NPC'} selecionado</div><div class="turn-name">${esc(nameOf(type,e))}</div><div class="turn-meta">${esc(subOf(type,e))}</div></div></div><div><div class="bar-row"><span>HP</span><div class="track"><div class="fill ${fillCls}" style="width:${pct}%"></div></div><b>${h.now}/${h.max||0}</b></div>${type==='player'?`<div class="bar-row" style="margin-top:8px"><span>Corrupção</span><div class="track"><div class="fill corr" style="width:${corr*10}%"></div></div><b>${corr}/10</b></div>`:''}</div><div class="mini-stats"><div class="stat"><span>CA</span><b>${esc(acOf(type,e))}</b></div><div class="stat"><span>Inic.</span><b>${iniOf(type,e)}</b></div><div class="stat"><span>Magias</span><b>${type==='player'?spellsOf(e).length:0}</b></div><div class="stat"><span>Tipo</span><b>${type==='player'?'PJ':type==='enemy'?'MON':'NPC'}</b></div></div>`;const cond=condOf(type,e);$('#conditionButtons').innerHTML=CONDITIONS.map(c=>`<button class="cond ${cond.includes(c)?'active':''}" data-cond="${esc(c)}">${esc(c)}</button>`).join('')}
-function renderTurnOrder(){const order=getOrder();$('#roundBadge').textContent='Rodada '+state.round;$('#turnOrderList').innerHTML=order.map((it,i)=>{const active=i===state.turnIndex;return `<div class="rank-item ${active?'active':''}" data-order-index="${i}" data-select-type="${it.type}" data-select-id="${esc(it.data.id)}"><div class="rank-number">${i+1}</div><div><div class="rank-name">${esc(nameOf(it.type,it.data))}</div><div class="rank-meta">${esc(subOf(it.type,it.data))}</div></div><div class="rank-ini">${iniOf(it.type,it.data)}</div></div>`}).join('')||'<div class="empty">Sem participantes na ordem.</div>';$('#turnNote').textContent=order.length?`Turno ${Math.min(state.turnIndex+1,order.length)} de ${order.length}. Use Próximo turno para avançar.`:'Adicione personagens, inimigos ou NPCs para montar a ordem.'}
-function pills(items){return items.map(x=>`<span class="pill red">${esc(x)}</span>`).join('')}
-function playerCard(p){const h=hpOf('player',p);const pct=h.max?clamp(h.now/h.max*100,0,100):0;const hs=hpState('player',p);const cls=['person-card',selected()===p?'active':'',hs==='dead'?'dead':'',hs==='low'?'low':''].filter(Boolean).join(' ');const img=p.descricao?.aparenciaImagem;const cond=condOf('player',p);return `<article class="${cls}"><div class="card-head"><div class="avatar">${img?`<img src="${esc(img)}">`:'Sem imagem'}</div><div><div class="card-name">${esc(nameOf('player',p))}</div><div class="card-sub">${esc(p.meta.nomeJogador||'Jogador não definido')}</div></div></div><div class="pills"><span class="pill gold">${esc(p.meta.classe||p.meta.classeNivel||'Classe?')}</span><span class="pill">Nv. ${levelOf(p)}</span><span class="pill">${esc(p.meta.raca||'Raça?')}</span></div><div class="bar-row" style="color:var(--ink)"><span>HP</span><div class="track" style="background:#d2bb91"><div class="fill ${hs==='dead'?'dead':hs==='low'?'low':''}" style="width:${pct}%"></div></div><b>${h.now}/${h.max||0}</b></div><div class="mini-stats"><div class="stat"><span>CA</span><b>${esc(acOf('player',p))}</b></div><div class="stat"><span>Inic.</span><b>${iniOf('player',p)}</b></div><div class="stat"><span>Desl.</span><b>${esc(p.combate.deslocamento||'-')}</b></div><div class="stat"><span>Percep.</span><b>${passive(p)}</b></div></div><div class="pills">${spellsOf(p).length?`<span class="pill green">${spellsOf(p).length} magia(s)</span>`:'<span class="pill">Sem magias</span>'}${pills(cond)}</div><div class="card-actions"><button class="btn small secondary" data-select-type="player" data-select-id="${esc(p.id)}">Selecionar</button><button class="btn small blue" data-open-type="player" data-open-id="${esc(p.id)}">Detalhes</button></div></article>`}
-function localCard(type,e){const h=hpOf(type,e);const pct=h.max?clamp(h.now/h.max*100,0,100):0;const hs=hpState(type,e);const cls=['local-card',selected()===e?'active':'',hs==='dead'?'dead':'',hs==='low'?'low':''].filter(Boolean).join(' ');return `<article class="${cls}"><div class="pills"><span class="pill ${type==='enemy'?'red':'blue'}">${type==='enemy'?'Inimigo':'NPC'}</span><span class="pill">${esc(e.role||'Sem função')}</span></div><div class="card-name">${esc(nameOf(type,e))}</div><div class="bar-row" style="color:var(--ink)"><span>HP</span><div class="track" style="background:#d2bb91"><div class="fill ${hs==='dead'?'dead':hs==='low'?'low':''}" style="width:${pct}%"></div></div><b>${h.now}/${h.max||0}</b></div><div class="mini-stats"><div class="stat"><span>CA</span><b>${esc(acOf(type,e))}</b></div><div class="stat"><span>Inic.</span><b>${iniOf(type,e)}</b></div><div class="stat"><span>Cond.</span><b>${condOf(type,e).length}</b></div><div class="stat"><span>Tipo</span><b>${type==='enemy'?'MON':'NPC'}</b></div></div><div class="pills">${pills(condOf(type,e))||'<span class="pill">Sem condições</span>'}</div><div class="card-actions"><button class="btn small secondary" data-select-type="${type}" data-select-id="${esc(e.id)}">Selecionar</button><button class="btn small blue" data-open-type="${type}" data-open-id="${esc(e.id)}">Detalhes</button></div></article>`}
-function renderBoards(){const vis=visibleItems();const players=vis.filter(x=>x.type==='player').map(x=>x.data);const enemies=vis.filter(x=>x.type==='enemy').map(x=>x.data);const npcs=vis.filter(x=>x.type==='npc').map(x=>x.data);$('#playersCount').textContent=players.length;$('#enemiesCount').textContent=enemies.length;$('#npcsCount').textContent=npcs.length;$('#playersBoard').innerHTML=players.map(playerCard).join('')||'<div class="empty">Nenhum jogador no filtro.</div>';$('#enemiesBoard').innerHTML=enemies.map(e=>localCard('enemy',e)).join('')||'<div class="empty">Nenhum inimigo. Use Inimigos/NPCs.</div>';$('#npcsBoard').innerHTML=npcs.map(n=>localCard('npc',n)).join('')||'<div class="empty">Nenhum NPC. Use Inimigos/NPCs.</div>'}
-function renderDetails(){const e=selected();if(!e){$('#selectedTypeBadge').textContent='nenhum';$('#detailsPanel').innerHTML='<div class="empty">Selecione um alvo.</div>';return}const type=state.selectedType;$('#selectedTypeBadge').textContent=type==='player'?'jogador':type==='enemy'?'inimigo':'npc';const img=type==='player'?e.descricao?.aparenciaImagem:e.image;const h=hpOf(type,e);let body=`<div class="detail-hero"><div class="avatar">${img?`<img src="${esc(img)}">`:'Sem imagem'}</div><div><div class="detail-name">${esc(nameOf(type,e))}</div><div class="detail-sub">${esc(subOf(type,e))}</div></div></div><div class="detail-grid"><div class="detail-row"><span>HP</span><b>${h.now}/${h.max||0}</b></div><div class="detail-row"><span>CA / Inic.</span><b>${esc(acOf(type,e))} / ${iniOf(type,e)}</b></div><div class="detail-row"><span>Condições</span><b>${condOf(type,e).join(', ')||'Sem condições'}</b></div></div>`;if(type==='player'){const sp=spellsOf(e);body+=`<div class="detail-grid"><div class="detail-row"><span>Jogador</span><b>${esc(e.meta.nomeJogador||'-')}</b></div><div class="detail-row"><span>Percepção passiva</span><b>${passive(e)}</b></div><div class="detail-row"><span>Facção/Maré</span><b>${esc((e.campanha.faccao||'-')+' • '+(e.campanha.mareAtual||'-'))}</b></div></div><h3>Magias</h3><div class="spells"><div class="spell-list">${sp.map(s=>`<div class="spell-item"><b>${esc(s.name)}</b><small>${esc(s.level)}</small></div>`).join('')||'<div class="empty">Sem magias.</div>'}</div></div><h3>Notas</h3><div class="notes">${esc(e.campanha.pistasDecifradas||e.campanha.pressagioCurto||e.descricao.historia||e.personalidade?.vinculos||'Sem notas.')}</div>`}else{body+=`<h3>Notas locais</h3><textarea id="localNotes">${esc(e.notes||'')}</textarea><div class="card-actions"><button class="btn small secondary" id="saveNotesBtn">Salvar notas</button><button class="btn small red" id="deleteLocalBtn">Excluir</button></div>`}$('#detailsPanel').innerHTML=body;if(type!=='player'){$('#saveNotesBtn').onclick=()=>{e.notes=$('#localNotes').value;saveLocalEntity(type,e,'Notas salvas.')};$('#deleteLocalBtn').onclick=()=>{if(type==='enemy')state.enemies=state.enemies.filter(x=>x.id!==e.id);else state.npcs=state.npcs.filter(x=>x.id!==e.id);saveLocalBoards();state.selectedId='';renderAll();toast('Removido.')}}}
-function renderAll(){ensureSelection();renderSummary();renderTurnBanner();renderTurnOrder();renderBoards();renderDetails()}
+function updateHp(type,id,delta){
+  const e=find(type,id);if(!e)return;
+  if(type==='player'){e.vida.atuais=clamp(num(e.vida.atuais)+delta,0,Math.max(num(e.vida.maximos),num(e.vida.atuais)+delta));savePlayer(e,delta<0?'Dano aplicado.':'Cura aplicada.')}
+  else{e.hp=clamp(num(e.hp)+delta,0,Math.max(num(e.hpMax),num(e.hp)+delta));saveEntity(type,e,delta<0?'Dano aplicado.':'Cura aplicada.')}
+}
+function saveDetail(){
+  const e=selected();const type=state.selectedType;if(!e)return;
+  const now=num($('[data-edit="hp-now"]')?.value);const max=num($('[data-edit="hp-max"]')?.value);const ac=$('[data-edit="ac"]')?.value||'';const ini=num($('[data-edit="initiative"]')?.value);const notes=$('[data-edit="notes"]')?.value||'';
+  if(type==='player'){e.vida.atuais=now;e.vida.maximos=max;e.combate.classeArmadura=ac;e.combate.iniciativa=ini;e.campanha.pressagioCurto=notes;savePlayer(e,'Jogador atualizado.')}
+  else{e.hp=now;e.hpMax=max;e.ac=ac;e.initiative=ini;e.notes=notes;saveEntity(type,e,'Atualizado.')}
+}
+function toggleCondition(cond){
+  const e=selected();const type=state.selectedType;if(!e)return;
+  setCond(type,e,cond,!condOf(type,e).includes(cond));
+  if(type==='player')savePlayer(e,'Condição atualizada.');else saveEntity(type,e,'Condição atualizada.');
+}
+function addLocal(type){
+  const e=baseLocal(type);if(type==='enemy')state.enemies.push(e);else state.npcs.push(e);
+  saveBoards();select(type,e.id);renderAll();toast(type==='enemy'?'Inimigo criado.':'NPC criado.');
+}
+function removeSelected(){
+  const e=selected();const type=state.selectedType;if(!e||type==='player'){toast('Remoção só para inimigos/NPCs locais.');return}
+  if(type==='enemy')state.enemies=state.enemies.filter(x=>x.id!==e.id);else state.npcs=state.npcs.filter(x=>x.id!==e.id);
+  state.selectedType='';state.selectedId='';saveBoards();renderAll();toast('Removido.');
+}
 
-async function hpAction(mode){const e=selected();if(!e){toast('Selecione um alvo.');return}const type=state.selectedType;const value=num($('#actionValue').value);let h=hpOf(type,e);let next=h.now;if(mode==='damage')next-=value;else if(mode==='heal')next+=value;else next=value;next=clamp(next,0,h.max>0?h.max:999999);if(type==='player'){e.vida.atuais=next;await savePlayer(e,mode==='damage'?'Dano aplicado.':mode==='heal'?'Cura aplicada.':'HP definido.')}else{e.hp=next;saveLocalEntity(type,e,mode==='damage'?'Dano aplicado.':mode==='heal'?'Cura aplicada.':'HP definido.')}}
-async function savePlayer(p,msg){p.updatedAt=new Date().toISOString();await apiFetch('/api/characters/'+encodeURIComponent(p.id),{method:'PUT',body:JSON.stringify({character:p,campaignId:CAMPAIGN_ID})});renderAll();toast(msg||'Atualizado.')}
-async function toggleCond(c){const e=selected();if(!e){toast('Selecione um alvo.');return}const type=state.selectedType;const arr=[...condOf(type,e)];const i=arr.indexOf(c);if(i>=0)arr.splice(i,1);else arr.push(c);if(type==='player'){e.condicoes=arr;await savePlayer(e,'Condições atualizadas.')}else{e.conditions=arr;saveLocalEntity(type,e,'Condições atualizadas.')}}
-function addLocal(type){const isEnemy=type==='enemy';const e=baseLocal(type);e.name=(isEnemy?$('#enemyName').value:$('#npcName').value).trim();e.role=(isEnemy?$('#enemyRole').value:$('#npcRole').value).trim();e.hp=num(isEnemy?$('#enemyHp').value:$('#npcHp').value);e.hpMax=e.hp;e.ac=num(isEnemy?$('#enemyAc').value:$('#npcAc').value);if(!e.name){toast('Informe o nome.');return}if(isEnemy)state.enemies.push(e);else state.npcs.push(e);saveLocalBoards();setSelected(type,e.id,true);toast((isEnemy?'Inimigo':'NPC')+' adicionado.')}
-document.addEventListener('click',e=>{const sv=e.target.closest('[data-set-value]');if(sv){$('#actionValue').value=sv.dataset.setValue;return}const cond=e.target.closest('[data-cond]');if(cond){toggleCond(cond.dataset.cond);return}const order=e.target.closest('[data-order-index]');if(order){state.turnIndex=num(order.dataset.orderIndex);persistTurn();setSelected(order.dataset.selectType,order.dataset.selectId,false);return}const open=e.target.closest('[data-open-type]');if(open){setSelected(open.dataset.openType,open.dataset.openId,true);return}const sel=e.target.closest('[data-select-type]');if(sel){setSelected(sel.dataset.selectType,sel.dataset.selectId,false);return}})
-$('#loadBtn').onclick=loadPlayers;$('#refreshBtn').onclick=loadPlayers;$('#nextTurnBtn').onclick=nextTurn;$('#prevTurnBtn').onclick=prevTurn;$('#resetRoundBtn').onclick=resetRound;$('#damageBtn').onclick=()=>hpAction('damage');$('#healBtn').onclick=()=>hpAction('heal');$('#setHpBtn').onclick=()=>hpAction('set');$('#toggleLocalBtn').onclick=()=>$('#localPanel').classList.toggle('hidden');$('#closeLocalBtn').onclick=()=>$('#localPanel').classList.add('hidden');$('#addEnemyBtn').onclick=()=>addLocal('enemy');$('#addNpcBtn').onclick=()=>addLocal('npc');$('#searchInput').addEventListener('input',renderAll);$('#hpFilter').addEventListener('change',renderAll);$('#typeFilter').addEventListener('change',renderAll);$('#clearFiltersBtn').onclick=()=>{$('#searchInput').value='';$('#hpFilter').value='';$('#typeFilter').value='';renderAll()}
-window.addEventListener('load',()=>{const saved=localStorage.getItem(PASS_KEY)||localStorage.getItem('rpggabriel.master.password.v169')||localStorage.getItem('rpggabriel.master.password')||'';if(saved)$('#masterPassword').value=saved;restoreTurn();renderAll()})
+function bind(){
+  $('#masterPassword').value=localStorage.getItem(PASS_KEY)||'';
+  $('#sessionNotes').value=localStorage.getItem(NOTES_KEY)||'';
+  $('#loadBtn').onclick=loadPlayers;
+  $('#nextTurnBtn').onclick=$('#nextTurnBtn2').onclick=nextTurn;
+  $('#prevTurnBtn').onclick=$('#prevTurnBtn2').onclick=prevTurn;
+  $('#resetRoundBtn').onclick=resetRound;
+  $('#saveSelectedBtn').onclick=()=>{const e=selected();if(e)saveEntity(state.selectedType,e,'Salvo.')};
+  $('#addEnemyBtn').onclick=()=>addLocal('enemy');
+  $('#addNpcBtn').onclick=()=>addLocal('npc');
+  $('#saveNotesBtn').onclick=()=>{localStorage.setItem(NOTES_KEY,$('#sessionNotes').value);toast('Notas salvas.')};
+  $('#searchInput').oninput=renderLists;$('#typeFilter').onchange=renderLists;$('#hpFilter').onchange=renderLists;
+  $all('.nav-btn').forEach(btn=>btn.onclick=()=>{$all('.nav-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');$all('.screen').forEach(s=>s.classList.remove('active'));$('#'+btn.dataset.screen).classList.add('active');renderAll()});
+  document.addEventListener('click',e=>{
+    const sel=e.target.closest('[data-select-type]');if(sel){select(sel.dataset.selectType,sel.dataset.selectId);return}
+    const hp=e.target.closest('[data-hp-delta]');if(hp){updateHp(hp.dataset.type,hp.dataset.id,num(hp.dataset.hpDelta));return}
+    const cond=e.target.closest('[data-condition]');if(cond){toggleCondition(cond.dataset.condition);return}
+    const save=e.target.closest('[data-save-detail]');if(save){saveDetail();return}
+  });
+}
+restoreTurn();bind();renderAll();
 </script>
 </body>
 </html>
