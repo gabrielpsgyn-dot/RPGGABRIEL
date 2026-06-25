@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPG Gabriel - Ficha Online V45</title>
+  <title>RPG Gabriel - Ficha Online V46</title>
   <style>
     :root{
       --bg:#090b10;
@@ -1808,7 +1808,7 @@ textarea.huge{min-height:200px}
 
 </style>
 </head>
-<!-- RPGGABRIEL V45 LIVRO OFICIAL + MESA MESTRE NOVA -->
+<!-- RPGGABRIEL V46 REGRAS GUIA MESTRE OFICIAL -->
 <body class="menu-open">
   <section class="menu-screen" id="menuScreen">
     <div class="menu-shell">
@@ -2045,8 +2045,8 @@ textarea.huge{min-height:200px}
                 <div id="rulesAuditSummary" class="rules-audit-box"></div>
                 <div class="rules-audit-actions">
                   <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                  <a class="btn small secondary" href="criador.html?v=45" target="_blank">Criador livre</a>
-                  <a class="btn small primary" href="livro-regras.html?v=45" target="_blank">Livro de Regras</a>
+                  <a class="btn small secondary" href="criador.html?v=46" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=46" target="_blank">Livro de Regras</a>
                 </div>
               </details>
             </div>
@@ -3440,7 +3440,7 @@ textarea.huge{min-height:200px}
     function getClassAdvanceRule(cls){
       const base = CLASS_ADVANCEMENT_RULES[cls] || {};
       const book = getAllClassRules()[cls] || {};
-      const OFFICIAL_BOOK_ONLY = true;
+      const OFFICIAL_BOOK_ONLY = true; // V46: somente fonte oficial cadastrada
       const starting = OFFICIAL_BOOK_ONLY ? [] : (CLASS_STARTING_EQUIPMENT_RULES[cls] || []);
       const mergedLevelEquipment = {...(base.levelEquipment||{}), ...(book.levelEquipment||{}), ...(book.rewardsByLevel||{})};
       if(starting.length){

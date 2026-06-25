@@ -1,0 +1,499 @@
+{
+  "schema_version": "v46.0",
+  "project": "RPG Gabriel / Ficha Online",
+  "source_pdf": "dd-5e-guia-do-mestre-biblioteca-elfica.pdf",
+  "source_type": "Guia do Mestre",
+  "official_book_only": true,
+  "copyright_mode": "indice_estruturado_e_resumo; nao duplica texto integral do livro",
+  "created_at": "2026-06-25T23:55:33Z",
+  "modules": [
+    {
+      "id": "intro_mestre",
+      "parte": "Introdução",
+      "capitulo": "Introdução",
+      "titulo": "O Mestre / Como usar este livro",
+      "pagina_livro_inicio": 4,
+      "tipo": "orientacao_mestre",
+      "alvo_sistema": [
+        "mesa_mestre",
+        "documentacao"
+      ],
+      "status": "indexado",
+      "implementacao": "Base conceitual da Mesa do Mestre; não gera ficha do jogador.",
+      "pagina_livro_fim_aprox": 5,
+      "fonte": {
+        "arquivo": "dd-5e-guia-do-mestre-biblioteca-elfica.pdf",
+        "pagina_livro_inicio": 4,
+        "pagina_livro_fim_aprox": 5,
+        "confirmado_no_pdf": true
+      },
+      "confirmado_no_livro": true
+    },
+    {
+      "id": "conheca_jogadores",
+      "parte": "Introdução",
+      "capitulo": "Introdução",
+      "titulo": "Conheça seus jogadores",
+      "pagina_livro_inicio": 6,
+      "tipo": "perfil_jogadores",
+      "alvo_sistema": [
+        "mesa_mestre",
+        "sessao_zero"
+      ],
+      "status": "indexado",
+      "implementacao": "Pode virar cadastro de preferências do grupo: atuação, exploração, combate, otimização, resolução de problemas e história.",
+      "pagina_livro_fim_aprox": 8,
+      "fonte": {
+        "arquivo": "dd-5e-guia-do-mestre-biblioteca-elfica.pdf",
+        "pagina_livro_inicio": 6,
+        "pagina_livro_fim_aprox": 8,
+        "confirmado_no_pdf": true
+      },
+      "confirmado_no_livro": true
+    },
+    {
+      "id": "mundo_amplo_panorama",
+      "parte": "Parte 1",
+      "capitulo": "Capítulo 1",
+      "titulo": "Seu próprio mundo / Premissas principais",
+      "pagina_livro_inicio": 9,
+      "tipo": "campanha_mundo",
+      "alvo_sistema": [
+        "config_campanha"
+      ],
+      "status": "indexado",
+      "implementacao": "Configura premissas de mundo, magia, deuses, selvagem, antiguidade, conflito e tom.",
+      "pagina_livro_fim_aprox": 9,
+      "fonte": {
+        "arquivo": "dd-5e-guia-do-mestre-biblioteca-elfica.pdf",
+        "pagina_livro_inicio": 9,
+        "pagina_livro_fim_aprox": 9,
+        "confirmado_no_pdf": true
+      },
+      "confirmado_no_livro": true
+    },
+    {
+      "id": "deuses_panteoes",
+      "parte": "Parte 1",
+      "capitulo": "Capítulo 1",
+      "titulo": "Deuses, panteões e sistemas religiosos",
+      "pagina_livro_inicio": 10,
+      "tipo": "religiao",
+      "alvo_sistema": [
+        "config_campanha",
+        "faccao",
+        "piedade"
+      ],
+      "status": "indexado",
+      "implementacao": "Estrutura para divindades, domínios, panteões, piedade e relação com classes divinas sem preencher divindades como regra de personagem.",
+      "pagina_livro_fim_aprox": 13,
+      "fonte": {
+        "arquivo": "dd-5e-guia-do-mestre-biblioteca-elfica.pdf",
+        "pagina_livro_inicio": 10,
+        "pagina_livro_fim_aprox": 13,
+        "confirmado_no_pdf": true
+      },
+      "confirmado_no_livro": true
+    },
+    {
+      "id": "mapa_campanha",
+      "parte": "Parte 1",
+      "capitulo": "Capítulo 1",
+      "titulo": "Mapeando sua campanha",
+      "pagina_livro_inicio": 14,
+      "tipo": "mapa_campanha",
+      "alvo_sistema": [
+        "mesa_mestre",
+        "mapas"
+      ],
+      "status": "indexado",
+      "implementacao": "Suporte a escalas de província, reino e continente; útil para módulo de mapas do mestre.",
+      "pagina_livro_fim_aprox": 14,
+      "fonte": {
+        "arquivo": "dd-5e-guia-do-mestre-biblioteca-elfica.pdf",
+        "pagina_livro_inicio": 14,
+        "pagina_livro_fim_aprox": 14,
+        "confirmado_no_pdf": true
+      },
+      "confirmado_no_livro": true
+    },
+    {
+      "id": "assentamentos",
+      "parte": "Parte 1",
+      "capitulo": "Capítulo 1",
+      "titulo": "Assentamentos",
+      "pagina_livro_inicio": 15,
+      "tipo": "assentamento",
+      "alvo_sistema": [
+        "mesa_mestre",
+        "npcs",
+        "locais"
+      ],
+      "status": "indexado",
+      "implementacao": "Gerador/cadastro de vila, cidade, metrópole, governo, comércio, defesas e organizações.",
+      "pagina_livro_fim_aprox": 20,
+      "fonte": {
+        "arquivo": "dd-5e-guia-do-mestre-biblioteca-elfica.pdf",
+        "pagina_livro_inicio": 15,
+        "pagina_livro_fim_aprox": 20,
+        "confirmado_no_pdf": true
+      },
+      "confirmado_no_livro": true
+    },
+    {
+      "id": "idiomas_dialetos",
+      "parte": "Parte 1",
+      "capitulo": "Capítulo 1",
+      "titulo": "Idiomas e dialetos",
+      "pagina_livro_inicio": 21,
+      "tipo": "idioma_campanha",
+      "alvo_sistema": [
+        "livro_regras",
+        "personagem"
+      ],
+      "status": "indexado",
+      "implementacao": "Pode adicionar idiomas regionais/secretos ao Livro de Regras; não substitui idiomas de raça sem fonte própria.",
+      "pagina_livro_fim_aprox": 21,
+      "fonte": {
+        "arquivo": "dd-5e-guia-do-mestre-biblioteca-elfica.pdf",
+        "pagina_livro_inicio": 21,
+        "pagina_livro_fim_aprox": 21,
+        "confirmado_no_pdf": true
+      },
+      "confirmado_no_livro": true
+    },
+    {
+      "id": "faccoes_renome",
+      "parte": "Parte 1",
+      "capitulo": "Capítulo 1",
+      "titulo": "Facções, organizações e renome",
+      "pagina_livro_inicio": 21,
+      "tipo": "faccao",
+      "alvo_sistema": [
+        "mesa_mestre",
+        "personagem",
+        "recompensas"
+      ],
+      "status": "indexado",
+      "implementacao": "Cadastrar facções, objetivos, patentes, renome, benefícios e perda de renome.",
+      "pagina_livro_fim_aprox": 22,
+      "fonte": {
+        "arquivo": "dd-5e-guia-do-mestre-biblioteca-elfica.pdf",
+        "pagina_livro_inicio": 21,
+        "pagina_livro_fim_aprox": 22,
+        "confirmado_no_pdf": true
+      },
+      "confirmado_no_livro": true
+    },
+    {
+      "id": "magia_no_mundo",
+      "parte": "Parte 1",
+      "capitulo": "Capítulo 1",
+      "titulo": "Magia no seu mundo",
+      "pagina_livro_inicio": 23,
+      "tipo": "magia_campanha",
+      "alvo_sistema": [
+        "config_campanha",
+        "livro_regras"
+      ],
+      "status": "indexado",
+      "implementacao": "Configurar raridade/regulação da magia, escolas, organizações mágicas e restrições de conjuração.",
+      "pagina_livro_fim_aprox": 24,
+      "fonte": {
+        "arquivo": "dd-5e-guia-do-mestre-biblioteca-elfica.pdf",
+        "pagina_livro_inicio": 23,
+        "pagina_livro_fim_aprox": 24,
+        "confirmado_no_pdf": true
+      },
+      "confirmado_no_livro": true
+    },
+    {
+      "id": "campanha_eventos",
+      "parte": "Parte 1",
+      "capitulo": "Capítulo 1",
+      "titulo": "Criando campanha e eventos de campanha",
+      "pagina_livro_inicio": 25,
+      "tipo": "campanha_eventos",
+      "alvo_sistema": [
+        "mesa_mestre",
+        "notas"
+      ],
+      "status": "indexado",
+      "implementacao": "Estrutura de cidade sede, região local, aventura inicial, eventos mundiais, calendário e estágios.",
+      "pagina_livro_fim_aprox": 33,
+      "fonte": {
+        "arquivo": "dd-5e-guia-do-mestre-biblioteca-elfica.pdf",
+        "pagina_livro_inicio": 25,
+        "pagina_livro_fim_aprox": 33,
+        "confirmado_no_pdf": true
+      },
+      "confirmado_no_livro": true
+    },
+    {
+      "id": "estilo_estagios_fantasia",
+      "parte": "Parte 1",
+      "capitulo": "Capítulo 1",
+      "titulo": "Estilo de jogo, estágios e estilos de fantasia",
+      "pagina_livro_inicio": 34,
+      "tipo": "estilo_campanha",
+      "alvo_sistema": [
+        "sessao_zero",
+        "mesa_mestre"
+      ],
+      "status": "indexado",
+      "implementacao": "Configurar tom da campanha e estágio: heróis locais, reino, mestres do reino, mestres do mundo.",
+      "pagina_livro_fim_aprox": 42,
+      "fonte": {
+        "arquivo": "dd-5e-guia-do-mestre-biblioteca-elfica.pdf",
+        "pagina_livro_inicio": 34,
+        "pagina_livro_fim_aprox": 42,
+        "confirmado_no_pdf": true
+      },
+      "confirmado_no_livro": true
+    },
+    {
+      "id": "multiverso_planos",
+      "parte": "Parte 1",
+      "capitulo": "Capítulo 2",
+      "titulo": "Criando um multiverso e planos",
+      "pagina_livro_inicio": 43,
+      "tipo": "plano_existencia",
+      "alvo_sistema": [
+        "config_campanha",
+        "mapas"
+      ],
+      "status": "indexado",
+      "implementacao": "Cadastro de planos, viagens planares, planos interiores/exteriores e mundos conhecidos.",
+      "pagina_livro_fim_aprox": 70,
+      "fonte": {
+        "arquivo": "dd-5e-guia-do-mestre-biblioteca-elfica.pdf",
+        "pagina_livro_inicio": 43,
+        "pagina_livro_fim_aprox": 70,
+        "confirmado_no_pdf": true
+      },
+      "confirmado_no_livro": true
+    },
+    {
+      "id": "aventuras",
+      "parte": "Parte 2",
+      "capitulo": "Capítulo 3",
+      "titulo": "Criando aventuras",
+      "pagina_livro_inicio": 71,
+      "tipo": "aventura",
+      "alvo_sistema": [
+        "mesa_mestre",
+        "preparacao_sessao"
+      ],
+      "status": "indexado",
+      "implementacao": "Elementos de aventura, tipos, complicações, encontros e encontros aleatórios.",
+      "pagina_livro_fim_aprox": 88,
+      "fonte": {
+        "arquivo": "dd-5e-guia-do-mestre-biblioteca-elfica.pdf",
+        "pagina_livro_inicio": 71,
+        "pagina_livro_fim_aprox": 88,
+        "confirmado_no_pdf": true
+      },
+      "confirmado_no_livro": true
+    },
+    {
+      "id": "pdms",
+      "parte": "Parte 2",
+      "capitulo": "Capítulo 4",
+      "titulo": "Criando personagens do mestre",
+      "pagina_livro_inicio": 89,
+      "tipo": "pdm",
+      "alvo_sistema": [
+        "mesa_mestre",
+        "npcs"
+      ],
+      "status": "indexado",
+      "implementacao": "Planejamento de PdMs, contatos, serviçais, extras, vilões e opções de classes vilanescas.",
+      "pagina_livro_fim_aprox": 98,
+      "fonte": {
+        "arquivo": "dd-5e-guia-do-mestre-biblioteca-elfica.pdf",
+        "pagina_livro_inicio": 89,
+        "pagina_livro_fim_aprox": 98,
+        "confirmado_no_pdf": true
+      },
+      "confirmado_no_livro": true
+    },
+    {
+      "id": "ambientes",
+      "parte": "Parte 2",
+      "capitulo": "Capítulo 5",
+      "titulo": "Ambientes de aventuras",
+      "pagina_livro_inicio": 99,
+      "tipo": "ambiente",
+      "alvo_sistema": [
+        "mesa_mestre",
+        "mapas",
+        "encontros"
+      ],
+      "status": "indexado",
+      "implementacao": "Masmorras, ambiente selvagem, assentamentos, ambientes incomuns e armadilhas.",
+      "pagina_livro_fim_aprox": 124,
+      "fonte": {
+        "arquivo": "dd-5e-guia-do-mestre-biblioteca-elfica.pdf",
+        "pagina_livro_inicio": 99,
+        "pagina_livro_fim_aprox": 124,
+        "confirmado_no_pdf": true
+      },
+      "confirmado_no_livro": true
+    },
+    {
+      "id": "entre_aventuras",
+      "parte": "Parte 2",
+      "capitulo": "Capítulo 6",
+      "titulo": "Entre aventuras",
+      "pagina_livro_inicio": 125,
+      "tipo": "downtime",
+      "alvo_sistema": [
+        "mesa_mestre",
+        "calendario"
+      ],
+      "status": "indexado",
+      "implementacao": "Conectar aventuras, monitorar campanha, despesas recorrentes e atividades em tempo livre.",
+      "pagina_livro_fim_aprox": 132,
+      "fonte": {
+        "arquivo": "dd-5e-guia-do-mestre-biblioteca-elfica.pdf",
+        "pagina_livro_inicio": 125,
+        "pagina_livro_fim_aprox": 132,
+        "confirmado_no_pdf": true
+      },
+      "confirmado_no_livro": true
+    },
+    {
+      "id": "tesouros",
+      "parte": "Parte 2",
+      "capitulo": "Capítulo 7",
+      "titulo": "Tesouros, itens mágicos, artefatos e recompensas",
+      "pagina_livro_inicio": 133,
+      "tipo": "tesouro_item_magico",
+      "alvo_sistema": [
+        "inventario",
+        "mesa_mestre",
+        "recompensas"
+      ],
+      "status": "indexado",
+      "implementacao": "Estrutura para tesouro, item mágico, item inteligente, artefato e recompensa especial. Textos completos devem ficar como referência, não duplicação.",
+      "pagina_livro_fim_aprox": 235,
+      "fonte": {
+        "arquivo": "dd-5e-guia-do-mestre-biblioteca-elfica.pdf",
+        "pagina_livro_inicio": 133,
+        "pagina_livro_fim_aprox": 235,
+        "confirmado_no_pdf": true
+      },
+      "confirmado_no_livro": true
+    },
+    {
+      "id": "conduzindo_jogo",
+      "parte": "Parte 3",
+      "capitulo": "Capítulo 8",
+      "titulo": "Conduzindo o jogo",
+      "pagina_livro_inicio": 236,
+      "tipo": "regras_mesa",
+      "alvo_sistema": [
+        "mesa_mestre",
+        "rolagens"
+      ],
+      "status": "indexado",
+      "implementacao": "Regras da mesa, dados, valores de habilidade, exploração, interação social, objetos, combate, perseguições, armas de cerco, doenças, venenos, loucura e XP.",
+      "pagina_livro_fim_aprox": 263,
+      "fonte": {
+        "arquivo": "dd-5e-guia-do-mestre-biblioteca-elfica.pdf",
+        "pagina_livro_inicio": 236,
+        "pagina_livro_fim_aprox": 263,
+        "confirmado_no_pdf": true
+      },
+      "confirmado_no_livro": true
+    },
+    {
+      "id": "oficina_mestre",
+      "parte": "Parte 3",
+      "capitulo": "Capítulo 9",
+      "titulo": "Oficina do Mestre",
+      "pagina_livro_inicio": 264,
+      "tipo": "opcoes_regra",
+      "alvo_sistema": [
+        "criador",
+        "livro_regras"
+      ],
+      "status": "indexado",
+      "implementacao": "Opções de habilidade, aventura, combate, criar monstro, magia, item mágico e novas opções de personagem.",
+      "pagina_livro_fim_aprox": 290,
+      "fonte": {
+        "arquivo": "dd-5e-guia-do-mestre-biblioteca-elfica.pdf",
+        "pagina_livro_inicio": 264,
+        "pagina_livro_fim_aprox": 290,
+        "confirmado_no_pdf": true
+      },
+      "confirmado_no_livro": true
+    },
+    {
+      "id": "masmorras_aleatorias",
+      "parte": "Apêndice",
+      "capitulo": "Apêndice A",
+      "titulo": "Masmorras aleatórias",
+      "pagina_livro_inicio": 291,
+      "tipo": "gerador_masmorra",
+      "alvo_sistema": [
+        "mesa_mestre",
+        "mapas"
+      ],
+      "status": "indexado",
+      "implementacao": "Tabelas de áreas, passagens, portas, câmaras, escadas, conexões e preenchimento.",
+      "pagina_livro_fim_aprox": 302,
+      "fonte": {
+        "arquivo": "dd-5e-guia-do-mestre-biblioteca-elfica.pdf",
+        "pagina_livro_inicio": 291,
+        "pagina_livro_fim_aprox": 302,
+        "confirmado_no_pdf": true
+      },
+      "confirmado_no_livro": true
+    },
+    {
+      "id": "lista_monstros",
+      "parte": "Apêndice",
+      "capitulo": "Apêndice B",
+      "titulo": "Lista de monstros",
+      "pagina_livro_inicio": 303,
+      "tipo": "indice_monstro",
+      "alvo_sistema": [
+        "mesa_mestre",
+        "encontros"
+      ],
+      "status": "indexado",
+      "implementacao": "Índice de monstros por referência; fichas completas exigem Manual dos Monstros ou fonte própria cadastrada.",
+      "pagina_livro_fim_aprox": 314,
+      "fonte": {
+        "arquivo": "dd-5e-guia-do-mestre-biblioteca-elfica.pdf",
+        "pagina_livro_inicio": 303,
+        "pagina_livro_fim_aprox": 314,
+        "confirmado_no_pdf": true
+      },
+      "confirmado_no_livro": true
+    },
+    {
+      "id": "mapas_apendice",
+      "parte": "Apêndice",
+      "capitulo": "Apêndice C",
+      "titulo": "Mapas",
+      "pagina_livro_inicio": 315,
+      "tipo": "mapas",
+      "alvo_sistema": [
+        "mesa_mestre",
+        "mapas"
+      ],
+      "status": "indexado",
+      "implementacao": "Mapas de apoio para mestre; não gera regras de personagem.",
+      "pagina_livro_fim_aprox": 320,
+      "fonte": {
+        "arquivo": "dd-5e-guia-do-mestre-biblioteca-elfica.pdf",
+        "pagina_livro_inicio": 315,
+        "pagina_livro_fim_aprox": 320,
+        "confirmado_no_pdf": true
+      },
+      "confirmado_no_livro": true
+    }
+  ]
+}

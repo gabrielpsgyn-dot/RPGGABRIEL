@@ -1,0 +1,74 @@
+{
+  "schema_version": "v46.0",
+  "source_pdf": "dd-5e-guia-do-mestre-biblioteca-elfica.pdf",
+  "official_book_only": true,
+  "principio": "Se não está na fonte cadastrada, não entra como regra oficial.",
+  "fontes_confirmadas": [
+    {
+      "fonte": "Guia do Mestre",
+      "arquivo": "dd-5e-guia-do-mestre-biblioteca-elfica.pdf",
+      "uso": "Mesa do Mestre, regras de condução, tesouros, itens mágicos, opções e geradores"
+    }
+  ],
+  "nao_confirmado_neste_pdf": [
+    {
+      "modulo": "classes_jogador",
+      "motivo": "O próprio Guia do Mestre aponta o Livro do Jogador como fonte das regras que os jogadores precisam para criar personagens.",
+      "acao": "Aguardar Livro do Jogador ou livro autoral oficial do Gabriel."
+    },
+    {
+      "modulo": "racas_linhagens_jogador",
+      "motivo": "Não é o escopo principal do Guia do Mestre.",
+      "acao": "Aguardar fonte oficial de raças/linhagens."
+    },
+    {
+      "modulo": "equipamento_inicial_por_classe",
+      "motivo": "O Guia do Mestre tem diretrizes de equipamento inicial em níveis elevados, mas não substitui equipamento inicial normal de classe.",
+      "acao": "Aguardar fonte oficial da classe/equipamento."
+    },
+    {
+      "modulo": "antecedentes_padrao_completos",
+      "motivo": "O Guia do Mestre orienta criação/ajuste, mas não é a fonte principal da lista completa de antecedentes.",
+      "acao": "Aguardar fonte oficial."
+    },
+    {
+      "modulo": "lista_completa_armas_armaduras_com_precos",
+      "motivo": "Não é o escopo deste PDF como fonte principal de equipamentos mundanos.",
+      "acao": "Aguardar fonte oficial."
+    },
+    {
+      "modulo": "magias_jogador_lista_completa",
+      "motivo": "Existe arquivo de magias separado no projeto, mas este PDF não é a fonte principal das listas de classe.",
+      "acao": "Usar pacote de magias já extraído ou enviar fonte oficial de magias."
+    },
+    {
+      "modulo": "manual_monstros_fichas_completas",
+      "motivo": "O Guia do Mestre tem lista/índice e criação de monstros, mas fichas completas exigem Manual dos Monstros ou fonte própria.",
+      "acao": "Aguardar fonte oficial de monstros."
+    }
+  ],
+  "modulos_que_podem_entrar_agora": [
+    "intro_mestre",
+    "conheca_jogadores",
+    "mundo_amplo_panorama",
+    "deuses_panteoes",
+    "mapa_campanha",
+    "assentamentos",
+    "idiomas_dialetos",
+    "faccoes_renome",
+    "magia_no_mundo",
+    "campanha_eventos",
+    "estilo_estagios_fantasia",
+    "multiverso_planos",
+    "aventuras",
+    "pdms",
+    "ambientes",
+    "entre_aventuras",
+    "tesouros",
+    "conduzindo_jogo",
+    "oficina_mestre",
+    "masmorras_aleatorias",
+    "lista_monstros",
+    "mapas_apendice"
+  ]
+}
