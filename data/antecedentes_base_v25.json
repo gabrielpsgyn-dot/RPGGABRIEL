@@ -1,0 +1,268 @@
+{
+  "Acólito": {
+    "skills": [
+      "intuicao",
+      "religiao"
+    ],
+    "languages": [
+      "Dois idiomas à escolha"
+    ],
+    "tools": [],
+    "equipment": [
+      "Símbolo sagrado",
+      "Livro de preces",
+      "5 varetas de incenso",
+      "Vestes",
+      "15 po"
+    ],
+    "feature": "Abrigo dos Fiéis",
+    "summary": "Religião, templos e apoio de comunidades de fé."
+  },
+  "Artesão de Guilda": {
+    "skills": [
+      "intuicao",
+      "persuasao"
+    ],
+    "languages": [],
+    "tools": [
+      "Ferramentas de artesão"
+    ],
+    "equipment": [
+      "Ferramentas de artesão",
+      "Carta da guilda",
+      "Roupas de viagem",
+      "15 po"
+    ],
+    "feature": "Membro de Guilda",
+    "summary": "Ofício, comércio, contatos de guilda e reputação profissional."
+  },
+  "Artista": {
+    "skills": [
+      "acrobacia",
+      "performance"
+    ],
+    "languages": [],
+    "tools": [
+      "Kit de disfarce",
+      "Um instrumento musical"
+    ],
+    "equipment": [
+      "Instrumento musical",
+      "Cartas de fã",
+      "Fantasia",
+      "15 po"
+    ],
+    "feature": "A Pedido Popular",
+    "summary": "Performance, apresentações e fama local."
+  },
+  "Charlatão": {
+    "skills": [
+      "enganacao",
+      "prestidigitacao"
+    ],
+    "languages": [],
+    "tools": [
+      "Kit de disfarce",
+      "Kit de falsificação"
+    ],
+    "equipment": [
+      "Roupas finas",
+      "Kit de disfarce",
+      "Ferramentas de trapaça",
+      "15 po"
+    ],
+    "feature": "Identidade Falsa",
+    "summary": "Disfarces, mentiras e identidades falsas."
+  },
+  "Criminoso": {
+    "skills": [
+      "enganacao",
+      "furtividade"
+    ],
+    "languages": [],
+    "tools": [
+      "Jogo de azar",
+      "Ferramentas de ladrão"
+    ],
+    "equipment": [
+      "Pé-de-cabra",
+      "Roupas escuras",
+      "15 po"
+    ],
+    "feature": "Contato Criminoso",
+    "summary": "Submundo, contatos ilegais e vida fora da lei."
+  },
+  "Eremita": {
+    "skills": [
+      "medicina",
+      "religiao"
+    ],
+    "languages": [
+      "Um idioma à escolha"
+    ],
+    "tools": [
+      "Kit de herbalismo"
+    ],
+    "equipment": [
+      "Pergaminho",
+      "Cobertor",
+      "Kit de herbalismo",
+      "5 po"
+    ],
+    "feature": "Descoberta",
+    "summary": "Isolamento, revelação e conhecimento raro."
+  },
+  "Forasteiro": {
+    "skills": [
+      "atletismo",
+      "sobrevivencia"
+    ],
+    "languages": [
+      "Um idioma à escolha"
+    ],
+    "tools": [
+      "Um instrumento musical"
+    ],
+    "equipment": [
+      "Bastão",
+      "Armadilha de caça",
+      "Troféu",
+      "10 po"
+    ],
+    "feature": "Andarilho",
+    "summary": "Exploração, caça, viagem e sobrevivência."
+  },
+  "Herói do Povo": {
+    "skills": [
+      "adestrarAnimais",
+      "sobrevivencia"
+    ],
+    "languages": [],
+    "tools": [
+      "Ferramentas de artesão",
+      "Veículos terrestres"
+    ],
+    "equipment": [
+      "Pá",
+      "Panela",
+      "Roupas comuns",
+      "10 po"
+    ],
+    "feature": "Hospitalidade Rural",
+    "summary": "Origem humilde, reputação popular e apoio do povo."
+  },
+  "Marinheiro": {
+    "skills": [
+      "atletismo",
+      "percepcao"
+    ],
+    "languages": [],
+    "tools": [
+      "Ferramentas de navegador",
+      "Veículos aquáticos"
+    ],
+    "equipment": [
+      "Corda",
+      "Amuleto da sorte",
+      "Roupas comuns",
+      "10 po"
+    ],
+    "feature": "Passagem de Navio",
+    "summary": "Navios, portos, marés e vida no mar."
+  },
+  "Nobre": {
+    "skills": [
+      "historia",
+      "persuasao"
+    ],
+    "languages": [
+      "Um idioma à escolha"
+    ],
+    "tools": [
+      "Jogo de azar"
+    ],
+    "equipment": [
+      "Roupas finas",
+      "Anel de sinete",
+      "Pergaminho de linhagem",
+      "25 po"
+    ],
+    "feature": "Posição de Privilégio",
+    "summary": "Influência social, família nobre e privilégios."
+  },
+  "Órfão": {
+    "skills": [
+      "furtividade",
+      "prestidigitacao"
+    ],
+    "languages": [],
+    "tools": [
+      "Kit de disfarce",
+      "Ferramentas de ladrão"
+    ],
+    "equipment": [
+      "Faca pequena",
+      "Mapa da cidade",
+      "Rato de estimação",
+      "10 po"
+    ],
+    "feature": "Segredos da Cidade",
+    "summary": "Ruas, sobrevivência urbana e contatos pequenos."
+  },
+  "Sábio": {
+    "skills": [
+      "arcana",
+      "historia"
+    ],
+    "languages": [
+      "Dois idiomas à escolha"
+    ],
+    "tools": [],
+    "equipment": [
+      "Tinta",
+      "Pena",
+      "Livro",
+      "10 po"
+    ],
+    "feature": "Pesquisador",
+    "summary": "Estudo, livros, pesquisa e conhecimento antigo."
+  },
+  "Soldado": {
+    "skills": [
+      "atletismo",
+      "intimidacao"
+    ],
+    "languages": [],
+    "tools": [
+      "Jogo de azar",
+      "Veículos terrestres"
+    ],
+    "equipment": [
+      "Insígnia",
+      "Troféu de guerra",
+      "Roupas comuns",
+      "10 po"
+    ],
+    "feature": "Patente Militar",
+    "summary": "Guerra, disciplina, tropa e hierarquia."
+  },
+  "Pirata": {
+    "skills": [
+      "atletismo",
+      "percepcao"
+    ],
+    "languages": [],
+    "tools": [
+      "Ferramentas de navegador",
+      "Veículos aquáticos"
+    ],
+    "equipment": [
+      "Corda",
+      "Amuleto sombrio",
+      "Roupas comuns",
+      "10 po"
+    ],
+    "feature": "Má Reputação",
+    "summary": "Versão mais sombria do marinheiro, ótima para Saltmarsh."
+  }
+}

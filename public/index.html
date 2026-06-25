@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPG Gabriel - Ficha Online V24</title>
+  <title>RPG Gabriel - Ficha Online V25</title>
   <style>
     :root{
       --bg:#090b10;
@@ -732,6 +732,18 @@
 .item-list{display:grid;gap:7px;margin-top:10px}.item-pill{display:grid;grid-template-columns:1fr auto auto auto;gap:8px;align-items:center;border:1px solid var(--line);background:rgba(255,255,255,.32);border-radius:12px;padding:8px 10px}
 @media (max-width:900px){.weapon-builder,.item-row{grid-template-columns:1fr 1fr}.inventory-summary,.rest-grid{grid-template-columns:1fr}}
 
+
+.background-action-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.feat-builder{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:end;margin-bottom:10px}
+.feat-list{display:grid;gap:8px;margin-top:10px}
+.feat-card{border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.34);padding:10px 12px;display:grid;gap:6px}
+.feat-card-top{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.feat-card b{font-size:15px}
+.feat-tags{display:flex;flex-wrap:wrap;gap:6px}
+.feat-tag{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:4px 8px;background:#f4ead7;font-size:12px;font-weight:800;color:#5b3a12}
+.feat-note{font-size:13px;color:var(--muted);line-height:1.35}
+@media(max-width:700px){.feat-builder{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body class="menu-open">
@@ -1077,8 +1089,15 @@
               <h3>Proficiências e idiomas</h3>
               <textarea data-path="proficiencias.outras" class="tall"></textarea>
             </div>
-            <div class="panel">
-              <h3>Características e talentos</h3>
+            <div class="panel" id="featsPanel">
+              <h3>Talentos / Feitos</h3>
+              <p class="calc-note">V25: talentos cadastrados no sistema. Adicione talentos ao personagem e mantenha notas livres separadas.</p>
+              <div class="feat-builder">
+                <div class="field"><label>Escolher talento</label><select id="featSelect"></select></div>
+                <button class="btn small primary" id="addFeatBtn" type="button">Adicionar talento</button>
+              </div>
+              <div class="feat-list" id="featList"></div>
+              <label class="label">Características e notas livres</label>
               <textarea data-path="caracteristicasTalentos.principais" class="huge"></textarea>
             </div>
           </div>
@@ -1529,6 +1548,7 @@
       ensureClassLevelData(m);
       applyRuleEngine(m);
       ensureCombatInventoryData(m);
+      ensureFeatData(m);
       return m;
     }
     function activeChar(){ return state.characters.find(c=>c.id===state.activeId) || null; }
@@ -1576,20 +1596,273 @@
 
 
     const BACKGROUND_RULES = {
-      'Acólito': {skills:['intuicao','religiao'], languages:['Dois idiomas à escolha'], tools:[], equipment:['Símbolo sagrado','Livro de preces','5 varetas de incenso','Vestes','15 po'], feature:'Abrigo dos Fiéis', note:'Excelente para clérigos e personagens religiosos.'},
-      'Artesão de Guilda': {skills:['intuicao','persuasao'], languages:[], tools:['Ferramentas de artesão'], equipment:['Ferramentas de artesão','Carta da guilda','Roupas de viagem','15 po'], feature:'Membro de Guilda', note:'Bom para personagens ligados a ofícios e comércio.'},
-      'Artista': {skills:['acrobacia','performance'], languages:[], tools:['Kit de disfarce','Um instrumento musical'], equipment:['Instrumento musical','Cartas de fã','Fantasia','15 po'], feature:'A Pedido Popular', note:'Antecedente focado em performance e presença social.'},
-      'Charlatão': {skills:['enganacao','prestidigitacao'], languages:[], tools:['Kit de disfarce','Kit de falsificação'], equipment:['Roupas finas','Kit de disfarce','Ferramentas de trapaça','15 po'], feature:'Identidade Falsa', note:'Ótimo para intriga e disfarces.'},
-      'Criminoso': {skills:['enganacao','furtividade'], languages:[], tools:['Jogo de azar','Ferramentas de ladrão'], equipment:['Pé-de-cabra','Roupas escuras','15 po'], feature:'Contato Criminoso', note:'Pode representar espião, ladrão ou contrabandista.'},
-      'Eremita': {skills:['medicina','religiao'], languages:['Um idioma à escolha'], tools:['Kit de herbalismo'], equipment:['Pergaminho','Cobertor','Kit de herbalismo','5 po'], feature:'Descoberta', note:'Bom para sábios isolados e curandeiros.'},
-      'Forasteiro': {skills:['atletismo','sobrevivencia'], languages:['Um idioma à escolha'], tools:['Um instrumento musical'], equipment:['Bastão','Armadilha de caça','Troféu','10 po'], feature:'Andarilho', note:'Excelente para exploração.'},
-      'Herói do Povo': {skills:['adestrarAnimais','sobrevivencia'], languages:[], tools:['Ferramentas de artesão','Veículos terrestres'], equipment:['Pá','Panela','Roupas comuns','10 po'], feature:'Hospitalidade Rural', note:'Bom para personagens populares.'},
-      'Marinheiro': {skills:['atletismo','percepcao'], languages:[], tools:['Ferramentas de navegador','Veículos aquáticos'], equipment:['Corda','Amuleto da sorte','Roupas comuns','10 po'], feature:'Passagem de Navio', note:'Combina bem com Ghosts of Saltmarsh.'},
-      'Nobre': {skills:['historia','persuasao'], languages:['Um idioma à escolha'], tools:['Jogo de azar'], equipment:['Roupas finas','Anel de sinete','Pergaminho de linhagem','25 po'], feature:'Posição de Privilégio', note:'Bom para influência social.'},
-      'Órfão': {skills:['furtividade','prestidigitacao'], languages:[], tools:['Kit de disfarce','Ferramentas de ladrão'], equipment:['Faca pequena','Mapa da cidade','Rato de estimação','10 po'], feature:'Segredos da Cidade', note:'Equivalente prático ao urchin.'},
-      'Sábio': {skills:['arcana','historia'], languages:['Dois idiomas à escolha'], tools:[], equipment:['Tinta','Pena','Livro','10 po'], feature:'Pesquisador', note:'Ideal para magos e estudiosos.'},
-      'Soldado': {skills:['atletismo','intimidacao'], languages:[], tools:['Jogo de azar','Veículos terrestres'], equipment:['Insígnia','Troféu de guerra','Roupas comuns','10 po'], feature:'Patente Militar', note:'Bom para personagens marciais.'}
-    };
+      "Acólito": {
+            "skills": [
+                  "intuicao",
+                  "religiao"
+            ],
+            "languages": [
+                  "Dois idiomas à escolha"
+            ],
+            "tools": [],
+            "equipment": [
+                  "Símbolo sagrado",
+                  "Livro de preces",
+                  "5 varetas de incenso",
+                  "Vestes",
+                  "15 po"
+            ],
+            "feature": "Abrigo dos Fiéis",
+            "summary": "Religião, templos e apoio de comunidades de fé."
+      },
+      "Artesão de Guilda": {
+            "skills": [
+                  "intuicao",
+                  "persuasao"
+            ],
+            "languages": [],
+            "tools": [
+                  "Ferramentas de artesão"
+            ],
+            "equipment": [
+                  "Ferramentas de artesão",
+                  "Carta da guilda",
+                  "Roupas de viagem",
+                  "15 po"
+            ],
+            "feature": "Membro de Guilda",
+            "summary": "Ofício, comércio, contatos de guilda e reputação profissional."
+      },
+      "Artista": {
+            "skills": [
+                  "acrobacia",
+                  "performance"
+            ],
+            "languages": [],
+            "tools": [
+                  "Kit de disfarce",
+                  "Um instrumento musical"
+            ],
+            "equipment": [
+                  "Instrumento musical",
+                  "Cartas de fã",
+                  "Fantasia",
+                  "15 po"
+            ],
+            "feature": "A Pedido Popular",
+            "summary": "Performance, apresentações e fama local."
+      },
+      "Charlatão": {
+            "skills": [
+                  "enganacao",
+                  "prestidigitacao"
+            ],
+            "languages": [],
+            "tools": [
+                  "Kit de disfarce",
+                  "Kit de falsificação"
+            ],
+            "equipment": [
+                  "Roupas finas",
+                  "Kit de disfarce",
+                  "Ferramentas de trapaça",
+                  "15 po"
+            ],
+            "feature": "Identidade Falsa",
+            "summary": "Disfarces, mentiras e identidades falsas."
+      },
+      "Criminoso": {
+            "skills": [
+                  "enganacao",
+                  "furtividade"
+            ],
+            "languages": [],
+            "tools": [
+                  "Jogo de azar",
+                  "Ferramentas de ladrão"
+            ],
+            "equipment": [
+                  "Pé-de-cabra",
+                  "Roupas escuras",
+                  "15 po"
+            ],
+            "feature": "Contato Criminoso",
+            "summary": "Submundo, contatos ilegais e vida fora da lei."
+      },
+      "Eremita": {
+            "skills": [
+                  "medicina",
+                  "religiao"
+            ],
+            "languages": [
+                  "Um idioma à escolha"
+            ],
+            "tools": [
+                  "Kit de herbalismo"
+            ],
+            "equipment": [
+                  "Pergaminho",
+                  "Cobertor",
+                  "Kit de herbalismo",
+                  "5 po"
+            ],
+            "feature": "Descoberta",
+            "summary": "Isolamento, revelação e conhecimento raro."
+      },
+      "Forasteiro": {
+            "skills": [
+                  "atletismo",
+                  "sobrevivencia"
+            ],
+            "languages": [
+                  "Um idioma à escolha"
+            ],
+            "tools": [
+                  "Um instrumento musical"
+            ],
+            "equipment": [
+                  "Bastão",
+                  "Armadilha de caça",
+                  "Troféu",
+                  "10 po"
+            ],
+            "feature": "Andarilho",
+            "summary": "Exploração, caça, viagem e sobrevivência."
+      },
+      "Herói do Povo": {
+            "skills": [
+                  "adestrarAnimais",
+                  "sobrevivencia"
+            ],
+            "languages": [],
+            "tools": [
+                  "Ferramentas de artesão",
+                  "Veículos terrestres"
+            ],
+            "equipment": [
+                  "Pá",
+                  "Panela",
+                  "Roupas comuns",
+                  "10 po"
+            ],
+            "feature": "Hospitalidade Rural",
+            "summary": "Origem humilde, reputação popular e apoio do povo."
+      },
+      "Marinheiro": {
+            "skills": [
+                  "atletismo",
+                  "percepcao"
+            ],
+            "languages": [],
+            "tools": [
+                  "Ferramentas de navegador",
+                  "Veículos aquáticos"
+            ],
+            "equipment": [
+                  "Corda",
+                  "Amuleto da sorte",
+                  "Roupas comuns",
+                  "10 po"
+            ],
+            "feature": "Passagem de Navio",
+            "summary": "Navios, portos, marés e vida no mar."
+      },
+      "Nobre": {
+            "skills": [
+                  "historia",
+                  "persuasao"
+            ],
+            "languages": [
+                  "Um idioma à escolha"
+            ],
+            "tools": [
+                  "Jogo de azar"
+            ],
+            "equipment": [
+                  "Roupas finas",
+                  "Anel de sinete",
+                  "Pergaminho de linhagem",
+                  "25 po"
+            ],
+            "feature": "Posição de Privilégio",
+            "summary": "Influência social, família nobre e privilégios."
+      },
+      "Órfão": {
+            "skills": [
+                  "furtividade",
+                  "prestidigitacao"
+            ],
+            "languages": [],
+            "tools": [
+                  "Kit de disfarce",
+                  "Ferramentas de ladrão"
+            ],
+            "equipment": [
+                  "Faca pequena",
+                  "Mapa da cidade",
+                  "Rato de estimação",
+                  "10 po"
+            ],
+            "feature": "Segredos da Cidade",
+            "summary": "Ruas, sobrevivência urbana e contatos pequenos."
+      },
+      "Sábio": {
+            "skills": [
+                  "arcana",
+                  "historia"
+            ],
+            "languages": [
+                  "Dois idiomas à escolha"
+            ],
+            "tools": [],
+            "equipment": [
+                  "Tinta",
+                  "Pena",
+                  "Livro",
+                  "10 po"
+            ],
+            "feature": "Pesquisador",
+            "summary": "Estudo, livros, pesquisa e conhecimento antigo."
+      },
+      "Soldado": {
+            "skills": [
+                  "atletismo",
+                  "intimidacao"
+            ],
+            "languages": [],
+            "tools": [
+                  "Jogo de azar",
+                  "Veículos terrestres"
+            ],
+            "equipment": [
+                  "Insígnia",
+                  "Troféu de guerra",
+                  "Roupas comuns",
+                  "10 po"
+            ],
+            "feature": "Patente Militar",
+            "summary": "Guerra, disciplina, tropa e hierarquia."
+      },
+      "Pirata": {
+            "skills": [
+                  "atletismo",
+                  "percepcao"
+            ],
+            "languages": [],
+            "tools": [
+                  "Ferramentas de navegador",
+                  "Veículos aquáticos"
+            ],
+            "equipment": [
+                  "Corda",
+                  "Amuleto sombrio",
+                  "Roupas comuns",
+                  "10 po"
+            ],
+            "feature": "Má Reputação",
+            "summary": "Versão mais sombria do marinheiro, ótima para Saltmarsh."
+      }
+};
 
     function normalizeBackgroundName(value){
       value = String(value || '').trim();
@@ -1649,7 +1922,7 @@
         </div>
         <div><div class="compact-label">Idiomas</div><div class="compact-inline-list">${makePills(rule.languages)}</div></div>
         <div><div class="compact-label">Ferramentas / Kits</div><div class="compact-inline-list">${makePills(rule.tools)}</div></div>
-        <details class="compact-details"><summary>Ver equipamentos e observações</summary>
+        <div class="background-action-row"><button class="btn small secondary" type="button" data-apply-background-equipment="1">Aplicar equipamento no inventário</button></div><details class="compact-details"><summary>Ver equipamentos e observações</summary>
           <div><div class="compact-label">Equipamento inicial</div><div class="compact-inline-list">${makePills(rule.equipment)}</div></div>
           ${rule.note ? `<div class="compact-note" style="margin-top:8px">${escapeHtml(rule.note)}</div>` : ''}
         </details>
@@ -2611,6 +2884,154 @@
       `).join('') : '<div class="roll-item">Nenhum item cadastrado.</div>';
     }
 
+
+    const FEAT_RULES = {
+      "Alerta": {
+            "tags": [
+                  "iniciativa",
+                  "defesa"
+            ],
+            "summary": "Focado em agir cedo e evitar ser surpreendido.",
+            "note": "Aplicação automática completa fica para a próxima etapa de efeitos ativos."
+      },
+      "Atleta": {
+            "tags": [
+                  "movimento",
+                  "atributo"
+            ],
+            "summary": "Melhora mobilidade, escalada, salto e recuperação de queda.",
+            "note": "Use como referência narrativa/mecânica no combate."
+      },
+      "Durável": {
+            "tags": [
+                  "constituição",
+                  "descanso"
+            ],
+            "summary": "Ajuda a recuperar melhor usando dados de vida.",
+            "note": "Interage bem com descanso curto."
+      },
+      "Robusto": {
+            "tags": [
+                  "vida",
+                  "resistência"
+            ],
+            "summary": "Aumenta a durabilidade geral do personagem.",
+            "note": "Bônus automático de PV será tratado em efeitos ativos."
+      },
+      "Sortudo": {
+            "tags": [
+                  "sorte",
+                  "rolagem"
+            ],
+            "summary": "Permite interferir em rolagens importantes.",
+            "note": "Controle manual pelo mestre/jogador por enquanto."
+      },
+      "Conjurador de Guerra": {
+            "tags": [
+                  "magia",
+                  "concentração"
+            ],
+            "summary": "Ajuda conjuradores em combate e concentração.",
+            "note": "Concentração será vinculada às condições/efeitos depois."
+      },
+      "Mestre de Armas": {
+            "tags": [
+                  "combate",
+                  "proficiência"
+            ],
+            "summary": "Expande opções de armas e treinamento marcial.",
+            "note": "Use junto da aba Ataques/Armas."
+      },
+      "Adepto Elemental": {
+            "tags": [
+                  "magia",
+                  "dano"
+            ],
+            "summary": "Especializa magias em um elemento escolhido.",
+            "note": "Escolha o elemento nas notas do talento."
+      },
+      "Curandeiro": {
+            "tags": [
+                  "suporte",
+                  "kit"
+            ],
+            "summary": "Melhora o uso de kit de curandeiro e suporte ao grupo.",
+            "note": "Pode ser usado com inventário/itens."
+      }
+};
+
+
+    function ensureFeatData(c){
+      if(!c) return;
+      c.talentos = Array.isArray(c.talentos) ? c.talentos : [];
+      c.caracteristicasTalentos = c.caracteristicasTalentos || {};
+    }
+
+    function renderFeatSelect(){
+      const select = $('#featSelect');
+      if(!select || select.children.length) return;
+      select.innerHTML = '<option value="">Selecione...</option>' + Object.keys(FEAT_RULES).map(k=>`<option value="${escapeHtml(k)}">${escapeHtml(k)}</option>`).join('');
+    }
+
+    function addFeatFromSelect(){
+      const c = activeChar(); if(!c) return;
+      ensureFeatData(c);
+      const name = $('#featSelect').value;
+      if(!name){ notify('Escolha um talento.'); return; }
+      if(c.talentos.some(t=>t.nome === name)){ notify('Esse talento já está no personagem.'); return; }
+      const rule = FEAT_RULES[name] || {};
+      c.talentos.push({id:'feat_'+Math.random().toString(36).slice(2,9), nome:name, tags:[...(rule.tags||[])], nota:rule.note||''});
+      $('#featSelect').value = '';
+      saveLocal(false);
+      renderForm();
+      notify('Talento adicionado.');
+    }
+
+    function removeFeat(id){
+      const c = activeChar(); if(!c) return;
+      ensureFeatData(c);
+      c.talentos = c.talentos.filter(t=>t.id !== id);
+      saveLocal(false);
+      renderForm();
+    }
+
+    function renderFeats(){
+      const c = activeChar(); if(!c) return;
+      ensureFeatData(c);
+      renderFeatSelect();
+      const box = $('#featList'); if(!box) return;
+      box.innerHTML = c.talentos.length ? c.talentos.map(t=>{
+        const rule = FEAT_RULES[t.nome] || {};
+        const tags = (t.tags && t.tags.length ? t.tags : (rule.tags||[])).map(x=>`<span class="feat-tag">${escapeHtml(x)}</span>`).join('');
+        return `<div class="feat-card">
+          <div class="feat-card-top">
+            <b>${escapeHtml(t.nome)}</b>
+            <button class="btn small danger" data-remove-feat="${escapeHtml(t.id)}">Remover</button>
+          </div>
+          <div class="feat-tags">${tags}</div>
+          <div class="feat-note">${escapeHtml(rule.summary || '')}</div>
+          ${t.nota || rule.note ? `<div class="feat-note"><b>Nota:</b> ${escapeHtml(t.nota || rule.note)}</div>` : ''}
+        </div>`;
+      }).join('') : '<div class="roll-item">Nenhum talento cadastrado.</div>';
+    }
+
+    function addBackgroundEquipment(){
+      const c = activeChar(); if(!c) return;
+      applyBackgroundProgression(c);
+      ensureCombatInventoryData(c);
+      const bg = c.meta.antecedente || '';
+      const rule = BACKGROUND_RULES[bg];
+      if(!rule){ notify('Escolha um antecedente primeiro.'); return; }
+      rule.equipment.forEach(name=>{
+        if(!c.equipamento.itens.some(i=>i.nome === name)){
+          c.equipamento.itens.push({id:'item_'+Math.random().toString(36).slice(2,9), nome:name, qtd:1, peso:0, categoria:'Antecedente'});
+        }
+      });
+      saveLocal(false);
+      renderForm();
+      notify('Equipamento do antecedente aplicado ao inventário.');
+    }
+
     function renderForm(){
       const c=activeChar();
       if(!c) return;
@@ -3005,6 +3426,11 @@
         }
       });
       document.addEventListener('click', e=>{
+        const remFeat = e.target.closest('[data-remove-feat]');
+        if(remFeat){ removeFeat(remFeat.dataset.removeFeat); return; }
+        const bgEquip = e.target.closest('[data-apply-background-equipment]');
+        if(bgEquip){ addBackgroundEquipment(); return; }
+
         const rollAtk = e.target.closest('[data-roll-attack]');
         if(rollAtk){ rollAttack(rollAtk.dataset.rollAttack,'hit'); return; }
         const rollDmg = e.target.closest('[data-roll-damage]');

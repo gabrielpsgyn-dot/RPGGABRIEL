@@ -1,0 +1,74 @@
+{
+  "Alerta": {
+    "tags": [
+      "iniciativa",
+      "defesa"
+    ],
+    "summary": "Focado em agir cedo e evitar ser surpreendido.",
+    "note": "Aplicação automática completa fica para a próxima etapa de efeitos ativos."
+  },
+  "Atleta": {
+    "tags": [
+      "movimento",
+      "atributo"
+    ],
+    "summary": "Melhora mobilidade, escalada, salto e recuperação de queda.",
+    "note": "Use como referência narrativa/mecânica no combate."
+  },
+  "Durável": {
+    "tags": [
+      "constituição",
+      "descanso"
+    ],
+    "summary": "Ajuda a recuperar melhor usando dados de vida.",
+    "note": "Interage bem com descanso curto."
+  },
+  "Robusto": {
+    "tags": [
+      "vida",
+      "resistência"
+    ],
+    "summary": "Aumenta a durabilidade geral do personagem.",
+    "note": "Bônus automático de PV será tratado em efeitos ativos."
+  },
+  "Sortudo": {
+    "tags": [
+      "sorte",
+      "rolagem"
+    ],
+    "summary": "Permite interferir em rolagens importantes.",
+    "note": "Controle manual pelo mestre/jogador por enquanto."
+  },
+  "Conjurador de Guerra": {
+    "tags": [
+      "magia",
+      "concentração"
+    ],
+    "summary": "Ajuda conjuradores em combate e concentração.",
+    "note": "Concentração será vinculada às condições/efeitos depois."
+  },
+  "Mestre de Armas": {
+    "tags": [
+      "combate",
+      "proficiência"
+    ],
+    "summary": "Expande opções de armas e treinamento marcial.",
+    "note": "Use junto da aba Ataques/Armas."
+  },
+  "Adepto Elemental": {
+    "tags": [
+      "magia",
+      "dano"
+    ],
+    "summary": "Especializa magias em um elemento escolhido.",
+    "note": "Escolha o elemento nas notas do talento."
+  },
+  "Curandeiro": {
+    "tags": [
+      "suporte",
+      "kit"
+    ],
+    "summary": "Melhora o uso de kit de curandeiro e suporte ao grupo.",
+    "note": "Pode ser usado com inventário/itens."
+  }
+}
