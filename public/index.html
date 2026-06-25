@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPG Gabriel - Ficha Online V37</title>
+  <title>RPG Gabriel - Ficha Online V38</title>
   <style>
     :root{
       --bg:#090b10;
@@ -1671,9 +1671,35 @@ textarea.huge{min-height:200px}
   }
 }
 
+
+/* V38 - correção de renderização real: armas, inventário e botões */
+#weaponPresetSelect{
+  min-height:42px;
+  font-weight:900;
+}
+#weaponListStatus{
+  display:block;
+  margin-top:3px;
+  color:#735d42;
+  font-size:10px;
+  font-weight:850;
+}
+#inventoryList:empty::before,
+#availableAttackList:empty::before,
+#attackCards:empty::before{
+  content:'Carregando...';
+  display:block;
+  border:1px dashed rgba(36,27,20,.25);
+  border-radius:12px;
+  padding:8px 10px;
+  color:#735d42;
+  background:#fff7e8;
+  font-weight:850;
+}
+
 </style>
 </head>
-<!-- RPGGABRIEL V37 MOBILE USO REAL -->
+<!-- RPGGABRIEL V38 CORRECAO RENDER INVENTARIO ARMAS -->
 <body class="menu-open">
   <section class="menu-screen" id="menuScreen">
     <div class="menu-shell">
@@ -1910,8 +1936,8 @@ textarea.huge{min-height:200px}
                 <div id="rulesAuditSummary" class="rules-audit-box"></div>
                 <div class="rules-audit-actions">
                   <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                  <a class="btn small secondary" href="criador.html?v=37" target="_blank">Criador livre</a>
-                  <a class="btn small primary" href="livro-regras.html?v=37" target="_blank">Livro de Regras</a>
+                  <a class="btn small secondary" href="criador.html?v=38" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=38" target="_blank">Livro de Regras</a>
                 </div>
               </details>
             </div>
@@ -1967,7 +1993,7 @@ textarea.huge{min-height:200px}
               <h3>Ataques / Armas automáticos</h3>
               <p class="calc-note">Escolha uma arma da lista. A ficha calcula ataque e dano. No celular, use os cards abaixo.</p>
               <div class="quick-weapon-row">
-                <div class="field"><label>Lista de armas</label><select id="weaponPresetSelect"></select></div>
+                <div class="field"><label>Lista de armas</label><select id="weaponPresetSelect"></select><small class="context-hint" id="weaponListStatus"></small></div>
                 <button class="btn small primary" id="addPresetWeaponBtn" type="button">Adicionar arma</button>
               </div>
               <details class="clean-edit-details">
@@ -4119,6 +4145,7 @@ textarea.huge{min-height:200px}
         const current = presetSel.value;
         presetSel.innerHTML = '<option value="">Escolher arma da lista</option>' + Object.keys(WEAPON_PRESETS).sort((a,b)=>a.localeCompare(b,'pt-BR')).map(name=>`<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`).join('');
         if(current) presetSel.value = current;
+        const st = $('#weaponListStatus'); if(st) st.textContent = Object.keys(WEAPON_PRESETS).length + ' armas disponíveis';
       }
     }
 
@@ -4167,6 +4194,7 @@ textarea.huge{min-height:200px}
       const box = $('#availableAttackList'); if(!box) return;
       const names = Array.from(new Set([...inventoryWeapons(c), ...Object.keys(WEAPON_PRESETS)])).slice(0,32);
       box.innerHTML = `<div class="available-title">Ataques disponíveis</div><div class="available-attack-scroll">${names.map(name=>{
+        c.combate = c.combate || {}; c.combate.ataques = c.combate.ataques || [];
         const already = c.combate.ataques.some(a=>String(a.name||a.nome).toLowerCase() === String(name).toLowerCase());
         return `<button class="available-attack-chip ${already?'added':''}" type="button" data-add-available-attack="${escapeHtml(name)}">${already?'✓ ':''}${escapeHtml(name)}</button>`;
       }).join('')}</div>`;
@@ -4277,7 +4305,7 @@ textarea.huge{min-height:200px}
       syncGrantedInventoryObjects(c);
       saveLocal(false);
       renderForm();
-      notify('Inventário sincronizado.');
+      notify('Inventário sincronizado. Equipamentos e ouro recebidos devem aparecer abaixo.');
     }
 
     function addInventoryItem(){
@@ -4342,7 +4370,7 @@ textarea.huge{min-height:200px}
           </div>
           ${i.descricao ? `<div class="object-desc">${escapeHtml(i.descricao)}</div>` : ''}
         </div>
-      `).join('') : '<div class="clean-empty">Inventário vazio. Escolha antecedente/classe ou clique em sincronizar; equipamento e ouro aparecem aqui como objetos.</div>';
+      `).join('') : '<div class="clean-empty">Inventário vazio. Toque em Sincronizar recebidos. Se continuar vazio, ainda não existe equipamento fixo cadastrado no Livro de Regras para esta classe/raça/antecedente.</div>';
     }
 
 
@@ -4942,6 +4970,11 @@ textarea.huge{min-height:200px}
       renderCalcs();
       renderImages();
       renderMenu();
+      renderAttacks();
+      renderInventory();
+      renderRollLog();
+      renderFeats();
+      renderProficiencySummary();
       const jsonBox = $('#jsonBox'); if(jsonBox) jsonBox.value = JSON.stringify(c,null,2);
       renderSpellbookUI();
       renderSpellSlotsClassTotals();
@@ -5303,7 +5336,7 @@ textarea.huge{min-height:200px}
         renderClassProgress();
         renderRaceProgress();
         renderSpellSlotsClassTotals();
-        renderDashboard(); renderCalcs(); scheduleSave();
+        renderDashboard(); renderCalcs(); renderAttacks(); renderInventory(); renderProficiencySummary(); scheduleSave();
       });
       document.addEventListener('change', e=>{
         const el=e.target;
@@ -5314,10 +5347,45 @@ textarea.huge{min-height:200px}
         renderClassProgress();
         renderRaceProgress();
         renderSpellSlotsClassTotals();
-        renderDashboard(); renderCalcs(); scheduleSave();
+        renderDashboard(); renderCalcs(); renderAttacks(); renderInventory(); renderProficiencySummary(); scheduleSave();
         }
       });
       document.addEventListener('click', e=>{
+        const addPresetBtn = e.target.closest('#addPresetWeaponBtn');
+        if(addPresetBtn){ addPresetAttack(); return; }
+
+        const addManualAttackBtn = e.target.closest('#addWeaponBtn');
+        if(addManualAttackBtn){ addAttackFromFields(); return; }
+
+        const syncInvBtn = e.target.closest('#syncInventoryBtn');
+        if(syncInvBtn){ forceSyncInventory(); return; }
+
+        const quickItemBtn = e.target.closest('#addQuickItemOpenBtn');
+        if(quickItemBtn){
+          const d = $('#manualItemDetails');
+          if(d){ d.open = true; d.scrollIntoView({behavior:'smooth', block:'center'}); }
+          return;
+        }
+
+        const addItemBtn = e.target.closest('#addItemBtn');
+        if(addItemBtn){ addInventoryItem(); return; }
+
+        const convertLegacyBtn = e.target.closest('#convertLegacyInventoryBtn');
+        if(convertLegacyBtn){ convertLegacyInventoryTextToObjects(); return; }
+
+        const addFeatButton = e.target.closest('#addFeatBtn');
+        if(addFeatButton){ addFeat(); return; }
+
+        const addManualProfButton = e.target.closest('#addManualProfBtn');
+        if(addManualProfButton){ addManualProficiency(); return; }
+
+        const shortRestButton = e.target.closest('#shortRestBtn');
+        if(shortRestButton){ applyShortRest(); return; }
+
+        const longRestButton = e.target.closest('#longRestBtn');
+        if(longRestButton){ applyLongRest(); return; }
+
+
         const addAvailAtk = e.target.closest('[data-add-available-attack]');
         if(addAvailAtk){ addAttackByName(addAvailAtk.dataset.addAvailableAttack); return; }
 

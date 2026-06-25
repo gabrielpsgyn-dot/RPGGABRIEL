@@ -18,7 +18,7 @@ export default {
         return json({
           ok: true,
           app: "Ghosts of Saltmarsh - Ficha Online API",
-          version: "3.0.0-mobile-play-sheet",
+          version: "3.1.0-fix-render-inventory-weapons",
           loginMode: "character_click_standard_password",
           time: new Date().toISOString()
         });
