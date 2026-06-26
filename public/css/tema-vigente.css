@@ -1,0 +1,482 @@
+
+/* =========================================================
+   RPG GABRIEL — TEMA VIGENTE
+   Tema oficial único: marítimo sombrio / Saltmarsh.
+   Não criar V48, V49, V50... por cima deste arquivo.
+   ========================================================= */
+
+:root{
+  --bg:#081318;
+  --panel:#122a31;
+  --panel-2:#18363e;
+  --panel-3:#1e3f47;
+  --paper:#122a31;
+  --paper2:#18363e;
+  --ink:#e8dcc5;
+  --muted:#b8ad98;
+  --line:#aa8448;
+  --gold:#cfad68;
+  --foam:#78b8ae;
+  --green:#5f8065;
+  --red:#8f4b4d;
+  --blue:#5b908b;
+  --purple:#6b627c;
+  --shadow:0 12px 28px rgba(0,0,0,.34);
+}
+
+html,body{
+  background:
+    radial-gradient(circle at 15% 0%, rgba(91,144,139,.18), transparent 26%),
+    radial-gradient(circle at 88% 12%, rgba(199,161,95,.10), transparent 24%),
+    linear-gradient(180deg,#0b161a 0%,#081115 45%,#050a0d 100%) !important;
+  color:var(--ink) !important;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 14% 8%, rgba(120,184,174,.08), transparent 24%),
+    repeating-linear-gradient(135deg, rgba(255,255,255,.018) 0 1px, transparent 1px 18px);
+}
+
+body,
+body *{
+  box-sizing:border-box;
+}
+
+.sheet,
+.panel,
+.dash,
+.name-box,
+.header-fields,
+.menu-panel,
+.char-card,
+.class-feature-box,
+.class-mini-stat,
+.class-now-box,
+.clean-edit-details,
+.object-card,
+.attack-card,
+.spell-card,
+.feat-card,
+.rest-card,
+.book-card,
+.rules-card,
+.entity-card,
+.turn-item,
+details{
+  background:linear-gradient(180deg,#142f37,#0d2027) !important;
+  color:var(--ink) !important;
+  border-color:rgba(170,132,72,.52) !important;
+  box-shadow:var(--shadow), inset 0 1px 0 rgba(255,255,255,.035) !important;
+}
+
+.header-fields .field,
+.panel .field,
+#combatPanel .field,
+#defensePanel .field,
+#passivePanel .field,
+#hpPanel .field{
+  background:rgba(13,29,35,.36) !important;
+  border-color:rgba(170,132,72,.22) !important;
+}
+
+.name-box{
+  background:linear-gradient(180deg,#18333b,#10242a) !important;
+}
+
+h1,h2,h3,h4,h5,
+.title,
+.section-title,
+.card-title,
+summary,
+label,
+.field label,
+.name-box label,
+.dash-title,
+.bar-label,
+.bar-value,
+.class-now-title,
+.reward-group b,
+.clean-row b{
+  color:#f0dba8 !important;
+  text-shadow:0 1px 0 rgba(0,0,0,.35) !important;
+}
+
+small,
+.muted,
+.hint,
+.object-meta,
+.object-desc,
+.spell-desc-preview,
+.calc-formula,
+.context-hint{
+  color:var(--muted) !important;
+}
+
+input,
+textarea,
+select{
+  background:#0b1d24 !important;
+  color:#efe4cd !important;
+  border:1px solid rgba(170,132,72,.44) !important;
+  box-shadow:inset 0 1px 6px rgba(0,0,0,.30) !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+  border-color:var(--foam) !important;
+  box-shadow:0 0 0 3px rgba(120,184,174,.16), inset 0 1px 6px rgba(0,0,0,.30) !important;
+}
+
+select option{
+  background:#0b1d24 !important;
+  color:#efe4cd !important;
+}
+
+input[readonly],
+input:disabled,
+select:disabled,
+textarea:disabled,
+.auto-field,
+.calc-field,
+.readonly-field,
+.auto-rule-value,
+#passiveWisdom,
+#initiativeAuto,
+#profBonusAuto{
+  background:linear-gradient(180deg,#102a31,#08181e) !important;
+  color:#f2dca8 !important;
+  opacity:1 !important;
+  border-color:rgba(207,173,104,.40) !important;
+}
+
+button,
+.btn{
+  background:linear-gradient(180deg,#28545c,#142f37) !important;
+  color:#efe4cd !important;
+  border:1px solid rgba(170,132,72,.46) !important;
+  box-shadow:0 8px 18px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.06) !important;
+}
+
+button:hover,
+.btn:hover{
+  background:linear-gradient(180deg,#32636b,#183942) !important;
+  border-color:rgba(120,184,174,.62) !important;
+}
+
+.btn.primary,
+.primary{
+  background:linear-gradient(180deg,#376f72,#1b444b) !important;
+  border-color:rgba(120,184,174,.58) !important;
+}
+
+.btn.secondary,
+.secondary,
+.btn.ghost,
+.ghost{
+  background:linear-gradient(180deg,#1a3640,#0d2027) !important;
+}
+
+.btn.danger,
+.danger,
+.btn.red,
+.red{
+  background:linear-gradient(180deg,#8d4a4c,#5d2e32) !important;
+}
+
+.btn.green,
+.green{
+  background:linear-gradient(180deg,#5c8063,#344f3f) !important;
+}
+
+.btn.blue,
+.blue{
+  background:linear-gradient(180deg,#4f8582,#2a585c) !important;
+}
+
+.tab{
+  background:linear-gradient(180deg,#142a32,#0b1a20) !important;
+  color:#d9ccb5 !important;
+  border:1px solid rgba(199,161,95,.38) !important;
+}
+
+.tab.active{
+  background:linear-gradient(180deg,#c4a05f,#8c6b37) !important;
+  color:#071115 !important;
+  border-color:rgba(232,203,135,.72) !important;
+  text-shadow:none !important;
+}
+
+.bar,
+.track,
+.progress,
+.meter{
+  background:#08171d !important;
+  border:1px solid rgba(199,161,95,.38) !important;
+}
+
+.fill,
+#hpFill,
+#levelFill{
+  background:linear-gradient(90deg,#347078,#77b8ae) !important;
+}
+
+.fill.corruption,
+#corruptionFill{
+  background:linear-gradient(90deg,#6f4b79,#9a6aa5) !important;
+}
+
+.calc-note,
+.sheet-note,
+.rule-engine-box,
+.context-hint,
+.auto-rule-note,
+.note,
+.clean-empty,
+.empty,
+[class*="empty"]{
+  background:linear-gradient(180deg,rgba(27,57,64,.82),rgba(18,42,49,.82)) !important;
+  border:1px solid rgba(120,184,174,.24) !important;
+  color:#cfc6b2 !important;
+}
+
+.ability{
+  background:linear-gradient(180deg,#1c3e45,#132d35) !important;
+  border:1px solid rgba(170,132,72,.50) !important;
+  color:var(--ink) !important;
+}
+
+.ability-name{
+  color:#efd8a5 !important;
+}
+
+.ability-controls button,
+.hp-step-btn,
+.stat-step-btn{
+  background:linear-gradient(180deg,#1f4750,#102a32) !important;
+  color:#d7efe9 !important;
+  border:1px solid rgba(199,161,95,.50) !important;
+}
+
+.score{
+  background:#08181e !important;
+  color:#fff0cf !important;
+  border-color:rgba(199,161,95,.42) !important;
+}
+
+.mod-line input,
+.auto-mod-value{
+  background:#142f37 !important;
+  color:#f0dba8 !important;
+}
+
+/* Salvaguardas e perícias */
+.save-skill-group,
+.skill-sheet-row,
+.skill-row-linked,
+.skill-row{
+  background:linear-gradient(180deg,#1c3e45,#132d35) !important;
+  border-color:rgba(132,190,180,.30) !important;
+  color:var(--ink) !important;
+}
+
+.save-main,
+.save-main span,
+.save-main small,
+.skill-name,
+.pericia-nome{
+  color:var(--ink) !important;
+}
+
+.save-main .bonus,
+[data-save-bonus],
+.skill-sheet-row .bonus,
+.skill-row-linked .bonus,
+[data-skill-bonus]{
+  color:#f1d99c !important;
+  font-weight:950 !important;
+}
+
+.linked-skills-title{
+  color:#d8bd82 !important;
+  font-weight:950 !important;
+}
+
+.linked-skill-pill,
+.skill-attr,
+.pericia-atributo{
+  background:#0c1f26 !important;
+  border:1px solid rgba(120,184,174,.38) !important;
+  color:#8fd0c7 !important;
+  box-shadow:none !important;
+}
+
+.linked-skill-pill .mini-bonus{
+  color:#8fd0c7 !important;
+  font-weight:950 !important;
+}
+
+/* Progressão, recompensas e escolhas */
+.class-now-box,
+.reward-box,
+.reward-group,
+.flow-pending,
+.pending-choice-card,
+.choice-row,
+.clean-row,
+.clean-summary-panel .clean-row,
+#classProgressPanel [class*="reward"],
+#classProgressPanel [class*="choice"]{
+  background:linear-gradient(180deg,#173a42,#102830) !important;
+  background-color:#173a42 !important;
+  border:1px solid rgba(132,190,180,.30) !important;
+  color:var(--ink) !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035) !important;
+}
+
+.class-now-title{
+  color:#cfad68 !important;
+  text-shadow:none !important;
+  font-size:11px !important;
+  text-transform:uppercase !important;
+  letter-spacing:.06em !important;
+  font-weight:950 !important;
+  margin-bottom:7px !important;
+}
+
+.class-feature-list.compact,
+.class-now-box .class-feature-list{
+  background:transparent !important;
+  border:0 !important;
+  padding:0 !important;
+  display:flex !important;
+  flex-wrap:wrap !important;
+  gap:6px !important;
+}
+
+.class-feature-pill,
+.class-slot-pill,
+.reward-pill,
+.reward-pill.warn,
+.reward-group.warn .reward-pill,
+.flow-pending .reward-pill,
+.pending-choice-card .reward-pill,
+.class-reward-pill,
+.choice-pill,
+.object-pill,
+.pill,
+.badge,
+.tag,
+.coin,
+.spell-tag,
+.attack-auto-chip,
+.available-attack-chip,
+.class-badge,
+.compact-pill{
+  background:linear-gradient(180deg,#0d242b,#08181e) !important;
+  color:#f2dca8 !important;
+  border:1px solid rgba(207,173,104,.46) !important;
+  border-radius:999px !important;
+  text-shadow:none !important;
+  box-shadow:none !important;
+  opacity:1 !important;
+  filter:none !important;
+}
+
+.class-feature-pill *,
+.reward-pill *,
+.object-pill *,
+.pill *{
+  color:#f2dca8 !important;
+  text-shadow:none !important;
+  opacity:1 !important;
+}
+
+.pending-choice-card button,
+.choice-row button,
+#classProgressPanel [data-apply-pending-choice],
+#classProgressPanel button[data-apply-pending-choice]{
+  background:linear-gradient(180deg,#2e696c,#173f46) !important;
+  color:#fff1d2 !important;
+  border:1px solid rgba(132,190,180,.58) !important;
+  text-shadow:none !important;
+}
+
+.class-details,
+.class-details[open]{
+  background:linear-gradient(180deg,#14323a,#0d242b) !important;
+  border-color:rgba(132,190,180,.30) !important;
+}
+
+.class-details summary{
+  color:#f2dca8 !important;
+  text-shadow:none !important;
+}
+
+/* Proficiências e idiomas */
+#proficiencySummaryPanel .clean-row,
+#proficiencySummary .clean-row,
+.proficiency-object-grid .clean-row{
+  background:linear-gradient(180deg,#183840,#10262d) !important;
+  border-color:rgba(132,190,180,.30) !important;
+}
+
+/* Tabelas */
+table{
+  background:#0b1a20 !important;
+  color:var(--ink) !important;
+  border-color:rgba(199,161,95,.32) !important;
+}
+
+th,
+.attack-table th{
+  background:#153038 !important;
+  color:#efd8a5 !important;
+  border-color:rgba(170,132,72,.22) !important;
+}
+
+td,
+.attack-table td{
+  background:#0c1f26 !important;
+  color:var(--ink) !important;
+  border-color:rgba(170,132,72,.18) !important;
+}
+
+.avatar,
+.image-box,
+#dashAvatar,
+#portraitBox,
+#symbolBox{
+  background:#0b1a20 !important;
+  border-color:rgba(199,161,95,.52) !important;
+  color:var(--muted) !important;
+}
+
+.panel > h2::before,
+.panel > h3::before{
+  content:"☽ " !important;
+  color:#77b8ae !important;
+}
+
+.panel > h2::after,
+.panel > h3::after{
+  content:" ⚓" !important;
+  color:#c7a15f !important;
+}
+
+@media(max-width:700px){
+  .panel,
+  .dash,
+  .name-box,
+  .header-fields,
+  .ability{
+    border-width:1px !important;
+    box-shadow:0 8px 20px rgba(0,0,0,.30) !important;
+  }
+}

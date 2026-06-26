@@ -18,7 +18,7 @@ export default {
         return json({
           ok: true,
           app: "Ghosts of Saltmarsh - Ficha Online API",
-          version: "4.4.0-maritime-chip-level-fix",
+          version: "vigente-unica",
           loginMode: "character_click_standard_password",
           time: new Date().toISOString()
         });
