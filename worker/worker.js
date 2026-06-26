@@ -18,7 +18,7 @@ export default {
         return json({
           ok: true,
           app: "Ghosts of Saltmarsh - Ficha Online API",
-          version: "3.9.0-maritime-theme-inline-forced",
+          version: "4.0.0-maritime-theme-base-rewritten",
           loginMode: "character_click_standard_password",
           time: new Date().toISOString()
         });
