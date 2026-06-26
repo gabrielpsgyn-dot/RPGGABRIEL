@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Livro de Regras do Gabriel - V54</title>
+  <title>Livro de Regras do Gabriel - V55</title>
 <style>
     :root{--bg:#201107;--wood:#432814;--paper:#f1dfba;--paper2:#d7b77f;--ink:#241306;--muted:#695137;--line:#8d5e2f;--gold:#bd8539;--ok:#3f6d2a;--warn:#916414;--bad:#8b2f28;--ui:"Trebuchet MS",system-ui,sans-serif}
     *{box-sizing:border-box} body{margin:0;background:radial-gradient(circle at 20% 0,#5a3519,#201107 55%,#100804);color:var(--ink);font-family:var(--ui)}
@@ -17,10 +17,10 @@
     .hidden{display:none!important}.list{display:grid;gap:8px}.item{border:1px solid var(--line);border-radius:14px;background:rgba(7,22,29,.92);padding:10px;display:grid;gap:6px}.item-top{display:flex;justify-content:space-between;gap:8px;align-items:center}.pill{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:4px 8px;background:#f4ead7;font-size:12px;font-weight:900}.ok{background:#dff0cf;color:#2b4d18}.warn{background:#fde7bd;color:#704708}.bad{background:#f4c7bf;color:#6d1f18}
     code{background:#241306;color:#f7ead1;padding:2px 6px;border-radius:6px}@media(max-width:900px){.grid{grid-template-columns:1fr}.top{flex-direction:column}}
   </style>
-  <link rel="stylesheet" href="./css/tema-maritimo-sombrio.css?v=54">
+  <link rel="stylesheet" href="./css/tema-maritimo-sombrio.css?v=55">
 
 <style id="tema-maritimo-sombrio-v51-final">
-/* V54 — reescrita final do tema: atinge classes reais da ficha */
+/* V55 — reescrita final do tema: atinge classes reais da ficha */
 :root{
   --bg:#050d11 !important;
   --panel:#0b1b22 !important;
@@ -220,7 +220,7 @@ td{
 
 <style id="tema-maritimo-sombrio-v52-paleta">
 /* =========================================================
-   V54 — PALETA MARÍTIMA EQUILIBRADA
+   V55 — PALETA MARÍTIMA EQUILIBRADA
    Menos contraste agressivo, sem bege antigo, sem preto puro.
    ========================================================= */
 
@@ -601,7 +601,7 @@ tr:nth-child(even){
 
 <style id="tema-maritimo-sombrio-v53-ajuste-cores">
 /* =========================================================
-   V54 — CORREÇÃO DAS CORES ERRADAS
+   V55 — CORREÇÃO DAS CORES ERRADAS
    Foco: Salvaguardas, chips bege, cinza morto e contraste agressivo.
    ========================================================= */
 
@@ -926,7 +926,7 @@ button:hover,
 
 <style id="tema-maritimo-sombrio-v54-acabamento-final">
 /* =========================================================
-   V54 — ACABAMENTO VISUAL FINAL
+   V55 — ACABAMENTO VISUAL FINAL
    Corrige os últimos blocos claros: ganho do nível, escolhas,
    valores automáticos e caixas de status.
    ========================================================= */
@@ -1203,9 +1203,169 @@ summary{
 }
 </style>
 
+
+<style id="tema-maritimo-sombrio-v55-chip-nivel">
+/* =========================================================
+   V55 — CORREÇÃO FINAL DO CHIP / GANHO DO NÍVEL ATUAL
+   O texto "Sem habilidade listada neste nível" estava invisível.
+   ========================================================= */
+
+/* Caixa "Ganho do nível atual" */
+.class-now-box,
+#classProgressPanel .class-now-box,
+.compact-class-summary .class-now-box{
+  background:linear-gradient(180deg,#173a42,#102830) !important;
+  background-color:#173a42 !important;
+  border:1px solid rgba(132,190,180,.34) !important;
+  border-radius:13px !important;
+  padding:10px 11px !important;
+  color:#e8dcc5 !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035) !important;
+}
+
+/* Título "Ganho do nível atual" */
+.class-now-title,
+#classProgressPanel .class-now-title{
+  color:#cfad68 !important;
+  text-shadow:none !important;
+  font-size:11px !important;
+  text-transform:uppercase !important;
+  letter-spacing:.06em !important;
+  font-weight:950 !important;
+  margin-bottom:7px !important;
+}
+
+/* Lista compacta dentro do ganho do nível */
+.class-now-box .class-feature-list,
+#classProgressPanel .class-now-box .class-feature-list,
+.class-feature-list.compact{
+  background:transparent !important;
+  border:0 !important;
+  padding:0 !important;
+  display:flex !important;
+  flex-wrap:wrap !important;
+  gap:6px !important;
+}
+
+/* Chip principal que estava bege com texto apagado */
+.class-feature-pill,
+.class-now-box .class-feature-pill,
+#classProgressPanel .class-feature-pill,
+#classProgressPanel .class-now-box .class-feature-pill,
+span.class-feature-pill{
+  background:linear-gradient(180deg,#0d242b,#08181e) !important;
+  background-color:#0d242b !important;
+  color:#f2dca8 !important;
+  border:1px solid rgba(207,173,104,.50) !important;
+  border-radius:999px !important;
+  padding:6px 10px !important;
+  font-size:12px !important;
+  font-weight:950 !important;
+  line-height:1.2 !important;
+  text-shadow:none !important;
+  box-shadow:none !important;
+  opacity:1 !important;
+  filter:none !important;
+}
+
+/* Qualquer texto interno do chip */
+.class-feature-pill *,
+.class-now-box .class-feature-pill *,
+#classProgressPanel .class-feature-pill *{
+  color:#f2dca8 !important;
+  text-shadow:none !important;
+  opacity:1 !important;
+}
+
+/* Estado vazio: "Sem habilidade..." com leitura boa */
+.class-feature-pill:only-child,
+.class-now-box .class-feature-pill:only-child{
+  background:linear-gradient(180deg,#17343c,#0d242b) !important;
+  color:#f2dca8 !important;
+  border-color:rgba(132,190,180,.40) !important;
+}
+
+/* Recompensas e escolhas pendentes abaixo */
+.reward-box,
+.reward-group,
+.flow-pending,
+.pending-choice-card,
+.choice-row,
+#classProgressPanel .reward-box,
+#classProgressPanel .pending-choice-card{
+  background:linear-gradient(180deg,#173a42,#102830) !important;
+  background-color:#173a42 !important;
+  border:1px solid rgba(132,190,180,.30) !important;
+  color:#e8dcc5 !important;
+}
+
+.reward-group b,
+.flow-pending b,
+.pending-choice-card b,
+.choice-row b{
+  color:#cfad68 !important;
+  text-shadow:none !important;
+}
+
+.reward-pill,
+.reward-pill.warn,
+.reward-group.warn .reward-pill,
+.flow-pending .reward-pill,
+.pending-choice-card .reward-pill{
+  background:linear-gradient(180deg,#0d242b,#08181e) !important;
+  color:#f2dca8 !important;
+  border:1px solid rgba(207,173,104,.46) !important;
+  text-shadow:none !important;
+  box-shadow:none !important;
+}
+
+/* Botão de escolha pendente */
+.pending-choice-card button,
+.choice-row button,
+#classProgressPanel [data-apply-pending-choice],
+#classProgressPanel button[data-apply-pending-choice]{
+  background:linear-gradient(180deg,#2e696c,#173f46) !important;
+  color:#fff1d2 !important;
+  border:1px solid rgba(132,190,180,.58) !important;
+  text-shadow:none !important;
+}
+
+/* Neutraliza qualquer fundo claro restante dentro da progressão */
+#classProgressPanel .class-now-box [style*="background"],
+#classProgressPanel .reward-box [style*="background"],
+#classProgressPanel .pending-choice-card [style*="background"]{
+  background:linear-gradient(180deg,#0d242b,#08181e) !important;
+  color:#f2dca8 !important;
+}
+
+/* O details logo abaixo fica na mesma paleta */
+.class-details,
+#classProgressPanel .class-details,
+.class-details[open]{
+  background:linear-gradient(180deg,#14323a,#0d242b) !important;
+  border-color:rgba(132,190,180,.30) !important;
+}
+
+.class-details summary{
+  color:#f2dca8 !important;
+  text-shadow:none !important;
+}
+
+/* Valores automáticos ainda claros */
+.auto-rule-value,
+#passiveWisdom,
+#initiativeAuto,
+#profBonusAuto{
+  background:linear-gradient(180deg,#102a31,#08181e) !important;
+  color:#f2dca8 !important;
+  border:1px solid rgba(207,173,104,.40) !important;
+  text-shadow:none !important;
+}
+</style>
+
 </head>
 <body class="tema-maritimo-sombrio">
-<!-- V54 FONTE OFICIAL: Livro do Jogador e Guia do Mestre enviados pelo usuário; sem regra inventada. -->
+<!-- V55 FONTE OFICIAL: Livro do Jogador e Guia do Mestre enviados pelo usuário; sem regra inventada. -->
 <div class="app">
   <section class="panel top">
     <div>
@@ -1213,8 +1373,8 @@ summary{
       <p>Base oficial do seu livro. Cadastre o texto completo e marque o status de revisão. A ficha passa a usar classes, raças, antecedentes e talentos daqui.</p>
     </div>
     <div class="actions">
-      <a class="btn secondary" href="index.html?v=54">Voltar para ficha</a>
-      <a class="btn secondary" href="criador.html?v=54">Criador livre</a>
+      <a class="btn secondary" href="index.html?v=55">Voltar para ficha</a>
+      <a class="btn secondary" href="criador.html?v=55">Criador livre</a>
       <button class="btn secondary" id="exportBtn">Exportar JSON</button>
       <button class="btn secondary" id="importBtn">Importar JSON</button>
     </div>
