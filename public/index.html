@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPG Gabriel - Ficha Online V49</title>
+  <title>RPG Gabriel - Ficha Online V50</title>
 <style>
     :root{
       --bg:#090b10;
@@ -1807,9 +1807,417 @@ textarea.huge{min-height:200px}
 }
 
 </style>
-  <link rel="stylesheet" href="./css/tema-maritimo-sombrio.css?v=49">
+  <link rel="stylesheet" href="./css/tema-maritimo-sombrio.css?v=50">
+
+<style id="tema-maritimo-sombrio-v50">
+/* =========================================================
+   V50 - TEMA MARÍTIMO SOMBRIO INLINE E FORÇADO
+   Este bloco fica no fim do <head>, depois de todos os estilos.
+   ========================================================= */
+
+:root,
+html,
+body,
+body.tema-maritimo-sombrio{
+  --parchment:#071318 !important;
+  --parchment2:#0d2028 !important;
+  --paper:#0d2028 !important;
+  --paper2:#14313b !important;
+  --ink:#e9dfca !important;
+  --muted:#bfb49c !important;
+  --brown:#102832 !important;
+  --brown2:#183743 !important;
+  --line:#c29b55 !important;
+  --gold:#d4b16a !important;
+  --blue:#3f7379 !important;
+  --red:#924849 !important;
+  --green:#58785c !important;
+  --purple:#655b78 !important;
+  --shadow:0 18px 44px rgba(0,0,0,.55) !important;
+}
+
+html body,
+html body.tema-maritimo-sombrio{
+  background:
+    radial-gradient(circle at 15% 0%, rgba(92, 151, 148, .22), transparent 32%),
+    radial-gradient(circle at 88% 22%, rgba(212, 177, 106, .11), transparent 25%),
+    linear-gradient(180deg,#071318 0%,#050d11 55%,#020608 100%) !important;
+  color:#e9dfca !important;
+}
+
+/* força qualquer área clara/papel */
+html body [class],
+html body section,
+html body main,
+html body article,
+html body aside,
+html body nav,
+html body header,
+html body footer{
+  color:inherit;
+}
+
+/* Painéis principais da ficha */
+html body .panel,
+html body .card,
+html body .section,
+html body .box,
+html body .tab-panel,
+html body .tab-content,
+html body .sheet,
+html body .sheet-section,
+html body .compact-panel,
+html body .status-panel,
+html body .class-progress,
+html body .class-feature-box,
+html body .class-mini-stat,
+html body .race-summary-card,
+html body .background-summary-card,
+html body .proficiency-card,
+html body .inventory-panel,
+html body .spellbook-panel,
+html body .spell-card,
+html body .attack-card,
+html body .object-card,
+html body .feat-card,
+html body .rest-card,
+html body .image-panel,
+html body .book-card,
+html body .rules-card,
+html body .menu-panel,
+html body .char-card,
+html body .entity-card,
+html body .turn-item,
+html body details,
+html body .clean-edit-details{
+  background:
+    linear-gradient(180deg, rgba(20,49,59,.98), rgba(7,20,27,.98)) !important;
+  background-color:#0d2028 !important;
+  border-color:rgba(212,177,106,.48) !important;
+  color:#e9dfca !important;
+  box-shadow:0 16px 42px rgba(0,0,0,.48), inset 0 1px 0 rgba(255,255,255,.045) !important;
+}
+
+/* Blocos grandes que estavam bege na imagem */
+html body .sheet-grid > *,
+html body .grid > *,
+html body .form-grid > *,
+html body .dashboard,
+html body .dashboard-card,
+html body .status-grid,
+html body .hero,
+html body .main-card,
+html body .content-card,
+html body .clean-card,
+html body .field-card{
+  background:
+    linear-gradient(180deg, rgba(18,42,51,.98), rgba(8,22,29,.98)) !important;
+  background-color:#0d2028 !important;
+  border-color:rgba(212,177,106,.42) !important;
+  color:#e9dfca !important;
+}
+
+/* remove explicitamente qualquer creme/bege típico antigo */
+html body *[style*="background"],
+html body *[style*="background-color"]{
+  color:inherit;
+}
+
+html body .panel,
+html body .panel *,
+html body .card,
+html body .card *,
+html body .section,
+html body .section *,
+html body .box,
+html body .box *,
+html body details,
+html body details *{
+  color:#e9dfca !important;
+}
+
+/* Títulos */
+html body h1,
+html body h2,
+html body h3,
+html body h4,
+html body h5,
+html body .title,
+html body .section-title,
+html body .card-title,
+html body summary,
+html body label{
+  color:#f3dfb1 !important;
+  text-shadow:0 1px 0 rgba(0,0,0,.65) !important;
+}
+
+html body h2,
+html body h3,
+html body .section-title{
+  border-bottom-color:rgba(212,177,106,.42) !important;
+}
+
+/* Texto secundário */
+html body small,
+html body .muted,
+html body .hint,
+html body .note,
+html body .calc-note,
+html body .context-hint,
+html body .sheet-note,
+html body .entity-sub,
+html body .object-meta,
+html body .class-feature-detail,
+html body .spell-desc-preview{
+  color:#bfb49c !important;
+}
+
+/* Inputs */
+html body input,
+html body textarea,
+html body select{
+  background:linear-gradient(180deg,#07161d,#0e242d) !important;
+  background-color:#0b1d25 !important;
+  color:#f1e8d6 !important;
+  border:1px solid rgba(212,177,106,.48) !important;
+  box-shadow:inset 0 2px 8px rgba(0,0,0,.38) !important;
+}
+
+html body input::placeholder,
+html body textarea::placeholder{
+  color:#918979 !important;
+}
+
+html body input:focus,
+html body textarea:focus,
+html body select:focus{
+  border-color:#8fd0c7 !important;
+  box-shadow:0 0 0 3px rgba(143,208,199,.18), inset 0 2px 8px rgba(0,0,0,.38) !important;
+}
+
+/* Botões */
+html body button,
+html body .btn{
+  background:linear-gradient(180deg,#345f68,#17343d) !important;
+  background-color:#234852 !important;
+  border:1px solid rgba(212,177,106,.52) !important;
+  color:#fff0d2 !important;
+  box-shadow:0 8px 18px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.08) !important;
+}
+
+html body button:hover,
+html body .btn:hover{
+  background:linear-gradient(180deg,#41727a,#1f434d) !important;
+  border-color:#8fd0c7 !important;
+}
+
+/* botões específicos */
+html body .primary,
+html body .btn.primary{
+  background:linear-gradient(180deg,#497c7e,#24535b) !important;
+  border-color:#8fd0c7 !important;
+}
+
+html body .secondary,
+html body .btn.secondary,
+html body .ghost,
+html body .btn.ghost{
+  background:linear-gradient(180deg,#1c3a43,#0c2028) !important;
+}
+
+html body .danger,
+html body .btn.danger,
+html body .red,
+html body .btn.red{
+  background:linear-gradient(180deg,#934b4b,#5e2b31) !important;
+}
+
+html body .green,
+html body .btn.green{
+  background:linear-gradient(180deg,#5d7e61,#344f3d) !important;
+}
+
+html body .blue,
+html body .btn.blue{
+  background:linear-gradient(180deg,#497c7e,#24535b) !important;
+}
+
+/* Abas da ficha */
+html body .tabs,
+html body .tabbar,
+html body .tab-bar{
+  background:#040b0f !important;
+  border-color:rgba(212,177,106,.28) !important;
+}
+
+html body .tab,
+html body .tab-button,
+html body .nav-tab{
+  background:linear-gradient(180deg,#182f38,#07161c) !important;
+  color:#e9dfca !important;
+  border-color:rgba(212,177,106,.42) !important;
+}
+
+html body .tab.active,
+html body .tab-button.active,
+html body .nav-tab.active,
+html body .active.tab{
+  background:linear-gradient(180deg,#d4b16a,#927038) !important;
+  color:#071318 !important;
+  border-color:#f0d38d !important;
+}
+
+/* Barras de status */
+html body .track,
+html body .bar,
+html body .progress,
+html body .meter{
+  background:#071318 !important;
+  border-color:rgba(212,177,106,.42) !important;
+}
+
+html body .fill,
+html body .bar-fill,
+html body #hpFill,
+html body #levelFill,
+html body #corruptionFill{
+  background:linear-gradient(90deg,#2e6b76,#8fd0c7) !important;
+}
+
+/* Status do personagem na imagem */
+html body #statusPanel,
+html body .status-card,
+html body .status-box,
+html body .char-status{
+  background:
+    linear-gradient(180deg, rgba(20,49,59,.98), rgba(7,20,27,.98)) !important;
+  border-color:rgba(212,177,106,.55) !important;
+}
+
+/* Perícias */
+html body .skill-sheet-row,
+html body .skill-row,
+html body .skill-row-linked,
+html body .pericia-row{
+  background:rgba(7,19,24,.52) !important;
+  border-bottom:1px dotted rgba(212,177,106,.28) !important;
+  color:#e9dfca !important;
+}
+
+html body .skill-name,
+html body .pericia-nome{
+  color:#f0e6d0 !important;
+}
+
+html body .skill-attr,
+html body .pericia-atributo{
+  background:#071318 !important;
+  border-color:rgba(212,177,106,.38) !important;
+  color:#8fd0c7 !important;
+}
+
+/* Pílulas/chips */
+html body .pill,
+html body .badge,
+html body .tag,
+html body .coin,
+html body .object-pill,
+html body .spell-tag,
+html body .class-badge,
+html body .compact-pill,
+html body .attack-auto-chip,
+html body .available-attack-chip{
+  background:#07161d !important;
+  color:#e9dfca !important;
+  border-color:rgba(212,177,106,.42) !important;
+}
+
+/* Tabelas */
+html body table{
+  background:#071318 !important;
+  color:#e9dfca !important;
+  border-color:rgba(212,177,106,.32) !important;
+}
+
+html body th,
+html body thead td{
+  background:#14313b !important;
+  color:#f3dfb1 !important;
+  border-color:rgba(212,177,106,.42) !important;
+}
+
+html body td{
+  color:#e9dfca !important;
+  border-color:rgba(212,177,106,.18) !important;
+}
+
+html body tr:nth-child(even){
+  background:rgba(143,208,199,.045) !important;
+}
+
+/* Menu inferior/mesa */
+html body .bottom-nav{
+  background:linear-gradient(180deg,rgba(7,19,24,.98),#020608) !important;
+  border-top-color:rgba(212,177,106,.36) !important;
+}
+
+html body .nav-btn{
+  background:#07161d !important;
+  color:#d6cbb6 !important;
+  border-color:rgba(212,177,106,.32) !important;
+}
+
+html body .nav-btn.active{
+  background:linear-gradient(180deg,#d4b16a,#927038) !important;
+  color:#071318 !important;
+}
+
+/* Imagem/avatar */
+html body .avatar,
+html body .image-box,
+html body #dashAvatar,
+html body #portraitBox,
+html body #symbolBox{
+  background:#071318 !important;
+  border-color:rgba(212,177,106,.52) !important;
+  color:#bfb49c !important;
+}
+
+/* Divisores */
+html body hr{
+  border-color:rgba(212,177,106,.34) !important;
+}
+
+/* Ornamento náutico nos painéis */
+html body .panel > h2::before,
+html body .panel > h3::before,
+html body .section > h2::before,
+html body .section > h3::before{
+  content:"☽ " !important;
+  color:#8fd0c7 !important;
+}
+
+html body .panel > h2::after,
+html body .panel > h3::after,
+html body .section > h2::after,
+html body .section > h3::after{
+  content:" ⚓" !important;
+  color:#d4b16a !important;
+}
+
+/* Compatibilidade com CSS antigo que usa fundo claro por variável ou classes genéricas */
+html body .paper,
+html body .parchment,
+html body .light,
+html body .cream,
+html body .beige{
+  background:#0d2028 !important;
+  color:#e9dfca !important;
+}
+</style>
+
 </head>
-<!-- RPGGABRIEL V49 LIVRO DO JOGADOR OFICIAL SEM ACHISMO -->
+<!-- RPGGABRIEL V50 LIVRO DO JOGADOR OFICIAL SEM ACHISMO -->
 <body class="menu-open tema-maritimo-sombrio">
   <section class="menu-screen" id="menuScreen">
     <div class="menu-shell">
@@ -2039,8 +2447,8 @@ textarea.huge{min-height:200px}
                 <div id="rulesAuditSummary" class="rules-audit-box"></div>
                 <div class="rules-audit-actions">
                   <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                  <a class="btn small secondary" href="criador.html?v=49" target="_blank">Criador livre</a>
-                  <a class="btn small primary" href="livro-regras.html?v=49" target="_blank">Livro de Regras</a>
+                  <a class="btn small secondary" href="criador.html?v=50" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=50" target="_blank">Livro de Regras</a>
                 </div>
               </details>
             </div>
@@ -7049,7 +7457,7 @@ textarea.huge{min-height:200px}
     function getClassAdvanceRule(cls){
       const base = CLASS_ADVANCEMENT_RULES[cls] || {};
       const book = getAllClassRules()[cls] || {};
-      const OFFICIAL_BOOK_ONLY = true; // V49: somente regras confirmadas no Livro do Jogador/Guia do Mestre
+      const OFFICIAL_BOOK_ONLY = true; // V50: somente regras confirmadas no Livro do Jogador/Guia do Mestre
       const starting = CLASS_STARTING_EQUIPMENT_RULES[cls] || [];
       const mergedLevelEquipment = {...(base.levelEquipment||{}), ...(book.levelEquipment||{}), ...(book.rewardsByLevel||{})};
       if(starting.length){
