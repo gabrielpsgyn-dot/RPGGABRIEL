@@ -1812,31 +1812,53 @@ textarea.huge{min-height:200px}
 <!-- RPGGABRIEL Versão Vigente LIVRO DO JOGADOR OFICIAL SEM ACHISMO -->
 <body class="menu-open tema-maritimo-sombrio">
   <section class="menu-screen" id="menuScreen">
-    <div class="menu-shell">
-      <div class="hero">
-        <p class="kicker">Ghosts of Saltmarsh - Saltmarsh - Thalassyr</p>
-        <h1>Ghosts of Saltmarsh</h1>
-        <p>Clique no personagem, digite a senha padrão da mesa e entre na ficha. O jogador não precisa configurar API, token ou código.</p>
+    <div class="menu-shell menu-shell-vigente">
+      <div class="hero hero-menu">
+        <p class="kicker">Ficha online da mesa</p>
+        <h1>Escolha seu personagem</h1>
+        <p>Abertura neutra para o jogador: selecione a ficha, entre com a senha da mesa e continue a sessão.</p>
+        <div class="menu-hero-stats">
+          <span class="menu-stat-pill" id="menuCountBadge">0 personagens</span>
+          <span class="menu-stat-pill" id="selectedCharacterBadge">nenhum selecionado</span>
+          <span class="menu-stat-pill">tema marítimo vigente</span>
+        </div>
       </div>
-      <div class="menu-grid">
-        <div class="menu-panel">
-          <h2>Personagens da mesa</h2>
-          <div class="char-list" id="menuCharacterList"></div>
-          <div class="menu-actions">
+
+      <div class="menu-grid menu-grid-main">
+        <div class="menu-panel menu-panel-characters">
+          <div class="menu-panel-head">
+            <div>
+              <h2>Personagens</h2>
+              <p>Toque em uma ficha para selecionar e entrar.</p>
+            </div>
+          </div>
+          <input class="menu-search" id="menuSearchInput" placeholder="Buscar por nome, classe, raça ou jogador">
+          <div class="char-list char-list-vigente" id="menuCharacterList"></div>
+          <div class="menu-actions menu-actions-row">
             <button class="btn green" id="newCharacterBtn">+ Criar personagem</button>
-            <button class="btn secondary" id="importJsonBtn">Importar ficha JSON</button>
+            <button class="btn secondary" id="refreshOnlineBtn">Atualizar lista</button>
           </div>
         </div>
-        <div class="menu-panel">
-          <h2>Entrada com senha padrão</h2>
-          <p class="note"><b>Fluxo:</b> clicar no personagem, digitar a senha da mesa e entrar. A ficha salva localmente e tenta sincronizar online.</p>
-          <p class="note"><b>Barra narrativa:</b> use <b>Corrupção</b> para a campanha. Ela combina melhor com Saltmarsh e Thalassyr do que Sanidade.</p>
-          <div class="menu-actions">
-            <button class="btn" id="enterSelectedBtn">Entrar no personagem selecionado</button>
-            <button class="btn secondary" id="refreshOnlineBtn">Atualizar lista online</button>
-            <a class="btn secondary master-link" href="/mestre.html?v=vigente">Página do Mestre</a>
-            <button class="btn danger" id="deleteCharacterBtn">Excluir personagem local</button>
+
+        <div class="menu-panel menu-panel-entry">
+          <h2>Entrar na ficha</h2>
+          <div class="selected-summary" id="selectedCharacterSummary">
+            <div class="empty-selection">Selecione um personagem da lista.</div>
           </div>
+
+          <div class="menu-actions">
+            <button class="btn primary" id="enterSelectedBtn">Entrar no personagem selecionado</button>
+            <a class="btn secondary master-link" href="/mestre.html?v=vigente">Página do Mestre</a>
+          </div>
+
+          <details class="menu-advanced">
+            <summary>Ferramentas avançadas</summary>
+            <div class="menu-actions">
+              <button class="btn secondary" id="importJsonBtn">Importar ficha JSON</button>
+              <button class="btn danger" id="deleteCharacterBtn">Excluir personagem local</button>
+            </div>
+          </details>
+
           <div class="status-line" id="onlineBadge">Pronto.</div>
         </div>
       </div>
@@ -7431,21 +7453,106 @@ textarea.huge{min-height:200px}
       return parts.join(' - ') || 'Sem classe definida';
     }
 
+    function menuCharacterText(c){
+      c = c || {};
+      const meta = c.meta || {};
+      const campanha = c.campanha || {};
+      return [
+        meta.nomePersonagem,
+        meta.nomeJogador,
+        meta.classe,
+        meta.classeNivel,
+        meta.raca,
+        meta.antecedente,
+        campanha.marcaCampanha,
+        campanha.mareAtual
+      ].join(' ').toLowerCase();
+    }
+
+    function menuHpLabel(c){
+      const vida = c && c.vida ? c.vida : {};
+      const atual = vida.atuais === '' || vida.atuais == null ? '-' : vida.atuais;
+      const max = vida.maximos === '' || vida.maximos == null ? '-' : vida.maximos;
+      return `${atual}/${max}`;
+    }
+
+    function menuUpdatedLabel(c){
+      const raw = c && (c.updatedAt || c.updated_at);
+      if(!raw) return 'sem data';
+      const d = new Date(raw);
+      if(Number.isNaN(d.getTime())) return 'sem data';
+      return d.toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'}) + ' ' + d.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
+    }
+
     function renderMenu(){
       const list=$('#menuCharacterList');
       if(!list) return;
       if(!Array.isArray(state.characters)) state.characters = [];
-      list.innerHTML = state.characters.map(c=>`
-        <button class="char-card ${c.id===state.activeId?'active':''}" data-menu-id="${c.id}">
-          <b>${escapeHtml(c.meta.nomePersonagem || 'Sem nome')}</b>
-          <span>${escapeHtml(subtitle(c))}</span>
-          <div class="pill-row">
-            <span class="pill">${escapeHtml((c.campanha && c.campanha.mareAtual) || 'sem maré')}</span>
-            <span class="pill">corrupção ${escapeHtml((c.campanha && c.campanha.corrupcao) || 0)}/10</span>
-            <span class="pill">${escapeHtml((c.campanha && c.campanha.marcaCampanha) || 'sem marca')}</span>
-          </div>
-        </button>
-      `).join('');
+      if(!state.activeId && state.characters.length) state.activeId = state.characters[0].id;
+
+      const q = String($('#menuSearchInput') ? $('#menuSearchInput').value : '').trim().toLowerCase();
+      const visible = q ? state.characters.filter(c=>menuCharacterText(c).includes(q)) : state.characters;
+      const selected = activeChar() || state.characters[0] || null;
+
+      const countBadge = $('#menuCountBadge');
+      if(countBadge) countBadge.textContent = `${state.characters.length} personagem(ns)`;
+
+      const selectedBadge = $('#selectedCharacterBadge');
+      if(selectedBadge) selectedBadge.textContent = selected ? `selecionado: ${selected.meta.nomePersonagem || 'Sem nome'}` : 'nenhum selecionado';
+
+      const summary = $('#selectedCharacterSummary');
+      if(summary){
+        if(selected){
+          const meta = selected.meta || {};
+          const camp = selected.campanha || {};
+          summary.innerHTML = `
+            <div class="selected-summary-name">${escapeHtml(meta.nomePersonagem || 'Sem nome')}</div>
+            <div class="selected-summary-sub">${escapeHtml(subtitle(selected) || 'Ficha sem classe definida')}</div>
+            <div class="selected-summary-grid">
+              <span>PV <b>${escapeHtml(menuHpLabel(selected))}</b></span>
+              <span>Nível <b>${escapeHtml(meta.nivel || 1)}</b></span>
+              <span>Corrupção <b>${escapeHtml(camp.corrupcao || 0)}/10</b></span>
+              <span>Atualizado <b>${escapeHtml(menuUpdatedLabel(selected))}</b></span>
+            </div>
+          `;
+        }else{
+          summary.innerHTML = '<div class="empty-selection">Selecione um personagem da lista.</div>';
+        }
+      }
+
+      if(!state.characters.length){
+        list.innerHTML = '<div class="menu-empty-card"><b>Nenhum personagem ainda.</b><span>Crie uma ficha nova ou importe um JSON.</span></div>';
+        return;
+      }
+
+      if(!visible.length){
+        list.innerHTML = '<div class="menu-empty-card"><b>Nenhum resultado.</b><span>Limpe a busca para ver todos os personagens.</span></div>';
+        return;
+      }
+
+      list.innerHTML = visible.map(c=>{
+        const meta = c.meta || {};
+        const camp = c.campanha || {};
+        const img = c.descricao && c.descricao.aparenciaImagem ? c.descricao.aparenciaImagem : '';
+        return `
+          <button class="char-card char-card-vigente ${c.id===state.activeId?'active':''}" data-menu-id="${escapeHtml(c.id)}">
+            <div class="char-card-top">
+              <div class="char-thumb">${img ? `<img src="${escapeHtml(img)}" alt="">` : '<span>Ficha</span>'}</div>
+              <div class="char-main">
+                <b>${escapeHtml(meta.nomePersonagem || 'Sem nome')}</b>
+                <span>${escapeHtml(subtitle(c) || 'Classe não definida')}</span>
+                <small>${escapeHtml(meta.nomeJogador || 'Jogador não informado')}</small>
+              </div>
+            </div>
+            <div class="pill-row">
+              <span class="pill">PV ${escapeHtml(menuHpLabel(c))}</span>
+              <span class="pill">Nv. ${escapeHtml(meta.nivel || 1)}</span>
+              <span class="pill">${escapeHtml(meta.raca || 'sem raça')}</span>
+              <span class="pill">corrupção ${escapeHtml(camp.corrupcao || 0)}/10</span>
+            </div>
+          </button>
+        `;
+      }).join('');
     }
 
     function escapeHtml(s){ return String(s ?? '').replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m])); }
@@ -9948,9 +10055,10 @@ textarea.huge{min-height:200px}
         const imgBtn=e.target.closest('[data-img-action]');
         if(imgBtn){ handleImage(imgBtn); return; }
       });
-      const newCharacterBtn = $('#newCharacterBtn'); if(newCharacterBtn) newCharacterBtn.onclick=()=>{ const c=makeCharacter(); state.characters.push(c); state.activeId=c.id; saveLocal(true); renderForm(); };
-      const deleteCharacterBtn = $('#deleteCharacterBtn'); if(deleteCharacterBtn) deleteCharacterBtn.onclick=()=>{ if(state.characters.length<=1){toast('Mantenha pelo menos um personagem.');return;} state.characters=state.characters.filter(c=>c.id!==state.activeId); state.activeId=state.characters[0].id; saveLocal(true); renderForm(); };
-      const enterSelectedBtn = $('#enterSelectedBtn'); if(enterSelectedBtn) enterSelectedBtn.onclick=()=>openPassword(state.activeId);
+      const menuSearchInput = $('#menuSearchInput'); if(menuSearchInput) menuSearchInput.oninput=renderMenu;
+      const newCharacterBtn = $('#newCharacterBtn'); if(newCharacterBtn) newCharacterBtn.onclick=()=>{ const c=makeCharacter(); state.characters.push(c); state.activeId=c.id; saveLocal(true); renderMenu(); openPassword(c.id); };
+      const deleteCharacterBtn = $('#deleteCharacterBtn'); if(deleteCharacterBtn) deleteCharacterBtn.onclick=()=>{ if(state.characters.length<=1){toast('Mantenha pelo menos um personagem.');return;} state.characters=state.characters.filter(c=>c.id!==state.activeId); state.activeId=state.characters[0].id; saveLocal(true); renderMenu(); };
+      const enterSelectedBtn = $('#enterSelectedBtn'); if(enterSelectedBtn) enterSelectedBtn.onclick=()=> state.activeId ? openPassword(state.activeId) : toast('Selecione um personagem.');
       const refreshOnlineBtn = $('#refreshOnlineBtn'); if(refreshOnlineBtn) refreshOnlineBtn.onclick=refreshOnline;
       const backToMenuBtn = $('#backToMenuBtn'); if(backToMenuBtn) backToMenuBtn.onclick=()=>{ document.body.classList.add('menu-open'); renderMenu(); };
       const printBtn = $('#printBtn'); if(printBtn) printBtn.onclick=()=>window.print();
