@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Livro de Regras do Gabriel - V51</title>
+  <title>Livro de Regras do Gabriel - V52</title>
 <style>
     :root{--bg:#201107;--wood:#432814;--paper:#f1dfba;--paper2:#d7b77f;--ink:#241306;--muted:#695137;--line:#8d5e2f;--gold:#bd8539;--ok:#3f6d2a;--warn:#916414;--bad:#8b2f28;--ui:"Trebuchet MS",system-ui,sans-serif}
     *{box-sizing:border-box} body{margin:0;background:radial-gradient(circle at 20% 0,#5a3519,#201107 55%,#100804);color:var(--ink);font-family:var(--ui)}
@@ -17,10 +17,10 @@
     .hidden{display:none!important}.list{display:grid;gap:8px}.item{border:1px solid var(--line);border-radius:14px;background:rgba(7,22,29,.92);padding:10px;display:grid;gap:6px}.item-top{display:flex;justify-content:space-between;gap:8px;align-items:center}.pill{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:4px 8px;background:#f4ead7;font-size:12px;font-weight:900}.ok{background:#dff0cf;color:#2b4d18}.warn{background:#fde7bd;color:#704708}.bad{background:#f4c7bf;color:#6d1f18}
     code{background:#241306;color:#f7ead1;padding:2px 6px;border-radius:6px}@media(max-width:900px){.grid{grid-template-columns:1fr}.top{flex-direction:column}}
   </style>
-  <link rel="stylesheet" href="./css/tema-maritimo-sombrio.css?v=51">
+  <link rel="stylesheet" href="./css/tema-maritimo-sombrio.css?v=52">
 
 <style id="tema-maritimo-sombrio-v51-final">
-/* V51 — reescrita final do tema: atinge classes reais da ficha */
+/* V52 — reescrita final do tema: atinge classes reais da ficha */
 :root{
   --bg:#050d11 !important;
   --panel:#0b1b22 !important;
@@ -217,9 +217,390 @@ td{
 }
 </style>
 
+
+<style id="tema-maritimo-sombrio-v52-paleta">
+/* =========================================================
+   V52 — PALETA MARÍTIMA EQUILIBRADA
+   Menos contraste agressivo, sem bege antigo, sem preto puro.
+   ========================================================= */
+
+:root{
+  --bg:#081115 !important;
+  --panel:#10242a !important;
+  --paper:#10242a !important;
+  --paper2:#173038 !important;
+  --ink:#eadfca !important;
+  --muted:#b9ad98 !important;
+  --line:#a98045 !important;
+  --gold:#c7a15f !important;
+  --brown:#10242a !important;
+  --brown2:#1b3a42 !important;
+  --green:#5f8065 !important;
+  --red:#8f4b4d !important;
+  --blue:#5b908b !important;
+  --purple:#6b627c !important;
+}
+
+/* Fundo: mar escuro, mas não preto chapado */
+html body,
+html body.tema-maritimo-sombrio{
+  background:
+    radial-gradient(circle at 15% 0%, rgba(91,144,139,.18), transparent 26%),
+    radial-gradient(circle at 88% 12%, rgba(199,161,95,.10), transparent 24%),
+    linear-gradient(180deg,#0b161a 0%,#081115 45%,#050a0d 100%) !important;
+  color:#eadfca !important;
+}
+
+/* Remove selo de debug da V51 */
+.theme-proof-v51,
+.theme-proof-v52{
+  display:none !important;
+}
+
+/* Estrutura geral */
+.sheet{
+  background:linear-gradient(180deg,#10242a,#0b1a20) !important;
+  border:1px solid rgba(199,161,95,.58) !important;
+  box-shadow:0 18px 44px rgba(0,0,0,.44) !important;
+}
+
+/* Topo: continua escuro, mas menos “buraco preto” */
+.topbar,
+.topbar-row,
+.tabs{
+  background:linear-gradient(180deg,#0e1e24,#081115) !important;
+  border-color:rgba(199,161,95,.24) !important;
+}
+
+/* Painéis: tudo na mesma família cromática */
+.panel,
+.dash,
+.name-box,
+.header-fields,
+.class-feature-box,
+.class-mini-stat,
+.clean-edit-details,
+.object-card,
+.attack-card,
+.spell-card,
+.feat-card,
+.rest-card,
+.book-card,
+.rules-card,
+.menu-panel,
+.char-card,
+.entity-card,
+.turn-item,
+details{
+  background:linear-gradient(180deg,#173038,#0f2229) !important;
+  color:#eadfca !important;
+  border:1px solid rgba(199,161,95,.48) !important;
+  box-shadow:0 12px 28px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.035) !important;
+}
+
+/* Células internas do cabeçalho */
+.header-fields .field{
+  background:rgba(13,29,35,.58) !important;
+  border-right:1px solid rgba(199,161,95,.22) !important;
+  border-bottom:1px solid rgba(199,161,95,.22) !important;
+}
+
+/* Área do nome com menos diferença de contraste */
+.name-box{
+  background:linear-gradient(180deg,#18333b,#10242a) !important;
+}
+
+/* Atributos: estavam bege demais; agora ficam como placas de navio */
+.ability{
+  background:linear-gradient(180deg,#1b3b43,#122830) !important;
+  border:1px solid rgba(199,161,95,.54) !important;
+  color:#eadfca !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.04), 0 8px 18px rgba(0,0,0,.24) !important;
+}
+
+.ability-name{
+  color:#f0dba8 !important;
+  text-shadow:0 1px 0 rgba(0,0,0,.55) !important;
+}
+
+.ability-controls button,
+.hp-step-btn,
+.stat-step-btn{
+  background:linear-gradient(180deg,#1f4750,#102a32) !important;
+  color:#d7efe9 !important;
+  border:1px solid rgba(199,161,95,.50) !important;
+}
+
+.score{
+  background:#08171d !important;
+  color:#fff1d2 !important;
+  border:1px solid rgba(199,161,95,.45) !important;
+  border-radius:10px !important;
+  text-shadow:0 1px 0 rgba(0,0,0,.65) !important;
+}
+
+.mod-line input{
+  background:#162f37 !important;
+  color:#f0dba8 !important;
+  border-color:rgba(199,161,95,.42) !important;
+}
+
+/* Inputs: escuros, mas não tão pretos */
+input,
+textarea,
+select{
+  background:#0d1d23 !important;
+  color:#f2e8d5 !important;
+  border:1px solid rgba(199,161,95,.42) !important;
+  box-shadow:inset 0 1px 6px rgba(0,0,0,.30) !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+  border-color:#6fb4aa !important;
+  box-shadow:0 0 0 3px rgba(111,180,170,.16), inset 0 1px 6px rgba(0,0,0,.30) !important;
+}
+
+/* Botões: menos gritantes */
+button,
+.btn{
+  background:linear-gradient(180deg,#2b5961,#17343c) !important;
+  color:#f3e6ca !important;
+  border:1px solid rgba(199,161,95,.48) !important;
+}
+
+button:hover,
+.btn:hover{
+  background:linear-gradient(180deg,#356b72,#1c434c) !important;
+  border-color:#6fb4aa !important;
+}
+
+.btn.primary,
+.primary{
+  background:linear-gradient(180deg,#447b79,#24545a) !important;
+  border-color:rgba(111,180,170,.70) !important;
+}
+
+.btn.secondary,
+.secondary,
+.btn.ghost,
+.ghost{
+  background:linear-gradient(180deg,#1a3640,#0d2027) !important;
+}
+
+.btn.danger,
+.danger,
+.btn.red,
+.red{
+  background:linear-gradient(180deg,#8d4a4c,#5d2e32) !important;
+}
+
+.btn.green,
+.green{
+  background:linear-gradient(180deg,#5c8063,#344f3f) !important;
+}
+
+.btn.blue,
+.blue{
+  background:linear-gradient(180deg,#4f8582,#2a585c) !important;
+}
+
+/* Abas: a ativa pode ser ouro, mas sem parecer botão bege antigo */
+.tab{
+  background:linear-gradient(180deg,#142a32,#0b1a20) !important;
+  color:#d9ccb5 !important;
+  border:1px solid rgba(199,161,95,.38) !important;
+}
+
+.tab.active{
+  background:linear-gradient(180deg,#c7a15f,#9a7538) !important;
+  color:#071115 !important;
+  border-color:#dfc17d !important;
+  text-shadow:none !important;
+}
+
+/* Barras */
+.bar,
+.track,
+.progress,
+.meter{
+  background:#08171d !important;
+  border:1px solid rgba(199,161,95,.38) !important;
+}
+
+.fill,
+#hpFill,
+#levelFill{
+  background:linear-gradient(90deg,#347078,#77b8ae) !important;
+}
+
+.fill.corruption,
+#corruptionFill{
+  background:linear-gradient(90deg,#6f4b79,#9a6aa5) !important;
+}
+
+/* Blocos informativos: não cinza morto */
+.calc-note,
+.sheet-note,
+.context-hint,
+.auto-rule-note,
+.clean-empty,
+.note{
+  background:rgba(24,49,56,.72) !important;
+  border:1px solid rgba(111,180,170,.26) !important;
+  color:#c9c7b4 !important;
+}
+
+/* Escolhas pendentes e linhas limpas */
+.clean-row,
+.pending-choice-card,
+.reward-row,
+.class-reward-row,
+.choice-row{
+  background:linear-gradient(180deg,#1a363e,#11262e) !important;
+  color:#eadfca !important;
+  border:1px solid rgba(199,161,95,.32) !important;
+  border-radius:12px !important;
+  padding:8px 10px !important;
+}
+
+/* Proficiências: a área cinza agora vira card marítimo */
+#proficiencySummary .clean-row,
+#proficiencySummaryPanel .clean-row{
+  background:linear-gradient(180deg,#19353d,#10242a) !important;
+  border-color:rgba(111,180,170,.30) !important;
+}
+
+.object-pill,
+.pill,
+.badge,
+.tag,
+.coin,
+.spell-tag,
+.attack-auto-chip,
+.available-attack-chip,
+.class-badge,
+.compact-pill{
+  background:#08171d !important;
+  color:#e8dcc4 !important;
+  border:1px solid rgba(199,161,95,.38) !important;
+}
+
+.object-pill small{
+  color:#9ecac3 !important;
+}
+
+/* Títulos */
+h1,h2,h3,h4,h5,
+.title,
+.section-title,
+.card-title,
+summary,
+label,
+.name-box label,
+.field label,
+label.label,
+.dash-title,
+.bar-label,
+.bar-value{
+  color:#f1dbad !important;
+  text-shadow:0 1px 0 rgba(0,0,0,.55) !important;
+}
+
+/* Texto secundário */
+small,
+.muted,
+.hint,
+.object-meta,
+.object-desc,
+.spell-desc-preview{
+  color:#b9ad98 !important;
+}
+
+/* Perícias compactas */
+.skill-sheet-row,
+.skill-row,
+.skill-row-linked,
+.pericia-row{
+  background:rgba(11,26,32,.60) !important;
+  color:#eadfca !important;
+  border-bottom:1px dotted rgba(199,161,95,.24) !important;
+}
+
+.skill-name,
+.pericia-nome{
+  color:#eadfca !important;
+}
+
+.skill-attr,
+.pericia-atributo{
+  background:#0d1d23 !important;
+  color:#83c6bd !important;
+  border:1px solid rgba(111,180,170,.36) !important;
+}
+
+/* Tabelas */
+table{
+  background:#0b1a20 !important;
+  color:#eadfca !important;
+  border-color:rgba(199,161,95,.32) !important;
+}
+
+th{
+  background:#173038 !important;
+  color:#f1dbad !important;
+}
+
+td{
+  color:#eadfca !important;
+  border-color:rgba(199,161,95,.16) !important;
+}
+
+tr:nth-child(even){
+  background:rgba(111,180,170,.045) !important;
+}
+
+/* Imagem/avatar */
+.avatar,
+.image-box,
+#dashAvatar,
+#portraitBox,
+#symbolBox{
+  background:#0b1a20 !important;
+  border-color:rgba(199,161,95,.52) !important;
+  color:#b9ad98 !important;
+}
+
+/* Ornamento mais discreto */
+.panel > h2::before,
+.panel > h3::before{
+  content:"☽ " !important;
+  color:#77b8ae !important;
+}
+
+.panel > h2::after,
+.panel > h3::after{
+  content:" ⚓" !important;
+  color:#c7a15f !important;
+}
+
+/* Mobile: reduz peso visual */
+@media(max-width:700px){
+  .panel,
+  .dash,
+  .name-box,
+  .header-fields,
+  .ability{
+    border-width:1px !important;
+    box-shadow:0 8px 20px rgba(0,0,0,.30) !important;
+  }
+}
+</style>
+
 </head>
 <body class="tema-maritimo-sombrio">
-<!-- V51 FONTE OFICIAL: Livro do Jogador e Guia do Mestre enviados pelo usuário; sem regra inventada. -->
+<!-- V52 FONTE OFICIAL: Livro do Jogador e Guia do Mestre enviados pelo usuário; sem regra inventada. -->
 <div class="app">
   <section class="panel top">
     <div>
@@ -227,8 +608,8 @@ td{
       <p>Base oficial do seu livro. Cadastre o texto completo e marque o status de revisão. A ficha passa a usar classes, raças, antecedentes e talentos daqui.</p>
     </div>
     <div class="actions">
-      <a class="btn secondary" href="index.html?v=51">Voltar para ficha</a>
-      <a class="btn secondary" href="criador.html?v=51">Criador livre</a>
+      <a class="btn secondary" href="index.html?v=52">Voltar para ficha</a>
+      <a class="btn secondary" href="criador.html?v=52">Criador livre</a>
       <button class="btn secondary" id="exportBtn">Exportar JSON</button>
       <button class="btn secondary" id="importBtn">Importar JSON</button>
     </div>
