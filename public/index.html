@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPG Gabriel - Ficha Online V47</title>
+  <title>RPG Gabriel - Ficha Online V48</title>
+    <link rel="stylesheet" href="./css/tema-maritimo-sombrio.css?v=48">
   <style>
     :root{
       --bg:#090b10;
@@ -1808,8 +1809,8 @@ textarea.huge{min-height:200px}
 
 </style>
 </head>
-<!-- RPGGABRIEL V47 LIVRO DO JOGADOR OFICIAL SEM ACHISMO -->
-<body class="menu-open">
+<!-- RPGGABRIEL V48 LIVRO DO JOGADOR OFICIAL SEM ACHISMO -->
+<body class="menu-open tema-maritimo-sombrio">
   <section class="menu-screen" id="menuScreen">
     <div class="menu-shell">
       <div class="hero">
@@ -2038,8 +2039,8 @@ textarea.huge{min-height:200px}
                 <div id="rulesAuditSummary" class="rules-audit-box"></div>
                 <div class="rules-audit-actions">
                   <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                  <a class="btn small secondary" href="criador.html?v=47" target="_blank">Criador livre</a>
-                  <a class="btn small primary" href="livro-regras.html?v=47" target="_blank">Livro de Regras</a>
+                  <a class="btn small secondary" href="criador.html?v=48" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=48" target="_blank">Livro de Regras</a>
                 </div>
               </details>
             </div>
@@ -7048,7 +7049,7 @@ textarea.huge{min-height:200px}
     function getClassAdvanceRule(cls){
       const base = CLASS_ADVANCEMENT_RULES[cls] || {};
       const book = getAllClassRules()[cls] || {};
-      const OFFICIAL_BOOK_ONLY = true; // V47: somente regras confirmadas no Livro do Jogador/Guia do Mestre
+      const OFFICIAL_BOOK_ONLY = true; // V48: somente regras confirmadas no Livro do Jogador/Guia do Mestre
       const starting = CLASS_STARTING_EQUIPMENT_RULES[cls] || [];
       const mergedLevelEquipment = {...(base.levelEquipment||{}), ...(book.levelEquipment||{}), ...(book.rewardsByLevel||{})};
       if(starting.length){

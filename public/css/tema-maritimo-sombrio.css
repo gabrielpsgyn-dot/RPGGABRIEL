@@ -1,0 +1,326 @@
+/* =========================================================
+   RPG GABRIEL V48 - TEMA MARÍTIMO SOMBRIO
+   Fonte visual: porto amaldiçoado, madeira molhada, mapa náutico,
+   latão envelhecido e névoa costeira.
+   Aplicado via <body class="tema-maritimo-sombrio">.
+   ========================================================= */
+:root,
+.tema-maritimo-sombrio{
+  --sea-bg-0:#061014;
+  --sea-bg-1:#0b171d;
+  --sea-bg-2:#10252c;
+  --sea-bg-3:#16323a;
+  --sea-panel:#11262e;
+  --sea-panel-2:#172e36;
+  --sea-panel-3:#203941;
+  --sea-ink:#efe7d2;
+  --sea-ink-soft:#cfc4ab;
+  --sea-muted:#9c927f;
+  --sea-gold:#b98a3c;
+  --sea-gold-soft:#d0b071;
+  --sea-copper:#8d6030;
+  --sea-foam:#8fc7bd;
+  --sea-teal:#4e8586;
+  --sea-blue:#315e69;
+  --sea-danger:#934b4b;
+  --sea-warning:#a37c32;
+  --sea-success:#527760;
+  --sea-line:rgba(208,176,113,.33);
+  --sea-line-strong:rgba(208,176,113,.55);
+  --sea-shadow:0 18px 42px rgba(0,0,0,.42);
+}
+
+html body.tema-maritimo-sombrio{
+  background:
+    radial-gradient(circle at 15% -5%, rgba(143,199,189,.11), transparent 28%),
+    radial-gradient(circle at 90% 5%, rgba(185,138,60,.10), transparent 26%),
+    linear-gradient(180deg,#061014 0%,#0b171d 42%,#050b0e 100%) !important;
+  color:var(--sea-ink) !important;
+  font-family:Georgia, 'Times New Roman', serif;
+}
+body.tema-maritimo-sombrio::before{
+  content:"";
+  position:fixed; inset:0; pointer-events:none; z-index:-1;
+  background:
+    repeating-linear-gradient(120deg, rgba(255,255,255,.018) 0 1px, transparent 1px 11px),
+    radial-gradient(circle at 50% 110%, rgba(78,133,134,.13), transparent 34%);
+  mix-blend-mode:screen;
+}
+body.tema-maritimo-sombrio::after{
+  content:"✦";
+  position:fixed; right:18px; top:12px; pointer-events:none; z-index:-1;
+  color:rgba(208,176,113,.08); font-size:180px; line-height:1; transform:rotate(18deg);
+}
+
+/* textos */
+.tema-maritimo-sombrio, .tema-maritimo-sombrio *{box-sizing:border-box}
+.tema-maritimo-sombrio h1,.tema-maritimo-sombrio h2,.tema-maritimo-sombrio h3,.tema-maritimo-sombrio h4,
+.tema-maritimo-sombrio .title,.tema-maritimo-sombrio .section-title,.tema-maritimo-sombrio .card-title{
+  color:#f4e5bd !important;
+  letter-spacing:.045em;
+  text-shadow:0 1px 0 rgba(0,0,0,.65);
+}
+.tema-maritimo-sombrio h2,.tema-maritimo-sombrio h3,.tema-maritimo-sombrio .section-title,.tema-maritimo-sombrio .card-title{
+  border-bottom:1px solid var(--sea-line);
+  padding-bottom:7px;
+}
+.tema-maritimo-sombrio small,.tema-maritimo-sombrio .muted,.tema-maritimo-sombrio .hint,.tema-maritimo-sombrio .calc-note,
+.tema-maritimo-sombrio .context-hint,.tema-maritimo-sombrio .entity-sub,.tema-maritimo-sombrio .object-meta{
+  color:var(--sea-ink-soft) !important;
+}
+.tema-maritimo-sombrio a{color:var(--sea-foam)!important}
+
+/* painéis gerais da ficha real */
+.tema-maritimo-sombrio .panel,
+.tema-maritimo-sombrio .card,
+.tema-maritimo-sombrio .section,
+.tema-maritimo-sombrio .box,
+.tema-maritimo-sombrio .widget,
+.tema-maritimo-sombrio .modal-card,
+.tema-maritimo-sombrio .modal-content,
+.tema-maritimo-sombrio details,
+.tema-maritimo-sombrio .clean-edit-details,
+.tema-maritimo-sombrio .entity-card,
+.tema-maritimo-sombrio .object-card,
+.tema-maritimo-sombrio .item-card,
+.tema-maritimo-sombrio .spell-card,
+.tema-maritimo-sombrio .magic-card,
+.tema-maritimo-sombrio .grimorio-item,
+.tema-maritimo-sombrio .character-card,
+.tema-maritimo-sombrio .menu-card,
+.tema-maritimo-sombrio .dashboard-card,
+.tema-maritimo-sombrio .sheet-block{
+  background:
+    linear-gradient(180deg, rgba(28,55,64,.96), rgba(12,27,33,.98)) !important;
+  border-color:var(--sea-line) !important;
+  color:var(--sea-ink) !important;
+  box-shadow:var(--sea-shadow), inset 0 1px 0 rgba(255,255,255,.035) !important;
+}
+.tema-maritimo-sombrio .panel,
+.tema-maritimo-sombrio .card,
+.tema-maritimo-sombrio .entity-card,
+.tema-maritimo-sombrio .object-card,
+.tema-maritimo-sombrio .item-card{
+  position:relative;
+  overflow:hidden;
+}
+.tema-maritimo-sombrio .panel::before,
+.tema-maritimo-sombrio .card::before,
+.tema-maritimo-sombrio .entity-card::before,
+.tema-maritimo-sombrio .object-card::before,
+.tema-maritimo-sombrio .item-card::before{
+  content:""; position:absolute; inset:0; pointer-events:none; border-radius:inherit;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.028), transparent 24%),
+    repeating-linear-gradient(90deg, rgba(185,138,60,.025) 0 1px, transparent 1px 18px);
+}
+
+/* menu / topo */
+.tema-maritimo-sombrio .topbar,
+.tema-maritimo-sombrio .header,
+.tema-maritimo-sombrio .sheet-header,
+.tema-maritimo-sombrio .toolbar,
+.tema-maritimo-sombrio .menu-panel,
+.tema-maritimo-sombrio .sidebar,
+.tema-maritimo-sombrio .left-panel{
+  background:linear-gradient(180deg,#18333c,#0b1a20)!important;
+  border-color:var(--sea-line-strong)!important;
+  color:var(--sea-ink)!important;
+}
+
+/* campos */
+.tema-maritimo-sombrio input,
+.tema-maritimo-sombrio select,
+.tema-maritimo-sombrio textarea{
+  background:linear-gradient(180deg,#0b1a20,#10232a)!important;
+  border:1px solid rgba(208,176,113,.32)!important;
+  color:var(--sea-ink)!important;
+  box-shadow:inset 0 2px 8px rgba(0,0,0,.22)!important;
+}
+.tema-maritimo-sombrio input::placeholder,.tema-maritimo-sombrio textarea::placeholder{color:#8f897d!important}
+.tema-maritimo-sombrio input:focus,.tema-maritimo-sombrio select:focus,.tema-maritimo-sombrio textarea:focus{
+  border-color:rgba(143,199,189,.78)!important;
+  box-shadow:0 0 0 3px rgba(143,199,189,.14), inset 0 2px 8px rgba(0,0,0,.22)!important;
+  outline:none!important;
+}
+.tema-maritimo-sombrio label{color:#dbc58e!important}
+.tema-maritimo-sombrio input[type="checkbox"],.tema-maritimo-sombrio input[type="radio"]{accent-color:var(--sea-teal)!important}
+
+/* botões */
+.tema-maritimo-sombrio button,
+.tema-maritimo-sombrio .btn{
+  background:linear-gradient(180deg,#315e69,#1b3841)!important;
+  color:#f5ead0!important;
+  border:1px solid rgba(208,176,113,.38)!important;
+  text-shadow:0 1px 0 rgba(0,0,0,.65);
+  box-shadow:0 6px 16px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.05)!important;
+}
+.tema-maritimo-sombrio button:hover,.tema-maritimo-sombrio .btn:hover{
+  background:linear-gradient(180deg,#3f7681,#234853)!important;
+  border-color:rgba(208,176,113,.62)!important;
+}
+.tema-maritimo-sombrio .btn.primary,.tema-maritimo-sombrio .btn-primary,
+.tema-maritimo-sombrio button.primary{
+  background:linear-gradient(180deg,#4c8791,#2b5963)!important;
+  border-color:rgba(143,199,189,.55)!important;
+}
+.tema-maritimo-sombrio .btn.secondary,.tema-maritimo-sombrio .btn-secondary{
+  background:linear-gradient(180deg,#273a3f,#14262d)!important;
+}
+.tema-maritimo-sombrio .btn.danger,.tema-maritimo-sombrio .btn-danger,.tema-maritimo-sombrio button.danger{
+  background:linear-gradient(180deg,#9b5151,#663030)!important;
+}
+.tema-maritimo-sombrio .btn.green,.tema-maritimo-sombrio .btn-success,.tema-maritimo-sombrio button.green{
+  background:linear-gradient(180deg,#5d8667,#3d5e48)!important;
+}
+.tema-maritimo-sombrio .btn.warning,.tema-maritimo-sombrio .btn-warning{
+  background:linear-gradient(180deg,#a67f3a,#6c5126)!important;
+}
+.tema-maritimo-sombrio .btn.ghost,
+.tema-maritimo-sombrio button.ghost{
+  background:rgba(12,27,33,.72)!important;
+}
+
+/* abas e navegação */
+.tema-maritimo-sombrio .tab,.tema-maritimo-sombrio .tab-button,.tema-maritimo-sombrio .nav-tab,.tema-maritimo-sombrio .nav-btn{
+  background:linear-gradient(180deg,#152b33,#0c1b21)!important;
+  border-color:rgba(208,176,113,.26)!important;
+  color:var(--sea-ink-soft)!important;
+}
+.tema-maritimo-sombrio .tab.active,.tema-maritimo-sombrio .tab-button.active,.tema-maritimo-sombrio .nav-tab.active,.tema-maritimo-sombrio .nav-btn.active{
+  background:linear-gradient(180deg,#b98a3c,#6f4d21)!important;
+  color:#140b05!important;
+  text-shadow:none!important;
+}
+.tema-maritimo-sombrio .bottom-nav{
+  background:linear-gradient(180deg,rgba(9,20,25,.95),#050b0e)!important;
+  border-top-color:var(--sea-line)!important;
+}
+
+/* indicadores / badges */
+.tema-maritimo-sombrio .badge,.tema-maritimo-sombrio .tag,.tema-maritimo-sombrio .pill,.tema-maritimo-sombrio .chip,
+.tema-maritimo-sombrio .attack-auto-chip,.tema-maritimo-sombrio .available-attack-chip{
+  background:rgba(11,26,32,.84)!important;
+  border-color:rgba(208,176,113,.35)!important;
+  color:#eedfbd!important;
+}
+.tema-maritimo-sombrio .available-attack-chip.prof{border-color:rgba(82,119,96,.75)!important}
+.tema-maritimo-sombrio .available-attack-chip.noprof{border-color:rgba(163,124,50,.75)!important;background:rgba(82,61,25,.55)!important}
+
+/* atributos */
+.tema-maritimo-sombrio .attribute-card,
+.tema-maritimo-sombrio .atributo-card,
+.tema-maritimo-sombrio .ability-card,
+.tema-maritimo-sombrio .ability-box,
+.tema-maritimo-sombrio .stat,
+.tema-maritimo-sombrio .stat-card{
+  background:linear-gradient(180deg,#213f49,#10242b)!important;
+  border-color:rgba(208,176,113,.33)!important;
+  color:var(--sea-ink)!important;
+}
+.tema-maritimo-sombrio .attribute-card .value,.tema-maritimo-sombrio .atributo-card .value,.tema-maritimo-sombrio .ability-value,.tema-maritimo-sombrio .stat b{
+  color:#f8e8bc!important;
+}
+.tema-maritimo-sombrio .attribute-card .mod,.tema-maritimo-sombrio .atributo-card .mod,.tema-maritimo-sombrio .ability-mod{
+  color:var(--sea-foam)!important;
+}
+
+/* perícias compactas */
+.tema-maritimo-sombrio .skill-sheet-row,
+.tema-maritimo-sombrio .skill-row,
+.tema-maritimo-sombrio .pericia-row{
+  border-bottom-color:rgba(208,176,113,.18)!important;
+  color:var(--sea-ink)!important;
+}
+.tema-maritimo-sombrio .skill-sheet-row .bonus,
+.tema-maritimo-sombrio .skill-mod,
+.tema-maritimo-sombrio .pericia-mod{
+  color:#f8e4ad!important;
+}
+.tema-maritimo-sombrio .skill-sheet-row .skill-attr,
+.tema-maritimo-sombrio .skill-attr,.tema-maritimo-sombrio .pericia-atributo{
+  background:rgba(185,138,60,.18)!important;
+  border-color:rgba(208,176,113,.28)!important;
+  color:#d8c592!important;
+}
+
+/* inventário / baú */
+.tema-maritimo-sombrio .item-list,.tema-maritimo-sombrio .inventory-list,.tema-maritimo-sombrio .inventario-lista{gap:8px!important}
+.tema-maritimo-sombrio .item-card,.tema-maritimo-sombrio .inventory-item,.tema-maritimo-sombrio .inventario-item,.tema-maritimo-sombrio .object-card{
+  background:linear-gradient(180deg,#172f37,#0b1a20)!important;
+  border-color:rgba(185,138,60,.36)!important;
+}
+.tema-maritimo-sombrio .item-name,.tema-maritimo-sombrio .object-name,.tema-maritimo-sombrio .inventory-item .nome{
+  color:#f0dfb4!important;
+}
+
+/* magias / grimório */
+.tema-maritimo-sombrio .spell-card,.tema-maritimo-sombrio .magic-card,.tema-maritimo-sombrio .grimorio-item,.tema-maritimo-sombrio .spell-row{
+  background:linear-gradient(180deg,#17333b,#0b1a20)!important;
+  border-left:4px solid rgba(143,199,189,.55)!important;
+  border-color:rgba(143,199,189,.28)!important;
+}
+.tema-maritimo-sombrio .spell-name,.tema-maritimo-sombrio .grimorio-nome{color:#d8f1ed!important}
+
+/* tabelas */
+.tema-maritimo-sombrio table{background:rgba(5,13,17,.42)!important;color:var(--sea-ink)!important}
+.tema-maritimo-sombrio th,.tema-maritimo-sombrio thead td{
+  background:linear-gradient(180deg,#203f49,#132a32)!important;
+  color:#f3dfad!important;
+  border-color:var(--sea-line)!important;
+}
+.tema-maritimo-sombrio td{border-color:rgba(208,176,113,.14)!important;color:var(--sea-ink)!important}
+.tema-maritimo-sombrio tr:nth-child(even){background:rgba(143,199,189,.035)!important}
+
+/* mesa do mestre */
+.tema-maritimo-sombrio .now-card{
+  background:
+    radial-gradient(circle at 10% 0%, rgba(143,199,189,.16), transparent 34%),
+    linear-gradient(180deg,#183841,#071216)!important;
+  border-color:rgba(208,176,113,.58)!important;
+}
+.tema-maritimo-sombrio .now-title{color:#d2b270!important}
+.tema-maritimo-sombrio .now-name{color:#fff2cd!important}
+.tema-maritimo-sombrio .turn-item{
+  background:linear-gradient(180deg,#142c34,#0a171c)!important;
+  border-color:rgba(208,176,113,.25)!important;
+  color:var(--sea-ink)!important;
+}
+.tema-maritimo-sombrio .turn-item.active{
+  background:linear-gradient(180deg,#3d5e64,#18343c)!important;
+  border-color:rgba(185,138,60,.78)!important;
+}
+.tema-maritimo-sombrio .turn-rank{background:#b98a3c!important;color:#140b05!important}
+.tema-maritimo-sombrio .cond{background:rgba(11,26,32,.85)!important;border-color:rgba(208,176,113,.31)!important;color:var(--sea-ink)!important}
+.tema-maritimo-sombrio .cond.active{background:#934b4b!important;border-color:#c87970!important;color:#fff!important}
+.tema-maritimo-sombrio .fill{background:linear-gradient(90deg,#527760,#8fc7bd)!important}
+.tema-maritimo-sombrio .fill.low{background:linear-gradient(90deg,#a37c32,#d0b071)!important}
+.tema-maritimo-sombrio .fill.dead{background:linear-gradient(90deg,#7d3131,#c86565)!important}
+.tema-maritimo-sombrio .track{background:#061014!important;border-color:rgba(208,176,113,.25)!important}
+
+/* alertas e vazios */
+.tema-maritimo-sombrio .empty,.tema-maritimo-sombrio .clean-empty,.tema-maritimo-sombrio .alert,.tema-maritimo-sombrio .notice,.tema-maritimo-sombrio .message-box{
+  background:rgba(9,22,28,.82)!important;
+  border-color:rgba(208,176,113,.30)!important;
+  color:var(--sea-ink-soft)!important;
+}
+.tema-maritimo-sombrio .toast,#toast{
+  border-color:rgba(208,176,113,.50)!important;
+}
+
+/* scrollbar */
+.tema-maritimo-sombrio ::-webkit-scrollbar{width:10px;height:10px}
+.tema-maritimo-sombrio ::-webkit-scrollbar-track{background:#061014}
+.tema-maritimo-sombrio ::-webkit-scrollbar-thumb{background:#244b55;border-radius:999px;border:2px solid #061014}
+.tema-maritimo-sombrio ::-webkit-scrollbar-thumb:hover{background:#376c78}
+
+@media(max-width:700px){
+  body.tema-maritimo-sombrio::after{font-size:110px;right:-18px;top:40px}
+  .tema-maritimo-sombrio .panel,.tema-maritimo-sombrio .card{box-shadow:0 10px 24px rgba(0,0,0,.34)!important}
+  .tema-maritimo-sombrio h1,.tema-maritimo-sombrio h2,.tema-maritimo-sombrio h3{letter-spacing:.03em}
+}
+
+@media print{
+  body.tema-maritimo-sombrio{background:#fff!important;color:#111!important}
+  .tema-maritimo-sombrio *{box-shadow:none!important;text-shadow:none!important}
+}
