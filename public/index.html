@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RPG Gabriel - Ficha Online V53</title>
+  <title>RPG Gabriel - Ficha Online V54</title>
 <style>
     :root{
       --bg:#050d11;
@@ -1807,10 +1807,10 @@ textarea.huge{min-height:200px}
 }
 
 </style>
-  <link rel="stylesheet" href="./css/tema-maritimo-sombrio.css?v=53">
+  <link rel="stylesheet" href="./css/tema-maritimo-sombrio.css?v=54">
 
 <style id="tema-maritimo-sombrio-v51-final">
-/* V53 — reescrita final do tema: atinge classes reais da ficha */
+/* V54 — reescrita final do tema: atinge classes reais da ficha */
 :root{
   --bg:#050d11 !important;
   --panel:#0b1b22 !important;
@@ -2010,7 +2010,7 @@ td{
 
 <style id="tema-maritimo-sombrio-v52-paleta">
 /* =========================================================
-   V53 — PALETA MARÍTIMA EQUILIBRADA
+   V54 — PALETA MARÍTIMA EQUILIBRADA
    Menos contraste agressivo, sem bege antigo, sem preto puro.
    ========================================================= */
 
@@ -2391,7 +2391,7 @@ tr:nth-child(even){
 
 <style id="tema-maritimo-sombrio-v53-ajuste-cores">
 /* =========================================================
-   V53 — CORREÇÃO DAS CORES ERRADAS
+   V54 — CORREÇÃO DAS CORES ERRADAS
    Foco: Salvaguardas, chips bege, cinza morto e contraste agressivo.
    ========================================================= */
 
@@ -2713,8 +2713,288 @@ button:hover,
 }
 </style>
 
+
+<style id="tema-maritimo-sombrio-v54-acabamento-final">
+/* =========================================================
+   V54 — ACABAMENTO VISUAL FINAL
+   Corrige os últimos blocos claros: ganho do nível, escolhas,
+   valores automáticos e caixas de status.
+   ========================================================= */
+
+/* Blocos claros restantes: ganho do nível, escolhas pendentes, proficiências */
+.class-reward-box,
+.class-current-rewards,
+.class-current-strip,
+.class-feature-list,
+.class-details,
+.class-details-grid,
+.reward-list,
+.reward-row,
+.class-reward-row,
+.pending-choice-card,
+.pending-choice-list,
+.choice-card,
+.choice-row,
+.clean-row,
+.clean-empty,
+.clean-summary-panel,
+.clean-summary-list,
+#pendingChoices,
+#pendingChoicesBox,
+#classCurrentRewards,
+#classRewardsBox,
+#classProgressPanel .clean-row,
+#classProgressPanel .clean-empty,
+#classProgressPanel .class-feature-box,
+#classProgressPanel .reward-row,
+#classProgressPanel .class-reward-row,
+#classProgressPanel .pending-choice-card,
+#classProgressPanel .choice-row,
+#classProgressPanel [class*="reward"],
+#classProgressPanel [class*="choice"]{
+  background:linear-gradient(180deg,#183840,#10262d) !important;
+  background-color:#183840 !important;
+  border:1px solid rgba(132,190,180,.30) !important;
+  color:#e8dcc5 !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035) !important;
+}
+
+/* Textos dos blocos claros restantes */
+.class-reward-box *,
+.class-current-rewards *,
+.class-feature-list *,
+.reward-row *,
+.class-reward-row *,
+.pending-choice-card *,
+.choice-row *,
+.clean-row *,
+.clean-empty *,
+#classProgressPanel [class*="reward"] *,
+#classProgressPanel [class*="choice"] *{
+  color:#e8dcc5 !important;
+  text-shadow:none !important;
+}
+
+.class-reward-box b,
+.class-current-rewards b,
+.reward-row b,
+.class-reward-row b,
+.pending-choice-card b,
+.choice-row b,
+.clean-row b,
+#classProgressPanel [class*="reward"] b,
+#classProgressPanel [class*="choice"] b{
+  color:#efd8a5 !important;
+}
+
+/* Chips/botões pequenos que ainda aparecem bege */
+.class-reward-pill,
+.reward-pill,
+.pending-choice-pill,
+.choice-pill,
+.linked-skill-pill,
+.object-pill,
+.pill,
+.badge,
+.tag,
+.coin,
+.spell-tag,
+.attack-auto-chip,
+.available-attack-chip,
+.class-badge,
+.compact-pill,
+.clean-row .pill,
+.clean-empty .pill,
+#classProgressPanel .pill,
+#classProgressPanel button.small,
+#classProgressPanel .btn.small{
+  background:linear-gradient(180deg,#102a31,#081a20) !important;
+  color:#f1dfba !important;
+  border:1px solid rgba(199,161,95,.42) !important;
+  box-shadow:none !important;
+}
+
+/* Botão "Escolher Tradição Arcana" e similares: destaque sem bege lavado */
+.pending-choice-card button,
+.choice-row button,
+#classProgressPanel [data-apply-pending-choice],
+#classProgressPanel button[data-apply-pending-choice],
+#classProgressPanel .btn.small.primary,
+#classProgressPanel .btn.small.secondary{
+  background:linear-gradient(180deg,#376f72,#1b444b) !important;
+  color:#fff0cf !important;
+  border:1px solid rgba(132,190,180,.55) !important;
+}
+
+/* Campo grande de sabedoria passiva e iniciativa: remover creme */
+.auto-rule-value,
+.compact-stat,
+.compact-stat strong,
+.class-mini-stat,
+.class-mini-stat strong,
+#passiveWisdom,
+#initiativeAuto,
+#spellSaveDc,
+#spellAttackBonus,
+#profBonusAuto,
+[data-auto-value],
+[data-calc-value],
+#passiveWisdomBox,
+#magicDcBox,
+#magicAttackBox,
+#initiativeBox,
+#armorClassBox{
+  background:linear-gradient(180deg,#102a31,#081a20) !important;
+  color:#f3dfb1 !important;
+  border-color:rgba(199,161,95,.44) !important;
+  box-shadow:inset 0 1px 5px rgba(0,0,0,.32) !important;
+}
+
+/* Inputs readonly/automáticos com aparência creme */
+input[readonly],
+input:disabled,
+select:disabled,
+textarea:disabled,
+.auto-field,
+.calc-field,
+.readonly-field{
+  background:#102a31 !important;
+  color:#f3dfb1 !important;
+  opacity:1 !important;
+}
+
+/* Defesa e combate: os blocos internos ficam mais suaves */
+#combatPanel .field,
+#defensePanel .field,
+#passivePanel .field,
+#hpPanel .field,
+.panel .field{
+  background:rgba(13,29,35,.36) !important;
+}
+
+/* Labels que ficaram escuros demais no print */
+.field label,
+label,
+.bar-label,
+.dash-title,
+.linked-skills-title,
+.calc-formula,
+.ability-name{
+  color:#f0dba8 !important;
+}
+
+/* Nota explicativa de atributos mais legível */
+.rule-engine-box,
+.calc-note,
+.sheet-note,
+.context-hint,
+.auto-rule-note,
+.note{
+  background:linear-gradient(180deg,rgba(27,57,64,.82),rgba(18,42,49,.82)) !important;
+  border:1px solid rgba(132,190,180,.24) !important;
+  color:#cfc6b2 !important;
+}
+
+/* Painel de progressão: menos borda dourada exagerada */
+#classProgressPanel,
+.class-progress-panel,
+.race-progress-panel,
+.background-progress-panel{
+  background:linear-gradient(180deg,#142f37,#0d2027) !important;
+  border-color:rgba(199,161,95,.46) !important;
+}
+
+/* Espaços de magia / details */
+details,
+details[open],
+.clean-edit-details,
+.class-details{
+  background:linear-gradient(180deg,#142f37,#0d2027) !important;
+  border:1px solid rgba(132,190,180,.28) !important;
+}
+
+/* summary dos details com destaque marítimo */
+summary{
+  color:#f0dba8 !important;
+}
+
+/* Atributos: manter escuro, mas um pouco mais elegante */
+.ability{
+  background:linear-gradient(180deg,#1c3e45,#132d35) !important;
+  border-color:rgba(199,161,95,.46) !important;
+}
+
+.score{
+  background:#08181e !important;
+  border-color:rgba(199,161,95,.42) !important;
+  color:#fff0cf !important;
+}
+
+.mod-line input,
+.auto-mod-value{
+  background:#142f37 !important;
+  color:#f0dba8 !important;
+}
+
+/* Salvaguardas refinadas */
+.save-skill-group{
+  background:linear-gradient(180deg,#1c3e45,#132d35) !important;
+  border-color:rgba(132,190,180,.30) !important;
+}
+
+.save-main,
+.save-main span,
+.save-main small{
+  color:#e8dcc5 !important;
+}
+
+/* Proficiencias/idiomas que ainda apareçam cinza */
+#proficiencySummaryPanel .clean-row,
+#proficiencySummary .clean-row,
+.proficiency-object-grid .clean-row,
+.clean-summary-panel .clean-row{
+  background:linear-gradient(180deg,#183840,#10262d) !important;
+  border-color:rgba(132,190,180,.30) !important;
+}
+
+/* Nenhuma habilidade listada / sem habilidade */
+.clean-empty,
+.empty,
+[class*="empty"]{
+  background:linear-gradient(180deg,#183840,#10262d) !important;
+  color:#d6cbb6 !important;
+  border:1px dashed rgba(132,190,180,.30) !important;
+}
+
+/* Evita que cards de informação virem cinza por herança */
+[class*="summary"],
+[class*="reward"],
+[class*="pending"],
+[class*="choice"]{
+  border-color:rgba(132,190,180,.28) !important;
+}
+
+/* Mantém o botão ativo da aba em dourado, mas mais fino */
+.tab.active{
+  background:linear-gradient(180deg,#c4a05f,#8c6b37) !important;
+  color:#071115 !important;
+  border-color:rgba(232,203,135,.72) !important;
+}
+
+/* Remover aparência de cinza claro global */
+[style*="background:rgba(255"],
+[style*="background: rgba(255"],
+[style*="background:#fff"],
+[style*="background: #fff"],
+[style*="background:#f"],
+[style*="background: #f"]{
+  background:linear-gradient(180deg,#183840,#10262d) !important;
+  color:#e8dcc5 !important;
+}
+</style>
+
 </head>
-<!-- RPGGABRIEL V53 LIVRO DO JOGADOR OFICIAL SEM ACHISMO -->
+<!-- RPGGABRIEL V54 LIVRO DO JOGADOR OFICIAL SEM ACHISMO -->
 <body class="menu-open tema-maritimo-sombrio">
   <section class="menu-screen" id="menuScreen">
     <div class="menu-shell">
@@ -2944,8 +3224,8 @@ button:hover,
                 <div id="rulesAuditSummary" class="rules-audit-box"></div>
                 <div class="rules-audit-actions">
                   <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                  <a class="btn small secondary" href="criador.html?v=53" target="_blank">Criador livre</a>
-                  <a class="btn small primary" href="livro-regras.html?v=53" target="_blank">Livro de Regras</a>
+                  <a class="btn small secondary" href="criador.html?v=54" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=54" target="_blank">Livro de Regras</a>
                 </div>
               </details>
             </div>
@@ -7954,7 +8234,7 @@ button:hover,
     function getClassAdvanceRule(cls){
       const base = CLASS_ADVANCEMENT_RULES[cls] || {};
       const book = getAllClassRules()[cls] || {};
-      const OFFICIAL_BOOK_ONLY = true; // V53: somente regras confirmadas no Livro do Jogador/Guia do Mestre
+      const OFFICIAL_BOOK_ONLY = true; // V54: somente regras confirmadas no Livro do Jogador/Guia do Mestre
       const starting = CLASS_STARTING_EQUIPMENT_RULES[cls] || [];
       const mergedLevelEquipment = {...(base.levelEquipment||{}), ...(book.levelEquipment||{}), ...(book.rewardsByLevel||{})};
       if(starting.length){
