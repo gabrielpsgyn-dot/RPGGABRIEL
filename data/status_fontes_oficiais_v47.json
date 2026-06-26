@@ -1,0 +1,33 @@
+{
+  "version": "V47",
+  "fonte_jogador_recebida": true,
+  "fonte_mestre_recebida": true,
+  "sem_achismo": true,
+  "base_oficial_ativa": [
+    "Livro do Jogador",
+    "Guia do Mestre"
+  ],
+  "conteudos_ativados": [
+    "classes",
+    "equipamento inicial por classe",
+    "raças e sub-raças PHB",
+    "armas oficiais",
+    "proficiências com armas",
+    "subclasses oficiais por classe"
+  ],
+  "conteudos_referenciados_nao_copiados_integralmente": [
+    "descrições longas de características",
+    "descrições longas de magias",
+    "texto narrativo do livro"
+  ],
+  "removido_da_base_oficial": [
+    "Aasimar",
+    "Genasi",
+    "Goliath",
+    "Tabaxi",
+    "Tritão",
+    "Kobold",
+    "Orc como raça base de jogador",
+    "Círculo do Fogo como opção base de Druida"
+  ]
+}

@@ -1,0 +1,4276 @@
+{
+  "version": "V47",
+  "principio": "sem achismo; só regras com fonte Livro do Jogador/Guia do Mestre enviado",
+  "fontes": [
+    {
+      "arquivo": "dd-5e-livro-do-jogador-fundo-branco-biblioteca-c3a9lfica.pdf",
+      "tipo": "Livro do Jogador",
+      "uso": "criação de personagem, raças, classes, antecedentes, equipamentos, combate, conjuração, magias, condições"
+    },
+    {
+      "arquivo": "dd-5e-guia-do-mestre-biblioteca-elfica.pdf",
+      "tipo": "Guia do Mestre",
+      "uso": "mesa, campanha, tesouros, itens mágicos, armadilhas, regras opcionais e oficina do mestre"
+    }
+  ],
+  "indice_livro_jogador": {
+    "criacao_personagens": 11,
+    "racas": 17,
+    "classes": 45,
+    "antecedentes": 123,
+    "equipamento": 145,
+    "personalizacao": 165,
+    "habilidades": 175,
+    "aventurando": 183,
+    "combate": 191,
+    "conjuracao": 203,
+    "magias": 209,
+    "condicoes": 291
+  },
+  "classes_equipamento_inicial": {
+    "Bárbaro": [
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher arma principal de Bárbaro",
+        "origem": "Livro do Jogador",
+        "modo": "escolha",
+        "opcoes": [
+          "Machado grande",
+          "Machado de batalha",
+          "Mangual",
+          "Glaive",
+          "Machado grande",
+          "Montante",
+          "Alabarda",
+          "Lança de montaria",
+          "Espada longa",
+          "Malho",
+          "Estrela da manhã",
+          "Pique",
+          "Rapieira",
+          "Cimitarra",
+          "Espada curta",
+          "Tridente",
+          "Picareta de guerra",
+          "Martelo de guerra",
+          "Chicote"
+        ],
+        "alvo": "equipamento.escolhas.barbaroArmaPrincipal",
+        "aplicaItem": true,
+        "categoriaItem": "arma",
+        "fonte": "Livro do Jogador, equipamento inicial da classe",
+        "opcoesItens": {
+          "Machado grande": [
+            {
+              "tipo": "item",
+              "nome": "Machado grande",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Machado de batalha": [
+            {
+              "tipo": "item",
+              "nome": "Machado de batalha",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Mangual": [
+            {
+              "tipo": "item",
+              "nome": "Mangual",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Glaive": [
+            {
+              "tipo": "item",
+              "nome": "Glaive",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Montante": [
+            {
+              "tipo": "item",
+              "nome": "Montante",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Alabarda": [
+            {
+              "tipo": "item",
+              "nome": "Alabarda",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Lança de montaria": [
+            {
+              "tipo": "item",
+              "nome": "Lança de montaria",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Espada longa": [
+            {
+              "tipo": "item",
+              "nome": "Espada longa",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Malho": [
+            {
+              "tipo": "item",
+              "nome": "Malho",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Estrela da manhã": [
+            {
+              "tipo": "item",
+              "nome": "Estrela da manhã",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Pique": [
+            {
+              "tipo": "item",
+              "nome": "Pique",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Rapieira": [
+            {
+              "tipo": "item",
+              "nome": "Rapieira",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Cimitarra": [
+            {
+              "tipo": "item",
+              "nome": "Cimitarra",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Espada curta": [
+            {
+              "tipo": "item",
+              "nome": "Espada curta",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Tridente": [
+            {
+              "tipo": "item",
+              "nome": "Tridente",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Picareta de guerra": [
+            {
+              "tipo": "item",
+              "nome": "Picareta de guerra",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Martelo de guerra": [
+            {
+              "tipo": "item",
+              "nome": "Martelo de guerra",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Chicote": [
+            {
+              "tipo": "item",
+              "nome": "Chicote",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ]
+        }
+      },
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher arma secundária de Bárbaro",
+        "origem": "Livro do Jogador",
+        "modo": "escolha",
+        "opcoes": [
+          "2 Machadinhas",
+          "Clava",
+          "Adaga",
+          "Clava grande",
+          "Machadinha",
+          "Azagaia",
+          "Martelo leve",
+          "Maça",
+          "Bordão",
+          "Foice curta",
+          "Lança",
+          "Besta leve",
+          "Dardo",
+          "Arco curto",
+          "Funda"
+        ],
+        "alvo": "equipamento.escolhas.barbaroArmaSecundaria",
+        "aplicaItem": true,
+        "categoriaItem": "arma",
+        "fonte": "Livro do Jogador, equipamento inicial da classe",
+        "opcoesItens": {
+          "2 Machadinhas": [
+            {
+              "tipo": "item",
+              "nome": "Machadinha",
+              "quantidade": 2,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Clava": [
+            {
+              "tipo": "item",
+              "nome": "Clava",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Adaga": [
+            {
+              "tipo": "item",
+              "nome": "Adaga",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Clava grande": [
+            {
+              "tipo": "item",
+              "nome": "Clava grande",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Machadinha": [
+            {
+              "tipo": "item",
+              "nome": "Machadinha",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Azagaia": [
+            {
+              "tipo": "item",
+              "nome": "Azagaia",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Martelo leve": [
+            {
+              "tipo": "item",
+              "nome": "Martelo leve",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Maça": [
+            {
+              "tipo": "item",
+              "nome": "Maça",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Bordão": [
+            {
+              "tipo": "item",
+              "nome": "Bordão",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Foice curta": [
+            {
+              "tipo": "item",
+              "nome": "Foice curta",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Lança": [
+            {
+              "tipo": "item",
+              "nome": "Lança",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Besta leve": [
+            {
+              "tipo": "item",
+              "nome": "Besta leve",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Dardo": [
+            {
+              "tipo": "item",
+              "nome": "Dardo",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Arco curto": [
+            {
+              "tipo": "item",
+              "nome": "Arco curto",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Funda": [
+            {
+              "tipo": "item",
+              "nome": "Funda",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ]
+        }
+      },
+      {
+        "tipo": "item",
+        "nome": "Pacote de aventureiro",
+        "quantidade": 1,
+        "categoria": "pacote",
+        "origem": "Livro do Jogador",
+        "modo": "fixo",
+        "fonte": "Livro do Jogador, classe/equipamento inicial"
+      },
+      {
+        "tipo": "item",
+        "nome": "Azagaia",
+        "quantidade": 4,
+        "categoria": "arma",
+        "origem": "Livro do Jogador",
+        "modo": "fixo",
+        "fonte": "Livro do Jogador, classe/equipamento inicial"
+      }
+    ],
+    "Bardo": [
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher arma inicial de Bardo",
+        "origem": "Livro do Jogador",
+        "modo": "escolha",
+        "opcoes": [
+          "Rapieira",
+          "Espada longa",
+          "Clava",
+          "Adaga",
+          "Clava grande",
+          "Machadinha",
+          "Azagaia",
+          "Martelo leve",
+          "Maça",
+          "Bordão",
+          "Foice curta",
+          "Lança",
+          "Besta leve",
+          "Dardo",
+          "Arco curto",
+          "Funda"
+        ],
+        "alvo": "equipamento.escolhas.bardoArma",
+        "aplicaItem": true,
+        "categoriaItem": "arma",
+        "fonte": "Livro do Jogador, equipamento inicial da classe",
+        "opcoesItens": {
+          "Rapieira": [
+            {
+              "tipo": "item",
+              "nome": "Rapieira",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Espada longa": [
+            {
+              "tipo": "item",
+              "nome": "Espada longa",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Clava": [
+            {
+              "tipo": "item",
+              "nome": "Clava",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Adaga": [
+            {
+              "tipo": "item",
+              "nome": "Adaga",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Clava grande": [
+            {
+              "tipo": "item",
+              "nome": "Clava grande",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Machadinha": [
+            {
+              "tipo": "item",
+              "nome": "Machadinha",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Azagaia": [
+            {
+              "tipo": "item",
+              "nome": "Azagaia",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Martelo leve": [
+            {
+              "tipo": "item",
+              "nome": "Martelo leve",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Maça": [
+            {
+              "tipo": "item",
+              "nome": "Maça",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Bordão": [
+            {
+              "tipo": "item",
+              "nome": "Bordão",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Foice curta": [
+            {
+              "tipo": "item",
+              "nome": "Foice curta",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Lança": [
+            {
+              "tipo": "item",
+              "nome": "Lança",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Besta leve": [
+            {
+              "tipo": "item",
+              "nome": "Besta leve",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Dardo": [
+            {
+              "tipo": "item",
+              "nome": "Dardo",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Arco curto": [
+            {
+              "tipo": "item",
+              "nome": "Arco curto",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Funda": [
+            {
+              "tipo": "item",
+              "nome": "Funda",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ]
+        }
+      },
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher pacote inicial de Bardo",
+        "origem": "Livro do Jogador",
+        "modo": "escolha",
+        "opcoes": [
+          "Pacote de diplomata",
+          "Pacote de artista"
+        ],
+        "alvo": "equipamento.escolhas.escolher_pacote_inicial_de_bardo",
+        "aplicaItem": true,
+        "categoriaItem": "pacote",
+        "fonte": "Livro do Jogador, equipamento inicial da classe"
+      },
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher instrumento musical de Bardo",
+        "origem": "Livro do Jogador",
+        "modo": "escolha",
+        "opcoes": [
+          "Alaúde",
+          "Instrumento musical à escolha"
+        ],
+        "alvo": "equipamento.escolhas.escolher_instrumento_musical_de_bardo",
+        "aplicaItem": true,
+        "categoriaItem": "instrumento",
+        "fonte": "Livro do Jogador, equipamento inicial da classe"
+      },
+      {
+        "tipo": "item",
+        "nome": "Armadura de couro",
+        "quantidade": 1,
+        "categoria": "armadura",
+        "origem": "Livro do Jogador",
+        "modo": "fixo",
+        "fonte": "Livro do Jogador, classe/equipamento inicial"
+      },
+      {
+        "tipo": "item",
+        "nome": "Adaga",
+        "quantidade": 1,
+        "categoria": "arma",
+        "origem": "Livro do Jogador",
+        "modo": "fixo",
+        "fonte": "Livro do Jogador, classe/equipamento inicial"
+      }
+    ],
+    "Bruxo": [
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher arma inicial de Bruxo",
+        "origem": "Livro do Jogador",
+        "modo": "escolha",
+        "opcoes": [
+          "Besta leve e 20 virotes",
+          "Clava",
+          "Adaga",
+          "Clava grande",
+          "Machadinha",
+          "Azagaia",
+          "Martelo leve",
+          "Maça",
+          "Bordão",
+          "Foice curta",
+          "Lança",
+          "Besta leve",
+          "Dardo",
+          "Arco curto",
+          "Funda"
+        ],
+        "alvo": "equipamento.escolhas.bruxoArma",
+        "aplicaItem": true,
+        "categoriaItem": "arma",
+        "fonte": "Livro do Jogador, equipamento inicial da classe",
+        "opcoesItens": {
+          "Besta leve e 20 virotes": [
+            {
+              "tipo": "item",
+              "nome": "Besta leve",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            },
+            {
+              "tipo": "item",
+              "nome": "Virote",
+              "quantidade": 20,
+              "categoria": "munição",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Clava": [
+            {
+              "tipo": "item",
+              "nome": "Clava",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Adaga": [
+            {
+              "tipo": "item",
+              "nome": "Adaga",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Clava grande": [
+            {
+              "tipo": "item",
+              "nome": "Clava grande",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Machadinha": [
+            {
+              "tipo": "item",
+              "nome": "Machadinha",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Azagaia": [
+            {
+              "tipo": "item",
+              "nome": "Azagaia",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Martelo leve": [
+            {
+              "tipo": "item",
+              "nome": "Martelo leve",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Maça": [
+            {
+              "tipo": "item",
+              "nome": "Maça",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Bordão": [
+            {
+              "tipo": "item",
+              "nome": "Bordão",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Foice curta": [
+            {
+              "tipo": "item",
+              "nome": "Foice curta",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Lança": [
+            {
+              "tipo": "item",
+              "nome": "Lança",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Besta leve": [
+            {
+              "tipo": "item",
+              "nome": "Besta leve",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Dardo": [
+            {
+              "tipo": "item",
+              "nome": "Dardo",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Arco curto": [
+            {
+              "tipo": "item",
+              "nome": "Arco curto",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Funda": [
+            {
+              "tipo": "item",
+              "nome": "Funda",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ]
+        }
+      },
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher foco ou componentes de Bruxo",
+        "origem": "Livro do Jogador",
+        "modo": "escolha",
+        "opcoes": [
+          "Bolsa de componentes",
+          "Foco arcano"
+        ],
+        "alvo": "equipamento.escolhas.escolher_foco_ou_componentes_de_bruxo",
+        "aplicaItem": true,
+        "categoriaItem": "foco arcano",
+        "fonte": "Livro do Jogador, equipamento inicial da classe"
+      },
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher pacote inicial de Bruxo",
+        "origem": "Livro do Jogador",
+        "modo": "escolha",
+        "opcoes": [
+          "Pacote de estudioso",
+          "Pacote de explorador"
+        ],
+        "alvo": "equipamento.escolhas.escolher_pacote_inicial_de_bruxo",
+        "aplicaItem": true,
+        "categoriaItem": "pacote",
+        "fonte": "Livro do Jogador, equipamento inicial da classe"
+      },
+      {
+        "tipo": "item",
+        "nome": "Armadura de couro",
+        "quantidade": 1,
+        "categoria": "armadura",
+        "origem": "Livro do Jogador",
+        "modo": "fixo",
+        "fonte": "Livro do Jogador, classe/equipamento inicial"
+      },
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher arma simples adicional de Bruxo",
+        "origem": "Livro do Jogador",
+        "modo": "escolha",
+        "opcoes": [
+          "Clava",
+          "Adaga",
+          "Clava grande",
+          "Machadinha",
+          "Azagaia",
+          "Martelo leve",
+          "Maça",
+          "Bordão",
+          "Foice curta",
+          "Lança",
+          "Besta leve",
+          "Dardo",
+          "Arco curto",
+          "Funda"
+        ],
+        "alvo": "equipamento.escolhas.bruxoArmaSimplesAdicional",
+        "aplicaItem": true,
+        "categoriaItem": "arma",
+        "fonte": "Livro do Jogador, equipamento inicial da classe",
+        "opcoesItens": {
+          "Clava": [
+            {
+              "tipo": "item",
+              "nome": "Clava",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Adaga": [
+            {
+              "tipo": "item",
+              "nome": "Adaga",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Clava grande": [
+            {
+              "tipo": "item",
+              "nome": "Clava grande",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Machadinha": [
+            {
+              "tipo": "item",
+              "nome": "Machadinha",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Azagaia": [
+            {
+              "tipo": "item",
+              "nome": "Azagaia",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Martelo leve": [
+            {
+              "tipo": "item",
+              "nome": "Martelo leve",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Maça": [
+            {
+              "tipo": "item",
+              "nome": "Maça",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Bordão": [
+            {
+              "tipo": "item",
+              "nome": "Bordão",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Foice curta": [
+            {
+              "tipo": "item",
+              "nome": "Foice curta",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Lança": [
+            {
+              "tipo": "item",
+              "nome": "Lança",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Besta leve": [
+            {
+              "tipo": "item",
+              "nome": "Besta leve",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Dardo": [
+            {
+              "tipo": "item",
+              "nome": "Dardo",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Arco curto": [
+            {
+              "tipo": "item",
+              "nome": "Arco curto",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Funda": [
+            {
+              "tipo": "item",
+              "nome": "Funda",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ]
+        }
+      },
+      {
+        "tipo": "item",
+        "nome": "Adaga",
+        "quantidade": 2,
+        "categoria": "arma",
+        "origem": "Livro do Jogador",
+        "modo": "fixo",
+        "fonte": "Livro do Jogador, classe/equipamento inicial"
+      }
+    ],
+    "Clérigo": [
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher arma inicial de Clérigo",
+        "origem": "Livro do Jogador",
+        "modo": "escolha",
+        "opcoes": [
+          "Maça",
+          "Martelo de guerra se proficiente"
+        ],
+        "alvo": "equipamento.escolhas.clerigoArma",
+        "aplicaItem": true,
+        "categoriaItem": "arma",
+        "fonte": "Livro do Jogador, equipamento inicial da classe",
+        "opcoesItens": {
+          "Maça": [
+            {
+              "tipo": "item",
+              "nome": "Maça",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Martelo de guerra se proficiente": [
+            {
+              "tipo": "item",
+              "nome": "Martelo de guerra",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ]
+        }
+      },
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher armadura inicial de Clérigo",
+        "origem": "Livro do Jogador",
+        "modo": "escolha",
+        "opcoes": [
+          "Brunea",
+          "Armadura de couro",
+          "Cota de malha se proficiente"
+        ],
+        "alvo": "equipamento.escolhas.escolher_armadura_inicial_de_cl_rigo",
+        "aplicaItem": true,
+        "categoriaItem": "armadura",
+        "fonte": "Livro do Jogador, equipamento inicial da classe"
+      },
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher arma à distância ou simples de Clérigo",
+        "origem": "Livro do Jogador",
+        "modo": "escolha",
+        "opcoes": [
+          "Besta leve e 20 virotes",
+          "Clava",
+          "Adaga",
+          "Clava grande",
+          "Machadinha",
+          "Azagaia",
+          "Martelo leve",
+          "Maça",
+          "Bordão",
+          "Foice curta",
+          "Lança",
+          "Besta leve",
+          "Dardo",
+          "Arco curto",
+          "Funda"
+        ],
+        "alvo": "equipamento.escolhas.clerigoArma2",
+        "aplicaItem": true,
+        "categoriaItem": "arma",
+        "fonte": "Livro do Jogador, equipamento inicial da classe",
+        "opcoesItens": {
+          "Besta leve e 20 virotes": [
+            {
+              "tipo": "item",
+              "nome": "Besta leve",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            },
+            {
+              "tipo": "item",
+              "nome": "Virote",
+              "quantidade": 20,
+              "categoria": "munição",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Clava": [
+            {
+              "tipo": "item",
+              "nome": "Clava",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Adaga": [
+            {
+              "tipo": "item",
+              "nome": "Adaga",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Clava grande": [
+            {
+              "tipo": "item",
+              "nome": "Clava grande",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Machadinha": [
+            {
+              "tipo": "item",
+              "nome": "Machadinha",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Azagaia": [
+            {
+              "tipo": "item",
+              "nome": "Azagaia",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Martelo leve": [
+            {
+              "tipo": "item",
+              "nome": "Martelo leve",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Maça": [
+            {
+              "tipo": "item",
+              "nome": "Maça",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Bordão": [
+            {
+              "tipo": "item",
+              "nome": "Bordão",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Foice curta": [
+            {
+              "tipo": "item",
+              "nome": "Foice curta",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Lança": [
+            {
+              "tipo": "item",
+              "nome": "Lança",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Besta leve": [
+            {
+              "tipo": "item",
+              "nome": "Besta leve",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Dardo": [
+            {
+              "tipo": "item",
+              "nome": "Dardo",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Arco curto": [
+            {
+              "tipo": "item",
+              "nome": "Arco curto",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Funda": [
+            {
+              "tipo": "item",
+              "nome": "Funda",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ]
+        }
+      },
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher pacote inicial de Clérigo",
+        "origem": "Livro do Jogador",
+        "modo": "escolha",
+        "opcoes": [
+          "Pacote de sacerdote",
+          "Pacote de aventureiro"
+        ],
+        "alvo": "equipamento.escolhas.escolher_pacote_inicial_de_cl_rigo",
+        "aplicaItem": true,
+        "categoriaItem": "pacote",
+        "fonte": "Livro do Jogador, equipamento inicial da classe"
+      },
+      {
+        "tipo": "item",
+        "nome": "Escudo",
+        "quantidade": 1,
+        "categoria": "escudo",
+        "origem": "Livro do Jogador",
+        "modo": "fixo",
+        "fonte": "Livro do Jogador, classe/equipamento inicial"
+      },
+      {
+        "tipo": "item",
+        "nome": "Símbolo sagrado",
+        "quantidade": 1,
+        "categoria": "foco divino",
+        "origem": "Livro do Jogador",
+        "modo": "fixo",
+        "fonte": "Livro do Jogador, classe/equipamento inicial"
+      }
+    ],
+    "Druida": [
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher escudo ou arma simples de Druida",
+        "origem": "Livro do Jogador",
+        "modo": "escolha",
+        "opcoes": [
+          "Escudo de madeira",
+          "Clava",
+          "Adaga",
+          "Clava grande",
+          "Machadinha",
+          "Azagaia",
+          "Martelo leve",
+          "Maça",
+          "Bordão",
+          "Foice curta",
+          "Lança",
+          "Besta leve",
+          "Dardo",
+          "Arco curto",
+          "Funda"
+        ],
+        "alvo": "equipamento.escolhas.druidaEscudoOuArma",
+        "aplicaItem": true,
+        "categoriaItem": "equipamento",
+        "fonte": "Livro do Jogador, equipamento inicial da classe",
+        "opcoesItens": {
+          "Escudo de madeira": [
+            {
+              "tipo": "item",
+              "nome": "Escudo de madeira",
+              "quantidade": 1,
+              "categoria": "escudo",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Clava": [
+            {
+              "tipo": "item",
+              "nome": "Clava",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Adaga": [
+            {
+              "tipo": "item",
+              "nome": "Adaga",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Clava grande": [
+            {
+              "tipo": "item",
+              "nome": "Clava grande",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Machadinha": [
+            {
+              "tipo": "item",
+              "nome": "Machadinha",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Azagaia": [
+            {
+              "tipo": "item",
+              "nome": "Azagaia",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Martelo leve": [
+            {
+              "tipo": "item",
+              "nome": "Martelo leve",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Maça": [
+            {
+              "tipo": "item",
+              "nome": "Maça",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Bordão": [
+            {
+              "tipo": "item",
+              "nome": "Bordão",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Foice curta": [
+            {
+              "tipo": "item",
+              "nome": "Foice curta",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Lança": [
+            {
+              "tipo": "item",
+              "nome": "Lança",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Besta leve": [
+            {
+              "tipo": "item",
+              "nome": "Besta leve",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Dardo": [
+            {
+              "tipo": "item",
+              "nome": "Dardo",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Arco curto": [
+            {
+              "tipo": "item",
+              "nome": "Arco curto",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Funda": [
+            {
+              "tipo": "item",
+              "nome": "Funda",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ]
+        }
+      },
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher arma corpo-a-corpo de Druida",
+        "origem": "Livro do Jogador",
+        "modo": "escolha",
+        "opcoes": [
+          "Cimitarra",
+          "Clava",
+          "Adaga",
+          "Clava grande",
+          "Machadinha",
+          "Azagaia",
+          "Martelo leve",
+          "Maça",
+          "Bordão",
+          "Foice curta",
+          "Lança"
+        ],
+        "alvo": "equipamento.escolhas.druidaArma",
+        "aplicaItem": true,
+        "categoriaItem": "arma",
+        "fonte": "Livro do Jogador, equipamento inicial da classe",
+        "opcoesItens": {
+          "Cimitarra": [
+            {
+              "tipo": "item",
+              "nome": "Cimitarra",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Clava": [
+            {
+              "tipo": "item",
+              "nome": "Clava",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Adaga": [
+            {
+              "tipo": "item",
+              "nome": "Adaga",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Clava grande": [
+            {
+              "tipo": "item",
+              "nome": "Clava grande",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Machadinha": [
+            {
+              "tipo": "item",
+              "nome": "Machadinha",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Azagaia": [
+            {
+              "tipo": "item",
+              "nome": "Azagaia",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Martelo leve": [
+            {
+              "tipo": "item",
+              "nome": "Martelo leve",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Maça": [
+            {
+              "tipo": "item",
+              "nome": "Maça",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Bordão": [
+            {
+              "tipo": "item",
+              "nome": "Bordão",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Foice curta": [
+            {
+              "tipo": "item",
+              "nome": "Foice curta",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Lança": [
+            {
+              "tipo": "item",
+              "nome": "Lança",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ]
+        }
+      },
+      {
+        "tipo": "item",
+        "nome": "Armadura de couro",
+        "quantidade": 1,
+        "categoria": "armadura",
+        "origem": "Livro do Jogador",
+        "modo": "fixo",
+        "fonte": "Livro do Jogador, classe/equipamento inicial"
+      },
+      {
+        "tipo": "item",
+        "nome": "Pacote de explorador",
+        "quantidade": 1,
+        "categoria": "pacote",
+        "origem": "Livro do Jogador",
+        "modo": "fixo",
+        "fonte": "Livro do Jogador, classe/equipamento inicial"
+      },
+      {
+        "tipo": "item",
+        "nome": "Foco druídico",
+        "quantidade": 1,
+        "categoria": "foco druídico",
+        "origem": "Livro do Jogador",
+        "modo": "fixo",
+        "fonte": "Livro do Jogador, classe/equipamento inicial"
+      }
+    ],
+    "Feiticeiro": [
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher arma inicial de Feiticeiro",
+        "origem": "Livro do Jogador",
+        "modo": "escolha",
+        "opcoes": [
+          "Besta leve e 20 virotes",
+          "Clava",
+          "Adaga",
+          "Clava grande",
+          "Machadinha",
+          "Azagaia",
+          "Martelo leve",
+          "Maça",
+          "Bordão",
+          "Foice curta",
+          "Lança",
+          "Besta leve",
+          "Dardo",
+          "Arco curto",
+          "Funda"
+        ],
+        "alvo": "equipamento.escolhas.feiticeiroArma",
+        "aplicaItem": true,
+        "categoriaItem": "arma",
+        "fonte": "Livro do Jogador, equipamento inicial da classe",
+        "opcoesItens": {
+          "Besta leve e 20 virotes": [
+            {
+              "tipo": "item",
+              "nome": "Besta leve",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            },
+            {
+              "tipo": "item",
+              "nome": "Virote",
+              "quantidade": 20,
+              "categoria": "munição",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Clava": [
+            {
+              "tipo": "item",
+              "nome": "Clava",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Adaga": [
+            {
+              "tipo": "item",
+              "nome": "Adaga",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Clava grande": [
+            {
+              "tipo": "item",
+              "nome": "Clava grande",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Machadinha": [
+            {
+              "tipo": "item",
+              "nome": "Machadinha",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Azagaia": [
+            {
+              "tipo": "item",
+              "nome": "Azagaia",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Martelo leve": [
+            {
+              "tipo": "item",
+              "nome": "Martelo leve",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Maça": [
+            {
+              "tipo": "item",
+              "nome": "Maça",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Bordão": [
+            {
+              "tipo": "item",
+              "nome": "Bordão",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Foice curta": [
+            {
+              "tipo": "item",
+              "nome": "Foice curta",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Lança": [
+            {
+              "tipo": "item",
+              "nome": "Lança",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Besta leve": [
+            {
+              "tipo": "item",
+              "nome": "Besta leve",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Dardo": [
+            {
+              "tipo": "item",
+              "nome": "Dardo",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Arco curto": [
+            {
+              "tipo": "item",
+              "nome": "Arco curto",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Funda": [
+            {
+              "tipo": "item",
+              "nome": "Funda",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ]
+        }
+      },
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher foco ou componentes de Feiticeiro",
+        "origem": "Livro do Jogador",
+        "modo": "escolha",
+        "opcoes": [
+          "Bolsa de componentes",
+          "Foco arcano"
+        ],
+        "alvo": "equipamento.escolhas.escolher_foco_ou_componentes_de_feiticeiro",
+        "aplicaItem": true,
+        "categoriaItem": "foco arcano",
+        "fonte": "Livro do Jogador, equipamento inicial da classe"
+      },
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher pacote inicial de Feiticeiro",
+        "origem": "Livro do Jogador",
+        "modo": "escolha",
+        "opcoes": [
+          "Pacote de explorador",
+          "Pacote de aventureiro"
+        ],
+        "alvo": "equipamento.escolhas.escolher_pacote_inicial_de_feiticeiro",
+        "aplicaItem": true,
+        "categoriaItem": "pacote",
+        "fonte": "Livro do Jogador, equipamento inicial da classe"
+      },
+      {
+        "tipo": "item",
+        "nome": "Adaga",
+        "quantidade": 2,
+        "categoria": "arma",
+        "origem": "Livro do Jogador",
+        "modo": "fixo",
+        "fonte": "Livro do Jogador, classe/equipamento inicial"
+      }
+    ],
+    "Guerreiro": [
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher armadura inicial de Guerreiro",
+        "origem": "Livro do Jogador",
+        "modo": "escolha",
+        "opcoes": [
+          "Cota de malha",
+          "Armadura de couro + arco longo + 20 flechas"
+        ],
+        "alvo": "equipamento.escolhas.guerreiroArmadura",
+        "aplicaItem": true,
+        "categoriaItem": "armadura",
+        "fonte": "Livro do Jogador, equipamento inicial da classe",
+        "opcoesItens": {
+          "Cota de malha": [
+            {
+              "tipo": "item",
+              "nome": "Cota de malha",
+              "quantidade": 1,
+              "categoria": "armadura",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Armadura de couro + arco longo + 20 flechas": [
+            {
+              "tipo": "item",
+              "nome": "Armadura de couro",
+              "quantidade": 1,
+              "categoria": "armadura",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            },
+            {
+              "tipo": "item",
+              "nome": "Arco longo",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            },
+            {
+              "tipo": "item",
+              "nome": "Flecha",
+              "quantidade": 20,
+              "categoria": "munição",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ]
+        }
+      },
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher armas principais de Guerreiro",
+        "origem": "Livro do Jogador",
+        "modo": "escolha",
+        "opcoes": [
+          "Arma marcial e escudo",
+          "Duas armas marciais"
+        ],
+        "alvo": "equipamento.escolhas.guerreiroArmas",
+        "aplicaItem": true,
+        "categoriaItem": "arma",
+        "fonte": "Livro do Jogador, equipamento inicial da classe",
+        "opcoesItens": {
+          "Arma marcial e escudo": [
+            {
+              "tipo": "item",
+              "nome": "Arma marcial à escolha",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            },
+            {
+              "tipo": "item",
+              "nome": "Escudo",
+              "quantidade": 1,
+              "categoria": "escudo",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Duas armas marciais": [
+            {
+              "tipo": "item",
+              "nome": "Arma marcial à escolha",
+              "quantidade": 2,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ]
+        }
+      },
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher arma secundária de Guerreiro",
+        "origem": "Livro do Jogador",
+        "modo": "escolha",
+        "opcoes": [
+          "Besta leve e 20 virotes",
+          "2 Machadinhas"
+        ],
+        "alvo": "equipamento.escolhas.guerreiroArmaSecundaria",
+        "aplicaItem": true,
+        "categoriaItem": "arma",
+        "fonte": "Livro do Jogador, equipamento inicial da classe",
+        "opcoesItens": {
+          "Besta leve e 20 virotes": [
+            {
+              "tipo": "item",
+              "nome": "Besta leve",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            },
+            {
+              "tipo": "item",
+              "nome": "Virote",
+              "quantidade": 20,
+              "categoria": "munição",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "2 Machadinhas": [
+            {
+              "tipo": "item",
+              "nome": "Machadinha",
+              "quantidade": 2,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ]
+        }
+      },
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher pacote inicial de Guerreiro",
+        "origem": "Livro do Jogador",
+        "modo": "escolha",
+        "opcoes": [
+          "Pacote de aventureiro",
+          "Pacote de explorador"
+        ],
+        "alvo": "equipamento.escolhas.escolher_pacote_inicial_de_guerreiro",
+        "aplicaItem": true,
+        "categoriaItem": "pacote",
+        "fonte": "Livro do Jogador, equipamento inicial da classe"
+      }
+    ],
+    "Ladino": [
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher arma principal de Ladino",
+        "origem": "Livro do Jogador",
+        "modo": "escolha",
+        "opcoes": [
+          "Rapieira",
+          "Espada curta"
+        ],
+        "alvo": "equipamento.escolhas.ladinoArma",
+        "aplicaItem": true,
+        "categoriaItem": "arma",
+        "fonte": "Livro do Jogador, equipamento inicial da classe",
+        "opcoesItens": {
+          "Rapieira": [
+            {
+              "tipo": "item",
+              "nome": "Rapieira",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Espada curta": [
+            {
+              "tipo": "item",
+              "nome": "Espada curta",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ]
+        }
+      },
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher arma secundária de Ladino",
+        "origem": "Livro do Jogador",
+        "modo": "escolha",
+        "opcoes": [
+          "Arco curto e 20 flechas",
+          "Espada curta"
+        ],
+        "alvo": "equipamento.escolhas.ladinoArma2",
+        "aplicaItem": true,
+        "categoriaItem": "arma",
+        "fonte": "Livro do Jogador, equipamento inicial da classe",
+        "opcoesItens": {
+          "Arco curto e 20 flechas": [
+            {
+              "tipo": "item",
+              "nome": "Arco curto",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            },
+            {
+              "tipo": "item",
+              "nome": "Flecha",
+              "quantidade": 20,
+              "categoria": "munição",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Espada curta": [
+            {
+              "tipo": "item",
+              "nome": "Espada curta",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ]
+        }
+      },
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher pacote inicial de Ladino",
+        "origem": "Livro do Jogador",
+        "modo": "escolha",
+        "opcoes": [
+          "Pacote de assaltante",
+          "Pacote de aventureiro",
+          "Pacote de explorador"
+        ],
+        "alvo": "equipamento.escolhas.escolher_pacote_inicial_de_ladino",
+        "aplicaItem": true,
+        "categoriaItem": "pacote",
+        "fonte": "Livro do Jogador, equipamento inicial da classe"
+      },
+      {
+        "tipo": "item",
+        "nome": "Armadura de couro",
+        "quantidade": 1,
+        "categoria": "armadura",
+        "origem": "Livro do Jogador",
+        "modo": "fixo",
+        "fonte": "Livro do Jogador, classe/equipamento inicial"
+      },
+      {
+        "tipo": "item",
+        "nome": "Adaga",
+        "quantidade": 2,
+        "categoria": "arma",
+        "origem": "Livro do Jogador",
+        "modo": "fixo",
+        "fonte": "Livro do Jogador, classe/equipamento inicial"
+      },
+      {
+        "tipo": "item",
+        "nome": "Ferramentas de ladrão",
+        "quantidade": 1,
+        "categoria": "ferramenta",
+        "origem": "Livro do Jogador",
+        "modo": "fixo",
+        "fonte": "Livro do Jogador, classe/equipamento inicial"
+      }
+    ],
+    "Mago": [
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher arma inicial de Mago",
+        "origem": "Livro do Jogador",
+        "modo": "escolha",
+        "opcoes": [
+          "Bordão",
+          "Adaga"
+        ],
+        "alvo": "equipamento.escolhas.magoArmaInicial",
+        "aplicaItem": true,
+        "categoriaItem": "arma",
+        "fonte": "Livro do Jogador, equipamento inicial da classe",
+        "opcoesItens": {
+          "Bordão": [
+            {
+              "tipo": "item",
+              "nome": "Bordão",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Adaga": [
+            {
+              "tipo": "item",
+              "nome": "Adaga",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ]
+        }
+      },
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher foco ou componentes de Mago",
+        "origem": "Livro do Jogador",
+        "modo": "escolha",
+        "opcoes": [
+          "Bolsa de componentes",
+          "Foco arcano"
+        ],
+        "alvo": "equipamento.escolhas.escolher_foco_ou_componentes_de_mago",
+        "aplicaItem": true,
+        "categoriaItem": "foco arcano",
+        "fonte": "Livro do Jogador, equipamento inicial da classe"
+      },
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher pacote inicial de Mago",
+        "origem": "Livro do Jogador",
+        "modo": "escolha",
+        "opcoes": [
+          "Pacote de estudioso",
+          "Pacote de explorador"
+        ],
+        "alvo": "equipamento.escolhas.escolher_pacote_inicial_de_mago",
+        "aplicaItem": true,
+        "categoriaItem": "pacote",
+        "fonte": "Livro do Jogador, equipamento inicial da classe"
+      },
+      {
+        "tipo": "item",
+        "nome": "Grimório",
+        "quantidade": 1,
+        "categoria": "grimório",
+        "origem": "Livro do Jogador",
+        "modo": "fixo",
+        "fonte": "Livro do Jogador, classe/equipamento inicial"
+      }
+    ],
+    "Monge": [
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher arma inicial de Monge",
+        "origem": "Livro do Jogador",
+        "modo": "escolha",
+        "opcoes": [
+          "Espada curta",
+          "Clava",
+          "Adaga",
+          "Clava grande",
+          "Machadinha",
+          "Azagaia",
+          "Martelo leve",
+          "Maça",
+          "Bordão",
+          "Foice curta",
+          "Lança",
+          "Besta leve",
+          "Dardo",
+          "Arco curto",
+          "Funda"
+        ],
+        "alvo": "equipamento.escolhas.mongeArma",
+        "aplicaItem": true,
+        "categoriaItem": "arma",
+        "fonte": "Livro do Jogador, equipamento inicial da classe",
+        "opcoesItens": {
+          "Espada curta": [
+            {
+              "tipo": "item",
+              "nome": "Espada curta",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Clava": [
+            {
+              "tipo": "item",
+              "nome": "Clava",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Adaga": [
+            {
+              "tipo": "item",
+              "nome": "Adaga",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Clava grande": [
+            {
+              "tipo": "item",
+              "nome": "Clava grande",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Machadinha": [
+            {
+              "tipo": "item",
+              "nome": "Machadinha",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Azagaia": [
+            {
+              "tipo": "item",
+              "nome": "Azagaia",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Martelo leve": [
+            {
+              "tipo": "item",
+              "nome": "Martelo leve",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Maça": [
+            {
+              "tipo": "item",
+              "nome": "Maça",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Bordão": [
+            {
+              "tipo": "item",
+              "nome": "Bordão",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Foice curta": [
+            {
+              "tipo": "item",
+              "nome": "Foice curta",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Lança": [
+            {
+              "tipo": "item",
+              "nome": "Lança",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Besta leve": [
+            {
+              "tipo": "item",
+              "nome": "Besta leve",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Dardo": [
+            {
+              "tipo": "item",
+              "nome": "Dardo",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Arco curto": [
+            {
+              "tipo": "item",
+              "nome": "Arco curto",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Funda": [
+            {
+              "tipo": "item",
+              "nome": "Funda",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ]
+        }
+      },
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher pacote inicial de Monge",
+        "origem": "Livro do Jogador",
+        "modo": "escolha",
+        "opcoes": [
+          "Pacote de aventureiro",
+          "Pacote de explorador"
+        ],
+        "alvo": "equipamento.escolhas.escolher_pacote_inicial_de_monge",
+        "aplicaItem": true,
+        "categoriaItem": "pacote",
+        "fonte": "Livro do Jogador, equipamento inicial da classe"
+      },
+      {
+        "tipo": "item",
+        "nome": "Dardo",
+        "quantidade": 10,
+        "categoria": "arma",
+        "origem": "Livro do Jogador",
+        "modo": "fixo",
+        "fonte": "Livro do Jogador, classe/equipamento inicial"
+      }
+    ],
+    "Paladino": [
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher armas principais de Paladino",
+        "origem": "Livro do Jogador",
+        "modo": "escolha",
+        "opcoes": [
+          "Arma marcial e escudo",
+          "Duas armas marciais"
+        ],
+        "alvo": "equipamento.escolhas.paladinoArmas",
+        "aplicaItem": true,
+        "categoriaItem": "arma",
+        "fonte": "Livro do Jogador, equipamento inicial da classe",
+        "opcoesItens": {
+          "Arma marcial e escudo": [
+            {
+              "tipo": "item",
+              "nome": "Arma marcial à escolha",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            },
+            {
+              "tipo": "item",
+              "nome": "Escudo",
+              "quantidade": 1,
+              "categoria": "escudo",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Duas armas marciais": [
+            {
+              "tipo": "item",
+              "nome": "Arma marcial à escolha",
+              "quantidade": 2,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ]
+        }
+      },
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher arma secundária de Paladino",
+        "origem": "Livro do Jogador",
+        "modo": "escolha",
+        "opcoes": [
+          "5 Azagaias",
+          "Clava",
+          "Adaga",
+          "Clava grande",
+          "Machadinha",
+          "Azagaia",
+          "Martelo leve",
+          "Maça",
+          "Bordão",
+          "Foice curta",
+          "Lança"
+        ],
+        "alvo": "equipamento.escolhas.paladinoArma2",
+        "aplicaItem": true,
+        "categoriaItem": "arma",
+        "fonte": "Livro do Jogador, equipamento inicial da classe",
+        "opcoesItens": {
+          "5 Azagaias": [
+            {
+              "tipo": "item",
+              "nome": "Azagaia",
+              "quantidade": 5,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Clava": [
+            {
+              "tipo": "item",
+              "nome": "Clava",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Adaga": [
+            {
+              "tipo": "item",
+              "nome": "Adaga",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Clava grande": [
+            {
+              "tipo": "item",
+              "nome": "Clava grande",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Machadinha": [
+            {
+              "tipo": "item",
+              "nome": "Machadinha",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Azagaia": [
+            {
+              "tipo": "item",
+              "nome": "Azagaia",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Martelo leve": [
+            {
+              "tipo": "item",
+              "nome": "Martelo leve",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Maça": [
+            {
+              "tipo": "item",
+              "nome": "Maça",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Bordão": [
+            {
+              "tipo": "item",
+              "nome": "Bordão",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Foice curta": [
+            {
+              "tipo": "item",
+              "nome": "Foice curta",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Lança": [
+            {
+              "tipo": "item",
+              "nome": "Lança",
+              "quantidade": 1,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ]
+        }
+      },
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher pacote inicial de Paladino",
+        "origem": "Livro do Jogador",
+        "modo": "escolha",
+        "opcoes": [
+          "Pacote de sacerdote",
+          "Pacote de aventureiro"
+        ],
+        "alvo": "equipamento.escolhas.escolher_pacote_inicial_de_paladino",
+        "aplicaItem": true,
+        "categoriaItem": "pacote",
+        "fonte": "Livro do Jogador, equipamento inicial da classe"
+      },
+      {
+        "tipo": "item",
+        "nome": "Cota de malha",
+        "quantidade": 1,
+        "categoria": "armadura",
+        "origem": "Livro do Jogador",
+        "modo": "fixo",
+        "fonte": "Livro do Jogador, classe/equipamento inicial"
+      },
+      {
+        "tipo": "item",
+        "nome": "Símbolo sagrado",
+        "quantidade": 1,
+        "categoria": "foco divino",
+        "origem": "Livro do Jogador",
+        "modo": "fixo",
+        "fonte": "Livro do Jogador, classe/equipamento inicial"
+      }
+    ],
+    "Patrulheiro": [
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher armadura inicial de Patrulheiro",
+        "origem": "Livro do Jogador",
+        "modo": "escolha",
+        "opcoes": [
+          "Brunea",
+          "Armadura de couro"
+        ],
+        "alvo": "equipamento.escolhas.escolher_armadura_inicial_de_patrulheiro",
+        "aplicaItem": true,
+        "categoriaItem": "armadura",
+        "fonte": "Livro do Jogador, equipamento inicial da classe"
+      },
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher armas corpo-a-corpo de Patrulheiro",
+        "origem": "Livro do Jogador",
+        "modo": "escolha",
+        "opcoes": [
+          "Duas espadas curtas",
+          "Duas armas simples corpo-a-corpo"
+        ],
+        "alvo": "equipamento.escolhas.patrulheiroArmas",
+        "aplicaItem": true,
+        "categoriaItem": "arma",
+        "fonte": "Livro do Jogador, equipamento inicial da classe",
+        "opcoesItens": {
+          "Duas espadas curtas": [
+            {
+              "tipo": "item",
+              "nome": "Espada curta",
+              "quantidade": 2,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ],
+          "Duas armas simples corpo-a-corpo": [
+            {
+              "tipo": "item",
+              "nome": "Arma simples corpo-a-corpo à escolha",
+              "quantidade": 2,
+              "categoria": "arma",
+              "origem": "Livro do Jogador",
+              "modo": "fixo",
+              "fonte": "Livro do Jogador, classe/equipamento inicial"
+            }
+          ]
+        }
+      },
+      {
+        "tipo": "escolha_item",
+        "nome": "Escolher pacote inicial de Patrulheiro",
+        "origem": "Livro do Jogador",
+        "modo": "escolha",
+        "opcoes": [
+          "Pacote de explorador",
+          "Pacote de aventureiro"
+        ],
+        "alvo": "equipamento.escolhas.escolher_pacote_inicial_de_patrulheiro",
+        "aplicaItem": true,
+        "categoriaItem": "pacote",
+        "fonte": "Livro do Jogador, equipamento inicial da classe"
+      },
+      {
+        "tipo": "item",
+        "nome": "Arco longo",
+        "quantidade": 1,
+        "categoria": "arma",
+        "origem": "Livro do Jogador",
+        "modo": "fixo",
+        "fonte": "Livro do Jogador, classe/equipamento inicial"
+      },
+      {
+        "tipo": "item",
+        "nome": "Flecha",
+        "quantidade": 20,
+        "categoria": "munição",
+        "origem": "Livro do Jogador",
+        "modo": "fixo",
+        "fonte": "Livro do Jogador, classe/equipamento inicial"
+      }
+    ]
+  },
+  "racas": {
+    "Anão": {
+      "source": "Livro do Jogador p.18-20",
+      "abilityIncrease": {
+        "constituicao": 2
+      },
+      "size": "Médio",
+      "speed": "7,5m",
+      "darkvision": "18m",
+      "languages": [
+        "Comum",
+        "Anão"
+      ],
+      "resistances": [
+        "Veneno"
+      ],
+      "skills": [],
+      "proficiencies": [
+        "Treinamento Anão em Combate",
+        "Ferramenta de artesão à escolha"
+      ],
+      "traits": [
+        "Resiliência Anã",
+        "Treinamento Anão em Combate",
+        "Proficiência com Ferramentas",
+        "Especialização em Rochas"
+      ],
+      "note": "Escolha Anão da Colina ou Anão da Montanha para sub-raça."
+    },
+    "Anão da Colina": {
+      "parent": "Anão",
+      "source": "Livro do Jogador p.20",
+      "abilityIncrease": {
+        "constituicao": 2,
+        "sabedoria": 1
+      },
+      "size": "Médio",
+      "speed": "7,5m",
+      "darkvision": "18m",
+      "languages": [
+        "Comum",
+        "Anão"
+      ],
+      "resistances": [
+        "Veneno"
+      ],
+      "skills": [],
+      "proficiencies": [
+        "Treinamento Anão em Combate",
+        "Ferramenta de artesão à escolha"
+      ],
+      "traits": [
+        "Resiliência Anã",
+        "Treinamento Anão em Combate",
+        "Proficiência com Ferramentas",
+        "Especialização em Rochas",
+        "Tenacidade Anã"
+      ],
+      "note": "Máximo de PV aumenta em 1 por nível."
+    },
+    "Anão da Montanha": {
+      "parent": "Anão",
+      "source": "Livro do Jogador p.20",
+      "abilityIncrease": {
+        "constituicao": 2,
+        "forca": 2
+      },
+      "size": "Médio",
+      "speed": "7,5m",
+      "darkvision": "18m",
+      "languages": [
+        "Comum",
+        "Anão"
+      ],
+      "resistances": [
+        "Veneno"
+      ],
+      "skills": [],
+      "proficiencies": [
+        "Treinamento Anão em Combate",
+        "Ferramenta de artesão à escolha",
+        "Armaduras leves",
+        "Armaduras médias"
+      ],
+      "traits": [
+        "Resiliência Anã",
+        "Treinamento Anão em Combate",
+        "Proficiência com Ferramentas",
+        "Especialização em Rochas",
+        "Treinamento Anão com Armaduras"
+      ],
+      "note": "Proficiência em armaduras leves e médias."
+    },
+    "Elfo": {
+      "source": "Livro do Jogador p.21-24",
+      "abilityIncrease": {
+        "destreza": 2
+      },
+      "size": "Médio",
+      "speed": "9m",
+      "darkvision": "18m",
+      "languages": [
+        "Comum",
+        "Élfico"
+      ],
+      "resistances": [],
+      "skills": [
+        "percepcao"
+      ],
+      "proficiencies": [
+        "Percepção"
+      ],
+      "traits": [
+        "Visão no Escuro",
+        "Sentidos Aguçados",
+        "Ancestral Feérico",
+        "Transe"
+      ],
+      "note": "Escolha Alto Elfo, Elfo da Floresta ou Elfo Negro."
+    },
+    "Alto Elfo": {
+      "parent": "Elfo",
+      "source": "Livro do Jogador p.23",
+      "abilityIncrease": {
+        "destreza": 2,
+        "inteligencia": 1
+      },
+      "size": "Médio",
+      "speed": "9m",
+      "darkvision": "18m",
+      "languages": [
+        "Comum",
+        "Élfico",
+        "Um idioma à escolha"
+      ],
+      "resistances": [],
+      "skills": [
+        "percepcao"
+      ],
+      "proficiencies": [
+        "Percepção",
+        "Espada longa",
+        "Espada curta",
+        "Arco longo",
+        "Arco curto"
+      ],
+      "traits": [
+        "Visão no Escuro",
+        "Sentidos Aguçados",
+        "Ancestral Feérico",
+        "Transe",
+        "Treinamento Élfico com Armas",
+        "Truque",
+        "Idioma Adicional"
+      ],
+      "note": "Escolhe um truque da lista de mago."
+    },
+    "Elfo da Floresta": {
+      "parent": "Elfo",
+      "source": "Livro do Jogador p.24",
+      "abilityIncrease": {
+        "destreza": 2,
+        "sabedoria": 1
+      },
+      "size": "Médio",
+      "speed": "10,5m",
+      "darkvision": "18m",
+      "languages": [
+        "Comum",
+        "Élfico"
+      ],
+      "resistances": [],
+      "skills": [
+        "percepcao"
+      ],
+      "proficiencies": [
+        "Percepção",
+        "Espada longa",
+        "Espada curta",
+        "Arco longo",
+        "Arco curto"
+      ],
+      "traits": [
+        "Visão no Escuro",
+        "Sentidos Aguçados",
+        "Ancestral Feérico",
+        "Transe",
+        "Treinamento Élfico com Armas",
+        "Pés Ligeiros",
+        "Máscara da Natureza"
+      ],
+      "note": "Deslocamento 10,5m."
+    },
+    "Elfo Negro": {
+      "parent": "Elfo",
+      "source": "Livro do Jogador p.24",
+      "abilityIncrease": {
+        "destreza": 2,
+        "carisma": 1
+      },
+      "size": "Médio",
+      "speed": "9m",
+      "darkvision": "36m",
+      "languages": [
+        "Comum",
+        "Élfico"
+      ],
+      "resistances": [],
+      "skills": [
+        "percepcao"
+      ],
+      "proficiencies": [
+        "Percepção",
+        "Rapieira",
+        "Espada curta",
+        "Besta de mão"
+      ],
+      "traits": [
+        "Visão no Escuro Superior",
+        "Sentidos Aguçados",
+        "Ancestral Feérico",
+        "Transe",
+        "Sensibilidade à Luz Solar",
+        "Magia Drow",
+        "Treinamento Drow com Armas"
+      ],
+      "note": "Raça rara; depende de liberação do Mestre."
+    },
+    "Halfling": {
+      "source": "Livro do Jogador p.26-28",
+      "abilityIncrease": {
+        "destreza": 2
+      },
+      "size": "Pequeno",
+      "speed": "7,5m",
+      "darkvision": "Não",
+      "languages": [
+        "Comum",
+        "Halfling"
+      ],
+      "resistances": [],
+      "skills": [],
+      "proficiencies": [],
+      "traits": [
+        "Sortudo",
+        "Bravura",
+        "Agilidade Halfling"
+      ],
+      "note": "Escolha Pés-Leves ou Robusto."
+    },
+    "Halfling Pés-Leves": {
+      "parent": "Halfling",
+      "source": "Livro do Jogador p.28",
+      "abilityIncrease": {
+        "destreza": 2,
+        "carisma": 1
+      },
+      "size": "Pequeno",
+      "speed": "7,5m",
+      "darkvision": "Não",
+      "languages": [
+        "Comum",
+        "Halfling"
+      ],
+      "resistances": [],
+      "skills": [],
+      "proficiencies": [],
+      "traits": [
+        "Sortudo",
+        "Bravura",
+        "Agilidade Halfling",
+        "Furtividade Natural"
+      ],
+      "note": "Pode se esconder usando criatura maior como cobertura."
+    },
+    "Halfling Robusto": {
+      "parent": "Halfling",
+      "source": "Livro do Jogador p.28",
+      "abilityIncrease": {
+        "destreza": 2,
+        "constituicao": 1
+      },
+      "size": "Pequeno",
+      "speed": "7,5m",
+      "darkvision": "Não",
+      "languages": [
+        "Comum",
+        "Halfling"
+      ],
+      "resistances": [
+        "Veneno"
+      ],
+      "skills": [],
+      "proficiencies": [],
+      "traits": [
+        "Sortudo",
+        "Bravura",
+        "Agilidade Halfling",
+        "Resiliência dos Robustos"
+      ],
+      "note": "Vantagem contra veneno e resistência a dano de veneno."
+    },
+    "Humano": {
+      "source": "Livro do Jogador p.29-31",
+      "abilityIncrease": {
+        "forca": 1,
+        "destreza": 1,
+        "constituicao": 1,
+        "inteligencia": 1,
+        "sabedoria": 1,
+        "carisma": 1
+      },
+      "size": "Médio",
+      "speed": "9m",
+      "darkvision": "Não",
+      "languages": [
+        "Comum",
+        "Um idioma à escolha"
+      ],
+      "resistances": [],
+      "skills": [],
+      "proficiencies": [],
+      "traits": [
+        "Aumento no Valor de Habilidade",
+        "Idioma Adicional"
+      ],
+      "note": "Todos os valores aumentam em 1."
+    },
+    "Humano Variante": {
+      "parent": "Humano",
+      "source": "Livro do Jogador p.31, regra opcional",
+      "abilityIncrease": {
+        "doisValoresAEscolha": 1
+      },
+      "size": "Médio",
+      "speed": "9m",
+      "darkvision": "Não",
+      "languages": [
+        "Comum",
+        "Um idioma à escolha"
+      ],
+      "resistances": [],
+      "skills": [],
+      "proficiencies": [
+        "Uma perícia à escolha"
+      ],
+      "traits": [
+        "Aumento no Valor de Habilidade alternativo",
+        "Perícia",
+        "Talento"
+      ],
+      "note": "Só usar se o Mestre liberar talentos opcionais."
+    },
+    "Draconato": {
+      "source": "Livro do Jogador p.32-34",
+      "abilityIncrease": {
+        "forca": 2,
+        "carisma": 1
+      },
+      "size": "Médio",
+      "speed": "9m",
+      "darkvision": "Não",
+      "languages": [
+        "Comum",
+        "Dracônico"
+      ],
+      "resistances": [
+        "Conforme ancestral dracônico"
+      ],
+      "skills": [],
+      "proficiencies": [],
+      "traits": [
+        "Ancestral Dracônico",
+        "Arma de Sopro",
+        "Resistência a Dano"
+      ],
+      "note": "Escolhe ancestral dracônico; dano e resistência vêm dessa escolha."
+    },
+    "Gnomo": {
+      "source": "Livro do Jogador p.35-37",
+      "abilityIncrease": {
+        "inteligencia": 2
+      },
+      "size": "Pequeno",
+      "speed": "7,5m",
+      "darkvision": "18m",
+      "languages": [
+        "Comum",
+        "Gnômico"
+      ],
+      "resistances": [],
+      "skills": [],
+      "proficiencies": [],
+      "traits": [
+        "Visão no Escuro",
+        "Esperteza Gnômica"
+      ],
+      "note": "Escolha Gnomo da Floresta ou Gnomo das Rochas."
+    },
+    "Gnomo da Floresta": {
+      "parent": "Gnomo",
+      "source": "Livro do Jogador p.37",
+      "abilityIncrease": {
+        "inteligencia": 2,
+        "destreza": 1
+      },
+      "size": "Pequeno",
+      "speed": "7,5m",
+      "darkvision": "18m",
+      "languages": [
+        "Comum",
+        "Gnômico"
+      ],
+      "resistances": [],
+      "skills": [],
+      "proficiencies": [],
+      "traits": [
+        "Visão no Escuro",
+        "Esperteza Gnômica",
+        "Ilusionista Nato",
+        "Falar com Bestas Pequenas"
+      ],
+      "note": "Conhece Ilusão Menor."
+    },
+    "Gnomo das Rochas": {
+      "parent": "Gnomo",
+      "source": "Livro do Jogador p.37",
+      "abilityIncrease": {
+        "inteligencia": 2,
+        "constituicao": 1
+      },
+      "size": "Pequeno",
+      "speed": "7,5m",
+      "darkvision": "18m",
+      "languages": [
+        "Comum",
+        "Gnômico"
+      ],
+      "resistances": [],
+      "skills": [],
+      "proficiencies": [
+        "Ferramentas de engenhoqueiro"
+      ],
+      "traits": [
+        "Visão no Escuro",
+        "Esperteza Gnômica",
+        "Conhecimento de Artífice",
+        "Engenhoqueiro"
+      ],
+      "note": "Pode criar pequenos mecanismos."
+    },
+    "Meio-Elfo": {
+      "source": "Livro do Jogador p.38-39",
+      "abilityIncrease": {
+        "carisma": 2,
+        "doisValoresAEscolha": 1
+      },
+      "size": "Médio",
+      "speed": "9m",
+      "darkvision": "18m",
+      "languages": [
+        "Comum",
+        "Élfico",
+        "Um idioma à escolha"
+      ],
+      "resistances": [],
+      "skills": [],
+      "proficiencies": [
+        "Duas perícias à escolha"
+      ],
+      "traits": [
+        "Visão no Escuro",
+        "Ancestral Feérico",
+        "Versatilidade em Perícia"
+      ],
+      "note": "Escolher duas perícias."
+    },
+    "Meio-Orc": {
+      "source": "Livro do Jogador p.40-41",
+      "abilityIncrease": {
+        "forca": 2,
+        "constituicao": 1
+      },
+      "size": "Médio",
+      "speed": "9m",
+      "darkvision": "18m",
+      "languages": [
+        "Comum",
+        "Orc"
+      ],
+      "resistances": [],
+      "skills": [
+        "intimidacao"
+      ],
+      "proficiencies": [
+        "Intimidação"
+      ],
+      "traits": [
+        "Visão no Escuro",
+        "Ameaçador",
+        "Resistência Implacável",
+        "Ataques Selvagens"
+      ],
+      "note": "Proficiência em Intimidação."
+    },
+    "Tiefling": {
+      "source": "Livro do Jogador p.42-43",
+      "abilityIncrease": {
+        "inteligencia": 1,
+        "carisma": 2
+      },
+      "size": "Médio",
+      "speed": "9m",
+      "darkvision": "18m",
+      "languages": [
+        "Comum",
+        "Infernal"
+      ],
+      "resistances": [
+        "Fogo"
+      ],
+      "skills": [],
+      "proficiencies": [],
+      "traits": [
+        "Visão no Escuro",
+        "Resistência Infernal",
+        "Legado Infernal"
+      ],
+      "note": "Magias raciais por nível: taumaturgia, repreensão infernal, escuridão."
+    }
+  },
+  "armas": {
+    "Ataque desarmado": {
+      "ability": "forca",
+      "damage": "1",
+      "type": "concussão",
+      "range": "corpo a corpo",
+      "weight": 0
+    },
+    "Clava": {
+      "ability": "forca",
+      "damage": "1d4",
+      "type": "concussão",
+      "range": "corpo a corpo",
+      "weight": 1
+    },
+    "Adaga": {
+      "ability": "destreza",
+      "damage": "1d4",
+      "type": "perfurante",
+      "range": "6/18m",
+      "weight": 0.5,
+      "properties": [
+        "acuidade",
+        "leve",
+        "arremesso"
+      ]
+    },
+    "Clava grande": {
+      "ability": "forca",
+      "damage": "1d8",
+      "type": "concussão",
+      "range": "corpo a corpo",
+      "weight": 5,
+      "properties": [
+        "duas mãos"
+      ]
+    },
+    "Machadinha": {
+      "ability": "forca",
+      "damage": "1d6",
+      "type": "cortante",
+      "range": "6/18m",
+      "weight": 1,
+      "properties": [
+        "leve",
+        "arremesso"
+      ]
+    },
+    "Azagaia": {
+      "ability": "forca",
+      "damage": "1d6",
+      "type": "perfurante",
+      "range": "9/36m",
+      "weight": 1,
+      "properties": [
+        "arremesso"
+      ]
+    },
+    "Martelo leve": {
+      "ability": "forca",
+      "damage": "1d4",
+      "type": "concussão",
+      "range": "6/18m",
+      "weight": 1,
+      "properties": [
+        "leve",
+        "arremesso"
+      ]
+    },
+    "Maça": {
+      "ability": "forca",
+      "damage": "1d6",
+      "type": "concussão",
+      "range": "corpo a corpo",
+      "weight": 2
+    },
+    "Bordão": {
+      "ability": "forca",
+      "damage": "1d6",
+      "type": "concussão",
+      "range": "corpo a corpo",
+      "weight": 2,
+      "properties": [
+        "versátil 1d8"
+      ]
+    },
+    "Cajado": {
+      "ability": "forca",
+      "damage": "1d6",
+      "type": "concussão",
+      "range": "corpo a corpo",
+      "weight": 2,
+      "properties": [
+        "alias de bordão"
+      ]
+    },
+    "Foice curta": {
+      "ability": "forca",
+      "damage": "1d4",
+      "type": "cortante",
+      "range": "corpo a corpo",
+      "weight": 1,
+      "properties": [
+        "leve"
+      ]
+    },
+    "Lança": {
+      "ability": "forca",
+      "damage": "1d6",
+      "type": "perfurante",
+      "range": "6/18m",
+      "weight": 1.5,
+      "properties": [
+        "arremesso",
+        "versátil 1d8"
+      ]
+    },
+    "Besta leve": {
+      "ability": "destreza",
+      "damage": "1d8",
+      "type": "perfurante",
+      "range": "24/96m",
+      "weight": 2.5,
+      "properties": [
+        "munição",
+        "recarga",
+        "duas mãos"
+      ]
+    },
+    "Dardo": {
+      "ability": "destreza",
+      "damage": "1d4",
+      "type": "perfurante",
+      "range": "6/18m",
+      "weight": 0.125,
+      "properties": [
+        "acuidade",
+        "arremesso"
+      ]
+    },
+    "Arco curto": {
+      "ability": "destreza",
+      "damage": "1d6",
+      "type": "perfurante",
+      "range": "24/96m",
+      "weight": 1,
+      "properties": [
+        "munição",
+        "duas mãos"
+      ]
+    },
+    "Funda": {
+      "ability": "destreza",
+      "damage": "1d4",
+      "type": "concussão",
+      "range": "9/36m",
+      "weight": 0,
+      "properties": [
+        "munição"
+      ]
+    },
+    "Machado de batalha": {
+      "ability": "forca",
+      "damage": "1d8",
+      "type": "cortante",
+      "range": "corpo a corpo",
+      "weight": 2,
+      "properties": [
+        "versátil 1d10"
+      ]
+    },
+    "Mangual": {
+      "ability": "forca",
+      "damage": "1d8",
+      "type": "concussão",
+      "range": "corpo a corpo",
+      "weight": 1
+    },
+    "Glaive": {
+      "ability": "forca",
+      "damage": "1d10",
+      "type": "cortante",
+      "range": "corpo a corpo",
+      "weight": 3,
+      "properties": [
+        "pesada",
+        "alcance",
+        "duas mãos"
+      ]
+    },
+    "Machado grande": {
+      "ability": "forca",
+      "damage": "1d12",
+      "type": "cortante",
+      "range": "corpo a corpo",
+      "weight": 3.5,
+      "properties": [
+        "pesada",
+        "duas mãos"
+      ]
+    },
+    "Montante": {
+      "ability": "forca",
+      "damage": "2d6",
+      "type": "cortante",
+      "range": "corpo a corpo",
+      "weight": 3,
+      "properties": [
+        "pesada",
+        "duas mãos"
+      ]
+    },
+    "Alabarda": {
+      "ability": "forca",
+      "damage": "1d10",
+      "type": "cortante",
+      "range": "corpo a corpo",
+      "weight": 3,
+      "properties": [
+        "pesada",
+        "alcance",
+        "duas mãos"
+      ]
+    },
+    "Lança de montaria": {
+      "ability": "forca",
+      "damage": "1d12",
+      "type": "perfurante",
+      "range": "corpo a corpo",
+      "weight": 3,
+      "properties": [
+        "alcance",
+        "especial"
+      ]
+    },
+    "Espada longa": {
+      "ability": "forca",
+      "damage": "1d8",
+      "type": "cortante",
+      "range": "corpo a corpo",
+      "weight": 1.5,
+      "properties": [
+        "versátil 1d10"
+      ]
+    },
+    "Malho": {
+      "ability": "forca",
+      "damage": "2d6",
+      "type": "concussão",
+      "range": "corpo a corpo",
+      "weight": 5,
+      "properties": [
+        "pesada",
+        "duas mãos"
+      ]
+    },
+    "Estrela da manhã": {
+      "ability": "forca",
+      "damage": "1d8",
+      "type": "perfurante",
+      "range": "corpo a corpo",
+      "weight": 2
+    },
+    "Pique": {
+      "ability": "forca",
+      "damage": "1d10",
+      "type": "perfurante",
+      "range": "corpo a corpo",
+      "weight": 9,
+      "properties": [
+        "pesada",
+        "alcance",
+        "duas mãos"
+      ]
+    },
+    "Rapieira": {
+      "ability": "destreza",
+      "damage": "1d8",
+      "type": "perfurante",
+      "range": "corpo a corpo",
+      "weight": 1,
+      "properties": [
+        "acuidade"
+      ]
+    },
+    "Cimitarra": {
+      "ability": "destreza",
+      "damage": "1d6",
+      "type": "cortante",
+      "range": "corpo a corpo",
+      "weight": 1.5,
+      "properties": [
+        "acuidade",
+        "leve"
+      ]
+    },
+    "Espada curta": {
+      "ability": "destreza",
+      "damage": "1d6",
+      "type": "perfurante",
+      "range": "corpo a corpo",
+      "weight": 1,
+      "properties": [
+        "acuidade",
+        "leve"
+      ]
+    },
+    "Tridente": {
+      "ability": "forca",
+      "damage": "1d6",
+      "type": "perfurante",
+      "range": "6/18m",
+      "weight": 2,
+      "properties": [
+        "arremesso",
+        "versátil 1d8"
+      ]
+    },
+    "Picareta de guerra": {
+      "ability": "forca",
+      "damage": "1d8",
+      "type": "perfurante",
+      "range": "corpo a corpo",
+      "weight": 1
+    },
+    "Martelo de guerra": {
+      "ability": "forca",
+      "damage": "1d8",
+      "type": "concussão",
+      "range": "corpo a corpo",
+      "weight": 1,
+      "properties": [
+        "versátil 1d10"
+      ]
+    },
+    "Chicote": {
+      "ability": "destreza",
+      "damage": "1d4",
+      "type": "cortante",
+      "range": "corpo a corpo",
+      "weight": 1.5,
+      "properties": [
+        "acuidade",
+        "alcance"
+      ]
+    },
+    "Zarabatana": {
+      "ability": "destreza",
+      "damage": "1",
+      "type": "perfurante",
+      "range": "7,5/30m",
+      "weight": 0.5,
+      "properties": [
+        "munição",
+        "recarga"
+      ]
+    },
+    "Besta de mão": {
+      "ability": "destreza",
+      "damage": "1d6",
+      "type": "perfurante",
+      "range": "9/36m",
+      "weight": 1.5,
+      "properties": [
+        "munição",
+        "leve",
+        "recarga"
+      ]
+    },
+    "Besta pesada": {
+      "ability": "destreza",
+      "damage": "1d10",
+      "type": "perfurante",
+      "range": "30/120m",
+      "weight": 9,
+      "properties": [
+        "munição",
+        "pesada",
+        "recarga",
+        "duas mãos"
+      ]
+    },
+    "Arco longo": {
+      "ability": "destreza",
+      "damage": "1d8",
+      "type": "perfurante",
+      "range": "45/180m",
+      "weight": 1,
+      "properties": [
+        "munição",
+        "pesada",
+        "duas mãos"
+      ]
+    },
+    "Rede": {
+      "ability": "destreza",
+      "damage": "0",
+      "type": "especial",
+      "range": "1,5/4,5m",
+      "weight": 1.5,
+      "properties": [
+        "arremesso",
+        "especial"
+      ]
+    }
+  },
+  "armas_simples": [
+    "Clava",
+    "Adaga",
+    "Clava grande",
+    "Machadinha",
+    "Azagaia",
+    "Martelo leve",
+    "Maça",
+    "Bordão",
+    "Foice curta",
+    "Lança",
+    "Besta leve",
+    "Dardo",
+    "Arco curto",
+    "Funda"
+  ],
+  "armas_marciais": [
+    "Machado de batalha",
+    "Mangual",
+    "Glaive",
+    "Machado grande",
+    "Montante",
+    "Alabarda",
+    "Lança de montaria",
+    "Espada longa",
+    "Malho",
+    "Estrela da manhã",
+    "Pique",
+    "Rapieira",
+    "Cimitarra",
+    "Espada curta",
+    "Tridente",
+    "Picareta de guerra",
+    "Martelo de guerra",
+    "Chicote",
+    "Zarabatana",
+    "Besta de mão",
+    "Besta pesada",
+    "Arco longo",
+    "Rede"
+  ],
+  "prof_armas_classe": {
+    "Bárbaro": [
+      "armas simples",
+      "armas marciais"
+    ],
+    "Bardo": [
+      "armas simples",
+      "Besta de mão",
+      "Espada longa",
+      "Rapieira",
+      "Espada curta"
+    ],
+    "Bruxo": [
+      "armas simples"
+    ],
+    "Clérigo": [
+      "armas simples"
+    ],
+    "Druida": [
+      "Clava",
+      "Adaga",
+      "Dardo",
+      "Azagaia",
+      "Maça",
+      "Bordão",
+      "Cimitarra",
+      "Foice curta",
+      "Funda",
+      "Lança"
+    ],
+    "Feiticeiro": [
+      "Adaga",
+      "Dardo",
+      "Funda",
+      "Bordão",
+      "Besta leve"
+    ],
+    "Guerreiro": [
+      "armas simples",
+      "armas marciais"
+    ],
+    "Ladino": [
+      "armas simples",
+      "Besta de mão",
+      "Espada longa",
+      "Rapieira",
+      "Espada curta"
+    ],
+    "Mago": [
+      "Adaga",
+      "Dardo",
+      "Funda",
+      "Bordão",
+      "Besta leve"
+    ],
+    "Monge": [
+      "armas simples",
+      "Espada curta"
+    ],
+    "Paladino": [
+      "armas simples",
+      "armas marciais"
+    ],
+    "Patrulheiro": [
+      "armas simples",
+      "armas marciais"
+    ]
+  },
+  "subclasses_por_classe": {
+    "Bárbaro": {
+      "pathLevel": 3,
+      "pathLabel": "Caminho Primitivo",
+      "paths": [
+        "Caminho do Furioso",
+        "Caminho do Guerreiro Totêmico"
+      ],
+      "choicesByLevel": {
+        "3": [
+          {
+            "tipo": "escolha",
+            "nome": "Escolher Caminho Primitivo",
+            "origem": "classe",
+            "modo": "escolha"
+          }
+        ]
+      }
+    },
+    "Bardo": {
+      "pathLevel": 3,
+      "pathLabel": "Colégio de Bardo",
+      "paths": [
+        "Colégio do Conhecimento",
+        "Colégio da Bravura"
+      ],
+      "choicesByLevel": {
+        "3": [
+          {
+            "tipo": "escolha",
+            "nome": "Escolher Colégio de Bardo",
+            "origem": "classe",
+            "modo": "escolha"
+          }
+        ]
+      }
+    },
+    "Bruxo": {
+      "pathLevel": 1,
+      "pathLabel": "Patrono Transcendental",
+      "paths": [
+        "Arquifada",
+        "Corruptor",
+        "Grande Antigo"
+      ],
+      "choicesByLevel": {
+        "1": [
+          {
+            "tipo": "escolha",
+            "nome": "Escolher Patrono Transcendental",
+            "origem": "classe",
+            "modo": "escolha"
+          }
+        ],
+        "2": [
+          {
+            "tipo": "escolha",
+            "nome": "Escolher Invocações Místicas",
+            "origem": "classe",
+            "modo": "escolha",
+            "alvo": "classeInfo.invocacoes",
+            "opcoes": [
+              "Invocações Místicas conforme Livro do Jogador"
+            ]
+          }
+        ],
+        "3": [
+          {
+            "tipo": "escolha",
+            "nome": "Escolher Dádiva do Pacto",
+            "origem": "classe",
+            "modo": "escolha",
+            "alvo": "classeInfo.dadivaPacto",
+            "opcoes": [
+              "Pacto da Corrente",
+              "Pacto da Lâmina",
+              "Pacto do Tomo"
+            ]
+          }
+        ]
+      }
+    },
+    "Clérigo": {
+      "pathLevel": 1,
+      "pathLabel": "Domínio Divino",
+      "paths": [
+        "Conhecimento",
+        "Vida",
+        "Luz",
+        "Natureza",
+        "Tempestade",
+        "Enganação",
+        "Guerra"
+      ],
+      "choicesByLevel": {
+        "1": [
+          {
+            "tipo": "escolha",
+            "nome": "Escolher Domínio Divino",
+            "origem": "classe",
+            "modo": "escolha"
+          }
+        ]
+      }
+    },
+    "Druida": {
+      "pathLevel": 2,
+      "pathLabel": "Círculo Druídico",
+      "paths": [
+        "Círculo da Terra",
+        "Círculo da Lua"
+      ],
+      "choicesByLevel": {
+        "2": [
+          {
+            "tipo": "escolha",
+            "nome": "Escolher Círculo Druídico",
+            "origem": "classe",
+            "modo": "escolha"
+          }
+        ]
+      }
+    },
+    "Feiticeiro": {
+      "pathLevel": 1,
+      "pathLabel": "Origem de Feitiçaria",
+      "paths": [
+        "Linhagem Dracônica",
+        "Magia Selvagem"
+      ],
+      "choicesByLevel": {
+        "1": [
+          {
+            "tipo": "escolha",
+            "nome": "Escolher Origem de Feitiçaria",
+            "origem": "classe",
+            "modo": "escolha"
+          }
+        ]
+      }
+    },
+    "Guerreiro": {
+      "pathLevel": 3,
+      "pathLabel": "Arquétipo Marcial",
+      "paths": [
+        "Campeão",
+        "Mestre de Batalha",
+        "Cavaleiro Arcano"
+      ],
+      "choicesByLevel": {
+        "3": [
+          {
+            "tipo": "escolha",
+            "nome": "Escolher Arquétipo Marcial",
+            "origem": "classe",
+            "modo": "escolha"
+          }
+        ]
+      }
+    },
+    "Ladino": {
+      "pathLevel": 3,
+      "pathLabel": "Arquétipo Ladino",
+      "paths": [
+        "Ladrão",
+        "Assassino",
+        "Trapaceiro Arcano"
+      ],
+      "choicesByLevel": {
+        "3": [
+          {
+            "tipo": "escolha",
+            "nome": "Escolher Arquétipo Ladino",
+            "origem": "classe",
+            "modo": "escolha"
+          }
+        ]
+      }
+    },
+    "Mago": {
+      "pathLevel": 2,
+      "pathLabel": "Tradição Arcana",
+      "paths": [
+        "Abjuração",
+        "Conjuração",
+        "Adivinhação",
+        "Encantamento",
+        "Evocação",
+        "Ilusão",
+        "Necromancia",
+        "Transmutação"
+      ],
+      "choicesByLevel": {
+        "2": [
+          {
+            "tipo": "escolha",
+            "nome": "Escolher Tradição Arcana",
+            "origem": "classe",
+            "modo": "escolha"
+          }
+        ]
+      }
+    },
+    "Monge": {
+      "pathLevel": 3,
+      "pathLabel": "Tradição Monástica",
+      "paths": [
+        "Caminho da Mão Aberta",
+        "Caminho da Sombra",
+        "Caminho dos Quatro Elementos"
+      ],
+      "choicesByLevel": {
+        "3": [
+          {
+            "tipo": "escolha",
+            "nome": "Escolher Tradição Monástica",
+            "origem": "classe",
+            "modo": "escolha"
+          }
+        ]
+      }
+    },
+    "Paladino": {
+      "pathLevel": 3,
+      "pathLabel": "Juramento Sagrado",
+      "paths": [
+        "Juramento de Devoção",
+        "Juramento dos Anciões",
+        "Juramento de Vingança"
+      ],
+      "choicesByLevel": {
+        "3": [
+          {
+            "tipo": "escolha",
+            "nome": "Escolher Juramento Sagrado",
+            "origem": "classe",
+            "modo": "escolha"
+          }
+        ]
+      }
+    },
+    "Patrulheiro": {
+      "pathLevel": 3,
+      "pathLabel": "Arquétipo de Patrulheiro",
+      "paths": [
+        "Caçador",
+        "Mestre das Bestas"
+      ],
+      "choicesByLevel": {
+        "3": [
+          {
+            "tipo": "escolha",
+            "nome": "Escolher Arquétipo de Patrulheiro",
+            "origem": "classe",
+            "modo": "escolha"
+          }
+        ]
+      }
+    }
+  },
+  "observacao_copyright": "Arquivo técnico não copia texto corrido do livro; guarda nomes, números, opções e referências para funcionamento do sistema."
+}
