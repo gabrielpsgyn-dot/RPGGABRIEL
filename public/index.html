@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RPG Gabriel - Ficha Online Versão Vigente</title>
-  <link rel="stylesheet" href="./css/app-vigente.css?v=semsenha27">
+  <link rel="stylesheet" href="./css/app-vigente.css?v=recursos28">
 </head>
 <!-- RPGGABRIEL Versão Vigente LIVRO DO JOGADOR OFICIAL SEM ACHISMO -->
 <body class="menu-open tema-maritimo-sombrio">
@@ -172,7 +172,7 @@
       </div>
 
       <div class="menu-footer-actions">
-        <a class="btn secondary master-link" href="/mestre.html?v=semsenha27">Página do Mestre</a>
+        <a class="btn secondary master-link" href="/mestre.html?v=recursos28">Página do Mestre</a>
       </div>
     </div>
   </section>
@@ -359,6 +359,20 @@
           <div id="classProgressSummary" class="class-progress-summary"></div>
           <div id="classRewardsSummary" class="class-rewards-summary"></div>
         </div>
+
+        <div class="panel character-resources-panel" id="characterResourcesPanel">
+          <div class="compact-panel-top">
+            <div>
+              <h3>Recursos do personagem</h3>
+              <p class="sheet-note">Uso real na mesa: gastar, recuperar e lembrar quando cada recurso entra em jogo.</p>
+            </div>
+            <div class="resource-rest-actions">
+              <button class="btn secondary small" type="button" id="shortRestBtn">Descanso curto</button>
+              <button class="btn primary small" type="button" id="longRestBtn">Descanso longo</button>
+            </div>
+          </div>
+          <div id="characterResourcesSummary" class="character-resources-summary"></div>
+        </div>
         <div class="grid-main">
           <div>
             <div class="panel">
@@ -415,8 +429,8 @@
                 <div id="rulesAuditSummary" class="rules-audit-box"></div>
                 <div class="rules-audit-actions">
                   <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                  <a class="btn small secondary" href="criador.html?v=semsenha27" target="_blank">Criador livre</a>
-                  <a class="btn small primary" href="livro-regras.html?v=semsenha27" target="_blank">Livro de Regras</a>
+                  <a class="btn small secondary" href="criador.html?v=recursos28" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=recursos28" target="_blank">Livro de Regras</a>
                 </div>
               </details>
             </div>
@@ -9533,7 +9547,7 @@
       cells.push(`<span class="slot-mini-cell ${cantripQty ? 'on' : 'off'} slot-mini-cantrip"><b>0º</b><em>${cantripQty || '-'}</em></span>`);
 
       if(rule.casting === 'pact'){
-        const pact = PACT_SLOTS[level] || {};
+        const pact = PACT_CASTER_SLOTS[level] || {};
         const pactHtml = pact.total
           ? `<div class="slot-pact-box"><span>Pacto</span><b>${num(pact.total)} espaço(s)</b><small>nível do espaço: ${num(pact.slotLevel)}º</small></div>`
           : `<div class="slot-mini-empty">Sem espaços de pacto</div>`;
@@ -9788,7 +9802,7 @@
       const slots = getClassSpellSlots(cls, level) || [];
       const slotText = slots.map((q,i)=>q ? `${q} espaço(s) de ${i+1}º` : '').filter(Boolean).join(', ');
       if(rule.casting === 'pact'){
-        const pact = PACT_SLOTS[level] || {};
+        const pact = PACT_CASTER_SLOTS[level] || {};
         return pact.total ? `Magia de Pacto: ${pact.total} espaço(s), nível do espaço ${pact.slotLevel}º.` : (slotText || 'Sem espaço de pacto.');
       }
       return slotText || 'Sem espaços de magia.';
@@ -9853,7 +9867,7 @@
         className:"warlock-table",
         columns:["Nível","Bônus de Proficiência","Características","Truques","Magias Conhecidas","Espaços","Nível do Espaço","Invocações"],
         row(level, ctx){
-          const pact = PACT_SLOTS[level] || PACT_CASTER_SLOTS[level] || {};
+          const pact = PACT_CASTER_SLOTS[level] || PACT_CASTER_SLOTS[level] || {};
           const inv = level<2 ? "-" : (level>=18?8:level>=15?7:level>=12?6:level>=9?5:level>=7?4:level>=5?3:2);
           return [`${level}º`, `+${levelProfBonus(level)}`, ctx.features, String(valueAtProgress(CLASS_SPELL_KNOWN_PROGRESS["Bruxo"].cantrips, level)||"-"), String(valueAtProgress(CLASS_SPELL_KNOWN_PROGRESS["Bruxo"].known, level)||"-"), String(pact.total || "-"), pact.slotLevel ? `${pact.slotLevel}º` : "-", String(inv)];
         }
@@ -10225,6 +10239,267 @@
       `;
     }
 
+
+    function resourceKeySafe(key){
+      return String(key || '').replace(/[^a-zA-Z0-9_.:-]/g,'_');
+    }
+
+    function ensureResourceStore(c){
+      c.recursos = c.recursos || {};
+      c.recursos.valores = c.recursos.valores || {};
+      c.recursos.ativos = c.recursos.ativos || {};
+      return c.recursos;
+    }
+
+    function resourceValue(c, key, maxValue){
+      const store = ensureResourceStore(c);
+      if(store.valores[key] == null || store.valores[key] === '') store.valores[key] = maxValue;
+      const n = num(store.valores[key]);
+      if(maxValue === Infinity) return n;
+      return clamp(n, 0, Math.max(0, num(maxValue)));
+    }
+
+    function setResourceValue(c, key, value, maxValue){
+      const store = ensureResourceStore(c);
+      store.valores[key] = maxValue === Infinity ? Math.max(0, num(value)) : clamp(num(value), 0, Math.max(0, num(maxValue)));
+    }
+
+    function resourceActive(c, key){
+      const store = ensureResourceStore(c);
+      return !!store.ativos[key];
+    }
+
+    function setResourceActive(c, key, value){
+      const store = ensureResourceStore(c);
+      store.ativos[key] = !!value;
+    }
+
+    function barbarianRages(level){
+      return level >= 20 ? Infinity : (level >= 17 ? 6 : level >= 12 ? 5 : level >= 6 ? 4 : level >= 3 ? 3 : 2);
+    }
+
+    function barbarianRageDamage(level){
+      return level >= 16 ? 4 : level >= 9 ? 3 : 2;
+    }
+
+    function bardInspirationDie(level){
+      return level >= 15 ? 'd12' : level >= 10 ? 'd10' : level >= 5 ? 'd8' : 'd6';
+    }
+
+    function battleMasterDice(level){
+      return level >= 18 ? 'd12' : level >= 10 ? 'd10' : 'd8';
+    }
+
+    function battleMasterCount(level){
+      return level >= 15 ? 6 : level >= 7 ? 5 : 4;
+    }
+
+    function sneakAttackDice(level){
+      return level >= 19 ? 10 : level >= 17 ? 9 : level >= 15 ? 8 : level >= 13 ? 7 : level >= 11 ? 6 : level >= 9 ? 5 : level >= 7 ? 4 : level >= 5 ? 3 : level >= 3 ? 2 : 1;
+    }
+
+    function paladinLayOnHands(level){
+      return level * 5;
+    }
+
+    function channelDivinityUses(level){
+      return level >= 18 ? 3 : level >= 6 ? 2 : 1;
+    }
+
+    function wizardArcaneWardMax(c, level){
+      return Math.max(0, level * 2 + getMod(c, 'inteligencia'));
+    }
+
+    function resourceCardHtml(card){
+      const key = resourceKeySafe(card.key);
+      const hasCounter = card.max != null;
+      const maxLabel = card.max === Infinity ? 'Ilimitado' : String(card.max);
+      const current = hasCounter ? card.current : '';
+      const active = !!card.active;
+      const canSpend = hasCounter && card.max !== Infinity;
+      return `
+        <article class="resource-card ${active ? 'active' : ''}" data-resource-card="${escapeHtml(key)}">
+          <div class="resource-card-head">
+            <div>
+              <span>${escapeHtml(card.group || 'Recurso')}</span>
+              <b>${escapeHtml(card.name)}</b>
+            </div>
+            ${card.tag ? `<em>${escapeHtml(card.tag)}</em>` : ''}
+          </div>
+          ${hasCounter ? `
+            <div class="resource-counter">
+              <button type="button" class="resource-btn" data-resource-step="${escapeHtml(key)}" data-resource-step-value="-1" ${canSpend ? '' : 'disabled'}>-</button>
+              <strong>${card.max === Infinity ? '∞' : escapeHtml(current)}</strong>
+              <button type="button" class="resource-btn" data-resource-step="${escapeHtml(key)}" data-resource-step-value="1" ${canSpend ? '' : 'disabled'}>+</button>
+              <small>máx. ${escapeHtml(maxLabel)}</small>
+            </div>
+          ` : ''}
+          <div class="resource-text">
+            <p><b>Como usa:</b> ${escapeHtml(card.use || '-')}</p>
+            ${card.sheet ? `<p><b>Na ficha:</b> ${escapeHtml(card.sheet)}</p>` : ''}
+            ${card.rest ? `<p><b>Recupera:</b> ${escapeHtml(card.rest === 'curto' ? 'Descanso curto' : 'Descanso longo')}</p>` : ''}
+          </div>
+          <div class="resource-actions">
+            ${hasCounter && card.max !== Infinity ? `<button type="button" class="btn secondary small" data-resource-reset="${escapeHtml(key)}">Recuperar</button>` : ''}
+            ${card.toggle ? `<button type="button" class="btn ${active ? 'danger' : 'green'} small" data-resource-toggle="${escapeHtml(key)}">${active ? 'Desativar' : 'Ativar'}</button>` : ''}
+          </div>
+        </article>
+      `;
+    }
+
+    function characterResourceDefinitions(c){
+      const cls = normalizeClassName(getByPath(c,'meta.classe') || '');
+      const level = getCharacterLevel(c);
+      const path = getSelectedClassPath(c) || '';
+      const cards = [];
+
+      if(cls === 'Bárbaro'){
+        const max = barbarianRages(level);
+        cards.push({key:'barbaro.furia', group:'Bárbaro', name:'Fúria', max, current:resourceValue(c,'barbaro.furia', max), rest:'longo', toggle:true, active:resourceActive(c,'barbaro.furiaAtiva'), tag:`+${barbarianRageDamage(level)} dano`, use:'Ative como bônus no combate. Enquanto estiver em fúria, aplique dano extra e resistências conforme a classe.', sheet:'Mostrar Fúria ativa, fúrias restantes e dano de fúria.'});
+        if(/totêmico|totemico/i.test(path)){
+          cards.push({key:'barbaro.totem', group:'Caminho', name:'Guerreiro Totêmico', tag:path, use:'Use o benefício do totem escolhido durante a Fúria. Urso, Águia e Lobo mudam o efeito.', sheet:'Registrar o totem escolhido e mostrar lembrete dentro da Fúria.'});
+        }
+      }
+
+      if(cls === 'Bardo'){
+        const max = Math.max(1, getMod(c,'carisma'));
+        cards.push({key:'bardo.inspiracao', group:'Bardo', name:'Inspiração de Bardo', max, current:resourceValue(c,'bardo.inspiracao', max), rest:level>=5?'curto':'longo', tag:bardInspirationDie(level), use:'Use ação bônus para dar o dado de inspiração a uma criatura. Ela soma esse dado em teste, ataque ou salvaguarda conforme regra.', sheet:'Controlar dados de inspiração restantes.'});
+      }
+
+      if(cls === 'Bruxo'){
+        const pact = PACT_CASTER_SLOTS[level] || {};
+        if(pact.total){
+          cards.push({key:'bruxo.pacto', group:'Bruxo', name:'Espaços de Pacto', max:pact.total, current:resourceValue(c,'bruxo.pacto', pact.total), rest:'curto', tag:`${pact.slotLevel}º círculo`, use:'Gaste para conjurar magias de Bruxo. Todos os espaços usam o mesmo círculo indicado.', sheet:'Controlar espaços de pacto restantes.'});
+        }
+      }
+
+      if(cls === 'Clérigo'){
+        if(level >= 2){
+          const max = channelDivinityUses(level);
+          cards.push({key:'clerigo.canalizar', group:'Clérigo', name:'Canalizar Divindade', max, current:resourceValue(c,'clerigo.canalizar', max), rest:'curto', tag:'recurso divino', use:'Use uma opção de Canalizar Divindade da classe ou do domínio escolhido.', sheet:'Controlar usos de Canalizar Divindade.'});
+        }
+      }
+
+      if(cls === 'Druida'){
+        if(level >= 2){
+          cards.push({key:'druida.formaSelvagem', group:'Druida', name:'Forma Selvagem', max:2, current:resourceValue(c,'druida.formaSelvagem', 2), rest:'curto', tag:'2 usos', use:'Use para assumir forma de besta conforme limites do nível e círculo.', sheet:'Controlar usos de Forma Selvagem.'});
+        }
+      }
+
+      if(cls === 'Feiticeiro'){
+        if(level >= 2){
+          cards.push({key:'feiticeiro.pontos', group:'Feiticeiro', name:'Pontos de Feitiçaria', max:level, current:resourceValue(c,'feiticeiro.pontos', level), rest:'longo', tag:`${level} pontos`, use:'Gaste em Metamagia ou para converter espaços de magia conforme regra.', sheet:'Controlar pontos de feitiçaria.'});
+        }
+      }
+
+      if(cls === 'Guerreiro'){
+        cards.push({key:'guerreiro.retomarFolego', group:'Guerreiro', name:'Retomar Fôlego', max:1, current:resourceValue(c,'guerreiro.retomarFolego', 1), rest:'curto', tag:'cura', use:'Use como ação bônus para recuperar PV conforme regra.', sheet:'Botão de recurso de cura.'});
+        if(level >= 2){
+          const max = level >= 17 ? 2 : 1;
+          cards.push({key:'guerreiro.surtoAcao', group:'Guerreiro', name:'Surto de Ação', max, current:resourceValue(c,'guerreiro.surtoAcao', max), rest:'curto', tag:'ação extra', use:'Use no seu turno para ganhar uma ação adicional.', sheet:'Controlar usos de Surto de Ação.'});
+        }
+        if(/mestre de batalha/i.test(path) && level >= 3){
+          const max = battleMasterCount(level);
+          cards.push({key:'guerreiro.superioridade', group:'Mestre de Batalha', name:'Dados de Superioridade', max, current:resourceValue(c,'guerreiro.superioridade', max), rest:'curto', tag:battleMasterDice(level), use:'Gaste um dado para usar uma manobra escolhida.', sheet:'Controlar dados e lembrar manobras.'});
+        }
+      }
+
+      if(cls === 'Ladino'){
+        cards.push({key:'ladino.ataqueFurtivo', group:'Ladino', name:'Ataque Furtivo', tag:`${sneakAttackDice(level)}d6`, use:'Uma vez por turno, aplique quando tiver vantagem ou aliado adjacente ao alvo conforme regra.', sheet:'Mostrar dano automático do Ataque Furtivo.'});
+      }
+
+      if(cls === 'Mago'){
+        cards.push({key:'mago.recuperacaoArcana', group:'Mago', name:'Recuperação Arcana', max:1, current:resourceValue(c,'mago.recuperacaoArcana', 1), rest:'longo', tag:'descanso curto', use:'Após descanso curto, recupere espaços de magia conforme limite do nível.', sheet:'Marcar se Recuperação Arcana já foi usada no dia.'});
+        if(/abjuração/i.test(path) && level >= 2){
+          const max = wizardArcaneWardMax(c, level);
+          cards.push({key:'mago.protecaoArcana', group:'Abjuração', name:'Proteção Arcana', max, current:resourceValue(c,'mago.protecaoArcana', max), rest:'longo', tag:`máx. ${max}`, use:'Quando conjurar magia de Abjuração de 1º círculo ou maior, cria/recupera proteção. Absorve dano antes do PV.', sheet:'Controlar Proteção Arcana atual/máxima.'});
+          if(level >= 6){
+            cards.push({key:'mago.protecaoProjetada', group:'Abjuração', name:'Proteção Projetada', tag:'reação', use:'Use reação para sua Proteção Arcana absorver dano de outra criatura próxima.', sheet:'Botão de reação na mesa.'});
+          }
+        }
+        if(/adivinhação/i.test(path) && level >= 2){
+          const max = level >= 14 ? 3 : 2;
+          cards.push({key:'mago.pressagio', group:'Adivinhação', name:'Presságio', max, current:resourceValue(c,'mago.pressagio', max), rest:'longo', tag:`${max} dados`, use:'Após descanso longo, role e guarde os dados. Substitua rolagens vistas por esses resultados.', sheet:'Campos para anotar dados de Presságio.'});
+        }
+      }
+
+      if(cls === 'Monge'){
+        if(level >= 2){
+          cards.push({key:'monge.ki', group:'Monge', name:'Pontos de Ki', max:level, current:resourceValue(c,'monge.ki', level), rest:'curto', tag:`${level} ki`, use:'Gaste para Rajada de Golpes, Defesa Paciente, Passo do Vento e técnicas da tradição.', sheet:'Controlar pontos de Ki restantes.'});
+        }
+      }
+
+      if(cls === 'Paladino'){
+        cards.push({key:'paladino.maosConsagradas', group:'Paladino', name:'Cura pelas Mãos', max:paladinLayOnHands(level), current:resourceValue(c,'paladino.maosConsagradas', paladinLayOnHands(level)), rest:'longo', tag:`${paladinLayOnHands(level)} PV`, use:'Gaste pontos da reserva para curar ou remover doença/veneno conforme regra.', sheet:'Controlar reserva de cura.'});
+        if(level >= 3){
+          cards.push({key:'paladino.canalizar', group:'Paladino', name:'Canalizar Divindade', max:1, current:resourceValue(c,'paladino.canalizar', 1), rest:'curto', tag:path || 'juramento', use:'Use uma opção de Canalizar Divindade do juramento escolhido.', sheet:'Controlar uso do juramento.'});
+        }
+      }
+
+      if(cls === 'Patrulheiro'){
+        if(level >= 2){
+          const known = valueAtProgress((CLASS_SPELL_KNOWN_PROGRESS['Patrulheiro'] || {}).known, level) || 0;
+          cards.push({key:'patrulheiro.magias', group:'Patrulheiro', name:'Magias Conhecidas', tag:String(known), use:'Escolha e use as magias conhecidas do Patrulheiro conforme seus espaços.', sheet:'Mostrar quantidade de magias conhecidas.'});
+        }
+        if(/mestre das bestas/i.test(path) && level >= 3){
+          cards.push({key:'patrulheiro.companheiro', group:'Mestre das Bestas', name:'Companheiro Animal', tag:'besta', use:'Comande a besta conforme regra da subclasse.', sheet:'Criar/usar bloco do companheiro.'});
+        }
+      }
+
+      return cards;
+    }
+
+    function renderCharacterResources(){
+      const c = activeChar();
+      const box = $('#characterResourcesSummary');
+      if(!c || !box) return;
+      ensureResourceStore(c);
+      const cards = characterResourceDefinitions(c);
+      if(!cards.length){
+        box.innerHTML = '<div class="clean-empty">Escolha uma classe e nível para ver recursos jogáveis.</div>';
+        return;
+      }
+      box.innerHTML = cards.map(resourceCardHtml).join('');
+    }
+
+    function updateResourceFromButton(btn){
+      const c = activeChar(); if(!c) return;
+      const key = btn.dataset.resourceStep || btn.dataset.resourceReset || btn.dataset.resourceToggle;
+      const cards = characterResourceDefinitions(c);
+      const card = cards.find(x=>resourceKeySafe(x.key) === key);
+      if(!card){ toast('Recurso não encontrado.'); return; }
+      if(btn.dataset.resourceStep){
+        const delta = num(btn.dataset.resourceStepValue);
+        setResourceValue(c, card.key, resourceValue(c, card.key, card.max) + delta, card.max);
+      }else if(btn.dataset.resourceReset){
+        setResourceValue(c, card.key, card.max, card.max);
+      }else if(btn.dataset.resourceToggle){
+        const activeKey = card.key === 'barbaro.furia' ? 'barbaro.furiaAtiva' : card.key + '.ativo';
+        setResourceActive(c, activeKey, !resourceActive(c, activeKey));
+      }
+      saveLocal(false);
+      renderCharacterResources();
+      toast('Recurso atualizado.');
+    }
+
+    function restoreResources(kind){
+      const c = activeChar(); if(!c) return;
+      ensureResourceStore(c);
+      const cards = characterResourceDefinitions(c);
+      cards.forEach(card=>{
+        if(card.max == null || card.max === Infinity) return;
+        if(kind === 'longo' || card.rest === 'curto' || card.rest === 'longo'){
+          setResourceValue(c, card.key, card.max, card.max);
+        }
+      });
+      if(kind === 'longo' && c.vida && c.vida.maximos){
+        c.vida.atuais = c.vida.maximos;
+      }
+      saveLocal(true);
+      renderForm();
+      toast(kind === 'curto' ? 'Descanso curto aplicado.' : 'Descanso longo aplicado.');
+    }
+
     function renderForm(){
       const c=activeChar();
       safeCall('renderMenu', renderMenu);
@@ -10243,6 +10518,7 @@
       safeCall('renderRulesClarity', renderRulesClarity);
       safeCall('renderAttributeSourceSummary', renderAttributeSourceSummary);
       safeCall('renderCharacterFlow', renderCharacterFlow);
+      safeCall('renderCharacterResources', renderCharacterResources);
       safeCall('renderRaceProgress', renderRaceProgress);
       safeCall('renderRaceGuide', renderRaceGuide);
       safeCall('renderBackgroundProgress', renderBackgroundProgress);
@@ -10668,6 +10944,7 @@
         applyRuleEngine(c);
         if(el.dataset.path === 'meta.raca') renderForm();
         renderClassProgress();
+        renderCharacterResources();
         renderRaceProgress();
         renderRaceGuide();
         renderSpellSlotsClassTotals();
@@ -10680,6 +10957,7 @@
           setByPath(c, el.dataset.path, el.checked);
           applyRuleEngine(c);
         renderClassProgress();
+        renderCharacterResources();
         renderRaceProgress();
         renderSpellSlotsClassTotals();
         renderDashboard(); renderCalcs(); renderAttacks(); renderInventory(); renderProficiencySummary(); scheduleSave();
@@ -10691,6 +10969,15 @@
 
         const raceDetailRow = e.target.closest('[data-race-detail]');
         if(raceDetailRow && !e.target.closest('button')){ selectRaceGuideDetail(raceDetailRow.dataset.raceDetail); return; }
+
+        const resourceButton = e.target.closest('[data-resource-step],[data-resource-reset],[data-resource-toggle]');
+        if(resourceButton){ updateResourceFromButton(resourceButton); return; }
+
+        const shortRestBtn = e.target.closest('#shortRestBtn');
+        if(shortRestBtn){ restoreResources('curto'); return; }
+
+        const longRestBtn = e.target.closest('#longRestBtn');
+        if(longRestBtn){ restoreResources('longo'); return; }
 
         const addWeaponInv = e.target.closest('#addWeaponToInventoryBtn');
         if(addWeaponInv){ addWeaponToInventory(); return; }
