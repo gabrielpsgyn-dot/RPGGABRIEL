@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RPG Gabriel - Ficha Online Versão Vigente</title>
-  <link rel="stylesheet" href="./css/app-vigente.css?v=vigente">
+  <link rel="stylesheet" href="./css/app-vigente.css?v=layoutfinal2">
 </head>
 <!-- RPGGABRIEL Versão Vigente LIVRO DO JOGADOR OFICIAL SEM ACHISMO -->
 <body class="menu-open tema-maritimo-sombrio">
@@ -5562,15 +5562,22 @@
 
 
     function renderStatic(){
-      $('#abilityList').innerHTML = abilities.map(([k,label])=>`
-        <div class="ability">
-          <div class="ability-name">${label}</div>
-          <div class="ability-controls">
-            <button type="button" data-attr-step="${k}" data-delta="-1">-</button>
-            <input class="score" data-path="atributos.${k}.valor" type="number">
-            <button type="button" data-attr-step="${k}" data-delta="1">+</button>
+      const abilityIcons = {forca:'⚔',destreza:'➶',constituicao:'♥',inteligencia:'✦',sabedoria:'☽',carisma:'◆'};
+      $('#abilityList').innerHTML = abilities.map(([k,label,abbr])=>`
+        <div class="ability ability-card">
+          <div class="ability-head">
+            <div class="ability-icon">${abilityIcons[k] || '✦'}</div>
+            <div>
+              <div class="ability-name">${label}</div>
+              <div class="ability-abbr">${abbr}</div>
+            </div>
           </div>
-          <div class="mod-line auto-mod-line"><span>Mod</span><strong class="auto-mod-value" data-mod-input="${k}">+0</strong></div>
+          <div class="ability-controls">
+            <button type="button" class="attr-step-btn" data-attr-step="${k}" data-delta="-1">−</button>
+            <input class="score" data-path="atributos.${k}.valor" type="number">
+            <button type="button" class="attr-step-btn" data-attr-step="${k}" data-delta="1">+</button>
+          </div>
+          <div class="mod-line auto-mod-line"><span>Modificador</span><strong class="auto-mod-value" data-mod-input="${k}">+0</strong></div>
         </div>
       `).join('');
 
@@ -5578,17 +5585,18 @@
         const linked = skills.filter(([, , ability])=>ability===k);
         return `
           <div class="save-skill-group">
-            <div class="save-main">
+            <label class="save-main">
               <input type="checkbox" data-path="atributos.${k}.salvaguardaProficiente">
               <span class="bonus" data-save-bonus="${k}">+0</span>
-              <span>${label} <small>(${abbr})</small></span>
-            </div>
+              <span class="save-name">${label}</span>
+              <span class="skill-attr">${abbr}</span>
+            </label>
             <div class="calc-formula" data-save-formula="${k}">Mod ${abbr}</div>
             <div class="linked-skills">
-              <span class="linked-skills-title">Perícias ligadas:</span>
+              <span class="linked-skills-title">Perícias:</span>
               ${linked.length ? linked.map(([sk,skLabel])=>`
                 <span class="linked-skill-pill">${skLabel} <span class="mini-bonus" data-linked-skill-bonus="${sk}">+0</span></span>
-              `).join('') : '<span class="linked-skill-pill">Nenhuma perícia padrão</span>'}
+              `).join('') : '<span class="linked-skill-pill">Nenhuma</span>'}
             </div>
           </div>
         `;
