@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RPG Gabriel - Ficha Online Versão Vigente</title>
-  <link rel="stylesheet" href="./css/app-vigente.css?v=telasfix11">
+  <link rel="stylesheet" href="./css/app-vigente.css?v=autosaveusuario12">
 </head>
 <!-- RPGGABRIEL Versão Vigente LIVRO DO JOGADOR OFICIAL SEM ACHISMO -->
 <body class="menu-open tema-maritimo-sombrio">
@@ -41,7 +41,7 @@
       </div>
 
       <div class="menu-footer-actions">
-        <a class="btn secondary master-link" href="/mestre.html?v=telasfix11">Página do Mestre</a>
+        <a class="btn secondary master-link" href="/mestre.html?v=autosaveusuario12">Página do Mestre</a>
       </div>
     </div>
   </section>
@@ -206,6 +206,17 @@
           <div id="rulesClaritySummary" class="rules-clarity-summary"></div>
         </div>
 
+        <div class="panel user-next-step-panel" id="characterFlowPanel">
+          <div class="compact-panel-top">
+            <div>
+              <h3>Próximo passo do personagem</h3>
+              <p class="sheet-note">Resumo do que falta resolver para a ficha ficar pronta para jogo.</p>
+            </div>
+            <span class="class-badge" id="flowModeBadge">Modo criação</span>
+          </div>
+          <div id="characterFlowSummary" class="character-flow-summary"></div>
+        </div>
+
         <div class="panel class-progress-panel" id="classProgressPanel">
           <div class="class-progress-top">
             <div>
@@ -272,8 +283,8 @@
                 <div id="rulesAuditSummary" class="rules-audit-box"></div>
                 <div class="rules-audit-actions">
                   <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                  <a class="btn small secondary" href="criador.html?v=telasfix11" target="_blank">Criador livre</a>
-                  <a class="btn small primary" href="livro-regras.html?v=telasfix11" target="_blank">Livro de Regras</a>
+                  <a class="btn small secondary" href="criador.html?v=autosaveusuario12" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=autosaveusuario12" target="_blank">Livro de Regras</a>
                 </div>
               </details>
             </div>
@@ -9115,8 +9126,15 @@
       const creationDone = done >= 6;
       badge.textContent = creationDone ? 'Modo jogo' : 'Modo criação';
       const pending = (c.escolhasPendentes || []).filter(x=>x.status !== 'resolvido');
-      const pendingHtml = pending.length ? `<div class="flow-pending"><b>Escolhas pendentes</b>${pending.map(x=>renderPendingChoiceCard(c,x)).join('')}</div>` : '';
+      const todo = checks.filter(x=>!x.ok);
+      const nextMain = pending.length ? pending[0].label : (todo.length ? todo[0].label : 'Usar ficha em jogo');
+      const pendingHtml = pending.length ? `<div class="flow-pending"><b>Escolhas pendentes (${pending.length})</b>${pending.slice(0,6).map(x=>renderPendingChoiceCard(c,x)).join('')}${pending.length>6?`<div class="flow-note">Há mais ${pending.length-6} escolha(s) pendente(s). Resolva as primeiras para continuar.</div>`:''}</div>` : '';
       box.innerHTML = `
+        <div class="next-step-main">
+          <span>Próxima ação</span>
+          <b>${escapeHtml(nextMain)}</b>
+          <small>${pending.length ? 'Resolva a escolha pendente conforme o livro.' : (todo.length ? 'Complete este campo para avançar a criação.' : 'Ficha pronta para uso: PV, CA, ataques, inventário e magias.')}</small>
+        </div>
         <div class="flow-progress"><span style="width:${Math.round(done/checks.length*100)}%"></span></div>
         <div class="flow-checks">
           ${checks.map(x=>`<span class="flow-check ${x.ok?'ok':'todo'}">${x.ok?'✓':'•'} ${escapeHtml(x.label)}</span>`).join('')}
@@ -9141,6 +9159,7 @@
       safeCall('renderClassPathOptions', renderClassPathOptions);
       safeCall('renderClassProgress', renderClassProgress);
       safeCall('renderRulesClarity', renderRulesClarity);
+      safeCall('renderCharacterFlow', renderCharacterFlow);
       safeCall('renderRaceProgress', renderRaceProgress);
       safeCall('renderBackgroundProgress', renderBackgroundProgress);
       safeCall('renderDashboard', renderDashboard);

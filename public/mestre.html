@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mesa do Mestre - Versão Vigente</title>
-  <link rel="stylesheet" href="./css/app-vigente.css?v=inventariomestre6">
+  <link rel="stylesheet" href="./css/app-vigente.css?v=autosaveusuario12">
 </head>
 <body class="tema-maritimo-sombrio">
   <main class="app">
@@ -14,7 +14,7 @@
           <h1>Mesa do Mestre</h1>
           <small>Versão Vigente · regras do Guia do Mestre indexadas · tela de comando para sessão, turno, PV e condições</small>
         </div>
-        <button class="btn ghost small" onclick="location.href='./?v=inventariomestre6'">Ficha</button>
+        <button class="btn ghost small" onclick="location.href='./?v=autosaveusuario12">Ficha</button>
       </div>
       <div class="auth">
         <input id="masterPassword" type="password" autocomplete="current-password" placeholder="Senha da mesa">
@@ -32,8 +32,9 @@
           <button class="btn blue" id="prevTurnBtn">◀ Turno</button>
           <button class="btn blue" id="nextTurnBtn">Turno ▶</button>
           <button class="btn ghost" id="resetRoundBtn">Nova rodada</button>
-          <button class="btn green" id="saveSelectedBtn">Salvar selecionado</button>
+          <button class="btn green" id="saveSelectedBtn" title="Força sincronização manual do PJ/NPC selecionado">Sincronizar selecionado</button>
         </div>
+        <div class="autosave-status" id="masterAutoSaveStatus">Auto-save ativo: PV e condições salvam ao clicar.</div>
       </div>
 
       <div class="panel">
@@ -136,6 +137,24 @@ function uid(p){return p+'_'+Math.random().toString(36).slice(2,9)}
 function loadLocal(k,f){try{return JSON.parse(localStorage.getItem(k)||JSON.stringify(f))}catch{return f}}
 function saveLocal(k,v){localStorage.setItem(k,JSON.stringify(v))}
 function toast(msg){const el=$('#toast');el.textContent=msg;el.style.opacity='1';clearTimeout(window.__toast);window.__toast=setTimeout(()=>el.style.opacity='0',2400)}
+function setAutoSaveStatus(msg,state='ok'){
+  const el=$('#masterAutoSaveStatus');
+  if(!el)return;
+  el.textContent=msg;
+  el.classList.remove('saving','ok','error');
+  el.classList.add(state);
+}
+async function autoSaveEntity(type,e,msg){
+  setAutoSaveStatus('Salvando automaticamente...', 'saving');
+  try{
+    if(type==='player') await savePlayer(e,msg||'Alteração salva automaticamente.');
+    else await saveEntity(type,e,msg||'Alteração salva automaticamente.');
+    setAutoSaveStatus('Auto-save concluído.', 'ok');
+  }catch(err){
+    setAutoSaveStatus('Falha no auto-save: '+err.message, 'error');
+    toast('Falha no auto-save: '+err.message);
+  }
+}
 
 function password(){return $('#masterPassword').value.trim() || localStorage.getItem(PASS_KEY) || ''}
 function savePassword(){if($('#masterPassword').value.trim())localStorage.setItem(PASS_KEY,$('#masterPassword').value.trim())}
@@ -192,7 +211,7 @@ async function savePlayer(p,msg){
   renderAll();toast(msg||'Personagem salvo.');
 }
 function saveBoards(){saveLocal(ENEMY_KEY,state.enemies);saveLocal(NPC_KEY,state.npcs)}
-function saveEntity(type,e,msg){if(type==='player')return savePlayer(e,msg);saveBoards();renderAll();toast(msg||'Salvo localmente.')}
+async function saveEntity(type,e,msg){if(type==='player')return savePlayer(e,msg);saveBoards();renderAll();toast(msg||'Salvo localmente.');return Promise.resolve({ok:true})}
 
 function order(){return all().sort((a,b)=>iniOf(b.type,b.data)-iniOf(a.type,a.data)||nameOf(a.type,a.data).localeCompare(nameOf(b.type,b.data),'pt-BR'))}
 function activeTurn(){const o=order();if(!o.length)return null;state.turnIndex=clamp(state.turnIndex,0,o.length-1);return o[state.turnIndex]}
@@ -300,19 +319,23 @@ function renderAll(){ensureSelection();renderNow();renderLists();renderTurnList(
 
 function updateHp(type,id,delta){
   const e=find(type,id);if(!e)return;
-  if(type==='player'){e.vida.atuais=clamp(num(e.vida.atuais)+delta,0,Math.max(num(e.vida.maximos),num(e.vida.atuais)+delta));savePlayer(e,delta<0?'Dano aplicado.':'Cura aplicada.')}
-  else{e.hp=clamp(num(e.hp)+delta,0,Math.max(num(e.hpMax),num(e.hp)+delta));saveEntity(type,e,delta<0?'Dano aplicado.':'Cura aplicada.')}
+  if(type==='player') e.vida.atuais=clamp(num(e.vida.atuais)+delta,0,Math.max(num(e.vida.maximos),num(e.vida.atuais)+delta));
+  else e.hp=clamp(num(e.hp)+delta,0,Math.max(num(e.hpMax),num(e.hp)+delta));
+  renderAll();
+  autoSaveEntity(type,e,delta<0?'Dano salvo automaticamente.':'Cura salva automaticamente.');
 }
 function saveDetail(){
   const e=selected();const type=state.selectedType;if(!e)return;
   const now=num($('[data-edit="hp-now"]')?.value);const max=num($('[data-edit="hp-max"]')?.value);const ac=$('[data-edit="ac"]')?.value||'';const ini=num($('[data-edit="initiative"]')?.value);const notes=$('[data-edit="notes"]')?.value||'';
-  if(type==='player'){e.vida.atuais=now;e.vida.maximos=max;e.combate.classeArmadura=ac;e.combate.iniciativa=ini;e.campanha.pressagioCurto=notes;savePlayer(e,'Jogador atualizado.')}
-  else{e.hp=now;e.hpMax=max;e.ac=ac;e.initiative=ini;e.notes=notes;saveEntity(type,e,'Atualizado.')}
+  if(type==='player'){e.vida.atuais=now;e.vida.maximos=max;e.combate.classeArmadura=ac;e.combate.iniciativa=ini;e.campanha.pressagioCurto=notes;autoSaveEntity(type,e,'Detalhes salvos automaticamente.')}
+  else{e.hp=now;e.hpMax=max;e.ac=ac;e.initiative=ini;e.notes=notes;autoSaveEntity(type,e,'Detalhes salvos automaticamente.')}
 }
 function toggleCondition(cond){
   const e=selected();const type=state.selectedType;if(!e)return;
-  setCond(type,e,cond,!condOf(type,e).includes(cond));
-  if(type==='player')savePlayer(e,'Condição atualizada.');else saveEntity(type,e,'Condição atualizada.');
+  const willAdd=!condOf(type,e).includes(cond);
+  setCond(type,e,cond,willAdd);
+  renderAll();
+  autoSaveEntity(type,e,`Condição ${willAdd?'adicionada':'removida'} e salva automaticamente.`);
 }
 function addLocal(type){
   const e=baseLocal(type);if(type==='enemy')state.enemies.push(e);else state.npcs.push(e);
@@ -331,7 +354,7 @@ function bind(){
   $('#nextTurnBtn').onclick=$('#nextTurnBtn2').onclick=nextTurn;
   $('#prevTurnBtn').onclick=$('#prevTurnBtn2').onclick=prevTurn;
   $('#resetRoundBtn').onclick=resetRound;
-  $('#saveSelectedBtn').onclick=()=>{const e=selected();if(e)saveEntity(state.selectedType,e,'Salvo.')};
+  $('#saveSelectedBtn').onclick=()=>{const e=selected();if(e)autoSaveEntity(state.selectedType,e,'Sincronização manual concluída.')};
   $('#addEnemyBtn').onclick=()=>addLocal('enemy');
   $('#addNpcBtn').onclick=()=>addLocal('npc');
   $('#saveNotesBtn').onclick=()=>{localStorage.setItem(NOTES_KEY,$('#sessionNotes').value);toast('Notas salvas.')};
