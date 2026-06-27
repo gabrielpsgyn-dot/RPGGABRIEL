@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mesa do Mestre - Versão Vigente</title>
-  <link rel="stylesheet" href="./css/app-vigente.css?v=console34">
+  <link rel="stylesheet" href="./css/app-vigente.css?v=hpfix35">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3E%E2%9A%93%3C/text%3E%3C/svg%3E">
 </head>
 <body class="tema-maritimo-sombrio">
@@ -15,7 +15,7 @@
           <h1>Mesa do Mestre</h1>
           <small>Versão Vigente · regras do Guia do Mestre indexadas · tela de comando para sessão, turno, PV e condições</small>
         </div>
-        <button class="btn ghost small" onclick="location.href='./?v=console34'">Ficha</button>
+        <button class="btn ghost small" onclick="location.href='./?v=hpfix35'">Ficha</button>
       </div>
       <form class="auth" id="masterAuthForm" autocomplete="on">
         <input id="masterPassword" name="rpg_master_password" type="password" autocomplete="current-password" placeholder="Senha da mesa">
@@ -271,10 +271,10 @@ function entityCard(type,e){
     </div>
     ${type==='player'?resourcePillsHtml(e):''}
     <div class="entity-actions">
-      <button class="btn small green" data-hp-delta="1" data-type="${type}" data-id="${esc(e.id)}">+1</button>
-      <button class="btn small green" data-hp-delta="5" data-type="${type}" data-id="${esc(e.id)}">+5</button>
-      <button class="btn small red" data-hp-delta="-1" data-type="${type}" data-id="${esc(e.id)}">-1</button>
-      <button class="btn small red" data-hp-delta="-5" data-type="${type}" data-id="${esc(e.id)}">-5</button>
+      <button type="button" class="btn small green" data-hp-delta="1" data-type="${type}" data-id="${esc(e.id)}">+1</button>
+      <button type="button" class="btn small green" data-hp-delta="5" data-type="${type}" data-id="${esc(e.id)}">+5</button>
+      <button type="button" class="btn small red" data-hp-delta="-1" data-type="${type}" data-id="${esc(e.id)}">-1</button>
+      <button type="button" class="btn small red" data-hp-delta="-5" data-type="${type}" data-id="${esc(e.id)}">-5</button>
     </div>
   </article>`;
 }
@@ -318,10 +318,10 @@ function renderDetail(){
     </div>
     ${hpBar(type,e)}
     <div class="hp-actions">
-      <button class="btn green" data-hp-delta="10" data-type="${type}" data-id="${esc(e.id)}">Curar 10</button>
-      <button class="btn green" data-hp-delta="1" data-type="${type}" data-id="${esc(e.id)}">Curar 1</button>
-      <button class="btn red" data-hp-delta="-1" data-type="${type}" data-id="${esc(e.id)}">Dano 1</button>
-      <button class="btn red" data-hp-delta="-10" data-type="${type}" data-id="${esc(e.id)}">Dano 10</button>
+      <button type="button" class="btn green" data-hp-delta="10" data-type="${type}" data-id="${esc(e.id)}">Curar 10</button>
+      <button type="button" class="btn green" data-hp-delta="1" data-type="${type}" data-id="${esc(e.id)}">Curar 1</button>
+      <button type="button" class="btn red" data-hp-delta="-1" data-type="${type}" data-id="${esc(e.id)}">Dano 1</button>
+      <button type="button" class="btn red" data-hp-delta="-10" data-type="${type}" data-id="${esc(e.id)}">Dano 10</button>
     </div>
     <div class="edit-grid">
       <div class="field"><label>PV atual</label><input data-edit="hp-now" value="${h.now}"></div>
@@ -384,10 +384,32 @@ function bind(){
   $('#searchInput').oninput=renderLists;$('#typeFilter').onchange=renderLists;$('#hpFilter').onchange=renderLists;
   $all('.nav-btn').forEach(btn=>btn.onclick=()=>{$all('.nav-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');$all('.screen').forEach(s=>s.classList.remove('active'));$('#'+btn.dataset.screen).classList.add('active');renderAll()});
   document.addEventListener('click',e=>{
-    const sel=e.target.closest('[data-select-type]');if(sel){select(sel.dataset.selectType,sel.dataset.selectId);return}
-    const hp=e.target.closest('[data-hp-delta]');if(hp){updateHp(hp.dataset.type,hp.dataset.id,num(hp.dataset.hpDelta));return}
-    const cond=e.target.closest('[data-condition]');if(cond){toggleCondition(cond.dataset.condition);return}
-    const save=e.target.closest('[data-save-detail]');if(save){saveDetail();return}
+    const hp=e.target.closest('[data-hp-delta]');
+    if(hp){
+      e.preventDefault();
+      e.stopPropagation();
+      updateHp(hp.dataset.type,hp.dataset.id,num(hp.dataset.hpDelta));
+      return;
+    }
+
+    const cond=e.target.closest('[data-condition]');
+    if(cond){
+      e.preventDefault();
+      e.stopPropagation();
+      toggleCondition(cond.dataset.condition);
+      return;
+    }
+
+    const save=e.target.closest('[data-save-detail]');
+    if(save){
+      e.preventDefault();
+      e.stopPropagation();
+      saveDetail();
+      return;
+    }
+
+    const sel=e.target.closest('[data-select-type]');
+    if(sel){select(sel.dataset.selectType,sel.dataset.selectId);return}
   });
 }
 restoreTurn();bind();renderAll();
