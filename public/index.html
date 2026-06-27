@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RPG Gabriel - Ficha Online Versão Vigente</title>
-  <link rel="stylesheet" href="./css/app-vigente.css?v=menucriar15">
+  <link rel="stylesheet" href="./css/app-vigente.css?v=racnivel16">
 </head>
 <!-- RPGGABRIEL Versão Vigente LIVRO DO JOGADOR OFICIAL SEM ACHISMO -->
 <body class="menu-open tema-maritimo-sombrio">
@@ -52,7 +52,7 @@
             <div class="menu-panel-head">
               <div>
                 <h2>Raças, atributos e benefícios</h2>
-                <p>Tabela de consulta antes de criar/abrir personagem. Mostra bônus fixo, bônus por nível e benefícios de cada raça.</p>
+                <p>Tabela de consulta antes de criar/abrir personagem. Raças não têm progressão universal por nível; esta coluna mostra apenas exceções raciais que escalam ou aparecem em níveis específicos.</p>
               </div>
             </div>
             <div class="menu-guide-tools">
@@ -61,10 +61,13 @@
                 <option value="">Todas as raças</option>
                 <option value="base">Raças base</option>
                 <option value="sub">Sub-raças / variantes</option>
-                <option value="level">Com bônus por nível</option>
+                <option value="level">Com benefício racial por nível</option>
                 <option value="resistance">Com resistência</option>
                 <option value="choice">Com escolha pendente</option>
               </select>
+            </div>
+            <div class="menu-guide-note">
+              No Livro do Jogador não existe uma tabela universal de nível por raça como existe para classes. Aqui aparecem somente os benefícios raciais que surgem ou escalam por nível, como Draconato, Drow e Tiefling.
             </div>
             <div class="menu-guide-table-wrap">
               <table class="menu-guide-table">
@@ -72,7 +75,7 @@
                   <tr>
                     <th>Raça</th>
                     <th>Atributos</th>
-                    <th>Bônus por nível</th>
+                    <th>Benefício racial por nível, se existir</th>
                     <th>Benefícios para o usuário</th>
                     <th>Idiomas / visão / resistência</th>
                   </tr>
@@ -119,7 +122,7 @@
       </div>
 
       <div class="menu-footer-actions">
-        <a class="btn secondary master-link" href="/mestre.html?v=menucriar15">Página do Mestre</a>
+        <a class="btn secondary master-link" href="/mestre.html?v=racnivel16">Página do Mestre</a>
       </div>
     </div>
   </section>
@@ -362,8 +365,8 @@
                 <div id="rulesAuditSummary" class="rules-audit-box"></div>
                 <div class="rules-audit-actions">
                   <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                  <a class="btn small secondary" href="criador.html?v=menucriar15" target="_blank">Criador livre</a>
-                  <a class="btn small primary" href="livro-regras.html?v=menucriar15" target="_blank">Livro de Regras</a>
+                  <a class="btn small secondary" href="criador.html?v=racnivel16" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=racnivel16" target="_blank">Livro de Regras</a>
                 </div>
               </details>
             </div>
@@ -9369,9 +9372,9 @@
     }
 
 
-    function menuRaceLevelBonus(rule){
+    function menuRaceLevelBenefit(rule){
       const effects = Array.isArray(rule && rule.levelEffects) ? rule.levelEffects : [];
-      if(!effects.length) return 'Sem bônus por nível.';
+      if(!effects.length) return 'Não possui benefício racial por nível.';
       return effects.map(e=>`Nv. ${num(e.level)||'?'}: ${e.name || e.nome || ''}${(e.effect || e.efeito) ? ' — ' + (e.effect || e.efeito) : ''}`).join(' | ');
     }
 
@@ -9385,7 +9388,7 @@
 
     function menuRaceInfoBlob(name, rule){
       return [
-        name, rule.parent, raceAbilityIncreaseLabel(rule), menuRaceLevelBonus(rule), menuRaceBenefits(rule),
+        name, rule.parent, raceAbilityIncreaseLabel(rule), menuRaceLevelBenefit(rule), menuRaceBenefits(rule),
         rule.size, rule.speed, rule.darkvision,
         (rule.languages || []).join(' '),
         (rule.resistances || []).join(' ')
@@ -9425,7 +9428,7 @@
           <tr>
             <td><b>${escapeHtml(name)}</b>${rule.parent ? `<small>${escapeHtml(rule.parent)}</small>` : ''}</td>
             <td>${escapeHtml(raceAbilityIncreaseLabel(rule))}</td>
-            <td>${escapeHtml(menuRaceLevelBonus(rule))}</td>
+            <td>${escapeHtml(menuRaceLevelBenefit(rule))}</td>
             <td>${escapeHtml(menuRaceBenefits(rule))}</td>
             <td>${escapeHtml(langVisionRes)}</td>
           </tr>

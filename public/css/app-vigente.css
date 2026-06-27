@@ -3152,3 +3152,20 @@ body:not(.menu-open) section.character-menu{
     grid-template-columns:1fr !important;
   }
 }
+
+
+/* AJUSTE VIGENTE — CLAREZA SOBRE NÍVEL POR RAÇA */
+.menu-guide-note{
+  background:#061b24 !important;
+  border:1px dashed rgba(216,173,98,.48) !important;
+  color:#d6c9af !important;
+  border-radius:14px !important;
+  padding:10px 12px !important;
+  margin:8px 0 12px !important;
+  line-height:1.35 !important;
+  font-size:13px !important;
+}
+
+.menu-guide-note b{
+  color:var(--gold-2) !important;
+}
