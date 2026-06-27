@@ -4523,3 +4523,63 @@ img{
     width:max-content !important;
   }
 }
+
+
+/* AJUSTE VIGENTE — SEM “CONFORME REGRA” GENÉRICO */
+.how-use-cell b,
+.how-use-cell small,
+.resource-text p{
+  overflow-wrap:anywhere !important;
+}
+
+
+/* =========================================================
+   AJUSTE VIGENTE — EXEMPLOS DE QUANDO E COMO USAR
+   ========================================================= */
+
+.how-use-label{
+  display:block !important;
+  width:max-content !important;
+  margin-top:7px !important;
+  margin-bottom:3px !important;
+  padding:3px 7px !important;
+  border-radius:999px !important;
+  background:rgba(120,205,208,.12) !important;
+  border:1px solid rgba(120,205,208,.28) !important;
+  color:#bfe3e3 !important;
+  font-size:10px !important;
+  font-weight:950 !important;
+  text-transform:uppercase !important;
+  letter-spacing:.04em !important;
+}
+
+.how-use-cell em{
+  display:block !important;
+  font-style:normal !important;
+  color:#f7e7b6 !important;
+  background:rgba(216,173,98,.10) !important;
+  border:1px solid rgba(216,173,98,.26) !important;
+  border-radius:12px !important;
+  padding:7px 9px !important;
+  font-size:12.5px !important;
+  font-weight:850 !important;
+  line-height:1.35 !important;
+  overflow-wrap:anywhere !important;
+  margin-bottom:6px !important;
+}
+
+.resource-example-box{
+  color:#f7e7b6 !important;
+  background:rgba(216,173,98,.10) !important;
+  border:1px solid rgba(216,173,98,.25) !important;
+  border-radius:12px !important;
+  padding:8px 9px !important;
+  font-size:12.5px !important;
+  line-height:1.35 !important;
+  font-weight:850 !important;
+  overflow-wrap:anywhere !important;
+}
+
+.resource-example-box b{
+  color:var(--gold-2) !important;
+}
