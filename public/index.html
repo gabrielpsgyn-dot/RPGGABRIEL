@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RPG Gabriel - Ficha Online Versão Vigente</title>
-  <link rel="stylesheet" href="./css/app-vigente.css?v=autosaveusuario12">
+  <link rel="stylesheet" href="./css/app-vigente.css?v=racastela14">
 </head>
 <!-- RPGGABRIEL Versão Vigente LIVRO DO JOGADOR OFICIAL SEM ACHISMO -->
 <body class="menu-open tema-maritimo-sombrio">
@@ -41,7 +41,7 @@
       </div>
 
       <div class="menu-footer-actions">
-        <a class="btn secondary master-link" href="/mestre.html?v=autosaveusuario12">Página do Mestre</a>
+        <a class="btn secondary master-link" href="/mestre.html?v=racastela14">Página do Mestre</a>
       </div>
     </div>
   </section>
@@ -57,6 +57,7 @@
       </div>
       <div class="tabs">
         <button class="tab active" data-tab="sheetPage">Ficha</button>
+        <button class="tab" data-tab="raceGuidePage">Raças</button>
         <button class="tab" data-tab="storyPage">História</button>
         <button class="tab" data-tab="spellsPage">Magias</button>
         <button class="tab" data-tab="campaignPage">Campanha</button>
@@ -233,6 +234,7 @@
             <div class="panel">
               <h3>Atributos</h3>
               <div class="rule-engine-box">Motor de regras ativo: nível, proficiência, iniciativa, salvaguardas, perícias, sabedoria passiva, CD e ataque mágico são calculados automaticamente.</div>
+              <div class="attribute-source-summary" id="attributeSourceSummary"></div>
               <div class="ability-list" id="abilityList"></div>
             </div>
             <div class="panel">
@@ -283,8 +285,8 @@
                 <div id="rulesAuditSummary" class="rules-audit-box"></div>
                 <div class="rules-audit-actions">
                   <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                  <a class="btn small secondary" href="criador.html?v=autosaveusuario12" target="_blank">Criador livre</a>
-                  <a class="btn small primary" href="livro-regras.html?v=autosaveusuario12" target="_blank">Livro de Regras</a>
+                  <a class="btn small secondary" href="criador.html?v=racastela14" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=racastela14" target="_blank">Livro de Regras</a>
                 </div>
               </details>
             </div>
@@ -468,6 +470,63 @@
                 <label class="label">Características e notas livres</label>
                 <textarea data-path="caracteristicasTalentos.principais" class="huge" placeholder="Use apenas para anotações especiais."></textarea>
               </details>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="page race-guide-page" id="raceGuidePage">
+        <div class="race-guide-hero panel">
+          <div>
+            <h3>Tabela de raças do livro</h3>
+            <p class="sheet-note">Compare atributos, deslocamento, visão, idiomas, proficiências, resistências e benefícios antes de escolher a raça do personagem.</p>
+          </div>
+          <div class="race-guide-current">
+            <span>Raça atual</span>
+            <b id="raceGuideCurrent">-</b>
+          </div>
+        </div>
+
+        <div class="panel race-guide-tools">
+          <div class="field">
+            <label>Buscar raça / benefício</label>
+            <input id="raceGuideSearch" placeholder="Ex.: humano, visão no escuro, resistência, carisma...">
+          </div>
+          <div class="field">
+            <label>Filtrar</label>
+            <select id="raceGuideFilter">
+              <option value="">Todas</option>
+              <option value="base">Raças base</option>
+              <option value="sub">Sub-raças / variantes</option>
+              <option value="darkvision">Com visão no escuro</option>
+              <option value="choice">Com escolhas pendentes</option>
+              <option value="resistance">Com resistência</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="race-guide-layout">
+          <div class="panel race-guide-table-panel">
+            <div class="race-guide-table-wrap">
+              <table class="race-guide-table">
+                <thead>
+                  <tr>
+                    <th>Raça</th>
+                    <th>Bônus de atributo</th>
+                    <th>Benefícios principais</th>
+                    <th>Desloc.</th>
+                    <th>Visão</th>
+                    <th>Ação</th>
+                  </tr>
+                </thead>
+                <tbody id="raceGuideTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="panel race-guide-detail-panel">
+            <div id="raceGuideDetail" class="race-guide-detail">
+              Selecione uma raça na tabela para ver os detalhes.
             </div>
           </div>
         </div>
@@ -6171,7 +6230,7 @@
           </div>
         </div>
         <div class="rules-note">
-          A ficha não inventa aumento de atributo: ela mostra o ganho quando a classe/raça/antecedente cadastrado no livro indica. Valores escolhidos pelo jogador continuam manuais para não sobrescrever a ficha.
+          A ficha soma automaticamente bônus fixos de raça, como Humano +1 em todos os atributos. Bônus que dependem de escolha do jogador, como Humano Variante ou Melhoria de Atributo da classe, ficam pendentes e não são inventados.
         </div>
       `;
     }
@@ -9105,6 +9164,227 @@
     }
 
 
+
+    function attributeLabelByKey(key){
+      const found = abilities.find(([id])=>id===key);
+      return found ? found[1] : key;
+    }
+
+    function formatAbilityBonusMap(map){
+      map = map || {};
+      return Object.entries(map)
+        .filter(([k,v])=>num(v))
+        .map(([k,v])=>`${attributeLabelByKey(k)} +${num(v)}`)
+        .join(', ');
+    }
+
+    function classAsiPendingText(c){
+      const cls = c && c.meta ? c.meta.classe || '' : '';
+      const level = c ? getCharacterLevel(c) : 1;
+      const pending = (c.escolhasPendentes || []).filter(x =>
+        x.status !== 'resolvido' &&
+        /melhoria de atributo|atributo ou talento|atributos/i.test(String(x.label || ''))
+      );
+      if(pending.length) return pending.map(x=>x.label).slice(0,3).join(' • ');
+      const asiLevels = getAsiLevelsForClass(cls || '').filter(lv=>level >= lv);
+      return asiLevels.length ? `Melhoria de atributo disponível em nível ${asiLevels.join(', ')}, se ainda não resolvida.` : 'Nenhuma melhoria de atributo liberada neste nível.';
+    }
+
+
+    function raceBenefitName(x){
+      return typeof x === 'string' ? x : (x && (x.name || x.nome || x.label)) || '';
+    }
+
+    function raceBenefitText(x){
+      return typeof x === 'string' ? '' : (x && (x.effect || x.efeito || x.description || x.descricao)) || '';
+    }
+
+    function raceRowBenefits(rule){
+      const traits = (rule.traits || []).map(raceBenefitName).filter(Boolean);
+      const resist = (rule.resistances || []).length ? ['Resistência: ' + rule.resistances.join(', ')] : [];
+      const profs = (rule.proficiencies || []).length ? ['Proficiências'] : [];
+      const skillsRace = (rule.skills || []).length ? ['Perícia racial'] : [];
+      return [...resist, ...skillsRace, ...profs, ...traits].slice(0,4).join(' • ') || '-';
+    }
+
+    function raceSearchBlob(name, rule){
+      return [
+        name,
+        rule.parent,
+        rule.source,
+        raceAbilityIncreaseLabel(rule),
+        rule.size,
+        rule.speed,
+        rule.darkvision,
+        (rule.languages || []).join(' '),
+        (rule.resistances || []).join(' '),
+        (rule.proficiencies || []).join(' '),
+        (rule.skills || []).map(raceSkillLabel).join(' '),
+        (rule.traits || []).map(x=>raceBenefitName(x)+' '+raceBenefitText(x)).join(' '),
+        (rule.choices || []).map(x=>x.nome || x.name || '').join(' ')
+      ].join(' ').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+    }
+
+    function raceGuideSortNames(names, rules){
+      return names.sort((a,b)=>{
+        const ap = rules[a] && rules[a].parent ? 1 : 0;
+        const bp = rules[b] && rules[b].parent ? 1 : 0;
+        if(ap !== bp) return ap - bp;
+        return a.localeCompare(b,'pt-BR');
+      });
+    }
+
+    function selectRaceGuideDetail(name){
+      const rules = getAllRaceRules();
+      const rule = rules[name];
+      const box = $('#raceGuideDetail');
+      if(!box || !rule) return;
+      const traits = (rule.traits || []).map(t=>`
+        <div class="race-detail-trait">
+          <b>${escapeHtml(raceBenefitName(t))}</b>
+          ${raceBenefitText(t) ? `<small>${escapeHtml(raceBenefitText(t))}</small>` : ''}
+        </div>
+      `).join('') || '<div class="clean-empty">Sem traço cadastrado.</div>';
+      const choices = (rule.choices || []).map(c=>`
+        <span class="race-detail-pill">${escapeHtml(c.nome || c.name || 'Escolha racial')}</span>
+      `).join('');
+      const effects = (rule.levelEffects || []).map(e=>`
+        <span class="race-detail-pill">Nv. ${num(e.level)}: ${escapeHtml(e.name || e.nome || '')}</span>
+      `).join('');
+
+      box.innerHTML = `
+        <div class="race-detail-top">
+          <div>
+            <h3>${escapeHtml(name)}</h3>
+            <p>${escapeHtml(rule.parent ? 'Sub-raça / variante de ' + rule.parent : 'Raça base')}</p>
+          </div>
+          <button class="btn primary small" type="button" data-choose-race="${escapeHtml(name)}">Usar esta raça</button>
+        </div>
+        <div class="race-detail-stats">
+          <div><span>Bônus</span><b>${escapeHtml(raceAbilityIncreaseLabel(rule))}</b></div>
+          <div><span>Tamanho</span><b>${escapeHtml(rule.size || '-')}</b></div>
+          <div><span>Desloc.</span><b>${escapeHtml(rule.speed || '-')}</b></div>
+          <div><span>Visão</span><b>${escapeHtml(rule.darkvision || '-')}</b></div>
+        </div>
+        <div class="race-detail-section">
+          <b>Idiomas</b>
+          <div class="race-detail-pills">${(rule.languages || []).map(x=>`<span class="race-detail-pill">${escapeHtml(x)}</span>`).join('') || '<span class="race-detail-pill">-</span>'}</div>
+        </div>
+        <div class="race-detail-section">
+          <b>Resistências</b>
+          <div class="race-detail-pills">${(rule.resistances || []).map(x=>`<span class="race-detail-pill">${escapeHtml(x)}</span>`).join('') || '<span class="race-detail-pill">-</span>'}</div>
+        </div>
+        <div class="race-detail-section">
+          <b>Perícias / proficiências</b>
+          <div class="race-detail-pills">${[
+            ...(rule.skills || []).map(raceSkillLabel),
+            ...(rule.proficiencies || [])
+          ].map(x=>`<span class="race-detail-pill">${escapeHtml(x)}</span>`).join('') || '<span class="race-detail-pill">-</span>'}</div>
+        </div>
+        <div class="race-detail-section">
+          <b>Traços e benefícios</b>
+          <div class="race-detail-traits">${traits}</div>
+        </div>
+        ${choices ? `<div class="race-detail-section"><b>Escolhas que ficarão pendentes</b><div class="race-detail-pills">${choices}</div></div>` : ''}
+        ${effects ? `<div class="race-detail-section"><b>Efeitos por nível</b><div class="race-detail-pills">${effects}</div></div>` : ''}
+        <div class="race-detail-source">${escapeHtml(rule.source || 'Livro do Jogador')}</div>
+      `;
+    }
+
+    function renderRaceGuide(){
+      const body = $('#raceGuideTableBody');
+      if(!body) return;
+      const c = activeChar();
+      const current = c && c.meta ? normalizeRaceName(c.meta.raca || '') : '';
+      const currentEl = $('#raceGuideCurrent');
+      if(currentEl) currentEl.textContent = current || '-';
+
+      const rules = getAllRaceRules();
+      const q = String($('#raceGuideSearch') ? $('#raceGuideSearch').value : '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
+      const filter = $('#raceGuideFilter') ? $('#raceGuideFilter').value : '';
+
+      let names = Object.keys(rules).filter(name=>{
+        const rule = rules[name] || {};
+        if(filter === 'base' && rule.parent) return false;
+        if(filter === 'sub' && !rule.parent) return false;
+        if(filter === 'darkvision' && (!rule.darkvision || rule.darkvision === 'Não')) return false;
+        if(filter === 'choice' && !(rule.choices || []).length && !(rule.abilityIncrease && rule.abilityIncrease.doisValoresAEscolha)) return false;
+        if(filter === 'resistance' && !(rule.resistances || []).length) return false;
+        return !q || raceSearchBlob(name, rule).includes(q);
+      });
+      names = raceGuideSortNames(names, rules);
+
+      body.innerHTML = names.length ? names.map(name=>{
+        const rule = rules[name] || {};
+        const active = current && normalizeRaceName(name) === current;
+        const choiceFlag = (rule.choices || []).length || (rule.abilityIncrease && rule.abilityIncrease.doisValoresAEscolha);
+        return `
+          <tr class="${active ? 'active-race-row' : ''}" data-race-detail="${escapeHtml(name)}">
+            <td><b>${escapeHtml(name)}</b>${rule.parent ? `<small>${escapeHtml(rule.parent)}</small>` : ''}</td>
+            <td>${escapeHtml(raceAbilityIncreaseLabel(rule))}${choiceFlag ? '<small>tem escolha</small>' : ''}</td>
+            <td>${escapeHtml(raceRowBenefits(rule))}</td>
+            <td>${escapeHtml(rule.speed || '-')}</td>
+            <td>${escapeHtml(rule.darkvision || '-')}</td>
+            <td><button class="btn small primary" type="button" data-choose-race="${escapeHtml(name)}">${active ? 'Atual' : 'Escolher'}</button></td>
+          </tr>
+        `;
+      }).join('') : '<tr><td colspan="6">Nenhuma raça encontrada.</td></tr>';
+
+      if(current && rules[current]) selectRaceGuideDetail(current);
+      else if(names[0]) selectRaceGuideDetail(names[0]);
+    }
+
+    function chooseRaceFromGuide(name){
+      const c = activeChar();
+      if(!c) return;
+      const normalized = normalizeRaceName(name);
+      c.meta = c.meta || {};
+      c.meta.raca = normalized;
+      applyRuleEngine(c);
+      saveLocal(false);
+      renderForm();
+      renderRaceGuide();
+      notify('Raça escolhida: ' + normalized);
+    }
+
+    function renderAttributeSourceSummary(){
+      const c = activeChar();
+      const box = $('#attributeSourceSummary');
+      if(!c || !box) return;
+      c.racaInfo = c.racaInfo || {};
+      const race = c.meta && c.meta.raca ? normalizeRaceName(c.meta.raca) : '';
+      const appliedRace = c.racaInfo.appliedAbilitySource || '';
+      const appliedMap = c.racaInfo.appliedAbilityIncrease || {};
+      const raceTxt = formatAbilityBonusMap(appliedMap);
+      const choiceRace = c.racaInfo.aumentoAtributoTexto || '';
+      const raceOk = !!raceTxt;
+      const asiText = classAsiPendingText(c);
+
+      box.innerHTML = `
+        <div class="attr-source-head">
+          <b>Origem dos bônus de atributo</b>
+          <span>${escapeHtml(race || 'Raça não definida')}</span>
+        </div>
+        <div class="attr-source-grid">
+          <div class="attr-source-card ${raceOk ? 'ok' : 'warn'}">
+            <span>Raça aplicada</span>
+            <b>${escapeHtml(appliedRace || race || '-')}</b>
+            <small>${raceOk ? escapeHtml(raceTxt) + ' já somado nos valores acima.' : (choiceRace ? escapeHtml(choiceRace) + ' — depende de escolha/manual.' : 'Sem bônus fixo aplicado.')}</small>
+          </div>
+          <div class="attr-source-card warn">
+            <span>Classe / nível</span>
+            <b>Não soma sozinho se for escolha</b>
+            <small>${escapeHtml(asiText)}</small>
+          </div>
+          <div class="attr-source-card">
+            <span>Regra de segurança</span>
+            <b>Sem duplicar</b>
+            <small>Ao trocar de raça, a ficha remove o bônus fixo antigo e aplica o novo.</small>
+          </div>
+        </div>
+      `;
+    }
+
     function renderCharacterFlow(){
       const c = activeChar(); if(!c) return;
       const box = $('#characterFlowSummary');
@@ -9159,8 +9439,10 @@
       safeCall('renderClassPathOptions', renderClassPathOptions);
       safeCall('renderClassProgress', renderClassProgress);
       safeCall('renderRulesClarity', renderRulesClarity);
+      safeCall('renderAttributeSourceSummary', renderAttributeSourceSummary);
       safeCall('renderCharacterFlow', renderCharacterFlow);
       safeCall('renderRaceProgress', renderRaceProgress);
+      safeCall('renderRaceGuide', renderRaceGuide);
       safeCall('renderBackgroundProgress', renderBackgroundProgress);
       safeCall('renderDashboard', renderDashboard);
       safeCall('renderCalcs', renderCalcs);
@@ -9605,6 +9887,7 @@
         if(el.dataset.path === 'meta.raca') renderForm();
         renderClassProgress();
         renderRaceProgress();
+        renderRaceGuide();
         renderSpellSlotsClassTotals();
         renderDashboard(); renderCalcs(); renderAttacks(); renderInventory(); renderProficiencySummary(); scheduleSave();
       });
@@ -9621,6 +9904,12 @@
         }
       });
       document.addEventListener('click', e=>{
+        const chooseRaceBtn = e.target.closest('[data-choose-race]');
+        if(chooseRaceBtn){ chooseRaceFromGuide(chooseRaceBtn.dataset.chooseRace); return; }
+
+        const raceDetailRow = e.target.closest('[data-race-detail]');
+        if(raceDetailRow && !e.target.closest('button')){ selectRaceGuideDetail(raceDetailRow.dataset.raceDetail); return; }
+
         const addWeaponInv = e.target.closest('#addWeaponToInventoryBtn');
         if(addWeaponInv){ addWeaponToInventory(); return; }
 
@@ -9807,7 +10096,9 @@
         catch(e){ toast('JSON inválido.'); }
       };
       const downloadJsonBtn = $('#downloadJsonBtn'); if(downloadJsonBtn) downloadJsonBtn.onclick=exportJson;
-      const inventorySearchInput = $('#inventorySearchInput'); if(inventorySearchInput) inventorySearchInput.addEventListener('input', renderInventory);
+      const raceGuideSearch = $('#raceGuideSearch'); if(raceGuideSearch) raceGuideSearch.addEventListener('input', renderRaceGuide);
+      const raceGuideFilter = $('#raceGuideFilter'); if(raceGuideFilter) raceGuideFilter.addEventListener('change', renderRaceGuide);
+            const inventorySearchInput = $('#inventorySearchInput'); if(inventorySearchInput) inventorySearchInput.addEventListener('input', renderInventory);
       const inventoryCategoryFilter = $('#inventoryCategoryFilter'); if(inventoryCategoryFilter) inventoryCategoryFilter.addEventListener('change', renderInventory);
       const spellBankSearchBtn = $('#spellBankSearchBtn'); if(spellBankSearchBtn) spellBankSearchBtn.onclick=searchSpellBank;
       const toggleSpellBankBtn = $('#toggleSpellBankBtn'); if(toggleSpellBankBtn) toggleSpellBankBtn.onclick=toggleSpellBank;
