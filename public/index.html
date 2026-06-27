@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RPG Gabriel - Ficha Online Versão Vigente</title>
-  <link rel="stylesheet" href="./css/app-vigente.css?v=recursosacoes29">
+  <link rel="stylesheet" href="./css/app-vigente.css?v=racasmobile31">
 </head>
 <!-- RPGGABRIEL Versão Vigente LIVRO DO JOGADOR OFICIAL SEM ACHISMO -->
 <body class="menu-open tema-maritimo-sombrio">
@@ -119,8 +119,8 @@
             <div class="menu-guide-note">
               A coluna de nível só aparece preenchida quando a raça realmente ganha ou escala algo por nível. Quando não existir, fica apenas “—”.
             </div>
-            <div class="menu-guide-table-wrap">
-              <table class="menu-guide-table">
+            <div class="menu-guide-table-wrap menu-race-table-wrap">
+              <table class="menu-race-desktop-table menu-guide-table">
                 <thead>
                   <tr>
                     <th>Raça</th>
@@ -133,6 +133,7 @@
                 <tbody id="menuRaceTableBody"></tbody>
               </table>
             </div>
+            <div class="menu-race-mobile-cards" id="menuRaceMobileCards"></div>
           </div>
         </div>
 
@@ -172,7 +173,7 @@
       </div>
 
       <div class="menu-footer-actions">
-        <a class="btn secondary master-link" href="/mestre.html?v=recursosacoes29">Página do Mestre</a>
+        <a class="btn secondary master-link" href="/mestre.html?v=racasmobile31">Página do Mestre</a>
       </div>
     </div>
   </section>
@@ -429,8 +430,8 @@
                 <div id="rulesAuditSummary" class="rules-audit-box"></div>
                 <div class="rules-audit-actions">
                   <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                  <a class="btn small secondary" href="criador.html?v=recursosacoes29" target="_blank">Criador livre</a>
-                  <a class="btn small primary" href="livro-regras.html?v=recursosacoes29" target="_blank">Livro de Regras</a>
+                  <a class="btn small secondary" href="criador.html?v=racasmobile31" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=racasmobile31" target="_blank">Livro de Regras</a>
                 </div>
               </details>
             </div>
@@ -10010,6 +10011,48 @@
       body.innerHTML = rows.length ? rows.join('') : `<tr><td colspan="${spec.columns.length}">Nenhum nível encontrado.</td></tr>`;
     }
 
+
+    function menuRaceMobileCardHtml(name, rule){
+      const levelBenefit = menuRaceLevelBenefit(rule, name);
+      const benefits = menuRaceBenefits(rule);
+      const choiceFlag = (rule.choices || []).length || (rule.abilityIncrease && rule.abilityIncrease.doisValoresAEscolha);
+      const langVisionRes = [
+        (rule.languages || []).length ? 'Idiomas: ' + rule.languages.join(', ') : '',
+        rule.darkvision ? 'Visão: ' + rule.darkvision : '',
+        (rule.resistances || []).length ? 'Resistência: ' + rule.resistances.join(', ') : ''
+      ].filter(Boolean).join(' • ') || '-';
+
+      return `
+        <article class="menu-race-mobile-card">
+          <div class="menu-race-card-head">
+            <div>
+              <span>${rule.parent ? escapeHtml(rule.parent) : 'Raça'}</span>
+              <b>${escapeHtml(name)}</b>
+            </div>
+            ${choiceFlag ? '<em>tem escolha</em>' : ''}
+          </div>
+          <div class="menu-race-card-grid">
+            <div class="menu-race-card-block">
+              <small>Atributos</small>
+              <strong>${escapeHtml(raceAbilityIncreaseLabel(rule))}</strong>
+            </div>
+            <div class="menu-race-card-block">
+              <small>Nível</small>
+              <strong>${escapeHtml(levelBenefit)}</strong>
+            </div>
+          </div>
+          <div class="menu-race-card-section">
+            <small>Benefícios principais</small>
+            <p>${escapeHtml(benefits)}</p>
+          </div>
+          <div class="menu-race-card-section">
+            <small>Idiomas / visão / resistência</small>
+            <p>${escapeHtml(langVisionRes)}</p>
+          </div>
+        </article>
+      `;
+    }
+
     function renderMenuRaceGuide(){
       const body = $('#menuRaceTableBody');
       if(!body) return;
@@ -10049,6 +10092,13 @@
           </tr>
         `;
       }).join('') : '<tr><td colspan="5">Nenhuma raça encontrada.</td></tr>';
+
+      const mobileCards = $('#menuRaceMobileCards');
+      if(mobileCards){
+        mobileCards.innerHTML = names.length
+          ? names.map(name=>menuRaceMobileCardHtml(name, rules[name] || {})).join('')
+          : '<div class="menu-race-mobile-empty">Nenhuma raça encontrada.</div>';
+      }
     }
 
     function bgSkillLabels(bg){

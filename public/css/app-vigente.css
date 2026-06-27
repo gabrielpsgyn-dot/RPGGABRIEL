@@ -3972,3 +3972,554 @@ body:not(.menu-open) section.character-menu{
     grid-template-columns:1fr !important;
   }
 }
+
+
+/* =========================================================
+   AJUSTE VIGENTE — MOBILE FIRST PARA CELULAR
+   Objetivo: ficha e mesa jogáveis em tela pequena.
+   ========================================================= */
+
+html{
+  -webkit-text-size-adjust:100% !important;
+}
+
+body{
+  overflow-x:hidden !important;
+}
+
+button,
+.btn,
+input,
+select,
+textarea{
+  font-size:16px !important; /* evita zoom automático no iPhone/Android */
+}
+
+button,
+.btn,
+.resource-btn,
+.cond,
+.nav-btn,
+.tab,
+.menu-create-tab{
+  min-height:44px !important;
+  touch-action:manipulation !important;
+}
+
+img{
+  max-width:100% !important;
+}
+
+.app,
+.menu-shell,
+.menu-panel,
+.panel,
+.topbar,
+.screen{
+  max-width:100% !important;
+}
+
+.menu-guide-table-wrap,
+.menu-subclass-table-wrap,
+.table-wrap,
+.spell-list,
+.object-table-wrap{
+  width:100% !important;
+  overflow-x:auto !important;
+  -webkit-overflow-scrolling:touch !important;
+}
+
+.menu-guide-table,
+.menu-class-level-table,
+.menu-subclass-table{
+  min-width:720px !important;
+}
+
+.character-resources-summary{
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr)) !important;
+}
+
+.resource-card{
+  min-width:0 !important;
+}
+
+.resource-text p{
+  overflow-wrap:anywhere !important;
+}
+
+@media(max-width:860px){
+  .app{
+    padding:10px !important;
+  }
+
+  .topbar,
+  .brand-row,
+  .hero,
+  .hero-menu,
+  .menu-shell{
+    border-radius:18px !important;
+  }
+
+  .brand-row,
+  .hero-menu,
+  .menu-panel-head,
+  .compact-panel-top,
+  .class-progress-top,
+  .menu-subclass-head{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    gap:10px !important;
+    align-items:start !important;
+  }
+
+  .brand h1,
+  .hero h1,
+  .menu-panel h2{
+    font-size:clamp(24px,8vw,36px) !important;
+    line-height:1.05 !important;
+  }
+
+  .brand small,
+  .hero p,
+  .sheet-note,
+  .calc-note{
+    font-size:13px !important;
+    line-height:1.35 !important;
+  }
+
+  .menu-creation-tabs,
+  .tabs,
+  .nav{
+    display:flex !important;
+    gap:8px !important;
+    overflow-x:auto !important;
+    -webkit-overflow-scrolling:touch !important;
+    padding-bottom:6px !important;
+    scrollbar-width:thin !important;
+  }
+
+  .menu-create-tab,
+  .tab,
+  .nav-btn{
+    flex:0 0 auto !important;
+    white-space:nowrap !important;
+    padding:10px 13px !important;
+  }
+
+  .menu-grid,
+  .menu-grid-main,
+  .grid-main,
+  .grid-2,
+  .grid-3,
+  .header-grid,
+  .header-fields,
+  .compact-identity-grid,
+  .dash-grid,
+  .dash-inputs,
+  .dash-quick-use,
+  .edit-grid,
+  .status-grid,
+  .object-grid{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    gap:10px !important;
+  }
+
+  .field-span-2,
+  .field-span-3,
+  .field-span-4,
+  .identity-name-field,
+  .header-fields-full{
+    grid-column:auto !important;
+  }
+
+  .menu-actions,
+  .menu-actions-row,
+  .resource-rest-actions,
+  .resource-actions,
+  .hp-actions,
+  .entity-actions,
+  .modal-actions{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    gap:8px !important;
+    width:100% !important;
+  }
+
+  .menu-actions .btn,
+  .menu-actions-row .btn,
+  .resource-rest-actions .btn,
+  .resource-actions .btn,
+  .hp-actions .btn,
+  .entity-actions .btn,
+  .modal-actions .btn{
+    width:100% !important;
+  }
+
+  .menu-character-card,
+  .entity-card,
+  .resource-card,
+  .panel{
+    padding:10px !important;
+    border-radius:16px !important;
+  }
+
+  .menu-character-head,
+  .entity-top,
+  .detail-head{
+    display:grid !important;
+    grid-template-columns:56px 1fr !important;
+    gap:10px !important;
+    align-items:center !important;
+  }
+
+  .menu-character-info,
+  .entity-name,
+  .entity-sub,
+  .detail-name,
+  .detail-sub{
+    min-width:0 !important;
+    overflow-wrap:anywhere !important;
+  }
+
+  .menu-character-pills,
+  .entity-mini,
+  .resource-status-strip,
+  .master-resource-pills{
+    display:flex !important;
+    gap:6px !important;
+    overflow-x:auto !important;
+    flex-wrap:nowrap !important;
+    -webkit-overflow-scrolling:touch !important;
+    padding-bottom:2px !important;
+  }
+
+  .menu-character-pills .pill,
+  .entity-mini .pill,
+  .resource-status-strip span,
+  .master-resource-pills span{
+    flex:0 0 auto !important;
+    white-space:nowrap !important;
+  }
+
+  .menu-character-actions{
+    display:grid !important;
+    grid-template-columns:1fr 1fr !important;
+    gap:8px !important;
+  }
+
+  .resource-counter{
+    grid-template-columns:44px 1fr 44px !important;
+  }
+
+  .resource-counter small{
+    grid-column:1 / -1 !important;
+    text-align:center !important;
+  }
+
+  .resource-absorb-box{
+    grid-template-columns:1fr !important;
+  }
+
+  .resource-quick-actions{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+  }
+
+  .modal-card{
+    width:calc(100vw - 22px) !important;
+    max-width:calc(100vw - 22px) !important;
+    max-height:calc(100vh - 22px) !important;
+    overflow:auto !important;
+    border-radius:18px !important;
+  }
+
+  textarea{
+    min-height:120px !important;
+  }
+
+  .avatar,
+  .menu-character-avatar{
+    width:56px !important;
+    height:56px !important;
+    min-width:56px !important;
+  }
+
+  .sheet-avatar-img,
+  .menu-character-avatar-img,
+  .avatar img{
+    width:100% !important;
+    height:100% !important;
+    object-fit:cover !important;
+  }
+
+  .bar-row{
+    grid-template-columns:70px 1fr 54px !important;
+    gap:6px !important;
+  }
+
+  .turn-item{
+    grid-template-columns:1fr !important;
+    gap:6px !important;
+  }
+
+  .detail-grid{
+    grid-template-columns:1fr !important;
+  }
+}
+
+@media(max-width:560px){
+  .app{
+    padding:7px !important;
+  }
+
+  .hero,
+  .menu-shell,
+  .topbar,
+  .panel,
+  .menu-panel{
+    border-radius:14px !important;
+  }
+
+  .hero,
+  .menu-panel,
+  .panel{
+    padding:10px !important;
+  }
+
+  .brand h1,
+  .hero h1{
+    font-size:26px !important;
+  }
+
+  .menu-panel h2,
+  .panel h3{
+    font-size:18px !important;
+  }
+
+  .menu-guide-tools,
+  .menu-class-tools{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    gap:8px !important;
+  }
+
+  .menu-guide-table,
+  .menu-class-level-table,
+  .menu-subclass-table{
+    min-width:680px !important;
+    font-size:12px !important;
+  }
+
+  .menu-guide-table th,
+  .menu-guide-table td,
+  .menu-class-level-table th,
+  .menu-class-level-table td,
+  .menu-subclass-table th,
+  .menu-subclass-table td{
+    padding:8px !important;
+  }
+
+  .character-resources-summary{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+  }
+
+  .resource-card-head{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+  }
+
+  .resource-card-head em{
+    width:max-content !important;
+  }
+
+  .menu-character-actions{
+    grid-template-columns:1fr !important;
+  }
+
+  .quick-use-card,
+  .stat,
+  .field{
+    min-width:0 !important;
+  }
+
+  input,
+  select,
+  textarea{
+    width:100% !important;
+    box-sizing:border-box !important;
+  }
+
+  .spell-card,
+  .spell,
+  .inventory-row,
+  .object-card{
+    min-width:0 !important;
+    overflow-wrap:anywhere !important;
+  }
+
+  .btn.small,
+  .btn{
+    padding:10px 12px !important;
+  }
+
+  .toast{
+    left:10px !important;
+    right:10px !important;
+    bottom:10px !important;
+    width:auto !important;
+    max-width:calc(100vw - 20px) !important;
+  }
+}
+
+@media(max-width:380px){
+  .brand h1,
+  .hero h1{
+    font-size:23px !important;
+  }
+
+  .menu-create-tab,
+  .tab,
+  .nav-btn{
+    padding:9px 10px !important;
+    font-size:14px !important;
+  }
+
+  .bar-row{
+    grid-template-columns:62px 1fr 48px !important;
+  }
+}
+
+
+/* =========================================================
+   AJUSTE VIGENTE — ABA DE RAÇAS PRONTA PARA MOBILE
+   ========================================================= */
+
+.menu-race-mobile-cards{
+  display:none !important;
+}
+
+.menu-race-mobile-card{
+  background:#061b24 !important;
+  border:1px solid rgba(120,205,208,.24) !important;
+  border-radius:16px !important;
+  padding:12px !important;
+  display:grid !important;
+  gap:10px !important;
+  box-shadow:0 10px 24px rgba(0,0,0,.18) !important;
+}
+
+.menu-race-card-head{
+  display:flex !important;
+  justify-content:space-between !important;
+  gap:10px !important;
+  align-items:flex-start !important;
+}
+
+.menu-race-card-head span,
+.menu-race-card-block small,
+.menu-race-card-section small{
+  display:block !important;
+  color:var(--muted) !important;
+  font-size:10.5px !important;
+  font-weight:950 !important;
+  text-transform:uppercase !important;
+  letter-spacing:.04em !important;
+  margin-bottom:4px !important;
+}
+
+.menu-race-card-head b{
+  display:block !important;
+  color:var(--gold-2) !important;
+  font-size:18px !important;
+  line-height:1.12 !important;
+}
+
+.menu-race-card-head em{
+  font-style:normal !important;
+  white-space:nowrap !important;
+  border:1px solid rgba(216,173,98,.38) !important;
+  color:#f7e7b6 !important;
+  background:rgba(216,173,98,.12) !important;
+  border-radius:999px !important;
+  padding:4px 8px !important;
+  font-size:11px !important;
+  font-weight:950 !important;
+}
+
+.menu-race-card-grid{
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:8px !important;
+}
+
+.menu-race-card-block,
+.menu-race-card-section{
+  border:1px solid rgba(120,205,208,.18) !important;
+  background:#08232d !important;
+  border-radius:12px !important;
+  padding:9px !important;
+}
+
+.menu-race-card-block strong{
+  display:block !important;
+  color:#f3e9d2 !important;
+  font-size:13px !important;
+  line-height:1.3 !important;
+  overflow-wrap:anywhere !important;
+}
+
+.menu-race-card-section p{
+  margin:0 !important;
+  color:#d6c9af !important;
+  font-size:12.5px !important;
+  line-height:1.35 !important;
+  overflow-wrap:anywhere !important;
+}
+
+.menu-race-mobile-empty{
+  border:1px dashed rgba(216,173,98,.35) !important;
+  border-radius:14px !important;
+  padding:12px !important;
+  color:#d6c9af !important;
+  font-weight:850 !important;
+  background:#061b24 !important;
+}
+
+@media(max-width:760px){
+  #menuRacesView .menu-race-table-wrap{
+    display:none !important;
+  }
+
+  #menuRacesView .menu-race-mobile-cards{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    gap:10px !important;
+  }
+
+  #menuRacesView .menu-guide-tools{
+    position:sticky !important;
+    top:0 !important;
+    z-index:4 !important;
+    background:#08232d !important;
+    border:1px solid rgba(120,205,208,.18) !important;
+    border-radius:14px !important;
+    padding:9px !important;
+  }
+}
+
+@media(max-width:420px){
+  .menu-race-card-grid{
+    grid-template-columns:1fr !important;
+  }
+
+  .menu-race-card-head{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+  }
+
+  .menu-race-card-head em{
+    width:max-content !important;
+  }
+}
