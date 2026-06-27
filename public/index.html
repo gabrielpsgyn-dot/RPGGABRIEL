@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RPG Gabriel - Ficha Online Versão Vigente</title>
-  <link rel="stylesheet" href="./css/app-vigente.css?v=classesativas10">
+  <link rel="stylesheet" href="./css/app-vigente.css?v=telasfix11">
 </head>
 <!-- RPGGABRIEL Versão Vigente LIVRO DO JOGADOR OFICIAL SEM ACHISMO -->
 <body class="menu-open tema-maritimo-sombrio">
@@ -41,7 +41,7 @@
       </div>
 
       <div class="menu-footer-actions">
-        <a class="btn secondary master-link" href="/mestre.html?v=classesativas10">Página do Mestre</a>
+        <a class="btn secondary master-link" href="/mestre.html?v=telasfix11">Página do Mestre</a>
       </div>
     </div>
   </section>
@@ -272,8 +272,8 @@
                 <div id="rulesAuditSummary" class="rules-audit-box"></div>
                 <div class="rules-audit-actions">
                   <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                  <a class="btn small secondary" href="criador.html?v=classesativas10" target="_blank">Criador livre</a>
-                  <a class="btn small primary" href="livro-regras.html?v=classesativas10" target="_blank">Livro de Regras</a>
+                  <a class="btn small secondary" href="criador.html?v=telasfix11" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=telasfix11" target="_blank">Livro de Regras</a>
                 </div>
               </details>
             </div>
@@ -700,6 +700,8 @@
   <div class="toast" id="toast"></div>
 
   <script>
+    document.body.classList.add('menu-open'); // START_ON_MENU
+
     const STORAGE_KEY = 'rpggabriel.v11.characters';
     const OLD_STORAGE_KEY = 'ficha_online_rpg_v1.characters';
     const ACTIVE_KEY = 'rpggabriel.v11.active';
@@ -9270,6 +9272,19 @@
       saveLocal(false);
     }
 
+    function openSheetOnly(){
+      openSheetOnly();
+      document.body.classList.add('sheet-open');
+      window.scrollTo({top:0, behavior:'instant'});
+    }
+
+    function openMenuOnly(){
+      document.body.classList.add('menu-open');
+      document.body.classList.remove('sheet-open');
+      renderMenu();
+      window.scrollTo({top:0, behavior:'instant'});
+    }
+
     function setActive(id){
       state.activeId=id;
       saveLocal(false);
@@ -9748,7 +9763,7 @@
       const menuSearchInput = $('#menuSearchInput'); if(menuSearchInput) menuSearchInput.oninput=renderMenu;
       const newCharacterBtn = $('#newCharacterBtn'); if(newCharacterBtn) newCharacterBtn.onclick=()=>{ const c=makeCharacter(); state.characters.push(c); state.activeId=c.id; saveLocal(true); renderMenu(); openPassword(c.id); };
       const refreshOnlineBtn = $('#refreshOnlineBtn'); if(refreshOnlineBtn) refreshOnlineBtn.onclick=refreshOnline;
-      const backToMenuBtn = $('#backToMenuBtn'); if(backToMenuBtn) backToMenuBtn.onclick=()=>{ document.body.classList.add('menu-open'); renderMenu(); };
+      const backToMenuBtn = $('#backToMenuBtn'); if(backToMenuBtn) backToMenuBtn.onclick=openMenuOnly;
       const printBtn = $('#printBtn'); if(printBtn) printBtn.onclick=()=>window.print();
       const saveNowBtn = $('#saveNowBtn'); if(saveNowBtn) saveNowBtn.onclick=saveOnline;
       const cancelPasswordBtn = $('#cancelPasswordBtn'); if(cancelPasswordBtn) cancelPasswordBtn.onclick=()=>$('#passwordModal').classList.add('hidden');
