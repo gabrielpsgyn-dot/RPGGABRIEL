@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RPG Gabriel - Ficha Online Versão Vigente</title>
-  <link rel="stylesheet" href="./css/app-vigente.css?v=inventariomestre6">
+  <link rel="stylesheet" href="./css/app-vigente.css?v=caregras8">
 </head>
 <!-- RPGGABRIEL Versão Vigente LIVRO DO JOGADOR OFICIAL SEM ACHISMO -->
 <body class="menu-open tema-maritimo-sombrio">
@@ -41,7 +41,7 @@
       </div>
 
       <div class="menu-footer-actions">
-        <a class="btn secondary master-link" href="/mestre.html?v=inventariomestre6">Página do Mestre</a>
+        <a class="btn secondary master-link" href="/mestre.html?v=caregras8">Página do Mestre</a>
       </div>
     </div>
   </section>
@@ -87,6 +87,24 @@
                   <div class="bar-label">Corrupção</div>
                   <div class="bar"><div class="fill corruption" id="corruptionFill"></div></div>
                   <div class="bar-value" id="corruptionValue">0/10</div>
+                </div>
+              </div>
+              <div class="dash-quick-use">
+                <div class="quick-use-card quick-ca-card">
+                  <span>CA</span>
+                  <input data-path="combate.classeArmadura" type="number" placeholder="-">
+                </div>
+                <div class="quick-use-card">
+                  <span>Iniciativa</span>
+                  <strong id="dashInitiativeAuto">+0</strong>
+                </div>
+                <div class="quick-use-card">
+                  <span>Desloc.</span>
+                  <input data-path="combate.deslocamento" placeholder="-">
+                </div>
+                <div class="quick-use-card">
+                  <span>PV temp.</span>
+                  <input data-path="vida.temporarios" type="number" placeholder="0">
                 </div>
               </div>
               <div class="dash-inputs">
@@ -177,6 +195,17 @@
           </div>
         </div>
 
+        <div class="panel character-rules-panel" id="characterRulesPanel">
+          <div class="compact-panel-top">
+            <div>
+              <h3>Regras do personagem</h3>
+              <p class="sheet-note">Conferência rápida do que a ficha calcula automaticamente e do que exige escolha manual conforme o livro.</p>
+            </div>
+            <span class="class-badge">Livro do Jogador</span>
+          </div>
+          <div id="rulesClaritySummary" class="rules-clarity-summary"></div>
+        </div>
+
         <div class="panel class-progress-panel" id="classProgressPanel">
           <div class="class-progress-top">
             <div>
@@ -243,8 +272,8 @@
                 <div id="rulesAuditSummary" class="rules-audit-box"></div>
                 <div class="rules-audit-actions">
                   <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                  <a class="btn small secondary" href="criador.html?v=inventariomestre6" target="_blank">Criador livre</a>
-                  <a class="btn small primary" href="livro-regras.html?v=inventariomestre6" target="_blank">Livro de Regras</a>
+                  <a class="btn small secondary" href="criador.html?v=caregras8" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=caregras8" target="_blank">Livro de Regras</a>
                 </div>
               </details>
             </div>
@@ -366,6 +395,21 @@
                 </div>
                 <button class="btn small secondary" id="convertLegacyInventoryBtn" type="button">Converter texto antigo em objetos</button>
               </details>
+              <div class="inventory-filter-bar">
+                <div class="field"><label>Buscar item</label><input id="inventorySearchInput" placeholder="Buscar por nome, categoria, origem..."></div>
+                <div class="field"><label>Filtrar</label>
+                  <select id="inventoryCategoryFilter">
+                    <option value="">Todos</option>
+                    <option value="arma">Armas</option>
+                    <option value="consumivel">Consumíveis</option>
+                    <option value="tesouro">Tesouros / moedas</option>
+                    <option value="equipamento">Equipamentos</option>
+                    <option value="magico">Mágicos</option>
+                    <option value="outro">Outros</option>
+                  </select>
+                </div>
+                <div class="inventory-count-badge" id="inventoryCountBadge">0 itens</div>
+              </div>
               <div class="item-list" id="inventoryList"></div>
               <details class="clean-edit-details">
                 <summary>Legado técnico: texto antigo preservado</summary>
@@ -530,16 +574,6 @@
 
         <div class="spell-layout-grid">
           <div class="spell-left-column">
-            <div class="panel cantrip-panel">
-              <div class="spellbook-panel-title">
-                <div>
-                  <h3>Truques conhecidos</h3>
-                  <p class="sheet-note">Truque não consome espaço de magia. Preencha manualmente ou adicione pelo banco como magia de nível 0.</p>
-                </div>
-              </div>
-              <div class="cantrip-list" id="cantripList"></div>
-            </div>
-
             <div class="panel spellbook-panel spellbank-panel spellbank-collapsed" id="spellBankPanel">
               <div class="spellbook-panel-title">
                 <div>
@@ -593,7 +627,7 @@
               <div class="spellbook-panel-title">
                 <div>
                   <h3>Magias escolhidas</h3>
-                  <p class="sheet-note">Use a magia e escolha o espaço. Truques adicionados pelo banco aparecem aqui como nível 0.</p>
+                  <p class="sheet-note">Magias e truques escolhidos ficam aqui. Truques aparecem como nível 0 e não consomem espaço.</p>
                 </div>
               </div>
               <div id="mySpellbookList" class="my-spellbook-list"></div>
@@ -5105,6 +5139,103 @@
       notify('Classe, raça e antecedente reaplicados.');
     }
 
+
+    function abilityIncreaseSummary(rule){
+      const inc = rule && rule.abilityIncrease;
+      if(!inc || typeof inc !== 'object') return 'Não informado nesta regra.';
+      const labels = [];
+      Object.keys(inc).forEach(k=>{
+        const ab = abilities.find(([id])=>id===k);
+        const label = ab ? ab[1] : k;
+        labels.push(`${label} +${inc[k]}`);
+      });
+      return labels.join(', ') || 'Escolha manual conforme livro.';
+    }
+
+    function nextProficiencyLevel(level){
+      level = clamp(num(level)||1,1,20);
+      if(level < 5) return 'próximo aumento no nível 5';
+      if(level < 9) return 'próximo aumento no nível 9';
+      if(level < 13) return 'próximo aumento no nível 13';
+      if(level < 17) return 'próximo aumento no nível 17';
+      return 'sem novo aumento até o nível 20';
+    }
+
+    function renderRulesClarity(){
+      const c = activeChar();
+      const box = $('#rulesClaritySummary');
+      if(!c || !box) return;
+      ensureClassLevelData(c);
+      applyClassProgression(c);
+      applyRaceProgression(c);
+      applyBackgroundProgression(c);
+
+      const level = getCharacterLevel(c);
+      const prof = profBonus(c);
+      const cls = c.meta.classe || '';
+      const classRule = getAllClassRules()[cls] || {};
+      const raceName = normalizeRaceName(c.meta.raca || '');
+      const raceRule = getAllRaceRules()[raceName] || {};
+      const bgName = normalizeBackgroundName(c.meta.antecedente || '');
+      const bgRule = getAllBackgroundRules()[bgName] || {};
+      const rewards = collectClassLevelRewards(c);
+      const currentNames = [
+        ...rewards.features,
+        ...rewards.choices,
+        ...rewards.pathFeatures,
+        ...rewards.pathChoices
+      ].map(rewardLabel).filter(Boolean);
+
+      const hasAbilityChoice = currentNames.some(x=>/melhoria de atributo|aumento.*atributo|valor de habilidade|talento/i.test(x));
+      const classSaves = (classRule.saves || []).map(k=>{
+        const ab = abilities.find(([id])=>id===k);
+        return ab ? ab[1] : k;
+      }).join(', ') || '-';
+
+      const bgSkills = (bgRule.skills || []).map(k=>{
+        const sk = skills.find(([id])=>id===k);
+        return sk ? sk[1] : k;
+      }).join(', ') || '-';
+
+      box.innerHTML = `
+        <div class="rules-clarity-grid">
+          <div class="rules-card important">
+            <span>Bônus de proficiência</span>
+            <b>${fmt(prof)}</b>
+            <small>Automático pelo nível ${level}; ${escapeHtml(nextProficiencyLevel(level))}.</small>
+          </div>
+          <div class="rules-card ${hasAbilityChoice ? 'warn' : ''}">
+            <span>Atributos ao subir nível</span>
+            <b>${hasAbilityChoice ? 'Escolha liberada' : 'Sem ganho neste nível'}</b>
+            <small>${hasAbilityChoice ? 'A ficha sinaliza a melhoria/talento, mas não altera atributo sozinha.' : 'Se o livro liberar melhoria em outro nível, aparecerá na progressão da classe.'}</small>
+          </div>
+          <div class="rules-card">
+            <span>Aumento racial</span>
+            <b>${escapeHtml(raceName || '-')}</b>
+            <small>${escapeHtml(abilityIncreaseSummary(raceRule))}</small>
+          </div>
+          <div class="rules-card">
+            <span>Salvaguardas da classe</span>
+            <b>${escapeHtml(cls || '-')}</b>
+            <small>${escapeHtml(classSaves)}</small>
+          </div>
+          <div class="rules-card">
+            <span>Perícias do antecedente</span>
+            <b>${escapeHtml(bgName || '-')}</b>
+            <small>${escapeHtml(bgSkills)}</small>
+          </div>
+          <div class="rules-card">
+            <span>Regra de cálculo</span>
+            <b>Automático</b>
+            <small>Perícia/salvaguarda marcada = modificador do atributo + bônus de proficiência.</small>
+          </div>
+        </div>
+        <div class="rules-note">
+          A ficha não inventa aumento de atributo: ela mostra o ganho quando a classe/raça/antecedente cadastrado no livro indica. Valores escolhidos pelo jogador continuam manuais para não sobrescrever a ficha.
+        </div>
+      `;
+    }
+
     function renderRulesAudit(){
       const c = activeChar();
       const box = $('#rulesAuditSummary');
@@ -5677,24 +5808,6 @@
 
       $('#spellAbility').innerHTML = '<option value="">Selecione</option>' + abilities.map(([k,label])=>`<option value="${k}">${label}</option>`).join('');
 
-      const cantripList = $('#cantripList');
-      if(cantripList){
-        cantripList.innerHTML = Array.from({length:8},(_,i)=>`
-          <div class="cantrip-card">
-            <div class="cantrip-number">${i+1}</div>
-            <div class="field">
-              <label>Truque</label>
-              <input data-path="magia.truques.${i}.nome" placeholder="Nome do truque">
-            </div>
-            <div class="cantrip-actions">
-              <button type="button" class="btn green small" data-use-cantrip="${i}">Usar</button>
-              <button type="button" class="btn secondary small" data-clear-cantrip="${i}">Limpar</button>
-            </div>
-            <div class="cantrip-result" data-cantrip-result="${i}">Não consome espaço.</div>
-          </div>
-        `).join('');
-      }
-
       const levels = Array.from({length:9},(_,idx)=>{
         const level=idx+1;
         return `
@@ -6043,41 +6156,6 @@
       saveLocal(false);
       await saveOnline();
       toast(`Espaço de ${level}º círculo recuperado.`);
-    }
-
-
-    function ensureCantrips(c){
-      if(!c) return [];
-      c.magia = c.magia || {};
-      if(!Array.isArray(c.magia.truques)) c.magia.truques = [];
-      for(let i=0;i<8;i++){
-        c.magia.truques[i] = c.magia.truques[i] || {nome:''};
-      }
-      return c.magia.truques;
-    }
-
-    function useCantrip(index){
-      const c = activeChar(); if(!c) return;
-      const list = ensureCantrips(c);
-      const item = list[num(index)] || {};
-      const name = String(item.nome || '').trim();
-      const result = document.querySelector(`[data-cantrip-result="${index}"]`);
-      if(!name){
-        if(result) result.textContent = 'Escolha um truque primeiro.';
-        toast('Escolha um truque primeiro.');
-        return;
-      }
-      if(result) result.textContent = 'Usado agora • não consome espaço.';
-      toast('Truque usado: ' + name);
-    }
-
-    function clearCantrip(index){
-      const c = activeChar(); if(!c) return;
-      const list = ensureCantrips(c);
-      list[num(index)] = {nome:''};
-      saveLocal(false);
-      renderForm();
-      toast('Truque limpo.');
     }
 
     function renderSpellbookUI(){
@@ -7146,6 +7224,35 @@
       return Math.max(0, num(getByPath(c,'atributos.forca.valor')) * 7.5);
     }
 
+
+    function inventorySearchText(i){
+      return [
+        i.nome,
+        i.categoria,
+        i.origem,
+        i.descricao,
+        i.tipo
+      ].join(' ').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+    }
+
+    function inventoryCategoryKey(i){
+      const txt = inventorySearchText(i);
+      if(/espada|machado|arco|besta|adaga|cajado|bordao|lança|lanca|martelo|arma|municao|munição|flecha|ataque/.test(txt)) return 'arma';
+      if(/pocao|poção|pergaminho|consumivel|consumível|cura|usar/.test(txt)) return 'consumivel';
+      if(/ouro|prata|cobre|platina|tesouro|joia|jóia|moeda|po\b|pp\b|pc\b|pl\b/.test(txt)) return 'tesouro';
+      if(/magico|mágico|magia|arcano|reliquia|relíquia/.test(txt)) return 'magico';
+      if(/kit|pacote|corda|mochila|tocha|equipamento|ferramenta|roupa|armadura|escudo/.test(txt)) return 'equipamento';
+      return 'outro';
+    }
+
+    function inventoryIcon(key){
+      return key === 'arma' ? '⚔' :
+        key === 'consumivel' ? '✚' :
+        key === 'tesouro' ? '◆' :
+        key === 'magico' ? '✦' :
+        key === 'equipamento' ? '▣' : '•';
+    }
+
     function renderInventory(){
       const c=activeChar(); if(!c) return;
       ensureCombatInventoryData(c);
@@ -7156,25 +7263,46 @@
       const wEl=$('#inventoryWeight'); if(wEl) wEl.textContent = total.toFixed(1).replace('.0','') + ' kg';
       const cEl=$('#carryCapacity'); if(cEl) cEl.textContent = cap.toFixed(1).replace('.0','') + ' kg';
       const sEl=$('#carryStatus'); if(sEl) sEl.textContent = status;
+
       const list=$('#inventoryList'); if(!list) return;
-      list.innerHTML = c.equipamento.itens.length ? c.equipamento.itens.map(i=>`
-        <div class="object-card">
+      const q = String($('#inventorySearchInput') ? $('#inventorySearchInput').value : '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
+      const filter = $('#inventoryCategoryFilter') ? $('#inventoryCategoryFilter').value : '';
+      const allItems = c.equipamento.itens || [];
+      const visible = allItems.filter(i=>{
+        const key = inventoryCategoryKey(i);
+        if(filter && key !== filter) return false;
+        return !q || inventorySearchText(i).includes(q);
+      });
+
+      const countBadge = $('#inventoryCountBadge');
+      if(countBadge) countBadge.textContent = `${visible.length}/${allItems.length} item(ns)`;
+
+      list.innerHTML = visible.length ? visible.map(i=>{
+        const key = inventoryCategoryKey(i);
+        const itemWeight = ((num(i.qtd)||1)*(num(i.peso)||0)).toFixed(1).replace('.0','');
+        return `
+        <div class="object-card inventory-object-card ${escapeHtml(key)}">
           <div class="object-card-top">
-            <div class="object-card-title">${escapeHtml(i.nome)}</div>
+            <div class="object-title-wrap">
+              <div class="object-icon">${inventoryIcon(key)}</div>
+              <div>
+                <div class="object-card-title">${escapeHtml(i.nome)}</div>
+                <div class="object-subtitle">${escapeHtml(i.categoria || key)}${i.origem ? ' • ' + escapeHtml(i.origem) : ''}</div>
+              </div>
+            </div>
             <div class="object-card-actions">
               ${/pergaminho|poção|pocao|consumível|consumivel/i.test(String(i.categoria||'')+' '+String(i.nome||'')) ? `<button class="btn small green" data-consume-item="${escapeHtml(i.id)}">Usar</button>` : ''}
               <button class="btn small danger" data-remove-item="${escapeHtml(i.id)}">Remover</button>
             </div>
           </div>
           <div class="object-meta">
-            <span class="object-pill">${num(i.qtd)||1}x</span>
-            <span class="object-pill">${((num(i.qtd)||1)*(num(i.peso)||0)).toFixed(1).replace('.0','')} kg</span>
-            ${i.categoria ? `<span class="object-pill">${escapeHtml(i.categoria)}</span>` : ''}
-            ${i.origem ? `<span class="object-pill">origem: ${escapeHtml(i.origem)}</span>` : ''}
+            <span class="object-pill">Qtd. ${num(i.qtd)||1}</span>
+            <span class="object-pill">Peso ${itemWeight} kg</span>
+            <span class="object-pill">${escapeHtml(key)}</span>
           </div>
           ${i.descricao ? `<div class="object-desc">${escapeHtml(i.descricao)}</div>` : ''}
         </div>
-      `).join('') : '<div class="clean-empty">Inventário vazio. Toque em Sincronizar recebidos. Se continuar vazio, ainda não existe equipamento fixo cadastrado no Livro de Regras para esta classe/raça/antecedente.</div>';
+      `}).join('') : '<div class="clean-empty">Nenhum item encontrado com esse filtro. Limpe a busca ou sincronize os recebidos.</div>';
     }
 
 
@@ -7801,7 +7929,6 @@
       if(!c) return;
       safeCall('ensureClassLevelData', ()=>ensureClassLevelData(c));
       safeCall('applyRuleEngine', ()=>applyRuleEngine(c));
-      safeCall('ensureCantrips', ()=>ensureCantrips(c));
       safeCall('bindDataPaths', ()=>$all('[data-path]').forEach(el=>{
         const path=el.dataset.path;
         const val=getByPath(c,path);
@@ -7811,6 +7938,7 @@
       safeCall('refreshCustomRuleOptions', refreshCustomRuleOptions);
       safeCall('renderClassPathOptions', renderClassPathOptions);
       safeCall('renderClassProgress', renderClassProgress);
+      safeCall('renderRulesClarity', renderRulesClarity);
       safeCall('renderRaceProgress', renderRaceProgress);
       safeCall('renderBackgroundProgress', renderBackgroundProgress);
       safeCall('renderDashboard', renderDashboard);
@@ -7840,6 +7968,7 @@
       $('#hpValue').textContent = hpMax ? hpNow + '/' + hpMax : '0/0';
       $('#levelValue').textContent = 'Nv. ' + level;
       $('#corruptionValue').textContent = corr + '/10';
+      const dashInit = $('#dashInitiativeAuto'); if(dashInit) dashInit.textContent = fmt(getMod(c,'destreza'));
       const charName = String((c.meta && c.meta.nomePersonagem) || '').trim() || 'Personagem';
       const titleEl = $('#dashCharacterTitle'); if(titleEl) titleEl.textContent = charName;
       const metaEl = $('#dashCharacterMeta');
@@ -8393,12 +8522,6 @@
           return;
         }
 
-        const useCantripBtn=e.target.closest('[data-use-cantrip]');
-        if(useCantripBtn){ useCantrip(useCantripBtn.dataset.useCantrip); return; }
-
-        const clearCantripBtn=e.target.closest('[data-clear-cantrip]');
-        if(clearCantripBtn){ clearCantrip(clearCantripBtn.dataset.clearCantrip); return; }
-
         const recover=e.target.closest('[data-recover-slot]');
         if(recover){ recoverSpellSlot(num(recover.dataset.recoverSlot)); return; }
 
@@ -8450,6 +8573,8 @@
         catch(e){ toast('JSON inválido.'); }
       };
       const downloadJsonBtn = $('#downloadJsonBtn'); if(downloadJsonBtn) downloadJsonBtn.onclick=exportJson;
+      const inventorySearchInput = $('#inventorySearchInput'); if(inventorySearchInput) inventorySearchInput.addEventListener('input', renderInventory);
+      const inventoryCategoryFilter = $('#inventoryCategoryFilter'); if(inventoryCategoryFilter) inventoryCategoryFilter.addEventListener('change', renderInventory);
       const spellBankSearchBtn = $('#spellBankSearchBtn'); if(spellBankSearchBtn) spellBankSearchBtn.onclick=searchSpellBank;
       const toggleSpellBankBtn = $('#toggleSpellBankBtn'); if(toggleSpellBankBtn) toggleSpellBankBtn.onclick=toggleSpellBank;
       const spellClassFilter = $('#spellClassFilter'); if(spellClassFilter) spellClassFilter.addEventListener('change', ()=>{ spellClassFilter.dataset.manualClassFilter = '1'; });

@@ -1975,3 +1975,277 @@ button.red{
     grid-template-columns:1fr 1fr !important;
   }
 }
+
+
+/* =========================================================
+   AJUSTE VIGENTE — REMOVER TRUQUES DUPLICADOS
+   Regra: truques aparecem somente no grimório/magias escolhidas
+   como nível 0. Não existe mais painel manual de truques à esquerda.
+   ========================================================= */
+
+.cantrip-panel,
+#cantripList{
+  display:none !important;
+}
+
+.spell-layout-grid{
+  grid-template-columns:minmax(280px,.78fr) minmax(0,1.22fr) !important;
+  gap:14px !important;
+}
+
+.spell-left-column{
+  align-self:start !important;
+}
+
+.spell-right-column{
+  min-width:0 !important;
+}
+
+.chosen-spells-panel{
+  min-height:360px !important;
+}
+
+.my-spell-card:first-child{
+  border-color:rgba(120,205,208,.48) !important;
+}
+
+.spellbank-panel{
+  position:sticky !important;
+  top:12px !important;
+}
+
+@media(max-width:1050px){
+  .spell-layout-grid{
+    grid-template-columns:1fr !important;
+  }
+
+  .spellbank-panel{
+    position:static !important;
+  }
+}
+
+
+/* =========================================================
+   AJUSTE VIGENTE — CA NO TOPO, INVENTÁRIO, REGRAS CLARAS
+   ========================================================= */
+
+/* CA e dados de uso rápido no topo da ficha */
+.dash-quick-use{
+  display:grid !important;
+  grid-template-columns:1.05fr .95fr 1fr 1fr !important;
+  gap:8px !important;
+  margin:10px 0 !important;
+}
+
+.quick-use-card{
+  background:linear-gradient(180deg,#123c49,#071f29) !important;
+  border:1px solid rgba(120,205,208,.28) !important;
+  border-radius:13px !important;
+  padding:8px !important;
+  display:grid !important;
+  gap:4px !important;
+  align-content:center !important;
+}
+
+.quick-use-card span{
+  color:var(--muted) !important;
+  font-size:11px !important;
+  font-weight:950 !important;
+  text-transform:uppercase !important;
+  letter-spacing:.04em !important;
+}
+
+.quick-use-card strong{
+  color:var(--gold-2) !important;
+  font-size:28px !important;
+  line-height:1 !important;
+  font-weight:950 !important;
+}
+
+.quick-use-card input{
+  min-height:36px !important;
+  font-size:20px !important;
+  font-weight:950 !important;
+  text-align:center !important;
+  color:#fff4d8 !important;
+  background:#051820 !important;
+}
+
+.quick-ca-card{
+  border-color:rgba(216,173,98,.72) !important;
+  box-shadow:inset 0 0 0 1px rgba(216,173,98,.12) !important;
+}
+
+.quick-ca-card input{
+  font-size:26px !important;
+}
+
+/* Regras do personagem */
+.character-rules-panel{
+  border-color:rgba(120,205,208,.42) !important;
+}
+
+.rules-clarity-summary{
+  display:grid !important;
+  gap:10px !important;
+}
+
+.rules-clarity-grid{
+  display:grid !important;
+  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  gap:10px !important;
+}
+
+.rules-card{
+  background:linear-gradient(180deg,#103743,#08232d) !important;
+  border:1px solid rgba(198,154,77,.34) !important;
+  border-radius:14px !important;
+  padding:10px !important;
+  display:grid !important;
+  gap:4px !important;
+}
+
+.rules-card.important{
+  border-color:rgba(120,205,208,.55) !important;
+}
+
+.rules-card.warn{
+  border-color:rgba(216,173,98,.75) !important;
+}
+
+.rules-card span{
+  color:var(--muted) !important;
+  font-size:11px !important;
+  text-transform:uppercase !important;
+  letter-spacing:.04em !important;
+  font-weight:950 !important;
+}
+
+.rules-card b{
+  color:var(--gold-2) !important;
+  font-size:18px !important;
+  line-height:1.15 !important;
+}
+
+.rules-card small{
+  color:#d6c9af !important;
+  line-height:1.25 !important;
+}
+
+.rules-note{
+  background:#061b24 !important;
+  border:1px dashed rgba(198,154,77,.42) !important;
+  border-radius:13px !important;
+  padding:10px !important;
+  color:#d6c9af !important;
+  line-height:1.35 !important;
+}
+
+/* Inventário revisado */
+.inventory-filter-bar{
+  display:grid !important;
+  grid-template-columns:minmax(0,1fr) 220px auto !important;
+  gap:8px !important;
+  align-items:end !important;
+  background:rgba(7,29,38,.42) !important;
+  border:1px solid rgba(120,205,208,.20) !important;
+  border-radius:14px !important;
+  padding:10px !important;
+  margin:12px 0 !important;
+}
+
+.inventory-count-badge{
+  min-height:40px !important;
+  display:grid !important;
+  place-items:center !important;
+  background:#061b24 !important;
+  border:1px solid rgba(198,154,77,.38) !important;
+  border-radius:12px !important;
+  color:var(--gold-2) !important;
+  font-weight:950 !important;
+  white-space:nowrap !important;
+  padding:0 10px !important;
+}
+
+.inventory-object-card{
+  position:relative !important;
+  overflow:hidden !important;
+}
+
+.inventory-object-card.arma{border-left-color:#d8ad62 !important;}
+.inventory-object-card.consumivel{border-left-color:#70b978 !important;}
+.inventory-object-card.tesouro{border-left-color:#c99747 !important;}
+.inventory-object-card.magico{border-left-color:#78cdd0 !important;}
+.inventory-object-card.equipamento{border-left-color:#91a7b1 !important;}
+
+.object-title-wrap{
+  display:grid !important;
+  grid-template-columns:42px minmax(0,1fr) !important;
+  gap:10px !important;
+  align-items:center !important;
+  min-width:0 !important;
+}
+
+.object-icon{
+  width:42px !important;
+  height:42px !important;
+  border-radius:13px !important;
+  display:grid !important;
+  place-items:center !important;
+  background:#061b24 !important;
+  border:1px solid rgba(120,205,208,.30) !important;
+  color:var(--gold-2) !important;
+  font-size:20px !important;
+  font-weight:950 !important;
+}
+
+.object-subtitle{
+  color:var(--muted) !important;
+  font-size:12px !important;
+  font-weight:750 !important;
+  margin-top:3px !important;
+  overflow-wrap:anywhere !important;
+}
+
+.object-card-title{
+  overflow-wrap:anywhere !important;
+}
+
+.object-card-actions .btn{
+  min-height:32px !important;
+}
+
+@media(max-width:980px){
+  .rules-clarity-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  }
+
+  .dash-quick-use{
+    grid-template-columns:1fr 1fr !important;
+  }
+}
+
+@media(max-width:720px){
+  .rules-clarity-grid,
+  .inventory-filter-bar{
+    grid-template-columns:1fr !important;
+  }
+
+  .dash-quick-use{
+    grid-template-columns:1fr 1fr !important;
+  }
+
+  .object-card-top{
+    grid-template-columns:1fr !important;
+  }
+
+  .object-card-actions{
+    justify-content:stretch !important;
+  }
+}
+
+@media(max-width:520px){
+  .dash-quick-use{
+    grid-template-columns:1fr !important;
+  }
+}
