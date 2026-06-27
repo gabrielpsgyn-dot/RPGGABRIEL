@@ -3887,3 +3887,88 @@ body:not(.menu-open) section.character-menu{
     grid-column:1 / -1 !important;
   }
 }
+
+
+/* =========================================================
+   AJUSTE VIGENTE — AÇÕES REAIS DOS RECURSOS
+   ========================================================= */
+
+.resource-status-strip{
+  grid-column:1 / -1 !important;
+  display:flex !important;
+  flex-wrap:wrap !important;
+  gap:7px !important;
+  padding:9px !important;
+  border:1px solid rgba(216,173,98,.32) !important;
+  background:#061b24 !important;
+  border-radius:14px !important;
+}
+
+.resource-status-strip.empty{
+  color:#d6c9af !important;
+  font-weight:850 !important;
+}
+
+.resource-status-strip span,
+.master-resource-pills span{
+  display:inline-flex !important;
+  align-items:center !important;
+  border-radius:999px !important;
+  padding:5px 9px !important;
+  background:rgba(216,173,98,.13) !important;
+  border:1px solid rgba(216,173,98,.38) !important;
+  color:#f7e7b6 !important;
+  font-size:11px !important;
+  font-weight:950 !important;
+}
+
+.resource-effect-summary{
+  border-radius:12px !important;
+  background:rgba(99,213,170,.10) !important;
+  border:1px solid rgba(99,213,170,.28) !important;
+  color:#b9f3d4 !important;
+  padding:7px 9px !important;
+  font-size:12px !important;
+  font-weight:900 !important;
+  line-height:1.28 !important;
+}
+
+.resource-quick-actions{
+  display:flex !important;
+  flex-wrap:wrap !important;
+  gap:6px !important;
+}
+
+.resource-absorb-box{
+  display:grid !important;
+  grid-template-columns:1fr auto !important;
+  gap:7px !important;
+  align-items:center !important;
+}
+
+.resource-absorb-box input{
+  min-height:34px !important;
+  border-radius:10px !important;
+  border:1px solid rgba(120,205,208,.24) !important;
+  background:#08232d !important;
+  color:#f3e9d2 !important;
+  padding:7px 9px !important;
+  font-weight:850 !important;
+}
+
+.master-resource-pills{
+  display:flex !important;
+  flex-wrap:wrap !important;
+  gap:6px !important;
+  margin:8px 0 !important;
+}
+
+.entity-card .master-resource-pills{
+  margin-top:6px !important;
+}
+
+@media(max-width:760px){
+  .resource-absorb-box{
+    grid-template-columns:1fr !important;
+  }
+}

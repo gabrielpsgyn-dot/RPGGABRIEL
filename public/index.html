@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RPG Gabriel - Ficha Online Versão Vigente</title>
-  <link rel="stylesheet" href="./css/app-vigente.css?v=recursos28">
+  <link rel="stylesheet" href="./css/app-vigente.css?v=recursosacoes29">
 </head>
 <!-- RPGGABRIEL Versão Vigente LIVRO DO JOGADOR OFICIAL SEM ACHISMO -->
 <body class="menu-open tema-maritimo-sombrio">
@@ -172,7 +172,7 @@
       </div>
 
       <div class="menu-footer-actions">
-        <a class="btn secondary master-link" href="/mestre.html?v=recursos28">Página do Mestre</a>
+        <a class="btn secondary master-link" href="/mestre.html?v=recursosacoes29">Página do Mestre</a>
       </div>
     </div>
   </section>
@@ -429,8 +429,8 @@
                 <div id="rulesAuditSummary" class="rules-audit-box"></div>
                 <div class="rules-audit-actions">
                   <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                  <a class="btn small secondary" href="criador.html?v=recursos28" target="_blank">Criador livre</a>
-                  <a class="btn small primary" href="livro-regras.html?v=recursos28" target="_blank">Livro de Regras</a>
+                  <a class="btn small secondary" href="criador.html?v=recursosacoes29" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=recursosacoes29" target="_blank">Livro de Regras</a>
                 </div>
               </details>
             </div>
@@ -10317,6 +10317,7 @@
       const current = hasCounter ? card.current : '';
       const active = !!card.active;
       const canSpend = hasCounter && card.max !== Infinity;
+      const actions = Array.isArray(card.actions) ? card.actions : [];
       return `
         <article class="resource-card ${active ? 'active' : ''}" data-resource-card="${escapeHtml(key)}">
           <div class="resource-card-head">
@@ -10326,12 +10327,24 @@
             </div>
             ${card.tag ? `<em>${escapeHtml(card.tag)}</em>` : ''}
           </div>
+          ${card.effectSummary ? `<div class="resource-effect-summary">${escapeHtml(card.effectSummary)}</div>` : ''}
           ${hasCounter ? `
             <div class="resource-counter">
               <button type="button" class="resource-btn" data-resource-step="${escapeHtml(key)}" data-resource-step-value="-1" ${canSpend ? '' : 'disabled'}>-</button>
               <strong>${card.max === Infinity ? '∞' : escapeHtml(current)}</strong>
               <button type="button" class="resource-btn" data-resource-step="${escapeHtml(key)}" data-resource-step-value="1" ${canSpend ? '' : 'disabled'}>+</button>
               <small>máx. ${escapeHtml(maxLabel)}</small>
+            </div>
+          ` : ''}
+          ${card.absorb ? `
+            <div class="resource-absorb-box">
+              <input type="number" min="0" placeholder="Dano" data-resource-absorb-value="${escapeHtml(key)}">
+              <button type="button" class="btn red small" data-resource-absorb="${escapeHtml(key)}">Absorver dano</button>
+            </div>
+          ` : ''}
+          ${actions.length ? `
+            <div class="resource-quick-actions">
+              ${actions.map(a=>`<button type="button" class="btn secondary small" data-resource-action="${escapeHtml(key)}" data-resource-action-cost="${escapeHtml(a.cost || 0)}" data-resource-action-label="${escapeHtml(a.label || 'Usar')}">${escapeHtml(a.label || 'Usar')}</button>`).join('')}
             </div>
           ` : ''}
           <div class="resource-text">
@@ -10347,7 +10360,7 @@
       `;
     }
 
-    function characterResourceDefinitions(c){
+    function characterResourceDefinitionsBase(c){
       const cls = normalizeClassName(getByPath(c,'meta.classe') || '');
       const level = getCharacterLevel(c);
       const path = getSelectedClassPath(c) || '';
@@ -10449,6 +10462,89 @@
       return cards;
     }
 
+
+    function enhanceResourceCards(c, cards){
+      return cards.map(card=>{
+        const x = {...card};
+        if(x.key === 'barbaro.furia'){
+          x.effectSummary = x.active ? 'FÚRIA ATIVA: aplicar dano extra e resistências enquanto durar.' : 'Fúria desligada.';
+        }
+        if(x.key === 'monge.ki'){
+          x.actions = [
+            {label:'Rajada de Golpes', cost:1},
+            {label:'Defesa Paciente', cost:1},
+            {label:'Passo do Vento', cost:1}
+          ];
+        }
+        if(x.key === 'mago.protecaoArcana'){
+          x.absorb = true;
+          x.effectSummary = 'Use antes do PV: a Proteção Arcana absorve dano primeiro.';
+        }
+        if(x.key === 'mago.protecaoProjetada'){
+          x.effectSummary = 'Reação: proteger aliado usando sua Proteção Arcana.';
+        }
+        if(x.key === 'guerreiro.superioridade'){
+          x.actions = [{label:'Usar manobra', cost:1}];
+        }
+        if(x.key === 'clerigo.canalizar' || x.key === 'paladino.canalizar'){
+          x.actions = [{label:'Usar Canalizar', cost:1}];
+        }
+        if(x.key === 'druida.formaSelvagem'){
+          x.actions = [{label:'Usar Forma Selvagem', cost:1}];
+        }
+        if(x.key === 'bruxo.pacto'){
+          x.actions = [{label:'Conjurar magia', cost:1}];
+        }
+        if(x.key === 'guerreiro.surtoAcao'){
+          x.actions = [{label:'Usar Surto', cost:1}];
+        }
+        if(x.key === 'guerreiro.retomarFolego'){
+          x.actions = [{label:'Usar cura', cost:1}];
+        }
+        if(x.key === 'feiticeiro.pontos'){
+          x.actions = [{label:'Gastar ponto', cost:1}];
+        }
+        if(x.key === 'paladino.maosConsagradas'){
+          x.effectSummary = 'Reserva de cura: diminua conforme os pontos de PV curados.';
+        }
+        return x;
+      });
+    }
+
+    function characterResourceDefinitions(c){
+      return enhanceResourceCards(c, characterResourceDefinitionsBase(c));
+    }
+
+    function resourceMasterSummary(c){
+      const cards = characterResourceDefinitions(c);
+      const out = [];
+      cards.forEach(card=>{
+        if(card.key === 'barbaro.furia' && card.active) out.push('Fúria ativa');
+        if(card.key === 'mago.protecaoArcana') out.push(`Proteção Arcana ${card.current}/${card.max}`);
+        if(card.key === 'monge.ki') out.push(`Ki ${card.current}/${card.max}`);
+        if(card.key === 'guerreiro.superioridade') out.push(`Superioridade ${card.current}/${card.max} ${card.tag || ''}`.trim());
+        if(card.key === 'bruxo.pacto') out.push(`Pacto ${card.current}/${card.max} ${card.tag || ''}`.trim());
+        if(card.key === 'clerigo.canalizar' || card.key === 'paladino.canalizar') out.push(`Canalizar ${card.current}/${card.max}`);
+        if(card.key === 'druida.formaSelvagem') out.push(`Forma Selvagem ${card.current}/${card.max}`);
+        if(card.key === 'feiticeiro.pontos') out.push(`Feitiçaria ${card.current}/${card.max}`);
+      });
+      return out;
+    }
+
+    function updateMasterResourceSnapshot(c){
+      if(!c) return [];
+      c.mesa = c.mesa || {};
+      c.mesa.recursosResumo = resourceMasterSummary(c);
+      c.mesa.recursosAtualizadoEm = now();
+      return c.mesa.recursosResumo;
+    }
+
+    function resourceStatusStripHtml(c){
+      const list = updateMasterResourceSnapshot(c);
+      if(!list.length) return '<div class="resource-status-strip empty">Sem recurso ativo relevante para a mesa ainda.</div>';
+      return `<div class="resource-status-strip">${list.map(x=>`<span>${escapeHtml(x)}</span>`).join('')}</div>`;
+    }
+
     function renderCharacterResources(){
       const c = activeChar();
       const box = $('#characterResourcesSummary');
@@ -10459,7 +10555,7 @@
         box.innerHTML = '<div class="clean-empty">Escolha uma classe e nível para ver recursos jogáveis.</div>';
         return;
       }
-      box.innerHTML = cards.map(resourceCardHtml).join('');
+      box.innerHTML = resourceStatusStripHtml(c) + cards.map(resourceCardHtml).join('');
     }
 
     function updateResourceFromButton(btn){
@@ -10477,9 +10573,63 @@
         const activeKey = card.key === 'barbaro.furia' ? 'barbaro.furiaAtiva' : card.key + '.ativo';
         setResourceActive(c, activeKey, !resourceActive(c, activeKey));
       }
+      updateMasterResourceSnapshot(c);
       saveLocal(false);
+      renderDashboard();
       renderCharacterResources();
       toast('Recurso atualizado.');
+    }
+
+    function handleResourceAction(btn){
+      const c = activeChar(); if(!c) return;
+      const key = btn.dataset.resourceAction;
+      const cost = Math.max(0, num(btn.dataset.resourceActionCost));
+      const label = btn.dataset.resourceActionLabel || 'Recurso';
+      const cards = characterResourceDefinitions(c);
+      const card = cards.find(x=>resourceKeySafe(x.key) === key);
+      if(!card){ toast('Recurso não encontrado.'); return; }
+      if(card.max != null && card.max !== Infinity && cost > 0){
+        const current = resourceValue(c, card.key, card.max);
+        if(current < cost){ toast('Sem recurso suficiente para: ' + label); return; }
+        setResourceValue(c, card.key, current - cost, card.max);
+      }
+      updateMasterResourceSnapshot(c);
+      saveLocal(false);
+      renderDashboard();
+      renderCharacterResources();
+      toast(label + ' usado.');
+    }
+
+    function absorbResourceDamage(btn){
+      const c = activeChar(); if(!c) return;
+      const key = btn.dataset.resourceAbsorb;
+      const input = Array.from(document.querySelectorAll('[data-resource-absorb-value]')).find(x=>x.dataset.resourceAbsorbValue === key);
+      const amount = Math.max(0, num(input && input.value));
+      if(!amount){ toast('Informe o dano para absorver.'); return; }
+      const cards = characterResourceDefinitions(c);
+      const card = cards.find(x=>resourceKeySafe(x.key) === key);
+      if(!card || card.max == null){ toast('Recurso não encontrado.'); return; }
+      let ward = resourceValue(c, card.key, card.max);
+      const absorbed = Math.min(ward, amount);
+      ward -= absorbed;
+      let remaining = amount - absorbed;
+      setResourceValue(c, card.key, ward, card.max);
+
+      if(remaining > 0){
+        const temp = num(c.vida && c.vida.temporarios);
+        const tempUsed = Math.min(temp, remaining);
+        if(c.vida){
+          c.vida.temporarios = Math.max(0, temp - tempUsed);
+          remaining -= tempUsed;
+          c.vida.atuais = Math.max(0, num(c.vida.atuais) - remaining);
+        }
+      }
+
+      if(input) input.value = '';
+      updateMasterResourceSnapshot(c);
+      saveLocal(true);
+      renderForm();
+      toast(`Absorvido: ${absorbed}. Dano restante aplicado: ${amount - absorbed}.`);
     }
 
     function restoreResources(kind){
@@ -10488,13 +10638,15 @@
       const cards = characterResourceDefinitions(c);
       cards.forEach(card=>{
         if(card.max == null || card.max === Infinity) return;
-        if(kind === 'longo' || card.rest === 'curto' || card.rest === 'longo'){
+        if(kind === 'longo' || card.rest === kind){
           setResourceValue(c, card.key, card.max, card.max);
         }
       });
-      if(kind === 'longo' && c.vida && c.vida.maximos){
-        c.vida.atuais = c.vida.maximos;
+      if(kind === 'longo'){
+        setResourceActive(c, 'barbaro.furiaAtiva', false);
+        if(c.vida && c.vida.maximos) c.vida.atuais = c.vida.maximos;
       }
+      updateMasterResourceSnapshot(c);
       saveLocal(true);
       renderForm();
       toast(kind === 'curto' ? 'Descanso curto aplicado.' : 'Descanso longo aplicado.');
@@ -10769,6 +10921,7 @@
     async function saveOnline(){
       const c=activeChar();
       if(!c){ return; }
+      updateMasterResourceSnapshot(c);
       saveLocal(false);
       try{
         await apiFetch('/api/characters/'+encodeURIComponent(c.id), {method:'PUT', body:JSON.stringify({character:c,campaignId:CAMPAIGN_ID})}, true);
@@ -10972,6 +11125,12 @@
 
         const resourceButton = e.target.closest('[data-resource-step],[data-resource-reset],[data-resource-toggle]');
         if(resourceButton){ updateResourceFromButton(resourceButton); return; }
+
+        const resourceActionBtn = e.target.closest('[data-resource-action]');
+        if(resourceActionBtn){ handleResourceAction(resourceActionBtn); return; }
+
+        const resourceAbsorbBtn = e.target.closest('[data-resource-absorb]');
+        if(resourceAbsorbBtn){ absorbResourceDamage(resourceAbsorbBtn); return; }
 
         const shortRestBtn = e.target.closest('#shortRestBtn');
         if(shortRestBtn){ restoreResources('curto'); return; }

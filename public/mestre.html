@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mesa do Mestre - Versão Vigente</title>
-  <link rel="stylesheet" href="./css/app-vigente.css?v=recursos28">
+  <link rel="stylesheet" href="./css/app-vigente.css?v=recursosacoes29">
 </head>
 <body class="tema-maritimo-sombrio">
   <main class="app">
@@ -14,7 +14,248 @@
           <h1>Mesa do Mestre</h1>
           <small>Versão Vigente · regras do Guia do Mestre indexadas · tela de comando para sessão, turno, PV e condições</small>
         </div>
-        <button class="btn ghost small" onclick="location.href='./?v=recursos28"entity-card ${active?'active':''} ${st}" data-select-type="${type}" data-select-id="${esc(e.id)}">
+        <button class="btn ghost small" onclick="location.href='./?v=recursosacoes29'">Ficha</button>
+      </div>
+      <div class="auth">
+        <input id="masterPassword" type="password" autocomplete="current-password" placeholder="Senha da mesa">
+        <button class="btn primary" id="loadBtn">Carregar mesa</button>
+      </div>
+    </section>
+
+    <section class="screen active" id="screen-table">
+      <div class="panel now-card">
+        <div class="now-title">Agora na mesa</div>
+        <div id="nowBox">
+          <div class="empty">Carregue a mesa e selecione alguém.</div>
+        </div>
+        <div class="quick-actions">
+          <button class="btn blue" id="prevTurnBtn">◀ Turno</button>
+          <button class="btn blue" id="nextTurnBtn">Turno ▶</button>
+          <button class="btn ghost" id="resetRoundBtn">Nova rodada</button>
+          <button class="btn green" id="saveSelectedBtn" title="Força sincronização manual do PJ/NPC selecionado">Sincronizar selecionado</button>
+        </div>
+        <div class="autosave-status" id="masterAutoSaveStatus">Auto-save ativo: PV e condições salvam ao clicar.</div>
+      </div>
+
+      <div class="panel">
+        <div class="toolbar">
+          <input id="searchInput" placeholder="Buscar jogador, inimigo, NPC...">
+          <select id="typeFilter">
+            <option value="">Todos</option>
+            <option value="player">Jogadores</option>
+            <option value="enemy">Inimigos</option>
+            <option value="npc">NPCs</option>
+          </select>
+          <select id="hpFilter">
+            <option value="">PV</option>
+            <option value="low">Baixo</option>
+            <option value="dead">Caído</option>
+          </select>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin:8px 0">
+          <span class="pill" id="countPlayers">PJ 0</span>
+          <span class="pill" id="countEnemies">Inimigos 0</span>
+          <span class="pill" id="countNpcs">NPCs 0</span>
+          <span class="pill" id="roundBadge">Rodada 1</span>
+        </div>
+        <div class="list" id="entityList"></div>
+      </div>
+
+      <div class="panel" id="detailPanel">
+        <div id="detailBox" class="empty">Selecione um jogador, inimigo ou NPC.</div>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-players">
+      <div class="panel">
+        <h2>Jogadores</h2>
+        <div class="list" id="playerList"></div>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-combat">
+      <div class="panel">
+        <h2>Ordem de Turno</h2>
+        <div class="quick-actions" style="margin-bottom:8px">
+          <button class="btn blue" id="prevTurnBtn2">◀ Anterior</button>
+          <button class="btn blue" id="nextTurnBtn2">Próximo ▶</button>
+        </div>
+        <div class="turn-list" id="turnList"></div>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-npcs">
+      <div class="panel">
+        <h2>Inimigos e NPCs</h2>
+        <div class="quick-actions" style="margin-bottom:8px">
+          <button class="btn red" id="addEnemyBtn">+ Inimigo</button>
+          <button class="btn blue" id="addNpcBtn">+ NPC</button>
+        </div>
+        <div class="list" id="localList"></div>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-notes">
+      <div class="panel">
+        <h2>Notas rápidas do Mestre</h2>
+        <div class="field">
+          <label>Nota da sessão</label>
+          <textarea id="sessionNotes" rows="10" placeholder="Anote pistas, decisões, tesouros, estado da cena..."></textarea>
+        </div>
+        <button class="btn primary" id="saveNotesBtn">Salvar notas</button>
+      </div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav">
+    <button class="nav-btn active" data-screen="screen-table">Mesa</button>
+    <button class="nav-btn" data-screen="screen-players">PJs</button>
+    <button class="nav-btn" data-screen="screen-combat">Turnos</button>
+    <button class="nav-btn" data-screen="screen-npcs">NPCs</button>
+    <button class="nav-btn" data-screen="screen-notes">Notas</button>
+  </nav>
+
+  <div id="toast" style="position:fixed;left:50%;bottom:84px;transform:translateX(-50%);background:#1d1008;color:#ffe4b8;border:1px solid #d09a50;border-radius:999px;padding:9px 13px;font-weight:950;opacity:0;pointer-events:none;transition:.2s;z-index:50"></div>
+
+<script>
+const API_BASE = location.origin;
+const CAMPAIGN_ID = 'ghosts-of-saltmarsh';
+const PASS_KEY = 'rpggabriel.master.password.v45';
+const ENEMY_KEY = 'rpggabriel.master.enemies.v45';
+const NPC_KEY = 'rpggabriel.master.npcs.v45';
+const TURN_KEY = 'rpggabriel.master.turn.v45';
+const NOTES_KEY = 'rpggabriel.master.notes.v45';
+const CONDITIONS = ['Caído','Envenenado','Concentrando','Invisível','Atordoado','Agarrado','Assustado'];
+const state = {players:[], enemies:loadLocal(ENEMY_KEY,[]), npcs:loadLocal(NPC_KEY,[]), selectedType:'', selectedId:'', round:1, turnIndex:0};
+
+function $(s,r=document){return r.querySelector(s)}
+function $all(s,r=document){return Array.from(r.querySelectorAll(s))}
+function esc(v){return String(v??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]))}
+function num(v){const n=Number(v);return Number.isFinite(n)?n:0}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+function uid(p){return p+'_'+Math.random().toString(36).slice(2,9)}
+function loadLocal(k,f){try{return JSON.parse(localStorage.getItem(k)||JSON.stringify(f))}catch{return f}}
+function saveLocal(k,v){localStorage.setItem(k,JSON.stringify(v))}
+function toast(msg){const el=$('#toast');el.textContent=msg;el.style.opacity='1';clearTimeout(window.__toast);window.__toast=setTimeout(()=>el.style.opacity='0',2400)}
+function setAutoSaveStatus(msg,state='ok'){
+  const el=$('#masterAutoSaveStatus');
+  if(!el)return;
+  el.textContent=msg;
+  el.classList.remove('saving','ok','error');
+  el.classList.add(state);
+}
+async function autoSaveEntity(type,e,msg){
+  setAutoSaveStatus('Salvando automaticamente...', 'saving');
+  try{
+    if(type==='player') await savePlayer(e,msg||'Alteração salva automaticamente.');
+    else await saveEntity(type,e,msg||'Alteração salva automaticamente.');
+    setAutoSaveStatus('Auto-save concluído.', 'ok');
+  }catch(err){
+    setAutoSaveStatus('Falha no auto-save: '+err.message, 'error');
+    toast('Falha no auto-save: '+err.message);
+  }
+}
+
+function password(){return $('#masterPassword').value.trim() || localStorage.getItem(PASS_KEY) || ''}
+function savePassword(){if($('#masterPassword').value.trim())localStorage.setItem(PASS_KEY,$('#masterPassword').value.trim())}
+function deepMerge(a,b){if(Array.isArray(a))return Array.isArray(b)?b:a;if(a&&typeof a==='object'){const o={...a};if(b&&typeof b==='object')Object.keys(b).forEach(k=>o[k]=deepMerge(a[k],b[k]));return o}return b!==undefined?b:a}
+function blankPlayer(){return {id:'',meta:{nomePersonagem:'',classe:'',classeNivel:'',nivel:1,raca:'',nomeJogador:''},vida:{atuais:0,maximos:0,temporarios:0},combate:{classeArmadura:'',iniciativa:'',deslocamento:''},atributos:{},pericias:{},proficiencia:{bonus:2},bonusProficiencia:2,campanha:{corrupcao:0,faccao:'',pistasDecifradas:'',pressagioCurto:''},magia:{truques:[],niveis:{},grimorio:[]},descricao:{aparenciaImagem:'',historia:''},condicoes:[]}}
+function normalizePlayer(c){const p=deepMerge(blankPlayer(),c||{});p.id=(c&&c.id)||p.id;if(!p.meta.classe&&p.meta.classeNivel)p.meta.classe=String(p.meta.classeNivel).replace(/\bn[ií]vel\b.*$/i,'').replace(/\d+/g,'').replace(/[—-]/g,'').trim();if(!p.meta.nivel){const m=String(p.meta.classeNivel||'').match(/\b(1[0-9]|20|[1-9])\b/);p.meta.nivel=m?num(m[1]):1}p.condicoes=Array.isArray(p.condicoes)?p.condicoes:[];p.magia.grimorio=Array.isArray(p.magia.grimorio)?p.magia.grimorio:[];p.magia.truques=Array.isArray(p.magia.truques)?p.magia.truques:[];p.magia.niveis=p.magia.niveis||{};return p}
+function baseLocal(type){return {id:uid(type),name:type==='enemy'?'Novo inimigo':'Novo NPC',role:'',hp:10,hpMax:10,ac:10,initiative:0,conditions:[],notes:'',image:'',spells:[]}}
+
+function all(){return [...state.players.map(data=>({type:'player',data})),...state.enemies.map(data=>({type:'enemy',data})),...state.npcs.map(data=>({type:'npc',data}))]}
+function arr(type){return type==='player'?state.players:(type==='enemy'?state.enemies:state.npcs)}
+function find(type,id){return arr(type).find(x=>String(x.id)===String(id))||null}
+function selected(){return find(state.selectedType,state.selectedId)}
+function nameOf(type,e){return type==='player'?(e.meta.nomePersonagem||'Sem nome'):(e.name||'Sem nome')}
+function subOf(type,e){return type==='player'?([e.meta.classe||e.meta.classeNivel,'Nv. '+levelOf(e),e.meta.raca].filter(Boolean).join(' • ')):[type==='enemy'?'Inimigo':'NPC',e.role].filter(Boolean).join(' • ')}
+function levelOf(p){const d=num(p.meta.nivel);if(d>0)return d;const m=String(p.meta.classeNivel||'').match(/\d+/);return m?num(m[0]):1}
+function hpOf(type,e){return type==='player'?{now:num(e.vida.atuais),max:num(e.vida.maximos),temp:num(e.vida.temporarios)}:{now:num(e.hp),max:num(e.hpMax),temp:0}}
+function acOf(type,e){return type==='player'?(e.combate.classeArmadura||'-'):(e.ac||'-')}
+function iniOf(type,e){return type==='player'?num(e.combate.iniciativa):num(e.initiative)}
+function condOf(type,e){return type==='player'?(Array.isArray(e.condicoes)?e.condicoes:[]):(Array.isArray(e.conditions)?e.conditions:[])}
+function setCond(type,e,cond,on){const key=type==='player'?'condicoes':'conditions';e[key]=Array.isArray(e[key])?e[key]:[];if(on&&!e[key].includes(cond))e[key].push(cond);if(!on)e[key]=e[key].filter(x=>x!==cond)}
+function hpState(type,e){const h=hpOf(type,e);if(h.now<=0)return'dead';if(h.max&&h.now/h.max<=.35)return'low';return'ok'}
+function spellsOf(p){const out=[];(p.magia.grimorio||[]).forEach(s=>{const n=s.nome_pt||s.nome||s.name;if(n)out.push({name:n,level:s.nivel===0?'Truque':(s.nivel||'?')+'º'})});(p.magia.truques||[]).forEach(s=>{if(s&&s.nome)out.push({name:s.nome,level:'Truque'})});for(let i=1;i<=9;i++){const sec=p.magia.niveis&&p.magia.niveis[i];const list=sec&&Array.isArray(sec.magias)?sec.magias:[];list.forEach(s=>{if(s&&s.nome)out.push({name:s.nome,level:i+'º'})})}return out}
+function attrMod(score){const v=Number(score);return Math.floor(((Number.isFinite(v)?v:10)-10)/2)}
+function passive(p){const wis=num(p.atributos?.sabedoria?.valor||10);const prof=num(p.proficiencia?.bonus||p.bonusProficiencia||0);return 10+attrMod(wis)+(p.pericias?.percepcao?.proficiente?prof:0)}
+
+async function apiFetch(path,options={}){
+  const pwd=password();if(!pwd)throw new Error('Digite a senha da mesa.');
+  localStorage.setItem(PASS_KEY,pwd);
+  const headers={'Content-Type':'application/json','x-rpg-password':pwd,'x-campaign-id':CAMPAIGN_ID,'x-player-id':'mestre'};
+  const res=await fetch(API_BASE+path,{...options,headers:{...headers,...(options.headers||{})}});
+  const txt=await res.text();let data={};try{data=txt?JSON.parse(txt):{}}catch{data={ok:false,error:txt}}
+  if(!res.ok||data.ok===false)throw new Error(data.error||('Erro HTTP '+res.status));
+  return data;
+}
+async function loadPlayers(){
+  try{
+    $('#loadBtn').disabled=true;savePassword();
+    const listData=await apiFetch('/api/characters?campaignId='+encodeURIComponent(CAMPAIGN_ID),{method:'GET'});
+    const list=Array.isArray(listData.characters)?listData.characters:[];
+    const full=[];
+    for(const item of list){
+      const id=item.id||item.characterId;if(!id)continue;
+      try{const detail=await apiFetch('/api/characters/'+encodeURIComponent(id)+'?campaignId='+encodeURIComponent(CAMPAIGN_ID),{method:'GET'});full.push(normalizePlayer(detail.character||item))}
+      catch{full.push(normalizePlayer(item))}
+    }
+    state.players=full.sort((a,b)=>nameOf('player',a).localeCompare(nameOf('player',b),'pt-BR'));
+    ensureSelection();renderAll();toast('Mesa carregada.');
+  }catch(e){toast(e.message)}
+  finally{$('#loadBtn').disabled=false}
+}
+async function savePlayer(p,msg){
+  p.updatedAt=new Date().toISOString();
+  await apiFetch('/api/characters/'+encodeURIComponent(p.id),{method:'PUT',body:JSON.stringify({character:p,campaignId:CAMPAIGN_ID})});
+  renderAll();toast(msg||'Personagem salvo.');
+}
+function saveBoards(){saveLocal(ENEMY_KEY,state.enemies);saveLocal(NPC_KEY,state.npcs)}
+async function saveEntity(type,e,msg){if(type==='player')return savePlayer(e,msg);saveBoards();renderAll();toast(msg||'Salvo localmente.');return Promise.resolve({ok:true})}
+
+function order(){return all().sort((a,b)=>iniOf(b.type,b.data)-iniOf(a.type,a.data)||nameOf(a.type,a.data).localeCompare(nameOf(b.type,b.data),'pt-BR'))}
+function activeTurn(){const o=order();if(!o.length)return null;state.turnIndex=clamp(state.turnIndex,0,o.length-1);return o[state.turnIndex]}
+function persistTurn(){saveLocal(TURN_KEY,{round:state.round,turnIndex:state.turnIndex})}
+function restoreTurn(){const t=loadLocal(TURN_KEY,{round:1,turnIndex:0});state.round=t.round||1;state.turnIndex=t.turnIndex||0}
+function nextTurn(){const o=order();if(!o.length)return;state.turnIndex++;if(state.turnIndex>=o.length){state.turnIndex=0;state.round++}const a=activeTurn();if(a)select(a.type,a.data.id);persistTurn();renderAll()}
+function prevTurn(){const o=order();if(!o.length)return;state.turnIndex--;if(state.turnIndex<0){state.turnIndex=Math.max(0,o.length-1);state.round=Math.max(1,state.round-1)}const a=activeTurn();if(a)select(a.type,a.data.id);persistTurn();renderAll()}
+function resetRound(){state.round++;state.turnIndex=0;persistTurn();renderAll()}
+function select(type,id){state.selectedType=type;state.selectedId=id;renderAll()}
+function ensureSelection(){if(selected())return;const a=activeTurn();if(a){state.selectedType=a.type;state.selectedId=a.data.id;return}const f=all()[0];if(f){state.selectedType=f.type;state.selectedId=f.data.id}}
+
+function visible(){
+  const q=String($('#searchInput')?.value||'').toLowerCase().trim();
+  const tf=$('#typeFilter')?.value||'';const hf=$('#hpFilter')?.value||'';
+  return all().filter(it=>{
+    if(tf&&it.type!==tf)return false;
+    const e=it.data;const hps=hpState(it.type,e);
+    if(hf&&hps!==hf)return false;
+    const text=[nameOf(it.type,e),subOf(it.type,e),it.type==='player'?e.meta.nomeJogador:'',it.type==='player'?e.campanha.faccao:e.role].join(' ').toLowerCase();
+    return !q||text.includes(q);
+  });
+}
+function hpBar(type,e){const h=hpOf(type,e);const pct=h.max?clamp(h.now/h.max*100,0,100):0;const st=hpState(type,e);return `<div class="hpbar"><span>PV</span><div class="track"><div class="fill ${st==='dead'?'dead':st==='low'?'low':''}" style="width:${pct}%"></div></div><b>${h.now}/${h.max||0}</b></div>`}
+
+function resourcePillsOf(p){
+  const out=[];
+  const res=p&&p.recursos&&p.recursos.valores?p.recursos.valores:{};
+  const ativos=p&&p.recursos&&p.recursos.ativos?p.recursos.ativos:{};
+  const mesa=p&&p.mesa&&Array.isArray(p.mesa.recursosResumo)?p.mesa.recursosResumo:[];
+  mesa.forEach(x=>{if(x)out.push(String(x))});
+  if(ativos['barbaro.furiaAtiva']&&!out.some(x=>/fúria|furia/i.test(x)))out.push('Fúria ativa');
+  if(res['mago.protecaoArcana']!=null&&!out.some(x=>/proteção arcana|protecao arcana/i.test(x)))out.push('Proteção Arcana '+res['mago.protecaoArcana']);
+  if(res['monge.ki']!=null&&!out.some(x=>/^ki\b/i.test(x)))out.push('Ki '+res['monge.ki']);
+  if(res['bruxo.pacto']!=null&&!out.some(x=>/pacto/i.test(x)))out.push('Pacto '+res['bruxo.pacto']);
+  return Array.from(new Set(out)).slice(0,8);
+}
+function resourcePillsHtml(p){
+  const list=resourcePillsOf(p);
+  return list.length?`<div class="master-resource-pills">${list.map(x=>`<span>${esc(x)}</span>`).join('')}</div>`:'';
+}
+function entityCard(type,e){
+  const active=state.selectedType===type&&String(state.selectedId)===String(e.id);
+  const st=hpState(type,e);const img=type==='player'?e.descricao?.aparenciaImagem:e.image;
+  return `<article class="entity-card ${active?'active':''} ${st}" data-select-type="${type}" data-select-id="${esc(e.id)}">
     <div class="entity-top">
       <div class="avatar">${img?`<img src="${esc(img)}">`:'Sem imagem'}</div>
       <div><div class="entity-name">${esc(nameOf(type,e))}</div><div class="entity-sub">${esc(subOf(type,e))}</div></div>
@@ -27,6 +268,7 @@
       ${type==='player'?`<span class="pill">Pass. ${passive(e)}</span>`:''}
       ${condOf(type,e).map(c=>`<span class="pill">${esc(c)}</span>`).join('')}
     </div>
+    ${type==='player'?resourcePillsHtml(e):''}
     <div class="entity-actions">
       <button class="btn small green" data-hp-delta="1" data-type="${type}" data-id="${esc(e.id)}">+1</button>
       <button class="btn small green" data-hp-delta="5" data-type="${type}" data-id="${esc(e.id)}">+5</button>
@@ -46,7 +288,8 @@ function renderNow(){
     <div class="stat"><span>INI</span><b>${iniOf(type,e)}</b></div>
     <div class="stat"><span>Temp</span><b>${h.temp||0}</b></div>
     <div class="stat"><span>Magias</span><b>${spells}</b></div>
-  </div>`;
+  </div>
+  ${type==='player'?resourcePillsHtml(e):''}`;
 }
 function renderLists(){
   $('#countPlayers').textContent='PJ '+state.players.length;
@@ -86,7 +329,8 @@ function renderDetail(){
       <div class="field"><label>Iniciativa</label><input data-edit="initiative" value="${iniOf(type,e)}"></div>
     </div>
     <div><label class="field"><span style="display:block;font-size:11px;text-transform:uppercase;color:#674b2b;font-weight:950;margin-bottom:4px">Condições</span></label><div class="conditions">${CONDITIONS.map(c=>`<button class="cond ${cond.includes(c)?'active':''}" data-condition="${esc(c)}">${esc(c)}</button>`).join('')}</div></div>
-    ${type==='player'?`<details open><summary>Magias e recursos visíveis</summary><div class="spell-list">${spells.slice(0,60).map(s=>`<div class="spell"><b>${esc(s.name)}</b><span class="pill">${esc(s.level)}</span></div>`).join('')||'<div class="empty">Sem magias visíveis.</div>'}</div></details>`:''}
+    ${type==='player'?`<details open><summary>Recursos ativos da ficha</summary>${resourcePillsHtml(e)||'<div class="empty">Sem recursos ativos ou controlados ainda.</div>'}</details>`:''}
+    ${type==='player'?`<details open><summary>Magias visíveis</summary><div class="spell-list">${spells.slice(0,60).map(s=>`<div class="spell"><b>${esc(s.name)}</b><span class="pill">${esc(s.level)}</span></div>`).join('')||'<div class="empty">Sem magias visíveis.</div>'}</div></details>`:''}
     <div class="field"><label>Notas do mestre para este alvo</label><textarea data-edit="notes" rows="4">${esc(type==='player'?(e.campanha.pressagioCurto||''):(e.notes||''))}</textarea></div>
     <button class="btn primary" data-save-detail="1">Salvar alterações</button>
   </div>`;
