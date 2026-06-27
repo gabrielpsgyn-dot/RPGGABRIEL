@@ -2249,3 +2249,153 @@ button.red{
     grid-template-columns:1fr !important;
   }
 }
+
+
+/* =========================================================
+   AJUSTE VIGENTE — TODAS AS RAÇAS DO LIVRO ATIVAS
+   ========================================================= */
+
+.race-active-banner{
+  display:grid !important;
+  gap:3px !important;
+  background:linear-gradient(180deg,#123c49,#08232d) !important;
+  border:1px solid rgba(120,205,208,.42) !important;
+  border-radius:14px !important;
+  padding:10px !important;
+  margin-bottom:10px !important;
+}
+
+.race-active-banner b{
+  color:var(--gold-2) !important;
+  font-size:15px !important;
+  font-weight:950 !important;
+}
+
+.race-active-banner span{
+  color:#d6c9af !important;
+  font-size:12px !important;
+  line-height:1.25 !important;
+}
+
+.race-active-effects{
+  display:grid !important;
+  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  gap:10px !important;
+  margin:10px 0 !important;
+}
+
+.race-trait-list{
+  display:grid !important;
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  gap:8px !important;
+  margin-top:10px !important;
+}
+
+.race-trait-card{
+  background:linear-gradient(180deg,#103743,#08232d) !important;
+  border:1px solid rgba(198,154,77,.34) !important;
+  border-radius:13px !important;
+  padding:9px !important;
+  display:grid !important;
+  gap:4px !important;
+}
+
+.race-trait-card b{
+  color:var(--gold-2) !important;
+  font-size:13px !important;
+  line-height:1.2 !important;
+}
+
+.race-trait-card small{
+  color:#d6c9af !important;
+  line-height:1.3 !important;
+}
+
+.compact-details{
+  background:rgba(7,29,38,.42) !important;
+  border:1px solid rgba(198,154,77,.28) !important;
+  border-radius:14px !important;
+  padding:10px !important;
+  margin-top:10px !important;
+}
+
+.compact-details summary{
+  color:var(--gold-2) !important;
+  font-weight:950 !important;
+}
+
+@media(max-width:900px){
+  .race-active-effects,
+  .race-trait-list{
+    grid-template-columns:1fr !important;
+  }
+}
+
+
+/* =========================================================
+   AJUSTE VIGENTE — CLASSES DO LIVRO ATIVAS
+   ========================================================= */
+
+.class-active-banner{
+  display:grid !important;
+  gap:3px !important;
+  background:linear-gradient(180deg,#123c49,#08232d) !important;
+  border:1px solid rgba(120,205,208,.44) !important;
+  border-radius:14px !important;
+  padding:10px !important;
+  margin-bottom:10px !important;
+}
+
+.class-active-banner b{
+  color:var(--gold-2) !important;
+  font-size:15px !important;
+  font-weight:950 !important;
+}
+
+.class-active-banner span{
+  color:#d6c9af !important;
+  font-size:12px !important;
+  line-height:1.3 !important;
+}
+
+.class-rule-grid{
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:10px !important;
+  margin:10px 0 !important;
+}
+
+.class-prof-list{
+  display:flex !important;
+  flex-wrap:wrap !important;
+  gap:6px !important;
+}
+
+.class-prof-pill{
+  display:inline-flex !important;
+  align-items:center !important;
+  gap:4px !important;
+  background:#061b24 !important;
+  border:1px solid rgba(120,205,208,.28) !important;
+  color:#f3e9d2 !important;
+  border-radius:999px !important;
+  padding:4px 8px !important;
+  font-size:12px !important;
+  font-weight:850 !important;
+  line-height:1.15 !important;
+}
+
+.class-feature-pill.warn{
+  border-color:rgba(216,173,98,.75) !important;
+  color:var(--gold-2) !important;
+}
+
+.class-progress-panel{
+  border-color:rgba(120,205,208,.42) !important;
+}
+
+@media(max-width:900px){
+  .class-rule-grid{
+    grid-template-columns:1fr !important;
+  }
+}

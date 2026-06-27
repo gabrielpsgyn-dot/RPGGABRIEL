@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RPG Gabriel - Ficha Online Versão Vigente</title>
-  <link rel="stylesheet" href="./css/app-vigente.css?v=caregras8">
+  <link rel="stylesheet" href="./css/app-vigente.css?v=classesativas10">
 </head>
 <!-- RPGGABRIEL Versão Vigente LIVRO DO JOGADOR OFICIAL SEM ACHISMO -->
 <body class="menu-open tema-maritimo-sombrio">
@@ -41,7 +41,7 @@
       </div>
 
       <div class="menu-footer-actions">
-        <a class="btn secondary master-link" href="/mestre.html?v=caregras8">Página do Mestre</a>
+        <a class="btn secondary master-link" href="/mestre.html?v=classesativas10">Página do Mestre</a>
       </div>
     </div>
   </section>
@@ -272,8 +272,8 @@
                 <div id="rulesAuditSummary" class="rules-audit-box"></div>
                 <div class="rules-audit-actions">
                   <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                  <a class="btn small secondary" href="criador.html?v=caregras8" target="_blank">Criador livre</a>
-                  <a class="btn small primary" href="livro-regras.html?v=caregras8" target="_blank">Livro de Regras</a>
+                  <a class="btn small secondary" href="criador.html?v=classesativas10" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=classesativas10" target="_blank">Livro de Regras</a>
                 </div>
               </details>
             </div>
@@ -4027,6 +4027,933 @@
     };
 
 
+    const CLASS_BOOK_DETAILS = {
+      "Bárbaro": {
+            "source": "Livro do Jogador, classe Bárbaro",
+            "armor": [
+                  "Armaduras leves",
+                  "Armaduras médias",
+                  "Escudos"
+            ],
+            "weapons": [
+                  "Armas simples",
+                  "Armas marciais"
+            ],
+            "tools": [],
+            "skillChoiceCount": 2,
+            "skillOptions": [
+                  "adestrarAnimais",
+                  "atletismo",
+                  "intimidacao",
+                  "natureza",
+                  "percepcao",
+                  "sobrevivencia"
+            ],
+            "subclassLabel": "Caminho Primitivo",
+            "subclassLevel": 3,
+            "subclasses": [
+                  "Caminho do Furioso",
+                  "Caminho do Guerreiro Totêmico"
+            ],
+            "resources": [
+                  "Fúria",
+                  "Defesa sem Armadura",
+                  "Ataque Descuidado",
+                  "Sentido de Perigo"
+            ],
+            "featuresByLevel": {
+                  "1": [
+                        "Fúria",
+                        "Defesa sem Armadura"
+                  ],
+                  "2": [
+                        "Ataque Descuidado",
+                        "Sentido de Perigo"
+                  ],
+                  "3": [
+                        "Caminho Primitivo"
+                  ],
+                  "4": [
+                        "Melhoria de atributo"
+                  ],
+                  "5": [
+                        "Ataque Extra",
+                        "Movimento Rápido"
+                  ],
+                  "7": [
+                        "Instinto Selvagem"
+                  ],
+                  "9": [
+                        "Crítico Brutal"
+                  ],
+                  "11": [
+                        "Fúria Implacável"
+                  ],
+                  "15": [
+                        "Fúria Persistente"
+                  ],
+                  "20": [
+                        "Campeão Primitivo"
+                  ]
+            },
+            "choicesByLevel": {
+                  "1": [
+                        "Escolher 2 perícias de Bárbaro",
+                        "Escolher equipamento inicial de Bárbaro"
+                  ],
+                  "3": [
+                        "Escolher Caminho Primitivo"
+                  ],
+                  "4": [
+                        "Melhoria de atributo ou talento se permitido"
+                  ]
+            }
+      },
+      "Bardo": {
+            "source": "Livro do Jogador, classe Bardo",
+            "armor": [
+                  "Armaduras leves"
+            ],
+            "weapons": [
+                  "Armas simples",
+                  "Bestas de mão",
+                  "Espadas longas",
+                  "Rapieiras",
+                  "Espadas curtas"
+            ],
+            "tools": [
+                  "Três instrumentos musicais à escolha"
+            ],
+            "skillChoiceCount": 3,
+            "skillOptions": [
+                  "acrobacia",
+                  "adestrarAnimais",
+                  "arcanismo",
+                  "atletismo",
+                  "atuacao",
+                  "enganacao",
+                  "furtividade",
+                  "historia",
+                  "intimidacao",
+                  "intuicao",
+                  "investigacao",
+                  "medicina",
+                  "natureza",
+                  "percepcao",
+                  "persuasao",
+                  "prestidigitacao",
+                  "religiao",
+                  "sobrevivencia"
+            ],
+            "subclassLabel": "Colégio de Bardo",
+            "subclassLevel": 3,
+            "subclasses": [
+                  "Colégio do Conhecimento",
+                  "Colégio da Bravura"
+            ],
+            "resources": [
+                  "Inspiração de Bardo",
+                  "Conjuração",
+                  "Canção de Descanso",
+                  "Pau para Toda Obra",
+                  "Especialização"
+            ],
+            "featuresByLevel": {
+                  "1": [
+                        "Inspiração de Bardo",
+                        "Conjuração"
+                  ],
+                  "2": [
+                        "Pau para Toda Obra",
+                        "Canção de Descanso"
+                  ],
+                  "3": [
+                        "Colégio de Bardo",
+                        "Especialização"
+                  ],
+                  "4": [
+                        "Melhoria de atributo"
+                  ],
+                  "5": [
+                        "Fonte de Inspiração"
+                  ],
+                  "6": [
+                        "Característica de Colégio"
+                  ],
+                  "10": [
+                        "Segredos Mágicos"
+                  ],
+                  "20": [
+                        "Inspiração Superior"
+                  ]
+            },
+            "choicesByLevel": {
+                  "1": [
+                        "Escolher 3 perícias de Bardo",
+                        "Escolher 3 instrumentos musicais",
+                        "Escolher truques e magias de Bardo"
+                  ],
+                  "3": [
+                        "Escolher Colégio de Bardo"
+                  ],
+                  "4": [
+                        "Melhoria de atributo ou talento se permitido"
+                  ]
+            }
+      },
+      "Bruxo": {
+            "source": "Livro do Jogador, classe Bruxo",
+            "armor": [
+                  "Armaduras leves"
+            ],
+            "weapons": [
+                  "Armas simples"
+            ],
+            "tools": [],
+            "skillChoiceCount": 2,
+            "skillOptions": [
+                  "arcanismo",
+                  "enganacao",
+                  "historia",
+                  "intimidacao",
+                  "investigacao",
+                  "natureza",
+                  "religiao"
+            ],
+            "subclassLabel": "Patrono Transcendental",
+            "subclassLevel": 1,
+            "subclasses": [
+                  "Arquifada",
+                  "Corruptor",
+                  "Grande Antigo"
+            ],
+            "resources": [
+                  "Magia de Pacto",
+                  "Invocações Místicas",
+                  "Dádiva do Pacto",
+                  "Arcano Místico"
+            ],
+            "featuresByLevel": {
+                  "1": [
+                        "Patrono Transcendental",
+                        "Magia de Pacto"
+                  ],
+                  "2": [
+                        "Invocações Místicas"
+                  ],
+                  "3": [
+                        "Dádiva do Pacto"
+                  ],
+                  "4": [
+                        "Melhoria de atributo"
+                  ],
+                  "6": [
+                        "Característica de Patrono"
+                  ],
+                  "11": [
+                        "Arcano Místico"
+                  ],
+                  "20": [
+                        "Mestre Místico"
+                  ]
+            },
+            "choicesByLevel": {
+                  "1": [
+                        "Escolher Patrono Transcendental",
+                        "Escolher 2 perícias de Bruxo",
+                        "Escolher truques e magias de Bruxo"
+                  ],
+                  "2": [
+                        "Escolher Invocações Místicas"
+                  ],
+                  "3": [
+                        "Escolher Dádiva do Pacto"
+                  ],
+                  "4": [
+                        "Melhoria de atributo ou talento se permitido"
+                  ]
+            }
+      },
+      "Clérigo": {
+            "source": "Livro do Jogador, classe Clérigo",
+            "armor": [
+                  "Armaduras leves",
+                  "Armaduras médias",
+                  "Escudos"
+            ],
+            "weapons": [
+                  "Armas simples"
+            ],
+            "tools": [],
+            "skillChoiceCount": 2,
+            "skillOptions": [
+                  "historia",
+                  "intuicao",
+                  "medicina",
+                  "persuasao",
+                  "religiao"
+            ],
+            "subclassLabel": "Domínio Divino",
+            "subclassLevel": 1,
+            "subclasses": [
+                  "Conhecimento",
+                  "Vida",
+                  "Luz",
+                  "Natureza",
+                  "Tempestade",
+                  "Enganação",
+                  "Guerra"
+            ],
+            "resources": [
+                  "Conjuração",
+                  "Domínio Divino",
+                  "Canalizar Divindade",
+                  "Destruir Mortos-vivos"
+            ],
+            "featuresByLevel": {
+                  "1": [
+                        "Conjuração",
+                        "Domínio Divino"
+                  ],
+                  "2": [
+                        "Canalizar Divindade"
+                  ],
+                  "4": [
+                        "Melhoria de atributo"
+                  ],
+                  "5": [
+                        "Destruir Mortos-vivos"
+                  ],
+                  "8": [
+                        "Característica de Domínio"
+                  ],
+                  "10": [
+                        "Intervenção Divina"
+                  ],
+                  "20": [
+                        "Intervenção Divina aprimorada"
+                  ]
+            },
+            "choicesByLevel": {
+                  "1": [
+                        "Escolher Domínio Divino",
+                        "Escolher 2 perícias de Clérigo",
+                        "Preparar magias de Clérigo"
+                  ],
+                  "4": [
+                        "Melhoria de atributo ou talento se permitido"
+                  ]
+            }
+      },
+      "Druida": {
+            "source": "Livro do Jogador, classe Druida",
+            "armor": [
+                  "Armaduras leves sem metal",
+                  "Armaduras médias sem metal",
+                  "Escudos sem metal"
+            ],
+            "weapons": [
+                  "Clavas",
+                  "Adagas",
+                  "Dardos",
+                  "Azagaias",
+                  "Maças",
+                  "Bordões",
+                  "Cimitarras",
+                  "Foices",
+                  "Fundas",
+                  "Lanças"
+            ],
+            "tools": [
+                  "Kit de herbalismo"
+            ],
+            "skillChoiceCount": 2,
+            "skillOptions": [
+                  "arcanismo",
+                  "adestrarAnimais",
+                  "intuicao",
+                  "medicina",
+                  "natureza",
+                  "percepcao",
+                  "religiao",
+                  "sobrevivencia"
+            ],
+            "subclassLabel": "Círculo Druídico",
+            "subclassLevel": 2,
+            "subclasses": [
+                  "Círculo da Terra",
+                  "Círculo da Lua"
+            ],
+            "resources": [
+                  "Druídico",
+                  "Conjuração",
+                  "Forma Selvagem",
+                  "Círculo Druídico"
+            ],
+            "featuresByLevel": {
+                  "1": [
+                        "Druídico",
+                        "Conjuração"
+                  ],
+                  "2": [
+                        "Forma Selvagem",
+                        "Círculo Druídico"
+                  ],
+                  "4": [
+                        "Melhoria de atributo"
+                  ],
+                  "18": [
+                        "Corpo Atemporal",
+                        "Magias Bestiais"
+                  ],
+                  "20": [
+                        "Arquedruida"
+                  ]
+            },
+            "choicesByLevel": {
+                  "1": [
+                        "Escolher 2 perícias de Druida",
+                        "Preparar magias de Druida"
+                  ],
+                  "2": [
+                        "Escolher Círculo Druídico"
+                  ],
+                  "4": [
+                        "Melhoria de atributo ou talento se permitido"
+                  ]
+            }
+      },
+      "Feiticeiro": {
+            "source": "Livro do Jogador, classe Feiticeiro",
+            "armor": [],
+            "weapons": [
+                  "Adagas",
+                  "Dardos",
+                  "Fundas",
+                  "Bordões",
+                  "Bestas leves"
+            ],
+            "tools": [],
+            "skillChoiceCount": 2,
+            "skillOptions": [
+                  "arcanismo",
+                  "enganacao",
+                  "intuicao",
+                  "intimidacao",
+                  "persuasao",
+                  "religiao"
+            ],
+            "subclassLabel": "Origem de Feitiçaria",
+            "subclassLevel": 1,
+            "subclasses": [
+                  "Linhagem Dracônica",
+                  "Magia Selvagem"
+            ],
+            "resources": [
+                  "Conjuração",
+                  "Origem de Feitiçaria",
+                  "Fonte de Magia",
+                  "Metamagia"
+            ],
+            "featuresByLevel": {
+                  "1": [
+                        "Conjuração",
+                        "Origem de Feitiçaria"
+                  ],
+                  "2": [
+                        "Fonte de Magia"
+                  ],
+                  "3": [
+                        "Metamagia"
+                  ],
+                  "4": [
+                        "Melhoria de atributo"
+                  ],
+                  "20": [
+                        "Restauração Mística"
+                  ]
+            },
+            "choicesByLevel": {
+                  "1": [
+                        "Escolher Origem de Feitiçaria",
+                        "Escolher 2 perícias de Feiticeiro",
+                        "Escolher truques e magias de Feiticeiro"
+                  ],
+                  "3": [
+                        "Escolher opções de Metamagia"
+                  ],
+                  "4": [
+                        "Melhoria de atributo ou talento se permitido"
+                  ]
+            }
+      },
+      "Guerreiro": {
+            "source": "Livro do Jogador, classe Guerreiro",
+            "armor": [
+                  "Todas as armaduras",
+                  "Escudos"
+            ],
+            "weapons": [
+                  "Armas simples",
+                  "Armas marciais"
+            ],
+            "tools": [],
+            "skillChoiceCount": 2,
+            "skillOptions": [
+                  "acrobacia",
+                  "adestrarAnimais",
+                  "atletismo",
+                  "historia",
+                  "intuicao",
+                  "intimidacao",
+                  "percepcao",
+                  "sobrevivencia"
+            ],
+            "subclassLabel": "Arquétipo Marcial",
+            "subclassLevel": 3,
+            "subclasses": [
+                  "Campeão",
+                  "Mestre de Batalha",
+                  "Cavaleiro Arcano"
+            ],
+            "resources": [
+                  "Estilo de Luta",
+                  "Retomar o Fôlego",
+                  "Surto de Ação",
+                  "Ataque Extra"
+            ],
+            "featuresByLevel": {
+                  "1": [
+                        "Estilo de Luta",
+                        "Retomar o Fôlego"
+                  ],
+                  "2": [
+                        "Surto de Ação"
+                  ],
+                  "3": [
+                        "Arquétipo Marcial"
+                  ],
+                  "4": [
+                        "Melhoria de atributo"
+                  ],
+                  "5": [
+                        "Ataque Extra"
+                  ],
+                  "9": [
+                        "Indomável"
+                  ],
+                  "20": [
+                        "Ataque Extra aprimorado"
+                  ]
+            },
+            "choicesByLevel": {
+                  "1": [
+                        "Escolher Estilo de Luta",
+                        "Escolher 2 perícias de Guerreiro",
+                        "Escolher equipamento inicial de Guerreiro"
+                  ],
+                  "3": [
+                        "Escolher Arquétipo Marcial"
+                  ],
+                  "4": [
+                        "Melhoria de atributo ou talento se permitido"
+                  ]
+            }
+      },
+      "Ladino": {
+            "source": "Livro do Jogador, classe Ladino",
+            "armor": [
+                  "Armaduras leves"
+            ],
+            "weapons": [
+                  "Armas simples",
+                  "Bestas de mão",
+                  "Espadas longas",
+                  "Rapieiras",
+                  "Espadas curtas"
+            ],
+            "tools": [
+                  "Ferramentas de ladrão"
+            ],
+            "skillChoiceCount": 4,
+            "skillOptions": [
+                  "acrobacia",
+                  "atletismo",
+                  "atuacao",
+                  "enganacao",
+                  "furtividade",
+                  "intimidacao",
+                  "intuicao",
+                  "investigacao",
+                  "percepcao",
+                  "persuasao",
+                  "prestidigitacao"
+            ],
+            "subclassLabel": "Arquétipo de Ladino",
+            "subclassLevel": 3,
+            "subclasses": [
+                  "Ladrão",
+                  "Assassino",
+                  "Trapaceiro Arcano"
+            ],
+            "resources": [
+                  "Especialização",
+                  "Ataque Furtivo",
+                  "Gíria de Ladrão",
+                  "Ação Ardilosa"
+            ],
+            "featuresByLevel": {
+                  "1": [
+                        "Especialização",
+                        "Ataque Furtivo",
+                        "Gíria de Ladrão"
+                  ],
+                  "2": [
+                        "Ação Ardilosa"
+                  ],
+                  "3": [
+                        "Arquétipo de Ladino"
+                  ],
+                  "4": [
+                        "Melhoria de atributo"
+                  ],
+                  "5": [
+                        "Esquiva Sobrenatural"
+                  ],
+                  "7": [
+                        "Evasão"
+                  ],
+                  "11": [
+                        "Talento Confiável"
+                  ],
+                  "20": [
+                        "Golpe de Sorte"
+                  ]
+            },
+            "choicesByLevel": {
+                  "1": [
+                        "Escolher 4 perícias de Ladino",
+                        "Escolher Especialização",
+                        "Escolher equipamento inicial de Ladino"
+                  ],
+                  "3": [
+                        "Escolher Arquétipo de Ladino"
+                  ],
+                  "4": [
+                        "Melhoria de atributo ou talento se permitido"
+                  ]
+            }
+      },
+      "Mago": {
+            "source": "Livro do Jogador, classe Mago",
+            "armor": [],
+            "weapons": [
+                  "Adagas",
+                  "Dardos",
+                  "Fundas",
+                  "Bordões",
+                  "Bestas leves"
+            ],
+            "tools": [],
+            "skillChoiceCount": 2,
+            "skillOptions": [
+                  "arcanismo",
+                  "historia",
+                  "intuicao",
+                  "investigacao",
+                  "medicina",
+                  "religiao"
+            ],
+            "subclassLabel": "Tradição Arcana",
+            "subclassLevel": 2,
+            "subclasses": [
+                  "Abjuração",
+                  "Adivinhação",
+                  "Conjuração",
+                  "Encantamento",
+                  "Evocação",
+                  "Ilusão",
+                  "Necromancia",
+                  "Transmutação"
+            ],
+            "resources": [
+                  "Conjuração",
+                  "Recuperação Arcana",
+                  "Tradição Arcana",
+                  "Domínio da Magia"
+            ],
+            "featuresByLevel": {
+                  "1": [
+                        "Conjuração",
+                        "Recuperação Arcana"
+                  ],
+                  "2": [
+                        "Tradição Arcana"
+                  ],
+                  "4": [
+                        "Melhoria de atributo"
+                  ],
+                  "18": [
+                        "Domínio da Magia"
+                  ],
+                  "20": [
+                        "Magias Assinatura"
+                  ]
+            },
+            "choicesByLevel": {
+                  "1": [
+                        "Escolher 2 perícias de Mago",
+                        "Escolher truques de Mago",
+                        "Escolher magias iniciais do grimório"
+                  ],
+                  "2": [
+                        "Escolher Tradição Arcana"
+                  ],
+                  "4": [
+                        "Melhoria de atributo ou talento se permitido"
+                  ]
+            }
+      },
+      "Monge": {
+            "source": "Livro do Jogador, classe Monge",
+            "armor": [],
+            "weapons": [
+                  "Armas simples",
+                  "Espadas curtas"
+            ],
+            "tools": [
+                  "Um tipo de ferramenta de artesão ou instrumento musical"
+            ],
+            "skillChoiceCount": 2,
+            "skillOptions": [
+                  "acrobacia",
+                  "atletismo",
+                  "furtividade",
+                  "historia",
+                  "intuicao",
+                  "religiao"
+            ],
+            "subclassLabel": "Tradição Monástica",
+            "subclassLevel": 3,
+            "subclasses": [
+                  "Caminho da Mão Aberta",
+                  "Caminho da Sombra",
+                  "Caminho dos Quatro Elementos"
+            ],
+            "resources": [
+                  "Defesa sem Armadura",
+                  "Artes Marciais",
+                  "Ki",
+                  "Movimento sem Armadura"
+            ],
+            "featuresByLevel": {
+                  "1": [
+                        "Defesa sem Armadura",
+                        "Artes Marciais"
+                  ],
+                  "2": [
+                        "Ki",
+                        "Movimento sem Armadura"
+                  ],
+                  "3": [
+                        "Tradição Monástica",
+                        "Defletir Projéteis"
+                  ],
+                  "4": [
+                        "Melhoria de atributo",
+                        "Queda Lenta"
+                  ],
+                  "5": [
+                        "Ataque Extra",
+                        "Ataque Atordoante"
+                  ],
+                  "7": [
+                        "Evasão",
+                        "Mente Tranquila"
+                  ],
+                  "14": [
+                        "Alma de Diamante"
+                  ],
+                  "20": [
+                        "Eu Perfeito"
+                  ]
+            },
+            "choicesByLevel": {
+                  "1": [
+                        "Escolher 2 perícias de Monge",
+                        "Escolher ferramenta ou instrumento"
+                  ],
+                  "3": [
+                        "Escolher Tradição Monástica"
+                  ],
+                  "4": [
+                        "Melhoria de atributo ou talento se permitido"
+                  ]
+            }
+      },
+      "Paladino": {
+            "source": "Livro do Jogador, classe Paladino",
+            "armor": [
+                  "Todas as armaduras",
+                  "Escudos"
+            ],
+            "weapons": [
+                  "Armas simples",
+                  "Armas marciais"
+            ],
+            "tools": [],
+            "skillChoiceCount": 2,
+            "skillOptions": [
+                  "atletismo",
+                  "intuicao",
+                  "intimidacao",
+                  "medicina",
+                  "persuasao",
+                  "religiao"
+            ],
+            "subclassLabel": "Juramento Sagrado",
+            "subclassLevel": 3,
+            "subclasses": [
+                  "Devoção",
+                  "Anciões",
+                  "Vingança"
+            ],
+            "resources": [
+                  "Sentido Divino",
+                  "Cura pelas Mãos",
+                  "Estilo de Luta",
+                  "Destruição Divina",
+                  "Aura de Proteção"
+            ],
+            "featuresByLevel": {
+                  "1": [
+                        "Sentido Divino",
+                        "Cura pelas Mãos"
+                  ],
+                  "2": [
+                        "Estilo de Luta",
+                        "Conjuração",
+                        "Destruição Divina"
+                  ],
+                  "3": [
+                        "Juramento Sagrado"
+                  ],
+                  "4": [
+                        "Melhoria de atributo"
+                  ],
+                  "5": [
+                        "Ataque Extra"
+                  ],
+                  "6": [
+                        "Aura de Proteção"
+                  ],
+                  "10": [
+                        "Aura de Coragem"
+                  ],
+                  "20": [
+                        "Característica final de Juramento"
+                  ]
+            },
+            "choicesByLevel": {
+                  "1": [
+                        "Escolher 2 perícias de Paladino",
+                        "Escolher equipamento inicial de Paladino"
+                  ],
+                  "2": [
+                        "Escolher Estilo de Luta",
+                        "Preparar magias de Paladino"
+                  ],
+                  "3": [
+                        "Escolher Juramento Sagrado"
+                  ],
+                  "4": [
+                        "Melhoria de atributo ou talento se permitido"
+                  ]
+            }
+      },
+      "Patrulheiro": {
+            "source": "Livro do Jogador, classe Patrulheiro",
+            "armor": [
+                  "Armaduras leves",
+                  "Armaduras médias",
+                  "Escudos"
+            ],
+            "weapons": [
+                  "Armas simples",
+                  "Armas marciais"
+            ],
+            "tools": [],
+            "skillChoiceCount": 3,
+            "skillOptions": [
+                  "adestrarAnimais",
+                  "atletismo",
+                  "furtividade",
+                  "intuicao",
+                  "investigacao",
+                  "natureza",
+                  "percepcao",
+                  "sobrevivencia"
+            ],
+            "subclassLabel": "Arquétipo de Patrulheiro",
+            "subclassLevel": 3,
+            "subclasses": [
+                  "Caçador",
+                  "Mestre das Bestas"
+            ],
+            "resources": [
+                  "Inimigo Favorito",
+                  "Explorador Natural",
+                  "Estilo de Luta",
+                  "Conjuração"
+            ],
+            "featuresByLevel": {
+                  "1": [
+                        "Inimigo Favorito",
+                        "Explorador Natural"
+                  ],
+                  "2": [
+                        "Estilo de Luta",
+                        "Conjuração"
+                  ],
+                  "3": [
+                        "Arquétipo de Patrulheiro"
+                  ],
+                  "4": [
+                        "Melhoria de atributo"
+                  ],
+                  "5": [
+                        "Ataque Extra"
+                  ],
+                  "8": [
+                        "Passo da Terra"
+                  ],
+                  "10": [
+                        "Esconder-se à Vista"
+                  ],
+                  "20": [
+                        "Matador de Inimigos"
+                  ]
+            },
+            "choicesByLevel": {
+                  "1": [
+                        "Escolher 3 perícias de Patrulheiro",
+                        "Escolher Inimigo Favorito",
+                        "Escolher terreno de Explorador Natural"
+                  ],
+                  "2": [
+                        "Escolher Estilo de Luta",
+                        "Aprender magias de Patrulheiro"
+                  ],
+                  "3": [
+                        "Escolher Arquétipo de Patrulheiro"
+                  ],
+                  "4": [
+                        "Melhoria de atributo ou talento se permitido"
+                  ]
+            }
+      }
+};
+
     const RACE_RULES = {
       "Anão": {
             "source": "Livro do Jogador p.18-20",
@@ -5342,6 +6269,107 @@
       return ability ? ability[1] : key;
     }
 
+    function validAbilityKeys(){
+      return abilities.map(([id])=>id);
+    }
+
+    function fixedRaceAbilityIncrease(rule){
+      const inc = rule && rule.abilityIncrease || {};
+      const valid = validAbilityKeys();
+      const out = {};
+      valid.forEach(k=>{
+        const v = num(inc[k]);
+        if(v) out[k] = v;
+      });
+      return out;
+    }
+
+    function raceAbilityIncreaseLabel(rule){
+      const inc = rule && rule.abilityIncrease || {};
+      const parts = [];
+      validAbilityKeys().forEach(k=>{
+        if(num(inc[k])){
+          const ab = abilities.find(([id])=>id===k);
+          parts.push(`${ab ? ab[1] : k} +${num(inc[k])}`);
+        }
+      });
+      if(inc.doisValoresAEscolha) parts.push(`dois atributos à escolha +${inc.doisValoresAEscolha}`);
+      return parts.join(', ') || 'Sem aumento fixo cadastrado';
+    }
+
+    function mapsEqual(a,b){
+      a = a || {}; b = b || {};
+      const keys = Array.from(new Set([...Object.keys(a), ...Object.keys(b)]));
+      return keys.every(k=>num(a[k]) === num(b[k]));
+    }
+
+    function applyRaceAbilityBonuses(c, race, rule){
+      c.racaInfo = c.racaInfo || {};
+      c.atributos = c.atributos || blankAbilities();
+      abilities.forEach(([k])=>{
+        c.atributos[k] = c.atributos[k] || {valor:10,modificadorManual:'',salvaguardaProficiente:false};
+        if(c.atributos[k].valor === '' || c.atributos[k].valor == null) c.atributos[k].valor = 10;
+      });
+
+      const previousSource = c.racaInfo.appliedAbilitySource || '';
+      const previousMap = c.racaInfo.appliedAbilityIncrease || {};
+      const nextMap = fixedRaceAbilityIncrease(rule);
+
+      if(previousSource && (previousSource !== race || !mapsEqual(previousMap, nextMap))){
+        Object.entries(previousMap).forEach(([k,v])=>{
+          if(c.atributos[k]) c.atributos[k].valor = Math.max(1, num(c.atributos[k].valor) - num(v));
+        });
+        c.racaInfo.appliedAbilityIncrease = {};
+        c.racaInfo.appliedAbilitySource = '';
+      }
+
+      if(race && !c.racaInfo.appliedAbilitySource && Object.keys(nextMap).length){
+        Object.entries(nextMap).forEach(([k,v])=>{
+          if(c.atributos[k]) c.atributos[k].valor = num(c.atributos[k].valor) + num(v);
+        });
+        c.racaInfo.appliedAbilityIncrease = {...nextMap};
+        c.racaInfo.appliedAbilitySource = race;
+      }
+    }
+
+    function ensureRaceChoices(c, race, rule){
+      if(!c || !rule) return;
+      (rule.choices || []).forEach((choice, idx)=>{
+        addPendingChoice(c, `raca:${race}:choice:${idx}`, {
+          tipo:'escolha',
+          nome:choice.nome || choice.name || 'Escolha racial',
+          origem:'raça',
+          modo:'escolha',
+          alvo:choice.alvo || choice.target || '',
+          opcoes:choice.opcoes || choice.options || []
+        }, 'raça');
+      });
+
+      const inc = rule.abilityIncrease || {};
+      if(inc.doisValoresAEscolha && !(rule.choices || []).some(x=>String(x.nome||'').toLowerCase().includes('atributo'))){
+        addPendingChoice(c, `raca:${race}:ability-choice`, {
+          tipo:'escolha',
+          nome:`${race}: escolher atributos +${inc.doisValoresAEscolha}`,
+          origem:'raça',
+          modo:'escolha',
+          alvo:'racaInfo.atributosEscolhidos',
+          opcoes:['Força','Destreza','Constituição','Inteligência','Sabedoria','Carisma']
+        }, 'raça');
+      }
+    }
+
+    function traitName(t){
+      return typeof t === 'string' ? t : (t && (t.name || t.nome || t.label)) || '';
+    }
+
+    function traitEffect(t){
+      return typeof t === 'string' ? '' : (t && (t.effect || t.efeito || t.description || t.descricao)) || '';
+    }
+
+    function activeLevelEffects(rule, level){
+      return (rule.levelEffects || []).filter(e=>num(e.level) <= level);
+    }
+
     function applyRaceProgression(c){
       if(!c) return;
       c.meta = c.meta || {};
@@ -5352,26 +6380,33 @@
       c.racaInfo.nome = race;
       if(!rule) return;
 
-      const previousApplied = c.racaInfo.appliedName || '';
       c.racaInfo.appliedName = race;
+      c.racaInfo.fonte = rule.source || '';
+      c.racaInfo.parent = rule.parent || '';
       c.racaInfo.tamanho = rule.size || '';
       c.racaInfo.deslocamento = rule.speed || '';
       c.racaInfo.visaoEscuro = rule.darkvision || '';
+      c.racaInfo.aumentoAtributo = fixedRaceAbilityIncrease(rule);
+      c.racaInfo.aumentoAtributoTexto = raceAbilityIncreaseLabel(rule);
       c.racaInfo.idiomas = [...(rule.languages || [])];
       c.racaInfo.resistencias = [...(rule.resistances || [])];
       c.racaInfo.proficiencias = [...(rule.proficiencies || [])];
       c.racaInfo.tracos = [...(rule.traits || [])];
+      c.racaInfo.efeitosNivel = [...(rule.levelEffects || [])];
       c.racaInfo.observacao = rule.note || '';
 
+      applyRaceAbilityBonuses(c, race, rule);
+      ensureRaceChoices(c, race, rule);
+
       c.combate = c.combate || {};
-      if(rule.speed && (!c.combate.deslocamento || previousApplied !== race)){
-        c.combate.deslocamento = rule.speed;
-      }
+      if(rule.speed) c.combate.deslocamento = rule.speed;
 
       c.pericias = c.pericias || blankSkills();
       (rule.skills || []).forEach(k=>{
-        c.pericias[k] = c.pericias[k] || {proficiente:false};
-        c.pericias[k].proficiente = true;
+        if(k && !String(k).includes('Escolha') && !String(k).includes('duasPericias')){
+          c.pericias[k] = c.pericias[k] || {proficiente:false};
+          c.pericias[k].proficiente = true;
+        }
       });
     }
 
@@ -5385,22 +6420,48 @@
       const rule = getAllRaceRules()[race];
       if(!rule){
         badge.textContent = 'Raça não definida';
-        box.innerHTML = '<div class="class-empty">Escolha uma raça/linhagem. As proficiências e idiomas aparecerão no painel único de Proficiências.</div>';
+        box.innerHTML = '<div class="class-empty">Escolha uma raça/linhagem. A ficha aplica deslocamento, visão, resistências, proficiências e aumentos fixos de atributo conforme a base do livro.</div>';
         return;
       }
-      badge.textContent = race;
-      const makePills = arr => (arr||[]).map(x=>`<span class="compact-pill">${escapeHtml(x)}</span>`).join('') || '<span class="compact-pill">-</span>';
+
+      const level = getCharacterLevel(c);
+      badge.textContent = race + ' ativa';
+      const makePills = arr => (arr||[]).map(x=>`<span class="compact-pill">${escapeHtml(typeof x === 'string' ? x : traitName(x))}</span>`).join('') || '<span class="compact-pill">-</span>';
+      const traits = (rule.traits || []);
+      const effects = activeLevelEffects(rule, level);
+      const abilityTxt = raceAbilityIncreaseLabel(rule);
+      const sourceTxt = rule.source || 'Livro do Jogador';
+
       box.innerHTML = `
+        <div class="race-active-banner">
+          <b>Regras raciais ativas</b>
+          <span>${escapeHtml(sourceTxt)} • aumentos fixos protegidos contra duplicação.</span>
+        </div>
         <div class="compact-stat-grid compact-stat-grid-3">
           <div class="compact-stat"><span>Tamanho</span><b>${escapeHtml(rule.size || '-')}</b></div>
           <div class="compact-stat"><span>Desloc.</span><b>${escapeHtml(rule.speed || '-')}</b></div>
           <div class="compact-stat"><span>Visão</span><b>${escapeHtml(rule.darkvision || '-')}</b></div>
         </div>
-        <details class="compact-details"><summary>Traços raciais</summary>
-          <div class="compact-inline-list">${makePills(rule.traits)}</div>
-          ${rule.resistances && rule.resistances.length ? `<div style="margin-top:8px"><div class="compact-label">Resistências</div><div class="compact-inline-list">${makePills(rule.resistances)}</div></div>` : ''}
-          ${rule.note ? `<div class="compact-note" style="margin-top:8px">${escapeHtml(rule.note)}</div>` : ''}
+        <div class="race-active-effects">
+          <div class="rules-card important"><span>Atributos raciais</span><b>${escapeHtml(abilityTxt)}</b><small>Aplicado automaticamente apenas para bônus fixos. Escolhas ficam pendentes.</small></div>
+          <div class="rules-card"><span>Idiomas</span><b>${escapeHtml((rule.languages || []).join(', ') || '-')}</b><small>Idiomas à escolha aparecem como escolha pendente.</small></div>
+          <div class="rules-card"><span>Resistências</span><b>${escapeHtml((rule.resistances || []).join(', ') || '-')}</b><small>Usar em dano, salvaguardas e condições narrativas.</small></div>
+        </div>
+        <details class="compact-details" open><summary>Traços raciais ativos</summary>
+          <div class="race-trait-list">
+            ${traits.map(t=>`
+              <div class="race-trait-card">
+                <b>${escapeHtml(traitName(t))}</b>
+                ${traitEffect(t) ? `<small>${escapeHtml(traitEffect(t))}</small>` : ''}
+              </div>
+            `).join('') || '<div class="clean-empty">Sem traços cadastrados.</div>'}
+          </div>
         </details>
+        ${effects.length ? `<details class="compact-details" open><summary>Efeitos raciais por nível disponíveis no nível ${level}</summary>
+          <div class="race-trait-list">${effects.map(e=>`<div class="race-trait-card"><b>Nv. ${num(e.level)}: ${escapeHtml(e.name || e.nome || '')}</b><small>${escapeHtml(e.effect || e.efeito || '')}</small></div>`).join('')}</div>
+        </details>` : ''}
+        ${(rule.proficiencies || []).length ? `<details class="compact-details"><summary>Proficiências raciais</summary><div class="compact-inline-list">${makePills(rule.proficiencies)}</div></details>` : ''}
+        ${rule.note ? `<div class="compact-note">${escapeHtml(rule.note)}</div>` : ''}
       `;
     }
 
@@ -5443,6 +6504,108 @@
     }
 
 
+
+    function classBookDetails(cls){
+      return CLASS_BOOK_DETAILS[cls] || {};
+    }
+
+    function skillLabelById(id){
+      const found = skills.find(([k])=>k===id);
+      return found ? found[1] : id;
+    }
+
+    function classSkillOptionsLabels(detail){
+      return (detail.skillOptions || []).map(skillLabelById);
+    }
+
+    function getAsiLevelsForClass(cls){
+      const rule = getAllClassRules()[cls] || {};
+      return Object.keys(rule.features || {})
+        .filter(lv => (rule.features[lv] || []).some(x=>/melhoria de atributo/i.test(String(x))))
+        .map(Number)
+        .sort((a,b)=>a-b);
+    }
+
+    function classChoicesForLevel(cls, level){
+      const detail = classBookDetails(cls);
+      const raw = detail.choicesByLevel || {};
+      const out = [];
+      Object.keys(raw).forEach(lv=>{
+        if(num(lv) <= level){
+          (raw[lv] || []).forEach(label=>out.push({level:num(lv), label}));
+        }
+      });
+      return out;
+    }
+
+    function ensureClassBookChoices(c, cls, level){
+      const detail = classBookDetails(cls);
+      if(!c || !cls || !detail) return;
+
+      if(detail.skillChoiceCount){
+        addPendingChoice(c, `classe:${cls}:pericias`, {
+          tipo:'escolha',
+          nome:`Escolher ${detail.skillChoiceCount} perícia(s) de ${cls}`,
+          origem:'classe',
+          modo:'escolha',
+          alvo:'classeInfo.periciasEscolhidas',
+          opcoes:classSkillOptionsLabels(detail)
+        }, 'classe');
+      }
+
+      if(detail.tools && detail.tools.some(x=>/à escolha|a escolha|um tipo|três|tres/i.test(x))){
+        addPendingChoice(c, `classe:${cls}:ferramentas`, {
+          tipo:'escolha',
+          nome:`Escolher ferramenta/instrumento de ${cls}`,
+          origem:'classe',
+          modo:'escolha',
+          alvo:'classeInfo.ferramentasEscolhidas',
+          opcoes:detail.tools
+        }, 'classe');
+      }
+
+      const subclassLevel = num(detail.subclassLevel || detail.pathLevel || 0);
+      if(subclassLevel && level >= subclassLevel && (detail.subclasses || []).length && !getSelectedClassPath(c)){
+        addPendingChoice(c, `classe:${cls}:subclasse`, {
+          tipo:'escolha',
+          nome:`Escolher ${detail.subclassLabel || 'subclasse'} de ${cls}`,
+          origem:'classe',
+          modo:'escolha',
+          alvo:'classeInfo.subclasse',
+          opcoes:detail.subclasses || []
+        }, 'classe');
+      }
+
+      getAsiLevelsForClass(cls).forEach(lv=>{
+        if(level >= lv){
+          addPendingChoice(c, `classe:${cls}:asi:${lv}`, {
+            tipo:'escolha',
+            nome:`Nível ${lv}: Melhoria de atributo ou talento`,
+            origem:'classe',
+            modo:'escolha',
+            alvo:`classeInfo.melhoriaAtributoNivel${lv}`,
+            opcoes:['+2 em um atributo','+1 em dois atributos','Talento se permitido pelo mestre']
+          }, 'classe');
+        }
+      });
+
+      (detail.choicesByLevel && Object.keys(detail.choicesByLevel) || []).forEach(lv=>{
+        if(num(lv) <= level){
+          (detail.choicesByLevel[lv] || []).forEach((label, idx)=>{
+            if(/perícia|pericia|equipamento inicial|melhoria de atributo|subclasse|caminho|colégio|colegio|domínio|dominio|círculo|circulo|origem|arquétipo|arquetipo|tradição|tradicao|juramento/i.test(label)) return;
+            addPendingChoice(c, `classe:${cls}:choice:${lv}:${idx}`, {
+              tipo:'escolha',
+              nome:`Nível ${lv}: ${label}`,
+              origem:'classe',
+              modo:'escolha',
+              alvo:`classeInfo.escolhaNivel${lv}_${idx}`,
+              opcoes:[label]
+            }, 'classe');
+          });
+        }
+      });
+    }
+
     function getClassAdvanceRule(cls){
       const base = CLASS_ADVANCEMENT_RULES[cls] || {};
       const book = getAllClassRules()[cls] || {};
@@ -5452,7 +6615,8 @@
       if(starting.length){
         mergedLevelEquipment[1] = [...starting, ...((mergedLevelEquipment[1] || mergedLevelEquipment['1'] || []))];
       }
-      return {...base, ...book, levelEquipment:mergedLevelEquipment, pathRewards:{...(base.pathRewards||{}), ...(book.pathRewards||{})}};
+      const detail = classBookDetails(cls);
+      return {...detail, ...base, ...book, levelEquipment:mergedLevelEquipment, pathRewards:{...(base.pathRewards||{}), ...(book.pathRewards||{})}};
     }
 
     function getClassPathOptions(cls){
@@ -5620,11 +6784,19 @@
       c.classeInfo.nivel = level;
       if(!rule) return;
 
+      const detail = classBookDetails(cls);
       c.classeInfo.dadoVida = rule.hitDie;
-      c.classeInfo.salvaguardas = [...rule.saves];
+      c.classeInfo.fonte = detail.source || 'Livro do Jogador';
+      c.classeInfo.salvaguardas = [...(rule.saves || [])];
+      c.classeInfo.proficienciasArmaduras = [...(detail.armor || [])];
+      c.classeInfo.proficienciasArmas = [...(detail.weapons || [])];
+      c.classeInfo.proficienciasFerramentas = [...(detail.tools || [])];
+      c.classeInfo.periciasDisponiveis = [...(detail.skillOptions || [])];
+      c.classeInfo.quantidadePericias = num(detail.skillChoiceCount) || 0;
       c.classeInfo.atributoConjuracao = rule.spellAbility || '';
       c.classeInfo.tipoConjuracao = rule.casting;
       c.classeInfo.atributosPrincipais = [...(rule.primary || [])];
+      ensureClassBookChoices(c, cls, level);
 
       c.vida = c.vida || {};
       c.vida.dadoVida = rule.hitDie;
@@ -5677,6 +6849,7 @@
       badge.textContent = `${cls} nv. ${level}`;
       const path = getSelectedClassPath(c);
       const adv = getClassAdvanceRule(cls);
+      const detail = classBookDetails(cls);
       const spellAbility = rule.spellAbility ? (abilities.find(([id])=>id===rule.spellAbility) || [null,rule.spellAbility])[1] : 'Não';
       const castingLabel = rule.casting === 'full' ? 'Completa' : rule.casting === 'half' ? 'Meia' : rule.casting === 'pact' ? 'Pacto' : 'Não';
       const slots = getClassSpellSlots(cls, level);
@@ -5684,6 +6857,14 @@
       const allFeatures = featuresForClassLevel(rule, level);
       const previousFeatures = allFeatures.filter(f=>f.level < level);
       const previousHtml = previousFeatures.map(f=>`<span class="class-feature-pill">Nv. ${f.level}: ${escapeHtml(f.name)}</span>`).join('') || '<span class="class-feature-pill">Nenhuma anterior</span>';
+      const choicesHtml = classChoicesForLevel(cls, level).map(x=>`<span class="class-feature-pill warn">Nv. ${x.level}: ${escapeHtml(x.label)}</span>`).join('') || '<span class="class-feature-pill">Nenhuma escolha ativa</span>';
+      const profHtml = [
+        ...(detail.armor || []).map(x=>`<span class="class-prof-pill">Armadura: ${escapeHtml(x)}</span>`),
+        ...(detail.weapons || []).map(x=>`<span class="class-prof-pill">Arma: ${escapeHtml(x)}</span>`),
+        ...(detail.tools || []).map(x=>`<span class="class-prof-pill">Ferramenta: ${escapeHtml(x)}</span>`)
+      ].join('') || '<span class="class-prof-pill">Sem proficiência extra cadastrada</span>';
+      const skillOptionsHtml = (detail.skillOptions || []).map(k=>`<span class="class-prof-pill">${escapeHtml(skillLabelById(k))}</span>`).join('') || '<span class="class-prof-pill">-</span>';
+      const resourcesHtml = (detail.resources || []).map(x=>`<span class="class-feature-pill">${escapeHtml(x)}</span>`).join('') || '<span class="class-feature-pill">-</span>';
 
       const rewards = collectClassLevelRewards(c);
       const currentHtml = [
@@ -5692,16 +6873,31 @@
       ].map(x=>`<span class="class-feature-pill">${escapeHtml(rewardLabel(x))}</span>`).join('') || '<span class="class-feature-pill">Sem habilidade listada neste nível</span>';
 
       box.innerHTML = `
+        <div class="class-active-banner">
+          <b>Classe ativa conforme Livro do Jogador</b>
+          <span>${escapeHtml(detail.source || 'Livro do Jogador')} • dado de vida, salvaguardas, proficiências, recursos, escolhas e espaços aplicados na ficha.</span>
+        </div>
         <div class="class-current-strip class-current-strip-clean">
           <div class="class-mini-stat"><span>Dado de vida</span><b>${escapeHtml(rule.hitDie || '-')}</b></div>
           <div class="class-mini-stat"><span>Conjuração</span><b>${escapeHtml(castingLabel)}</b></div>
           <div class="class-mini-stat"><span>Atributo mágico</span><b>${escapeHtml(spellAbility)}</b></div>
-          <div class="class-mini-stat"><span>${escapeHtml(adv.pathLabel || 'Caminho')}</span><b>${escapeHtml(path || '-')}</b></div>
+          <div class="class-mini-stat"><span>${escapeHtml(adv.pathLabel || detail.subclassLabel || 'Caminho')}</span><b>${escapeHtml(path || '-')}</b></div>
         </div>
         <div class="class-now-box">
           <div class="class-now-title">Ganho do nível atual</div>
           <div class="class-feature-list compact">${currentHtml}</div>
         </div>
+        <div class="class-rule-grid">
+          <div class="class-feature-box"><span>Recursos principais</span><div class="class-feature-list compact">${resourcesHtml}</div></div>
+          <div class="class-feature-box"><span>Escolhas ativas até o nível ${level}</span><div class="class-feature-list compact">${choicesHtml}</div></div>
+        </div>
+        <details class="class-details" open>
+          <summary>Proficiências da classe e perícias possíveis</summary>
+          <div class="class-details-grid">
+            <div class="class-feature-box"><span>Proficiências automáticas</span><div class="class-prof-list">${profHtml}</div></div>
+            <div class="class-feature-box"><span>Escolher ${num(detail.skillChoiceCount)||0} perícia(s)</span><div class="class-prof-list">${skillOptionsHtml}</div></div>
+          </div>
+        </details>
         <details class="class-details">
           <summary>Ver espaços de magia e progressão completa</summary>
           <div class="class-details-grid">
@@ -7540,6 +8736,10 @@
       (bgRule.languages || []).forEach(x=>add('Idiomas', x, 'antecedente'));
       (bgRule.tools || []).forEach(x=>add('Ferramentas', x, 'antecedente'));
       (raceRule.proficiencies || []).forEach(x=>add('Proficiências', x, 'raça'));
+      const classDetail = classBookDetails(c.meta.classe || '');
+      (classDetail.armor || []).forEach(x=>add('Proficiências', x, 'classe/armadura'));
+      (classDetail.weapons || []).forEach(x=>add('Proficiências', x, 'classe/arma'));
+      (classDetail.tools || []).forEach(x=>add('Ferramentas', x, 'classe'));
       String(clsRule.proficiencies || '').split(/\n|,/).map(x=>x.trim()).filter(Boolean).forEach(x=>add('Proficiências', x, 'classe'));
       (c.proficiencias.manuais || []).forEach(p=>add(p.tipo === 'idioma' ? 'Idiomas' : p.tipo === 'ferramenta' ? 'Ferramentas' : p.tipo === 'pericia' ? 'Perícias' : 'Proficiências', p.nome, p.origem || 'manual', p.id, true));
 
