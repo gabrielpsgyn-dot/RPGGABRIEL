@@ -1050,3 +1050,14 @@ td,
     padding-left:38px !important;
   }
 }
+
+
+/* FIX REAL — avatar pequeno na seleção. A versão crítica também está inline no index.html. */
+.menu-screen .char-card-vigente > img{
+  display:none !important;
+}
+.menu-screen .char-card-vigente .menu-only-thumb img{
+  width:34px !important;
+  height:34px !important;
+  object-fit:cover !important;
+}

@@ -1808,6 +1808,79 @@ textarea.huge{min-height:200px}
 
 </style>
   <link rel="stylesheet" href="./css/tema-vigente.css?v=vigente">
+
+<style id="menu-avatar-perfil-fix-real">
+/* FIX REAL: seleção de personagem usa apenas avatar pequeno.
+   Fica inline para não depender do cache do CSS externo. */
+.menu-screen .char-card-vigente{
+  overflow:hidden !important;
+}
+.menu-screen .char-card-vigente > img,
+.menu-screen .char-card-vigente figure,
+.menu-screen .char-card-vigente picture,
+.menu-screen .char-card-vigente .portrait-preview,
+.menu-screen .char-card-vigente .card-image,
+.menu-screen .char-card-vigente .hero-image,
+.menu-screen .char-card-vigente .image-preview{
+  display:none !important;
+  width:0 !important;
+  height:0 !important;
+  max-height:0 !important;
+  overflow:hidden !important;
+}
+.menu-screen .char-card-vigente .char-card-top{
+  display:grid !important;
+  grid-template-columns:34px minmax(0,1fr) !important;
+  gap:8px !important;
+  align-items:center !important;
+}
+.menu-screen .char-card-vigente .char-thumb,
+.menu-screen .char-card-vigente .char-thumb-small,
+.menu-screen .char-card-vigente .menu-only-thumb{
+  width:34px !important;
+  height:34px !important;
+  min-width:34px !important;
+  max-width:34px !important;
+  min-height:34px !important;
+  max-height:34px !important;
+  border-radius:10px !important;
+  overflow:hidden !important;
+  display:grid !important;
+  place-items:center !important;
+}
+.menu-screen .char-card-vigente .char-thumb img,
+.menu-screen .char-card-vigente .char-thumb-small img,
+.menu-screen .char-card-vigente .menu-only-thumb img{
+  display:block !important;
+  width:34px !important;
+  height:34px !important;
+  min-width:34px !important;
+  max-width:34px !important;
+  min-height:34px !important;
+  max-height:34px !important;
+  object-fit:cover !important;
+}
+.menu-screen .char-card-vigente .char-main{
+  min-width:0 !important;
+}
+.menu-screen .char-card-vigente .char-main b,
+.menu-screen .char-card-vigente .char-main span,
+.menu-screen .char-card-vigente .char-main small{
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+}
+.menu-screen .char-card-vigente .pill-row{
+  padding-left:42px !important;
+  margin-top:6px !important;
+}
+.menu-screen .selected-summary img,
+.menu-screen .selected-summary figure,
+.menu-screen .selected-summary picture{
+  display:none !important;
+}
+</style>
+
 </head>
 <!-- RPGGABRIEL Versão Vigente LIVRO DO JOGADOR OFICIAL SEM ACHISMO -->
 <body class="menu-open tema-maritimo-sombrio">
@@ -7536,9 +7609,11 @@ textarea.huge{min-height:200px}
         const img = c.descricao && c.descricao.aparenciaImagem ? c.descricao.aparenciaImagem : '';
         return `
           <button class="char-card char-card-vigente ${c.id===state.activeId?'active':''}" data-menu-id="${escapeHtml(c.id)}">
-            <div class="char-card-top">
-              <div class="char-thumb char-thumb-small menu-only-thumb">${img ? `<img src="${escapeHtml(img)}" alt="">` : '<span>•</span>'}</div>
-              <div class="char-main">
+            <div class="char-card-top" style="display:grid;grid-template-columns:34px minmax(0,1fr);gap:8px;align-items:center;">
+              <div class="char-thumb char-thumb-small menu-only-thumb" style="width:34px;height:34px;min-width:34px;max-width:34px;min-height:34px;max-height:34px;border-radius:10px;overflow:hidden;display:grid;place-items:center;">
+                ${img ? `<img src="${escapeHtml(img)}" alt="" style="width:34px;height:34px;min-width:34px;max-width:34px;min-height:34px;max-height:34px;object-fit:cover;display:block;">` : '<span>•</span>'}
+              </div>
+              <div class="char-main" style="min-width:0;">
                 <b>${escapeHtml(meta.nomePersonagem || 'Sem nome')}</b>
                 <span>${escapeHtml(subtitle(c) || 'Classe não definida')}</span>
                 <small>${escapeHtml(meta.nomeJogador || 'Jogador não informado')}</small>
