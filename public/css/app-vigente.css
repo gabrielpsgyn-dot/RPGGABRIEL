@@ -3551,3 +3551,95 @@ body:not(.menu-open) section.character-menu{
 .menu-class-level-table tr.first-level-row td{
   border-top:2px solid rgba(216,173,98,.50) !important;
 }
+
+
+/* =========================================================
+   AJUSTE VIGENTE — CORREÇÃO DE CORES DA TABELA DE CLASSE
+   Motivo: o contraste claro/escuro ficou ruim. Mantém tema marítimo.
+   ========================================================= */
+
+.menu-class-level-table th{
+  background:#061b24 !important;
+  color:var(--gold-2) !important;
+  border-bottom:2px solid rgba(216,173,98,.60) !important;
+}
+
+.menu-class-level-table td{
+  background:#08232d !important;
+  color:#f3e9d2 !important;
+  border-bottom:1px solid rgba(120,205,208,.16) !important;
+  padding:9px 10px !important;
+  font-weight:750 !important;
+}
+
+.menu-class-level-table tr:nth-child(odd) td{
+  background:#0b2b37 !important;
+}
+
+.menu-class-level-table tr:nth-child(even) td{
+  background:#08232d !important;
+}
+
+.menu-class-level-table tr:hover td{
+  background:#103744 !important;
+}
+
+.menu-class-level-table td b{
+  color:var(--gold-2) !important;
+  font-weight:950 !important;
+}
+
+.menu-class-level-table td small{
+  color:#d6c9af !important;
+  font-size:11px !important;
+  line-height:1.25 !important;
+  margin-top:4px !important;
+  font-weight:850 !important;
+}
+
+.menu-class-level-table .slot-mini-cell{
+  background:#061b24 !important;
+  color:#f3e9d2 !important;
+  border-color:rgba(120,205,208,.22) !important;
+}
+
+.menu-class-level-table .slot-mini-cell b{
+  color:var(--gold-2) !important;
+}
+
+.menu-class-level-table .slot-mini-cell em{
+  color:#f3e9d2 !important;
+}
+
+.menu-class-level-table .slot-mini-cell.on{
+  background:linear-gradient(180deg,#123c49,#08232d) !important;
+  border-color:rgba(216,173,98,.58) !important;
+}
+
+.menu-class-level-table .slot-mini-cell.on em{
+  color:var(--gold-2) !important;
+}
+
+.menu-class-level-table .slot-mini-cell.off{
+  opacity:.58 !important;
+}
+
+.menu-class-level-table .slot-mini-cantrip{
+  background:linear-gradient(180deg,#12483f,#082b29) !important;
+  border-color:rgba(99,213,170,.48) !important;
+}
+
+.menu-class-level-table .slot-mini-cantrip b,
+.menu-class-level-table .slot-mini-cantrip em{
+  color:#b9f3d4 !important;
+}
+
+.menu-class-level-table .slot-mini-empty{
+  background:#061b24 !important;
+  color:#d6c9af !important;
+  border-color:rgba(120,205,208,.22) !important;
+}
+
+.menu-class-level-table tr.first-level-row td{
+  border-top:2px solid rgba(216,173,98,.55) !important;
+}
