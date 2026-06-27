@@ -4624,3 +4624,10 @@ form.auth{
   position:relative !important;
   z-index:20 !important;
 }
+
+
+/* AJUSTE VIGENTE — EXCLUSÃO ONLINE DE PERSONAGEM */
+#confirmDeleteBtn:disabled{
+  opacity:.55 !important;
+  cursor:wait !important;
+}

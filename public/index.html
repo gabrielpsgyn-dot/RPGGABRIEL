@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RPG Gabriel - Ficha Online Versão Vigente</title>
-  <link rel="stylesheet" href="./css/app-vigente.css?v=hpfix36">
+  <link rel="stylesheet" href="./css/app-vigente.css?v=delete37">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3E%E2%9A%93%3C/text%3E%3C/svg%3E">
 </head>
 <!-- RPGGABRIEL Versão Vigente LIVRO DO JOGADOR OFICIAL SEM ACHISMO -->
@@ -35,7 +35,7 @@
             <div class="menu-panel-head">
               <div>
                 <h2>Personagens</h2>
-                <p>Cada personagem tem seus próprios botões para abrir ou excluir.</p>
+                <p>Cada personagem tem seus próprios botões para abrir ou excluir da mesa online.</p>
               </div>
             </div>
             <input class="menu-search" id="menuSearchInput" placeholder="Buscar por nome, classe, raça ou jogador">
@@ -174,7 +174,7 @@
       </div>
 
       <div class="menu-footer-actions">
-        <a class="btn secondary master-link" href="/mestre.html?v=hpfix36">Página do Mestre</a>
+        <a class="btn secondary master-link" href="/mestre.html?v=delete37">Página do Mestre</a>
       </div>
     </div>
   </section>
@@ -431,8 +431,8 @@
                 <div id="rulesAuditSummary" class="rules-audit-box"></div>
                 <div class="rules-audit-actions">
                   <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                  <a class="btn small secondary" href="criador.html?v=hpfix36" target="_blank">Criador livre</a>
-                  <a class="btn small primary" href="livro-regras.html?v=hpfix36" target="_blank">Livro de Regras</a>
+                  <a class="btn small secondary" href="criador.html?v=delete37" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=delete37" target="_blank">Livro de Regras</a>
                 </div>
               </details>
             </div>
@@ -891,7 +891,7 @@
     <div class="modal-card">
       <h2>Confirmar exclusão</h2>
       <p>Personagem: <b id="deleteTarget">Personagem</b></p>
-      <p class="note">Essa ação remove a ficha local deste navegador. Para confirmar, escreva <b>EXCLUIR</b>.</p>
+      <p class="note">Essa ação exclui o personagem da mesa online e deste navegador. Para confirmar, escreva <b>EXCLUIR</b>.</p>
       <input id="deleteConfirmInput" placeholder="Digite EXCLUIR">
       <div class="modal-actions">
         <button class="btn secondary" id="cancelDeleteBtn">Cancelar</button>
@@ -10932,9 +10932,7 @@
         state.activeId = localStorage.getItem(ACTIVE_KEY) || (state.characters[0] && state.characters[0].id);
       }catch(e){ state.characters=[]; }
       if(!state.characters.length){
-        const c=makeCharacter();
-        state.characters.push(c);
-        state.activeId=c.id;
+        state.activeId = null;
       }
       saveLocal(false);
     }
@@ -10974,16 +10972,21 @@
       try{
         const data = await apiFetch('/api/public/characters?campaignId='+encodeURIComponent(CAMPAIGN_ID), {method:'GET'}, false);
         const cards = Array.isArray(data.characters) ? data.characters : [];
-        cards.forEach(card=>{
-          if(state.characters.some(c=>c.id===card.id)) return;
-          state.characters.push(normalize({
-            id:card.id,
-            campaignId:CAMPAIGN_ID,
-            meta:{nomePersonagem:card.name||'Personagem',classe:normalizeClassName(card.classe||card.classeNivel||''),nivel:card.nivel||'',classeNivel:card.classeNivel||'',raca:card.raca||''},
-            descricao:{aparenciaImagem:card.avatarImage||card.aparenciaImagem||card.image||''},
-            campanha:{mareAtual:card.mareAtual||'',faccao:card.faccao||'',marcaCampanha:card.marcaCampanha||'',corrupcao:card.corrupcao||0}
-          }));
-        });
+        const onlineIds = new Set(cards.map(card=>card.id));
+        const localDrafts = state.characters.filter(c=>c && c.id && !onlineIds.has(c.id) && !c.__online && String(c.id).startsWith('char_'));
+
+        state.characters = cards.map(card=>normalize({
+          id:card.id,
+          campaignId:CAMPAIGN_ID,
+          meta:{nomePersonagem:card.name||'Personagem',classe:normalizeClassName(card.classe||card.classeNivel||''),nivel:card.nivel||'',classeNivel:card.classeNivel||'',raca:card.raca||''},
+          descricao:{aparenciaImagem:card.avatarImage||card.aparenciaImagem||card.image||''},
+          campanha:{mareAtual:card.mareAtual||'',faccao:card.faccao||'',marcaCampanha:card.marcaCampanha||'',corrupcao:card.corrupcao||0}
+        })).concat(localDrafts);
+
+        if(state.activeId && !state.characters.some(c=>c.id===state.activeId)){
+          state.activeId = state.characters[0] ? state.characters[0].id : null;
+        }
+
         saveLocal(false);
         renderMenu();
         $('#onlineBadge').textContent = cards.length ? 'Lista online: ' + cards.length + ' personagem(ns).' : 'Nenhum personagem online ainda.';
@@ -11038,20 +11041,32 @@
 
       if(typed !== 'EXCLUIR'){ toast('Digite EXCLUIR para confirmar.'); return; }
 
-      state.characters = state.characters.filter(x=>x.id !== id);
-      if(state.activeId === id) state.activeId = state.characters[0] ? state.characters[0].id : null;
+      const btn = $('#confirmDeleteBtn');
+      if(btn) btn.disabled = true;
 
-      if(!state.characters.length){
-        const fresh = makeCharacter();
-        state.characters.push(fresh);
-        state.activeId = fresh.id;
+      try{
+        sessionStorage.setItem(PASSWORD_KEY, DEFAULT_PLAYER_PASSWORD);
+        await apiFetch('/api/characters/'+encodeURIComponent(id)+'?campaignId='+encodeURIComponent(CAMPAIGN_ID), {method:'DELETE'}, true);
+
+        state.characters = state.characters.filter(x=>x.id !== id);
+        if(state.activeId === id) state.activeId = state.characters[0] ? state.characters[0].id : null;
+
+        $('#deleteModal').classList.add('hidden');
+        state.pendingDeleteId = null;
+        saveLocal(true);
+        renderMenu();
+
+        if(!state.activeId){
+          document.body.classList.add('menu-open');
+          document.body.classList.remove('sheet-open');
+        }
+
+        toast('Personagem excluído online e local.');
+      }catch(e){
+        toast('Falha ao excluir online: ' + e.message);
+      }finally{
+        if(btn) btn.disabled = false;
       }
-
-      $('#deleteModal').classList.add('hidden');
-      state.pendingDeleteId = null;
-      saveLocal(true);
-      renderMenu();
-      toast('Personagem excluído localmente.');
     }
 
     async function saveOnline(){
