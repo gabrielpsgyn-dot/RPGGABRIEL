@@ -4,7 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mesa do Mestre - Versão Vigente</title>
-  <link rel="stylesheet" href="./css/app-vigente.css?v=exemplos33">
+  <link rel="stylesheet" href="./css/app-vigente.css?v=console34">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3E%E2%9A%93%3C/text%3E%3C/svg%3E">
 </head>
 <body class="tema-maritimo-sombrio">
   <main class="app">
@@ -14,12 +15,12 @@
           <h1>Mesa do Mestre</h1>
           <small>Versão Vigente · regras do Guia do Mestre indexadas · tela de comando para sessão, turno, PV e condições</small>
         </div>
-        <button class="btn ghost small" onclick="location.href='./?v=exemplos33'">Ficha</button>
+        <button class="btn ghost small" onclick="location.href='./?v=console34'">Ficha</button>
       </div>
-      <div class="auth">
-        <input id="masterPassword" type="password" autocomplete="current-password" placeholder="Senha da mesa">
-        <button class="btn primary" id="loadBtn">Carregar mesa</button>
-      </div>
+      <form class="auth" id="masterAuthForm" autocomplete="on">
+        <input id="masterPassword" name="rpg_master_password" type="password" autocomplete="current-password" placeholder="Senha da mesa">
+        <button class="btn primary" id="loadBtn" type="submit">Carregar mesa</button>
+      </form>
     </section>
 
     <section class="screen active" id="screen-table">
@@ -370,6 +371,8 @@ function removeSelected(){
 function bind(){
   $('#masterPassword').value=localStorage.getItem(PASS_KEY)||'';
   $('#sessionNotes').value=localStorage.getItem(NOTES_KEY)||'';
+  const masterAuthForm=$('#masterAuthForm');
+  if(masterAuthForm)masterAuthForm.onsubmit=e=>{e.preventDefault();loadPlayers()};
   $('#loadBtn').onclick=loadPlayers;
   $('#nextTurnBtn').onclick=$('#nextTurnBtn2').onclick=nextTurn;
   $('#prevTurnBtn').onclick=$('#prevTurnBtn2').onclick=prevTurn;

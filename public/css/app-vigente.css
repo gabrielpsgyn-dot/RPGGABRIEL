@@ -4583,3 +4583,21 @@ img{
 .resource-example-box b{
   color:var(--gold-2) !important;
 }
+
+
+/* AJUSTE VIGENTE — CONSOLE LIMPO NA MESA */
+form.auth{
+  display:flex !important;
+  gap:8px !important;
+  align-items:center !important;
+  flex-wrap:wrap !important;
+  margin:0 !important;
+}
+
+@media(max-width:860px){
+  form.auth{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    width:100% !important;
+  }
+}
