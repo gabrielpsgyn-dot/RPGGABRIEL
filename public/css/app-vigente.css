@@ -3727,3 +3727,10 @@ body:not(.menu-open) section.character-menu{
 .how-use-cell small{
   color:#bfe3e3 !important;
 }
+
+
+/* AJUSTE VIGENTE — PERSONAGENS SEM SENHA */
+#passwordModal,
+.password-modal{
+  display:none !important;
+}

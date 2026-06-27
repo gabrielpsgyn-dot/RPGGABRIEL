@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RPG Gabriel - Ficha Online Versão Vigente</title>
-  <link rel="stylesheet" href="./css/app-vigente.css?v=semconsultar26">
+  <link rel="stylesheet" href="./css/app-vigente.css?v=semsenha27">
 </head>
 <!-- RPGGABRIEL Versão Vigente LIVRO DO JOGADOR OFICIAL SEM ACHISMO -->
 <body class="menu-open tema-maritimo-sombrio">
@@ -13,7 +13,7 @@
       <div class="hero hero-menu">
         <p class="kicker">Ficha online da mesa</p>
         <h1>Escolha seu personagem</h1>
-        <p>Abertura neutra para o jogador: selecione a ficha, entre com a senha da mesa e continue a sessão.</p>
+        <p>Abertura do jogador: selecione a ficha e continue a sessão sem senha.</p>
         <div class="menu-hero-stats">
           <span class="menu-stat-pill" id="menuCountBadge">0 personagens</span>
           <span class="menu-stat-pill" id="selectedCharacterBadge">nenhum selecionado</span>
@@ -172,7 +172,7 @@
       </div>
 
       <div class="menu-footer-actions">
-        <a class="btn secondary master-link" href="/mestre.html?v=semconsultar26">Página do Mestre</a>
+        <a class="btn secondary master-link" href="/mestre.html?v=semsenha27">Página do Mestre</a>
       </div>
     </div>
   </section>
@@ -415,8 +415,8 @@
                 <div id="rulesAuditSummary" class="rules-audit-box"></div>
                 <div class="rules-audit-actions">
                   <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                  <a class="btn small secondary" href="criador.html?v=semconsultar26" target="_blank">Criador livre</a>
-                  <a class="btn small primary" href="livro-regras.html?v=semconsultar26" target="_blank">Livro de Regras</a>
+                  <a class="btn small secondary" href="criador.html?v=semsenha27" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=semsenha27" target="_blank">Livro de Regras</a>
                 </div>
               </details>
             </div>
@@ -871,24 +871,11 @@
     </section>
   </main>
 
-  <div class="modal hidden" id="passwordModal">
-    <div class="modal-card">
-      <h2>Senha da mesa</h2>
-      <p>Personagem: <b id="passwordTarget">Personagem</b></p>
-      <input id="passwordInput" type="password" autocomplete="current-password" placeholder="Senha da mesa">
-      <div class="modal-actions">
-        <button class="btn secondary" id="cancelPasswordBtn">Cancelar</button>
-        <button class="btn" id="confirmPasswordBtn">Entrar</button>
-      </div>
-    </div>
-  </div>
-
   <div class="modal hidden" id="deleteModal">
     <div class="modal-card">
       <h2>Confirmar exclusão</h2>
       <p>Personagem: <b id="deleteTarget">Personagem</b></p>
-      <p class="note">Essa ação remove a ficha local deste navegador. Para confirmar, digite a senha da mesa e escreva <b>EXCLUIR</b>.</p>
-      <input id="deletePasswordInput" type="password" autocomplete="current-password" placeholder="Senha da mesa">
+      <p class="note">Essa ação remove a ficha local deste navegador. Para confirmar, escreva <b>EXCLUIR</b>.</p>
       <input id="deleteConfirmInput" placeholder="Digite EXCLUIR">
       <div class="modal-actions">
         <button class="btn secondary" id="cancelDeleteBtn">Cancelar</button>
@@ -906,6 +893,7 @@
     const OLD_STORAGE_KEY = 'ficha_online_rpg_v1.characters';
     const ACTIVE_KEY = 'rpggabriel.v11.active';
     const PASSWORD_KEY = 'rpggabriel.v11.password';
+    const DEFAULT_PLAYER_PASSWORD = 'JOGADOR'; // usado internamente para API; não pedir senha ao jogador
     const API_BASE = location.origin;
     const CAMPAIGN_ID = 'ghosts-of-saltmarsh';
 
@@ -10388,7 +10376,7 @@
     }
 
     function openSheetOnly(){
-      openSheetOnly();
+      document.body.classList.remove('menu-open');
       document.body.classList.add('sheet-open');
       window.scrollTo({top:0, behavior:'instant'});
     }
@@ -10408,7 +10396,7 @@
 
     async function apiFetch(path, options={}, passwordRequired=true){
       const headers = {'Content-Type':'application/json','x-campaign-id':CAMPAIGN_ID,'x-player-id':'mesa-saltmarsh'};
-      const pwd = sessionStorage.getItem(PASSWORD_KEY) || '';
+      const pwd = sessionStorage.getItem(PASSWORD_KEY) || DEFAULT_PLAYER_PASSWORD || '';
       if(passwordRequired && pwd) headers['x-rpg-password']=pwd;
       const res = await fetch(API_BASE + path, {...options, headers:{...headers,...(options.headers||{})}});
       const txt = await res.text();
@@ -10438,13 +10426,32 @@
       }catch(e){ $('#onlineBadge').textContent = 'Falha ao atualizar: ' + e.message; }
     }
 
+    async function openCharacterDirect(id){
+      const targetId = id || state.activeId;
+      sessionStorage.setItem(PASSWORD_KEY, DEFAULT_PLAYER_PASSWORD);
+      try{
+        try{
+          const data = await apiFetch('/api/characters/'+encodeURIComponent(targetId)+'?campaignId='+encodeURIComponent(CAMPAIGN_ID), {method:'GET'}, true);
+          if(data && data.character){
+            const c=normalize(data.character);
+            const idx=state.characters.findIndex(x=>x.id===c.id);
+            if(idx>=0) state.characters[idx]=c; else state.characters.push(c);
+          }
+        }catch(e){
+          if(!/não encontrado|not found|404/i.test(e.message)) throw e;
+        }
+        setActive(targetId);
+        openSheetOnly();
+        toast('Ficha aberta.');
+      }catch(e){
+        setActive(targetId);
+        openSheetOnly();
+        toast('Ficha aberta localmente. Online não carregou: ' + e.message);
+      }
+    }
+
     function openPassword(id){
-      state.pendingPasswordId = id || state.activeId;
-      const c = state.characters.find(x=>x.id===state.pendingPasswordId);
-      $('#passwordTarget').textContent = c ? c.meta.nomePersonagem : 'Personagem';
-      $('#passwordInput').value = '';
-      $('#passwordModal').classList.remove('hidden');
-      setTimeout(()=>$('#passwordInput').focus(),50);
+      return openCharacterDirect(id);
     }
 
 
@@ -10453,10 +10460,9 @@
       if(!c){ toast('Personagem não encontrado.'); return; }
       state.pendingDeleteId = id;
       $('#deleteTarget').textContent = c.meta && c.meta.nomePersonagem ? c.meta.nomePersonagem : 'Personagem';
-      $('#deletePasswordInput').value = '';
       $('#deleteConfirmInput').value = '';
       $('#deleteModal').classList.remove('hidden');
-      setTimeout(()=>$('#deletePasswordInput').focus(),50);
+      setTimeout(()=>$('#deleteConfirmInput').focus(),50);
     }
 
     async function confirmDeleteCharacter(){
@@ -10464,20 +10470,9 @@
       const c = state.characters.find(x=>x.id===id);
       if(!c){ toast('Personagem não encontrado.'); return; }
 
-      const pwd = ($('#deletePasswordInput').value || '').trim();
       const typed = ($('#deleteConfirmInput').value || '').trim().toUpperCase();
 
-      if(!pwd){ toast('Digite a senha da mesa.'); return; }
       if(typed !== 'EXCLUIR'){ toast('Digite EXCLUIR para confirmar.'); return; }
-
-      sessionStorage.setItem(PASSWORD_KEY, pwd);
-
-      try{
-        await apiFetch('/api/characters?campaignId='+encodeURIComponent(CAMPAIGN_ID), {method:'GET'}, true);
-      }catch(e){
-        toast('Senha inválida ou falha ao validar.');
-        return;
-      }
 
       state.characters = state.characters.filter(x=>x.id !== id);
       if(state.activeId === id) state.activeId = state.characters[0] ? state.characters[0].id : null;
@@ -10493,33 +10488,6 @@
       saveLocal(true);
       renderMenu();
       toast('Personagem excluído localmente.');
-    }
-
-    async function confirmPassword(){
-      const pwd=$('#passwordInput').value.trim();
-      const id=state.pendingPasswordId || state.activeId;
-      if(!pwd){ toast('Digite a senha.'); return; }
-      sessionStorage.setItem(PASSWORD_KEY,pwd);
-      try{
-        await apiFetch('/api/characters?campaignId='+encodeURIComponent(CAMPAIGN_ID), {method:'GET'}, true);
-        try{
-          const data = await apiFetch('/api/characters/'+encodeURIComponent(id)+'?campaignId='+encodeURIComponent(CAMPAIGN_ID), {method:'GET'}, true);
-          if(data && data.character){
-            const c=normalize(data.character);
-            const idx=state.characters.findIndex(x=>x.id===c.id);
-            if(idx>=0) state.characters[idx]=c; else state.characters.push(c);
-          }
-        }catch(e){
-          if(!/não encontrado|not found|404/i.test(e.message)) throw e;
-        }
-        setActive(id);
-        $('#passwordModal').classList.add('hidden');
-        document.body.classList.remove('menu-open');
-        toast('Ficha aberta.');
-      }catch(e){
-        sessionStorage.removeItem(PASSWORD_KEY);
-        toast('Senha não conferiu: ' + e.message);
-      }
     }
 
     async function saveOnline(){
@@ -10807,7 +10775,7 @@
         if(remItem){ removeInventoryItem(remItem.dataset.removeItem); return; }
 
         const openCharacterBtn=e.target.closest('[data-open-character]');
-        if(openCharacterBtn){ setActive(openCharacterBtn.dataset.openCharacter); openPassword(openCharacterBtn.dataset.openCharacter); return; }
+        if(openCharacterBtn){ openCharacterDirect(openCharacterBtn.dataset.openCharacter); return; }
 
         const deleteCharacterCardBtn=e.target.closest('[data-delete-character]');
         if(deleteCharacterCardBtn){ openDeleteConfirm(deleteCharacterCardBtn.dataset.deleteCharacter); return; }
@@ -10883,14 +10851,11 @@
         if(imgBtn){ handleImage(imgBtn); return; }
       });
       const menuSearchInput = $('#menuSearchInput'); if(menuSearchInput) menuSearchInput.oninput=renderMenu;
-      const newCharacterBtn = $('#newCharacterBtn'); if(newCharacterBtn) newCharacterBtn.onclick=()=>{ const c=makeCharacter(); state.characters.push(c); state.activeId=c.id; saveLocal(true); renderMenu(); openPassword(c.id); };
+      const newCharacterBtn = $('#newCharacterBtn'); if(newCharacterBtn) newCharacterBtn.onclick=()=>{ const c=makeCharacter(); state.characters.push(c); state.activeId=c.id; saveLocal(true); renderMenu(); openCharacterDirect(c.id); };
       const refreshOnlineBtn = $('#refreshOnlineBtn'); if(refreshOnlineBtn) refreshOnlineBtn.onclick=refreshOnline;
       const backToMenuBtn = $('#backToMenuBtn'); if(backToMenuBtn) backToMenuBtn.onclick=openMenuOnly;
       const printBtn = $('#printBtn'); if(printBtn) printBtn.onclick=()=>window.print();
       const saveNowBtn = $('#saveNowBtn'); if(saveNowBtn) saveNowBtn.onclick=saveOnline;
-      const cancelPasswordBtn = $('#cancelPasswordBtn'); if(cancelPasswordBtn) cancelPasswordBtn.onclick=()=>$('#passwordModal').classList.add('hidden');
-      const confirmPasswordBtn = $('#confirmPasswordBtn'); if(confirmPasswordBtn) confirmPasswordBtn.onclick=confirmPassword;
-      const passwordInput = $('#passwordInput'); if(passwordInput) passwordInput.addEventListener('keydown',e=>{ if(e.key==='Enter') confirmPassword(); });
       const cancelDeleteBtn = $('#cancelDeleteBtn'); if(cancelDeleteBtn) cancelDeleteBtn.onclick=()=>$('#deleteModal').classList.add('hidden');
       const confirmDeleteBtn = $('#confirmDeleteBtn'); if(confirmDeleteBtn) confirmDeleteBtn.onclick=confirmDeleteCharacter;
       const deleteConfirmInput = $('#deleteConfirmInput'); if(deleteConfirmInput) deleteConfirmInput.addEventListener('keydown',e=>{ if(e.key==='Enter') confirmDeleteCharacter(); });
