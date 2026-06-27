@@ -3234,3 +3234,23 @@ body:not(.menu-open) section.character-menu{
     grid-template-columns:1fr !important;
   }
 }
+
+
+/* AJUSTE VIGENTE — TRUQUES E MAGIAS NA TABELA DE CLASSE */
+.menu-class-level-table td small{
+  display:block !important;
+  margin-top:5px !important;
+  color:var(--gold-2) !important;
+  font-size:11px !important;
+  line-height:1.25 !important;
+}
+
+.menu-class-level-table th:nth-child(5),
+.menu-class-level-table td:nth-child(5){
+  min-width:230px !important;
+}
+
+.menu-class-level-table th:nth-child(6),
+.menu-class-level-table td:nth-child(6){
+  min-width:210px !important;
+}

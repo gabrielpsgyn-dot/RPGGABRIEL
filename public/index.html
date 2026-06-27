@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RPG Gabriel - Ficha Online Versão Vigente</title>
-  <link rel="stylesheet" href="./css/app-vigente.css?v=classesnivel17">
+  <link rel="stylesheet" href="./css/app-vigente.css?v=truquesnivel18">
 </head>
 <!-- RPGGABRIEL Versão Vigente LIVRO DO JOGADOR OFICIAL SEM ACHISMO -->
 <body class="menu-open tema-maritimo-sombrio">
@@ -53,7 +53,7 @@
             <div class="menu-panel-head">
               <div>
                 <h2>Classes por nível</h2>
-                <p>Esta é a tabela que mostra o que o personagem libera ao subir de nível. Ex.: Mago nível 3 libera espaços de magia de 2º círculo.</p>
+                <p>Esta é a tabela que mostra o que o personagem libera ao subir de nível. Ex.: Mago nível 3 libera espaços de magia de 2º círculo e mantém 3 truques conhecidos.</p>
               </div>
             </div>
             <div class="menu-guide-tools menu-class-tools">
@@ -61,7 +61,7 @@
               <input class="menu-search" id="menuClassSearch" placeholder="Buscar nível, habilidade, magia, escolha...">
             </div>
             <div class="menu-guide-note menu-class-note">
-              Aqui é onde fica a progressão por nível. Raça e antecedente entram na criação; classe é o que mais muda quando o personagem sobe de nível.
+              Aqui é onde fica a progressão por nível: habilidades, escolhas, truques, magias conhecidas/preparadas e espaços de magia.
             </div>
             <div class="menu-class-summary" id="menuClassSummary"></div>
             <div class="menu-guide-table-wrap">
@@ -72,7 +72,8 @@
                     <th>Bônus de proficiência</th>
                     <th>O que ganha/libera</th>
                     <th>Escolhas do jogador</th>
-                    <th>Magias / espaços</th>
+                    <th>Truques / magias conhecidas</th>
+                    <th>Espaços de magia</th>
                   </tr>
                 </thead>
                 <tbody id="menuClassLevelTableBody"></tbody>
@@ -156,7 +157,7 @@
       </div>
 
       <div class="menu-footer-actions">
-        <a class="btn secondary master-link" href="/mestre.html?v=classesnivel17">Página do Mestre</a>
+        <a class="btn secondary master-link" href="/mestre.html?v=truquesnivel18">Página do Mestre</a>
       </div>
     </div>
   </section>
@@ -399,8 +400,8 @@
                 <div id="rulesAuditSummary" class="rules-audit-box"></div>
                 <div class="rules-audit-actions">
                   <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                  <a class="btn small secondary" href="criador.html?v=classesnivel17" target="_blank">Criador livre</a>
-                  <a class="btn small primary" href="livro-regras.html?v=classesnivel17" target="_blank">Livro de Regras</a>
+                  <a class="btn small secondary" href="criador.html?v=truquesnivel18" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=truquesnivel18" target="_blank">Livro de Regras</a>
                 </div>
               </details>
             </div>
@@ -9430,6 +9431,100 @@
     }
 
 
+
+    const CLASS_SPELL_KNOWN_PROGRESS = {
+      'Bardo': {
+        cantrips:{1:2,4:3,10:4},
+        known:{1:4,2:5,3:6,4:7,5:8,6:9,7:10,8:11,9:12,10:14,11:15,13:16,15:17,17:18,18:20},
+        label:'Magias conhecidas'
+      },
+      'Bruxo': {
+        cantrips:{1:2,4:3,10:4},
+        known:{1:2,2:3,3:4,4:5,5:6,6:7,7:8,8:9,9:10,10:10,11:11,13:12,15:13,17:14,19:15},
+        label:'Magias conhecidas'
+      },
+      'Clérigo': {
+        cantrips:{1:3,4:4,10:5},
+        prepared:'prepara Sabedoria + nível de Clérigo',
+        label:'Magias preparadas'
+      },
+      'Druida': {
+        cantrips:{1:2,4:3,10:4},
+        prepared:'prepara Sabedoria + nível de Druida',
+        label:'Magias preparadas'
+      },
+      'Feiticeiro': {
+        cantrips:{1:4,4:5,10:6},
+        known:{1:2,2:3,3:4,4:5,5:6,6:7,7:8,8:9,9:10,10:11,11:12,13:13,15:14,17:15},
+        label:'Magias conhecidas'
+      },
+      'Mago': {
+        cantrips:{1:3,4:4,10:5},
+        prepared:'prepara Inteligência + nível de Mago; grimório começa com 6 magias de 1º círculo e adiciona 2 magias ao grimório por nível de Mago',
+        label:'Magias preparadas / grimório'
+      },
+      'Paladino': {
+        cantrips:{},
+        prepared:'não ganha truques no Livro do Jogador; prepara Carisma + metade do nível de Paladino',
+        startsAt:2,
+        label:'Magias preparadas'
+      },
+      'Patrulheiro': {
+        cantrips:{},
+        known:{2:2,3:3,5:4,7:5,9:6,11:7,13:8,15:9,17:10,19:11},
+        startsAt:2,
+        label:'Magias conhecidas'
+      }
+    };
+
+    function valueAtProgress(progress, level){
+      if(!progress) return 0;
+      let out = 0;
+      Object.keys(progress).map(Number).sort((a,b)=>a-b).forEach(lv=>{
+        if(level >= lv) out = progress[lv];
+      });
+      return out;
+    }
+
+    function classCantripText(cls, level){
+      const prog = CLASS_SPELL_KNOWN_PROGRESS[cls];
+      if(!prog) return 'Não ganha truques pela classe base.';
+      const qty = valueAtProgress(prog.cantrips, level);
+      if(qty) return `${qty} truque(s) conhecido(s)`;
+      return 'Não ganha truques pela classe base.';
+    }
+
+    function classKnownSpellText(cls, level){
+      const prog = CLASS_SPELL_KNOWN_PROGRESS[cls];
+      if(!prog) return 'Sem progressão de magias pela classe base.';
+      const startsAt = num(prog.startsAt || 1);
+      if(level < startsAt) return `Conjuração começa no nível ${startsAt}.`;
+      const known = valueAtProgress(prog.known, level);
+      if(known) return `${prog.label || 'Magias'}: ${known}`;
+      if(prog.prepared) return `${prog.label || 'Magias'}: ${prog.prepared}`;
+      return prog.label || '-';
+    }
+
+    function spellLearningSummaryForClassLevel(cls, level){
+      const rule = getAllClassRules()[cls] || {};
+      if(!rule || rule.casting === 'none') return 'Não ganha truques ou magias pela classe base.';
+      return `${classCantripText(cls, level)} • ${classKnownSpellText(cls, level)}`;
+    }
+
+    function spellUnlockDelta(cls, level){
+      const prog = CLASS_SPELL_KNOWN_PROGRESS[cls];
+      if(!prog) return '';
+      const prevCan = valueAtProgress(prog.cantrips, level-1);
+      const nowCan = valueAtProgress(prog.cantrips, level);
+      const prevKnown = valueAtProgress(prog.known, level-1);
+      const nowKnown = valueAtProgress(prog.known, level);
+      const out = [];
+      if(nowCan > prevCan) out.push(`ganha ${nowCan-prevCan} truque(s)`);
+      if(nowKnown > prevKnown) out.push(`ganha ${nowKnown-prevKnown} magia(s) conhecida(s)`);
+      if(prog.prepared && level === num(prog.startsAt || 1)) out.push('passa a preparar magias');
+      return out.join(' • ');
+    }
+
     function classFeatureNamesForLevel(rule, level){
       const list = (rule.features && rule.features[level]) || [];
       return Array.isArray(list) ? list : [];
@@ -9475,6 +9570,8 @@
         'proficiência ' + levelProfBonus(level),
         classUnlockSummary(cls, level),
         classChoicesForExactLevel(cls, level).join(' '),
+        spellLearningSummaryForClassLevel(cls, level),
+        spellUnlockDelta(cls, level),
         spellSlotSummaryForClassLevel(cls, level),
         rule.hitDie,
         rule.casting,
@@ -9523,13 +9620,14 @@
           <tr class="${level === 3 && cls === 'Mago' ? 'example-level-row' : ''}">
             <td><b>Nível ${level}</b></td>
             <td>+${levelProfBonus(level)}</td>
-            <td>${features.length ? escapeHtml(features.join(' • ')) : 'Sem habilidade nova cadastrada.'}</td>
+            <td>${features.length ? escapeHtml(features.join(' • ')) : 'Sem habilidade nova cadastrada.'}${spellUnlockDelta(cls, level) ? `<small>${escapeHtml(spellUnlockDelta(cls, level))}</small>` : ''}</td>
             <td>${choices.length ? escapeHtml(choices.join(' • ')) : '-'}</td>
+            <td>${escapeHtml(spellLearningSummaryForClassLevel(cls, level))}</td>
             <td>${escapeHtml(slots)}</td>
           </tr>
         `);
       }
-      body.innerHTML = rows.length ? rows.join('') : '<tr><td colspan="5">Nenhum nível encontrado.</td></tr>';
+      body.innerHTML = rows.length ? rows.join('') : '<tr><td colspan="6">Nenhum nível encontrado.</td></tr>';
     }
 
     function renderMenuRaceGuide(){
