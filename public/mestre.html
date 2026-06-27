@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mesa do Mestre - Versão Vigente</title>
-  <link rel="stylesheet" href="./css/app-vigente.css?v=hpfix35">
+  <link rel="stylesheet" href="./css/app-vigente.css?v=hpfix36">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3E%E2%9A%93%3C/text%3E%3C/svg%3E">
 </head>
 <body class="tema-maritimo-sombrio">
@@ -15,9 +15,10 @@
           <h1>Mesa do Mestre</h1>
           <small>Versão Vigente · regras do Guia do Mestre indexadas · tela de comando para sessão, turno, PV e condições</small>
         </div>
-        <button class="btn ghost small" onclick="location.href='./?v=hpfix35'">Ficha</button>
+        <button class="btn ghost small" onclick="location.href='./?v=hpfix36'">Ficha</button>
       </div>
       <form class="auth" id="masterAuthForm" autocomplete="on">
+        <input type="text" name="rpg_master_user" autocomplete="username" value="mestre" hidden>
         <input id="masterPassword" name="rpg_master_password" type="password" autocomplete="current-password" placeholder="Senha da mesa">
         <button class="btn primary" id="loadBtn" type="submit">Carregar mesa</button>
       </form>
@@ -368,6 +369,17 @@ function removeSelected(){
   state.selectedType='';state.selectedId='';saveBoards();renderAll();toast('Removido.');
 }
 
+
+function handleHpButtonClick(e){
+  const hp=e.target.closest('[data-hp-delta]');
+  if(!hp)return false;
+  e.preventDefault();
+  e.stopPropagation();
+  if(typeof e.stopImmediatePropagation === 'function') e.stopImmediatePropagation();
+  updateHp(hp.dataset.type,hp.dataset.id,num(hp.dataset.hpDelta));
+  return true;
+}
+
 function bind(){
   $('#masterPassword').value=localStorage.getItem(PASS_KEY)||'';
   $('#sessionNotes').value=localStorage.getItem(NOTES_KEY)||'';
@@ -383,6 +395,7 @@ function bind(){
   $('#saveNotesBtn').onclick=()=>{localStorage.setItem(NOTES_KEY,$('#sessionNotes').value);toast('Notas salvas.')};
   $('#searchInput').oninput=renderLists;$('#typeFilter').onchange=renderLists;$('#hpFilter').onchange=renderLists;
   $all('.nav-btn').forEach(btn=>btn.onclick=()=>{$all('.nav-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');$all('.screen').forEach(s=>s.classList.remove('active'));$('#'+btn.dataset.screen).classList.add('active');renderAll()});
+  document.addEventListener('click',handleHpButtonClick,true);
   document.addEventListener('click',e=>{
     const hp=e.target.closest('[data-hp-delta]');
     if(hp){

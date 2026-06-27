@@ -4613,3 +4613,14 @@ form.auth{
   position:relative !important;
   z-index:2 !important;
 }
+
+
+/* AJUSTE VIGENTE — CLIQUE FORÇADO NOS BOTÕES DE VIDA */
+.entity-card [data-hp-delta],
+.detail-grid [data-hp-delta]{
+  pointer-events:auto !important;
+  cursor:pointer !important;
+  touch-action:manipulation !important;
+  position:relative !important;
+  z-index:20 !important;
+}
