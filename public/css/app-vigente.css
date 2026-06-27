@@ -3353,3 +3353,95 @@ body:not(.menu-open) section.character-menu{
     max-width:none !important;
   }
 }
+
+
+/* AJUSTE VIGENTE — TRUQUES COMO NÍVEL 0 NA TABELA DE ESPAÇOS */
+.slot-table-wrap{
+  display:grid !important;
+  gap:8px !important;
+}
+
+.slot-mini-table-ten{
+  grid-template-columns:repeat(5,minmax(44px,1fr)) !important;
+  max-width:360px !important;
+}
+
+.slot-mini-cantrip{
+  border-color:rgba(99, 213, 170, .55) !important;
+  background:linear-gradient(180deg,#14463d,#0a2924) !important;
+}
+
+.slot-mini-cantrip b,
+.slot-mini-cantrip em{
+  color:#b9f3d4 !important;
+}
+
+@media(max-width:760px){
+  .slot-mini-table-ten{
+    grid-template-columns:repeat(4,minmax(40px,1fr)) !important;
+    max-width:none !important;
+  }
+}
+
+
+/* AJUSTE VIGENTE — SUBCLASSES / TRADIÇÃO ARCANA */
+.menu-subclass-guide{
+  margin:12px 0 14px !important;
+  background:rgba(6,27,36,.58) !important;
+  border:1px solid rgba(216,173,98,.38) !important;
+  border-radius:16px !important;
+  padding:12px !important;
+}
+
+.menu-subclass-head{
+  display:grid !important;
+  grid-template-columns:minmax(0,1fr) 300px !important;
+  gap:10px !important;
+  align-items:end !important;
+  margin-bottom:10px !important;
+}
+
+.menu-subclass-head h3{
+  margin:0 0 4px !important;
+  color:var(--gold-2) !important;
+  font-size:18px !important;
+}
+
+.menu-subclass-head select{
+  min-height:42px !important;
+  border-radius:12px !important;
+  background:#061b24 !important;
+  color:#f3e9d2 !important;
+  border:1px solid rgba(198,154,77,.42) !important;
+  padding:8px 10px !important;
+  font-weight:900 !important;
+}
+
+.menu-subclass-table-wrap{
+  max-height:none !important;
+}
+
+.menu-subclass-table{
+  min-width:850px !important;
+}
+
+.menu-subclass-table td:nth-child(1){
+  width:105px !important;
+  white-space:nowrap !important;
+}
+
+.menu-subclass-table td:nth-child(2){
+  width:190px !important;
+}
+
+.menu-subclass-table td:nth-child(3){
+  min-width:260px !important;
+  color:var(--gold-2) !important;
+  font-weight:850 !important;
+}
+
+@media(max-width:760px){
+  .menu-subclass-head{
+    grid-template-columns:1fr !important;
+  }
+}

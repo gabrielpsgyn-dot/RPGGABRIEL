@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RPG Gabriel - Ficha Online Versão Vigente</title>
-  <link rel="stylesheet" href="./css/app-vigente.css?v=slotstable19">
+  <link rel="stylesheet" href="./css/app-vigente.css?v=subclasse21">
 </head>
 <!-- RPGGABRIEL Versão Vigente LIVRO DO JOGADOR OFICIAL SEM ACHISMO -->
 <body class="menu-open tema-maritimo-sombrio">
@@ -53,7 +53,7 @@
             <div class="menu-panel-head">
               <div>
                 <h2>Classes por nível</h2>
-                <p>Esta é a tabela que mostra o que o personagem libera ao subir de nível. Ex.: Mago nível 3 mantém 3 truques e passa a ter espaços: 1º=4, 2º=2.</p>
+                <p>Esta é a tabela que mostra o que o personagem libera ao subir de nível. Ex.: Mago nível 3 mantém 3 truques (0º=3) e passa a ter espaços: 1º=4, 2º=2.</p>
               </div>
             </div>
             <div class="menu-guide-tools menu-class-tools">
@@ -64,6 +64,30 @@
               Aqui é onde fica a progressão por nível: habilidades, escolhas, truques, magias conhecidas/preparadas e espaços de magia.
             </div>
             <div class="menu-class-summary" id="menuClassSummary"></div>
+
+            <div class="menu-subclass-guide" id="menuSubclassGuide">
+              <div class="menu-subclass-head">
+                <div>
+                  <h3 id="menuSubclassTitle">Subclasse / caminho</h3>
+                  <p class="sheet-note">Quando a classe manda escolher tradição, domínio, juramento, arquétipo ou caminho, esta tabela mostra o que aquela escolha entrega nos níveis seguintes.</p>
+                </div>
+                <select id="menuSubclassSelect"></select>
+              </div>
+              <div class="menu-guide-table-wrap menu-subclass-table-wrap">
+                <table class="menu-guide-table menu-subclass-table">
+                  <thead>
+                    <tr>
+                      <th>Nível</th>
+                      <th>Escolha</th>
+                      <th>O que ganha</th>
+                      <th>Observação</th>
+                    </tr>
+                  </thead>
+                  <tbody id="menuSubclassTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+
             <div class="menu-guide-table-wrap">
               <table class="menu-guide-table menu-class-level-table">
                 <thead>
@@ -157,7 +181,7 @@
       </div>
 
       <div class="menu-footer-actions">
-        <a class="btn secondary master-link" href="/mestre.html?v=slotstable19">Página do Mestre</a>
+        <a class="btn secondary master-link" href="/mestre.html?v=subclasse21">Página do Mestre</a>
       </div>
     </div>
   </section>
@@ -400,8 +424,8 @@
                 <div id="rulesAuditSummary" class="rules-audit-box"></div>
                 <div class="rules-audit-actions">
                   <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                  <a class="btn small secondary" href="criador.html?v=slotstable19" target="_blank">Criador livre</a>
-                  <a class="btn small primary" href="livro-regras.html?v=slotstable19" target="_blank">Livro de Regras</a>
+                  <a class="btn small secondary" href="criador.html?v=subclasse21" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=subclasse21" target="_blank">Livro de Regras</a>
                 </div>
               </details>
             </div>
@@ -9512,23 +9536,24 @@
         return `<div class="slot-mini-empty">Não conjura pela classe base</div>`;
       }
 
+      const cantripQty = valueAtProgress(((CLASS_SPELL_KNOWN_PROGRESS[cls] || {}).cantrips || []), level) || 0;
+      const cells = [];
+      cells.push(`<span class="slot-mini-cell ${cantripQty ? 'on' : 'off'} slot-mini-cantrip"><b>0º</b><em>${cantripQty || '-'}</em></span>`);
+
       if(rule.casting === 'pact'){
         const pact = PACT_SLOTS[level] || {};
-        if(!pact.total) return `<div class="slot-mini-empty">Sem espaços de pacto</div>`;
-        return `<div class="slot-pact-box">
-          <span>Pacto</span>
-          <b>${num(pact.total)} espaço(s)</b>
-          <small>nível do espaço: ${num(pact.slotLevel)}º</small>
-        </div>`;
+        const pactHtml = pact.total
+          ? `<div class="slot-pact-box"><span>Pacto</span><b>${num(pact.total)} espaço(s)</b><small>nível do espaço: ${num(pact.slotLevel)}º</small></div>`
+          : `<div class="slot-mini-empty">Sem espaços de pacto</div>`;
+        return `<div class="slot-table-wrap"><div class="slot-mini-table slot-mini-table-ten" aria-label="Truques e espaços de magia por círculo">${cells.join('')}</div>${pactHtml}</div>`;
       }
 
       const slots = getClassSpellSlots(cls, level) || [];
-      const cells = [];
       for(let i=0;i<9;i++){
         const qty = num(slots[i]);
         cells.push(`<span class="slot-mini-cell ${qty ? 'on' : 'off'}"><b>${i+1}º</b><em>${qty || '-'}</em></span>`);
       }
-      return `<div class="slot-mini-table" aria-label="Espaços de magia por círculo">${cells.join('')}</div>`;
+      return `<div class="slot-mini-table slot-mini-table-ten" aria-label="Truques e espaços de magia por círculo">${cells.join('')}</div>`;
     }
 
     function spellLearningSummaryForClassLevel(cls, level){
@@ -9549,6 +9574,143 @@
       if(nowKnown > prevKnown) out.push(`ganha ${nowKnown-prevKnown} magia(s) conhecida(s)`);
       if(prog.prepared && level === num(prog.startsAt || 1)) out.push('passa a preparar magias');
       return out.join(' • ');
+    }
+
+
+    const CLASS_SUBCLASS_FEATURES = {
+      "Mago": {
+        label:"Tradição Arcana",
+        level:2,
+        paths:{
+          "Abjuração":[
+            {level:2, gain:"Erudição/Sábio de Abjuração; Proteção Arcana", note:"A escola fica especializada em magias de abjuração e cria proteção arcana quando conjura abjuração."},
+            {level:6, gain:"Proteção Projetada", note:"Permite usar a proteção arcana para defender outra criatura."},
+            {level:10, gain:"Abjuração Aprimorada", note:"Melhora testes ligados a magias de abjuração."},
+            {level:14, gain:"Resistência à Magia", note:"Ganha defesa contra magias conforme a tradição."}
+          ],
+          "Conjuração":[
+            {level:2, gain:"Erudição/Sábio de Conjuração; Conjuração Menor", note:"Especialização em conjuração e criação menor."},
+            {level:6, gain:"Transposição Benigna", note:"Teleporte curto/troca de posição conforme regra."},
+            {level:10, gain:"Conjuração Focada", note:"Ajuda a manter concentração em magias de conjuração."},
+            {level:14, gain:"Invocações Duráveis", note:"Criaturas invocadas ficam mais resistentes."}
+          ],
+          "Adivinhação":[
+            {level:2, gain:"Erudição/Sábio de Adivinhação; Presságio", note:"Rola presságios e usa resultados depois."},
+            {level:6, gain:"Especialista em Adivinhação", note:"Recupera parte do recurso ao conjurar adivinhação."},
+            {level:10, gain:"O Terceiro Olho", note:"Escolhe benefício sensorial conforme a regra."},
+            {level:14, gain:"Presságio Maior", note:"Aumenta a quantidade de dados de presságio."}
+          ],
+          "Encantamento":[
+            {level:2, gain:"Erudição/Sábio de Encantamento; Olhar Hipnótico", note:"Especialização em encantamento e controle por olhar."},
+            {level:6, gain:"Encanto Instintivo", note:"Desvia ataque usando reação conforme a regra."},
+            {level:10, gain:"Encantamento Dividido", note:"Alguns encantamentos podem afetar alvo extra."},
+            {level:14, gain:"Alterar Memórias", note:"Permite manipular memória de criatura encantada."}
+          ],
+          "Evocação":[
+            {level:2, gain:"Erudição/Sábio de Evocação; Moldar Magias", note:"Protege aliados de certas magias de evocação em área."},
+            {level:6, gain:"Truque Potente", note:"Truques causam efeito parcial mesmo quando o alvo resiste, conforme regra."},
+            {level:10, gain:"Evocação Potencializada", note:"Adiciona modificador de Inteligência a dano de evocação conforme regra."},
+            {level:14, gain:"Sobrecanalização", note:"Maximiza dano de magia com risco conforme a regra."}
+          ],
+          "Ilusão":[
+            {level:2, gain:"Erudição/Sábio de Ilusão; Ilusão Menor Aprimorada", note:"Melhora o truque Ilusão Menor."},
+            {level:6, gain:"Ilusões Maleáveis", note:"Altera ilusão já criada conforme a regra."},
+            {level:10, gain:"Eu Ilusório", note:"Cria defesa ilusória contra ataque."},
+            {level:14, gain:"Realidade Ilusória", note:"Torna parte de uma ilusão temporariamente real."}
+          ],
+          "Necromancia":[
+            {level:2, gain:"Erudição/Sábio de Necromancia; Colheita Sombria", note:"Recupera vida ao matar criatura com magia conforme a regra."},
+            {level:6, gain:"Servos Mortos-Vivos", note:"Melhora criação/controle de mortos-vivos."},
+            {level:10, gain:"Acostumado à Morte-Vida", note:"Ganha resistência/defesa ligada à necromancia."},
+            {level:14, gain:"Comandar Mortos-Vivos", note:"Tenta controlar mortos-vivos conforme a regra."}
+          ],
+          "Transmutação":[
+            {level:2, gain:"Erudição/Sábio de Transmutação; Alquimia Menor", note:"Transformação temporária de materiais conforme regra."},
+            {level:6, gain:"Pedra do Transmutador", note:"Cria pedra com benefício escolhido."},
+            {level:10, gain:"Metamorfo", note:"Ganha acesso a transformação conforme regra."},
+            {level:14, gain:"Mestre Transmutador", note:"Usa a pedra para efeitos maiores conforme regra."}
+          ]
+        }
+      },
+      "Bárbaro": {label:"Caminho Primitivo", level:3, paths:{
+        "Caminho do Furioso":[{level:3,gain:"Frenesi",note:"Fúria agressiva do caminho."},{level:6,gain:"Fúria Inconsciente",note:"Defesa contra medo/encantamento conforme regra."},{level:10,gain:"Presença Intimidante",note:"Amedronta criatura."},{level:14,gain:"Retaliação",note:"Reage contra quem causa dano."}],
+        "Caminho do Guerreiro Totêmico":[{level:3,gain:"Buscador Espiritual; Espírito Totêmico",note:"Escolhe totem e ganha benefício inicial."},{level:6,gain:"Aspecto da Besta",note:"Novo benefício do totem."},{level:10,gain:"Andarilho Espiritual",note:"Comunicação/ritual espiritual conforme regra."},{level:14,gain:"Sintonia Totêmica",note:"Benefício final do totem escolhido."}]
+      }},
+      "Bardo": {label:"Colégio de Bardo", level:3, paths:{
+        "Colégio do Conhecimento":[{level:3,gain:"Proficiências Bônus; Palavras de Interrupção",note:"Mais perícias e uso defensivo/ofensivo da inspiração."},{level:6,gain:"Segredos Mágicos Adicionais",note:"Aprende magias de outras listas."},{level:14,gain:"Perícia Inigualável",note:"Usa inspiração em testes próprios."}],
+        "Colégio da Bravura":[{level:3,gain:"Proficiências Bônus; Inspiração em Combate",note:"Melhora uso da inspiração em combate."},{level:6,gain:"Ataque Extra",note:"Ataca duas vezes."},{level:14,gain:"Magia de Batalha",note:"Combina magia e ataque."}]
+      }},
+      "Bruxo": {label:"Patrono Transcendental", level:1, paths:{
+        "Arquifada":[{level:1,gain:"Presença Feérica",note:"Encanta/amedronta conforme regra."},{level:6,gain:"Fuga Enevoada",note:"Reação defensiva e teleporte."},{level:10,gain:"Defesas Sedutoras",note:"Defesa contra encantamento."},{level:14,gain:"Delírio Sombrio",note:"Ilusão/controle poderoso."}],
+        "Corruptor":[{level:1,gain:"Bênção do Obscuro",note:"PV temporário ao derrubar inimigo."},{level:6,gain:"Sorte do Próprio Obscuro",note:"Bônus em teste/resistência."},{level:10,gain:"Resiliência Demoníaca",note:"Escolhe resistência."},{level:14,gain:"Arremessar no Inferno",note:"Efeito forte contra criatura atingida."}],
+        "Grande Antigo":[{level:1,gain:"Mente Desperta",note:"Comunicação telepática."},{level:6,gain:"Proteção Entrópica",note:"Defesa contra ataque e vantagem."},{level:10,gain:"Escudo de Pensamentos",note:"Resistência/defesa mental."},{level:14,gain:"Criar Servo",note:"Controle/encantamento duradouro."}]
+      }},
+      "Guerreiro": {label:"Arquétipo Marcial", level:3, paths:{
+        "Campeão":[{level:3,gain:"Crítico Aprimorado",note:"Margem de crítico melhora."},{level:7,gain:"Atleta Notável",note:"Melhora testes físicos."},{level:10,gain:"Estilo de Luta Adicional",note:"Escolhe outro estilo."},{level:15,gain:"Crítico Superior",note:"Margem melhora novamente."},{level:18,gain:"Sobrevivente",note:"Regeneração/recuperação em combate."}],
+        "Mestre de Batalha":[{level:3,gain:"Superioridade em Combate; Estudioso da Guerra",note:"Manobras e dados de superioridade."},{level:7,gain:"Conheça seu Inimigo",note:"Analisa capacidades."},{level:10,gain:"Superioridade em Combate Aprimorada",note:"Dados melhoram."},{level:15,gain:"Implacável",note:"Recupera recurso se zerado."},{level:18,gain:"Superioridade em Combate Aprimorada",note:"Dados melhoram novamente."}],
+        "Cavaleiro Arcano":[{level:3,gain:"Conjuração; Vínculo com Arma",note:"Ganha magia limitada e vínculo."},{level:7,gain:"Magia de Guerra",note:"Combina truque e ataque."},{level:10,gain:"Golpe Místico",note:"Ataques prejudicam resistência contra magia."},{level:15,gain:"Investida Arcana",note:"Teleporte com surto de ação."},{level:18,gain:"Magia de Guerra Aprimorada",note:"Combina magia e ataque."}]
+      }},
+      "Ladino": {label:"Arquétipo Ladino", level:3, paths:{
+        "Ladrão":[{level:3,gain:"Mãos Rápidas; Trabalho de Segundo Andar",note:"Mais uso de ação bônus e mobilidade."},{level:9,gain:"Furtividade Suprema",note:"Vantagem ao se esconder parado."},{level:13,gain:"Usar Dispositivo Mágico",note:"Ignora requisitos de itens."},{level:17,gain:"Reflexos de Ladrão",note:"Age duas vezes no início do combate."}],
+        "Assassino":[{level:3,gain:"Proficiências Bônus; Assassinar",note:"Melhora abertura contra alvos desprevenidos."},{level:9,gain:"Especialização em Infiltração",note:"Cria identidade falsa."},{level:13,gain:"Impostor",note:"Imita outra pessoa."},{level:17,gain:"Golpe Mortal",note:"Dobra dano contra alvo surpreso conforme regra."}],
+        "Trapaceiro Arcano":[{level:3,gain:"Conjuração; Mãos Mágicas Malabaristas",note:"Ganha magias e melhora Mãos Mágicas."},{level:9,gain:"Emboscada Mágica",note:"Dificulta resistência quando escondido."},{level:13,gain:"Trapaceiro Versátil",note:"Usa Mãos Mágicas para vantagem."},{level:17,gain:"Ladrão de Magia",note:"Rouba/nega magia conforme regra."}]
+      }},
+      "Monge": {label:"Tradição Monástica", level:3, paths:{
+        "Caminho da Mão Aberta":[{level:3,gain:"Técnica da Mão Aberta",note:"Melhora rajada de golpes."},{level:6,gain:"Integridade Corporal",note:"Cura própria."},{level:11,gain:"Tranquilidade",note:"Efeito de proteção/paz."},{level:17,gain:"Palma Vibrante",note:"Golpe mortal/energia vibrante."}],
+        "Caminho da Sombra":[{level:3,gain:"Artes Sombrias",note:"Usa ki para magias de sombra."},{level:6,gain:"Passo das Sombras",note:"Teleporte entre sombras."},{level:11,gain:"Manto de Sombras",note:"Fica invisível em sombra."},{level:17,gain:"Oportunista",note:"Reage contra inimigo atingido."}],
+        "Caminho dos Quatro Elementos":[{level:3,gain:"Discípulo dos Elementos",note:"Escolhe disciplinas elementais."},{level:6,gain:"Nova disciplina elemental",note:"Amplia escolhas."},{level:11,gain:"Nova disciplina elemental",note:"Amplia escolhas."},{level:17,gain:"Nova disciplina elemental",note:"Amplia escolhas."}]
+      }},
+      "Paladino": {label:"Juramento Sagrado", level:3, paths:{
+        "Juramento de Devoção":[{level:3,gain:"Magias de Juramento; Canalizar Divindade",note:"Arma Sagrada e Expulsar Profanos."},{level:7,gain:"Aura de Devoção",note:"Protege contra encanto."},{level:15,gain:"Pureza de Espírito",note:"Proteção constante conforme regra."},{level:20,gain:"Nimbo Sagrado",note:"Forma/efeito final do juramento."}],
+        "Juramento dos Anciões":[{level:3,gain:"Magias de Juramento; Canalizar Divindade",note:"Ira da Natureza e Expulsar Infiéis."},{level:7,gain:"Aura de Proteção",note:"Reduz dano de magia."},{level:15,gain:"Sentinela Imortal",note:"Evita cair/idade conforme regra."},{level:20,gain:"Campeão Ancião",note:"Forma final do juramento."}],
+        "Juramento de Vingança":[{level:3,gain:"Magias de Juramento; Canalizar Divindade",note:"Abjurar Inimigo e Voto de Inimizade."},{level:7,gain:"Vingador Implacável",note:"Movimento ao acertar oportunidade."},{level:15,gain:"Alma de Vingança",note:"Ataque extra contra alvo jurado."},{level:20,gain:"Anjo Vingador",note:"Forma final do juramento."}]
+      }},
+      "Patrulheiro": {label:"Arquétipo de Patrulheiro", level:3, paths:{
+        "Caçador":[{level:3,gain:"Presa do Caçador",note:"Escolhe benefício de combate."},{level:7,gain:"Táticas Defensivas",note:"Escolhe defesa."},{level:11,gain:"Ataque Múltiplo",note:"Escolhe opção de ataque múltiplo."},{level:15,gain:"Defesa Superior do Caçador",note:"Escolhe defesa superior."}],
+        "Mestre das Bestas":[{level:3,gain:"Companheiro do Patrulheiro",note:"Ganha besta companheira."},{level:7,gain:"Treinamento Excepcional",note:"Melhora comando da besta."},{level:11,gain:"Fúria Bestial",note:"Besta ataca mais."},{level:15,gain:"Compartilhar Magias",note:"Magias também afetam companheiro conforme regra."}]
+      }}
+    };
+
+    function subclassGuideForClass(cls){
+      const data = CLASS_SUBCLASS_FEATURES[cls];
+      if(data) return data;
+      const detail = classBookDetails(cls);
+      const label = detail.subclassLabel || detail.pathLabel || 'Subclasse';
+      const level = num(detail.subclassLevel || detail.pathLevel || 0);
+      const paths = {};
+      (detail.subclasses || detail.paths || []).forEach(name=>{
+        paths[name] = level ? [{level, gain:`Escolher ${label}`, note:'Detalhar benefícios conforme livro.'}] : [];
+      });
+      return {label, level, paths};
+    }
+
+    function renderMenuSubclassGuide(cls){
+      const guide = $('#menuSubclassGuide');
+      const select = $('#menuSubclassSelect');
+      const body = $('#menuSubclassTableBody');
+      const title = $('#menuSubclassTitle');
+      if(!guide || !select || !body) return;
+      const data = subclassGuideForClass(cls);
+      const names = Object.keys((data && data.paths) || {});
+      if(!data || !names.length){
+        guide.style.display = 'none';
+        return;
+      }
+      guide.style.display = '';
+      if(title) title.textContent = `${data.label || 'Subclasse'} de ${cls}`;
+      const current = select.value;
+      select.innerHTML = names.map(n=>`<option value="${escapeHtml(n)}">${escapeHtml(n)}</option>`).join('');
+      select.value = names.includes(current) ? current : names[0];
+      const selectedPath = select.value;
+      const rows = (data.paths[selectedPath] || []).map(row=>`
+        <tr>
+          <td><b>Nível ${num(row.level) || '-'}</b></td>
+          <td>${escapeHtml(selectedPath)}</td>
+          <td>${escapeHtml(row.gain || '-')}</td>
+          <td>${escapeHtml(row.note || '-')}</td>
+        </tr>
+      `).join('');
+      body.innerHTML = rows || '<tr><td colspan="4">Sem benefícios cadastrados para esta escolha.</td></tr>';
     }
 
     function classFeatureNamesForLevel(rule, level){
@@ -9622,6 +9784,7 @@
       const cls = select && select.value ? select.value : 'Mago';
       const rule = getAllClassRules()[cls] || {};
       const detail = classBookDetails(cls);
+      renderMenuSubclassGuide(cls);
       const q = String($('#menuClassSearch') ? $('#menuClassSearch').value : '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
       const summary = $('#menuClassSummary');
 
@@ -10564,6 +10727,10 @@
       const inventoryCategoryFilter = $('#inventoryCategoryFilter'); if(inventoryCategoryFilter) inventoryCategoryFilter.addEventListener('change', renderInventory);
       const menuClassSelect = $('#menuClassSelect'); if(menuClassSelect) menuClassSelect.addEventListener('change', renderMenuClassGuide);
       const menuClassSearch = $('#menuClassSearch'); if(menuClassSearch) menuClassSearch.addEventListener('input', renderMenuClassGuide);
+      const menuSubclassSelect = $('#menuSubclassSelect'); if(menuSubclassSelect) menuSubclassSelect.addEventListener('change', ()=>{
+        const cls = $('#menuClassSelect') ? $('#menuClassSelect').value : 'Mago';
+        renderMenuSubclassGuide(cls);
+      });
             const menuRaceSearch = $('#menuRaceSearch'); if(menuRaceSearch) menuRaceSearch.addEventListener('input', renderMenuRaceGuide);
       const menuRaceFilter = $('#menuRaceFilter'); if(menuRaceFilter) menuRaceFilter.addEventListener('change', renderMenuRaceGuide);
       const menuBackgroundSearch = $('#menuBackgroundSearch'); if(menuBackgroundSearch) menuBackgroundSearch.addEventListener('input', renderMenuBackgroundGuide);
