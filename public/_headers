@@ -1,4 +1,14 @@
-/*
+﻿/*
+  Cache-Control: no-store, max-age=0
+  X-Content-Type-Options: nosniff
+
+/
   Content-Type: text/html; charset=utf-8
+
+/*.html
+  Content-Type: text/html; charset=utf-8
+
+/css/*
+  Content-Type: text/css; charset=utf-8
   Cache-Control: no-store, max-age=0
   X-Content-Type-Options: nosniff
