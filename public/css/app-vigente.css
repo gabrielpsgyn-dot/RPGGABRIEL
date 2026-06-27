@@ -3024,3 +3024,131 @@ body:not(.menu-open) section.character-menu{
     grid-template-columns:1fr !important;
   }
 }
+
+
+/* =========================================================
+   AJUSTE VIGENTE — RAÇAS E ANTECEDENTES JUNTO DOS PERSONAGENS
+   ========================================================= */
+
+.menu-creation-tabs{
+  max-width:1120px !important;
+  margin:14px auto 12px !important;
+  display:flex !important;
+  gap:8px !important;
+  flex-wrap:wrap !important;
+}
+
+.menu-create-tab{
+  border:1px solid rgba(198,154,77,.36) !important;
+  background:#061b24 !important;
+  color:#d6c9af !important;
+  border-radius:999px !important;
+  padding:9px 13px !important;
+  font-weight:950 !important;
+  cursor:pointer !important;
+}
+
+.menu-create-tab.active{
+  background:linear-gradient(180deg,#1a5967,#0d3440) !important;
+  border-color:rgba(216,173,98,.70) !important;
+  color:var(--gold-2) !important;
+}
+
+.menu-create-view{
+  display:none !important;
+}
+
+.menu-create-view.active{
+  display:block !important;
+}
+
+.menu-guide-panel{
+  max-width:1120px !important;
+  margin:0 auto !important;
+  border-color:rgba(120,205,208,.42) !important;
+  background:linear-gradient(180deg,#0f3440,#08232d) !important;
+}
+
+.menu-guide-tools{
+  display:grid !important;
+  grid-template-columns:minmax(0,1fr) 250px !important;
+  gap:10px !important;
+  margin:10px 0 12px !important;
+}
+
+.menu-guide-tools select{
+  min-height:42px !important;
+  border-radius:12px !important;
+  background:#061b24 !important;
+  color:#f3e9d2 !important;
+  border:1px solid rgba(198,154,77,.32) !important;
+  padding:8px 10px !important;
+  font-weight:850 !important;
+}
+
+.menu-guide-table-wrap{
+  overflow:auto !important;
+  max-height:65vh !important;
+  border-radius:14px !important;
+  border:1px solid rgba(120,205,208,.18) !important;
+  background:rgba(6,27,36,.55) !important;
+}
+
+.menu-guide-table{
+  width:100% !important;
+  min-width:1050px !important;
+  border-collapse:separate !important;
+  border-spacing:0 !important;
+}
+
+.menu-guide-table th{
+  position:sticky !important;
+  top:0 !important;
+  z-index:2 !important;
+  background:#061b24 !important;
+  color:var(--gold-2) !important;
+  padding:10px !important;
+  text-align:left !important;
+  font-size:12px !important;
+  text-transform:uppercase !important;
+  letter-spacing:.04em !important;
+  border-bottom:1px solid rgba(216,173,98,.35) !important;
+}
+
+.menu-guide-table td{
+  background:#0b2a35 !important;
+  color:#f3e9d2 !important;
+  padding:10px !important;
+  border-bottom:1px solid rgba(120,205,208,.16) !important;
+  vertical-align:top !important;
+  line-height:1.28 !important;
+}
+
+.menu-guide-table tr:nth-child(even) td{
+  background:#09242e !important;
+}
+
+.menu-guide-table td b{
+  display:block !important;
+  color:var(--gold-2) !important;
+  margin-bottom:3px !important;
+}
+
+.menu-guide-table td small{
+  display:block !important;
+  margin-top:5px !important;
+  color:var(--muted) !important;
+  font-size:11px !important;
+  line-height:1.25 !important;
+}
+
+@media(max-width:760px){
+  .menu-creation-tabs,
+  .menu-guide-panel{
+    max-width:100% !important;
+  }
+
+  .menu-guide-tools{
+    grid-template-columns:1fr !important;
+  }
+}

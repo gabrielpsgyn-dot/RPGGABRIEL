@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RPG Gabriel - Ficha Online Versão Vigente</title>
-  <link rel="stylesheet" href="./css/app-vigente.css?v=racastela14">
+  <link rel="stylesheet" href="./css/app-vigente.css?v=menucriar15">
 </head>
 <!-- RPGGABRIEL Versão Vigente LIVRO DO JOGADOR OFICIAL SEM ACHISMO -->
 <body class="menu-open tema-maritimo-sombrio">
@@ -21,27 +21,105 @@
         </div>
       </div>
 
+      <div class="menu-creation-tabs">
+        <button class="menu-create-tab active" data-menu-create-tab="menuCharactersView">Personagens</button>
+        <button class="menu-create-tab" data-menu-create-tab="menuRacesView">Raças e bônus</button>
+        <button class="menu-create-tab" data-menu-create-tab="menuBackgroundsView">Antecedentes</button>
+      </div>
+
       <div class="menu-grid menu-grid-main menu-grid-single">
-        <div class="menu-panel menu-panel-characters">
-          <div class="menu-panel-head">
-            <div>
-              <h2>Personagens</h2>
-              <p>Cada personagem tem seus próprios botões para abrir ou excluir.</p>
+        <div class="menu-create-view active" id="menuCharactersView">
+          <div class="menu-panel menu-panel-characters">
+            <div class="menu-panel-head">
+              <div>
+                <h2>Personagens</h2>
+                <p>Cada personagem tem seus próprios botões para abrir ou excluir.</p>
+              </div>
+            </div>
+            <input class="menu-search" id="menuSearchInput" placeholder="Buscar por nome, classe, raça ou jogador">
+            <div class="char-list char-list-vigente" id="menuCharacterList"></div>
+            <div class="menu-actions menu-actions-row">
+              <button class="btn green" id="newCharacterBtn">+ Criar personagem</button>
+              <button class="btn secondary" id="refreshOnlineBtn">Atualizar lista</button>
+              <button class="btn secondary" id="importJsonBtn">Importar ficha JSON</button>
+            </div>
+            <div class="status-line" id="onlineBadge">Pronto.</div>
+          </div>
+        </div>
+
+        <div class="menu-create-view" id="menuRacesView">
+          <div class="menu-panel menu-guide-panel">
+            <div class="menu-panel-head">
+              <div>
+                <h2>Raças, atributos e benefícios</h2>
+                <p>Tabela de consulta antes de criar/abrir personagem. Mostra bônus fixo, bônus por nível e benefícios de cada raça.</p>
+              </div>
+            </div>
+            <div class="menu-guide-tools">
+              <input class="menu-search" id="menuRaceSearch" placeholder="Buscar raça, atributo, benefício, resistência...">
+              <select id="menuRaceFilter">
+                <option value="">Todas as raças</option>
+                <option value="base">Raças base</option>
+                <option value="sub">Sub-raças / variantes</option>
+                <option value="level">Com bônus por nível</option>
+                <option value="resistance">Com resistência</option>
+                <option value="choice">Com escolha pendente</option>
+              </select>
+            </div>
+            <div class="menu-guide-table-wrap">
+              <table class="menu-guide-table">
+                <thead>
+                  <tr>
+                    <th>Raça</th>
+                    <th>Atributos</th>
+                    <th>Bônus por nível</th>
+                    <th>Benefícios para o usuário</th>
+                    <th>Idiomas / visão / resistência</th>
+                  </tr>
+                </thead>
+                <tbody id="menuRaceTableBody"></tbody>
+              </table>
             </div>
           </div>
-          <input class="menu-search" id="menuSearchInput" placeholder="Buscar por nome, classe, raça ou jogador">
-          <div class="char-list char-list-vigente" id="menuCharacterList"></div>
-          <div class="menu-actions menu-actions-row">
-            <button class="btn green" id="newCharacterBtn">+ Criar personagem</button>
-            <button class="btn secondary" id="refreshOnlineBtn">Atualizar lista</button>
-            <button class="btn secondary" id="importJsonBtn">Importar ficha JSON</button>
+        </div>
+
+        <div class="menu-create-view" id="menuBackgroundsView">
+          <div class="menu-panel menu-guide-panel">
+            <div class="menu-panel-head">
+              <div>
+                <h2>Antecedentes e benefícios</h2>
+                <p>Veja o que cada antecedente entrega: perícias, idiomas, ferramentas, equipamento inicial e benefício narrativo.</p>
+              </div>
+            </div>
+            <div class="menu-guide-tools">
+              <input class="menu-search" id="menuBackgroundSearch" placeholder="Buscar antecedente, perícia, ferramenta, equipamento...">
+              <select id="menuBackgroundFilter">
+                <option value="">Todos os antecedentes</option>
+                <option value="language">Com idioma</option>
+                <option value="tool">Com ferramenta</option>
+                <option value="equipment">Com equipamento</option>
+              </select>
+            </div>
+            <div class="menu-guide-table-wrap">
+              <table class="menu-guide-table">
+                <thead>
+                  <tr>
+                    <th>Antecedente</th>
+                    <th>Perícias</th>
+                    <th>Ferramentas / idiomas</th>
+                    <th>Equipamento inicial</th>
+                    <th>Benefício para o usuário</th>
+                  </tr>
+                </thead>
+                <tbody id="menuBackgroundTableBody"></tbody>
+              </table>
+            </div>
           </div>
-          <div class="status-line" id="onlineBadge">Pronto.</div>
         </div>
       </div>
 
       <div class="menu-footer-actions">
-        <a class="btn secondary master-link" href="/mestre.html?v=racastela14">Página do Mestre</a>
+        <a class="btn secondary master-link" href="/mestre.html?v=menucriar15">Página do Mestre</a>
       </div>
     </div>
   </section>
@@ -57,7 +135,6 @@
       </div>
       <div class="tabs">
         <button class="tab active" data-tab="sheetPage">Ficha</button>
-        <button class="tab" data-tab="raceGuidePage">Raças</button>
         <button class="tab" data-tab="storyPage">História</button>
         <button class="tab" data-tab="spellsPage">Magias</button>
         <button class="tab" data-tab="campaignPage">Campanha</button>
@@ -285,8 +362,8 @@
                 <div id="rulesAuditSummary" class="rules-audit-box"></div>
                 <div class="rules-audit-actions">
                   <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                  <a class="btn small secondary" href="criador.html?v=racastela14" target="_blank">Criador livre</a>
-                  <a class="btn small primary" href="livro-regras.html?v=racastela14" target="_blank">Livro de Regras</a>
+                  <a class="btn small secondary" href="criador.html?v=menucriar15" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=menucriar15" target="_blank">Livro de Regras</a>
                 </div>
               </details>
             </div>
@@ -9291,6 +9368,126 @@
       `;
     }
 
+
+    function menuRaceLevelBonus(rule){
+      const effects = Array.isArray(rule && rule.levelEffects) ? rule.levelEffects : [];
+      if(!effects.length) return 'Sem bônus por nível.';
+      return effects.map(e=>`Nv. ${num(e.level)||'?'}: ${e.name || e.nome || ''}${(e.effect || e.efeito) ? ' — ' + (e.effect || e.efeito) : ''}`).join(' | ');
+    }
+
+    function menuRaceBenefits(rule){
+      const traits = (rule.traits || []).map(raceBenefitName).filter(Boolean);
+      const prof = (rule.proficiencies || []).length ? ['Proficiências: ' + rule.proficiencies.join(', ')] : [];
+      const skillsRace = (rule.skills || []).length ? ['Perícias: ' + rule.skills.map(raceSkillLabel).join(', ')] : [];
+      const choices = (rule.choices || []).length ? ['Escolhas: ' + rule.choices.map(x=>x.nome || x.name || 'Escolha racial').join(', ')] : [];
+      return [...skillsRace, ...prof, ...traits, ...choices].filter(Boolean).slice(0,6).join(' • ') || '-';
+    }
+
+    function menuRaceInfoBlob(name, rule){
+      return [
+        name, rule.parent, raceAbilityIncreaseLabel(rule), menuRaceLevelBonus(rule), menuRaceBenefits(rule),
+        rule.size, rule.speed, rule.darkvision,
+        (rule.languages || []).join(' '),
+        (rule.resistances || []).join(' ')
+      ].join(' ').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+    }
+
+    function renderMenuRaceGuide(){
+      const body = $('#menuRaceTableBody');
+      if(!body) return;
+      const rules = getAllRaceRules();
+      const q = String($('#menuRaceSearch') ? $('#menuRaceSearch').value : '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
+      const filter = $('#menuRaceFilter') ? $('#menuRaceFilter').value : '';
+      let names = Object.keys(rules).filter(name=>{
+        const rule = rules[name] || {};
+        if(filter === 'base' && rule.parent) return false;
+        if(filter === 'sub' && !rule.parent) return false;
+        if(filter === 'level' && !(rule.levelEffects || []).length) return false;
+        if(filter === 'resistance' && !(rule.resistances || []).length) return false;
+        if(filter === 'choice' && !(rule.choices || []).length && !(rule.abilityIncrease && rule.abilityIncrease.doisValoresAEscolha)) return false;
+        return !q || menuRaceInfoBlob(name, rule).includes(q);
+      });
+      names = names.sort((a,b)=>{
+        const ap = rules[a] && rules[a].parent ? 1 : 0;
+        const bp = rules[b] && rules[b].parent ? 1 : 0;
+        if(ap !== bp) return ap - bp;
+        return a.localeCompare(b,'pt-BR');
+      });
+
+      body.innerHTML = names.length ? names.map(name=>{
+        const rule = rules[name] || {};
+        const langVisionRes = [
+          (rule.languages || []).length ? 'Idiomas: ' + rule.languages.join(', ') : '',
+          rule.darkvision ? 'Visão: ' + rule.darkvision : '',
+          (rule.resistances || []).length ? 'Resistência: ' + rule.resistances.join(', ') : ''
+        ].filter(Boolean).join(' • ') || '-';
+        return `
+          <tr>
+            <td><b>${escapeHtml(name)}</b>${rule.parent ? `<small>${escapeHtml(rule.parent)}</small>` : ''}</td>
+            <td>${escapeHtml(raceAbilityIncreaseLabel(rule))}</td>
+            <td>${escapeHtml(menuRaceLevelBonus(rule))}</td>
+            <td>${escapeHtml(menuRaceBenefits(rule))}</td>
+            <td>${escapeHtml(langVisionRes)}</td>
+          </tr>
+        `;
+      }).join('') : '<tr><td colspan="5">Nenhuma raça encontrada.</td></tr>';
+    }
+
+    function bgSkillLabels(bg){
+      return (bg.skills || []).map(raceSkillLabel).join(', ') || '-';
+    }
+
+    function menuBackgroundBenefit(bg){
+      const feature = bg.feature ? `Característica: ${bg.feature}` : '';
+      const summary = bg.summary || '';
+      return [feature, summary].filter(Boolean).join(' • ') || '-';
+    }
+
+    function menuBackgroundInfoBlob(name, bg){
+      return [
+        name, bgSkillLabels(bg), (bg.languages || []).join(' '), (bg.tools || []).join(' '),
+        (bg.equipment || []).join(' '), menuBackgroundBenefit(bg)
+      ].join(' ').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+    }
+
+    function renderMenuBackgroundGuide(){
+      const body = $('#menuBackgroundTableBody');
+      if(!body) return;
+      const rules = getAllBackgroundRules();
+      const q = String($('#menuBackgroundSearch') ? $('#menuBackgroundSearch').value : '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
+      const filter = $('#menuBackgroundFilter') ? $('#menuBackgroundFilter').value : '';
+
+      let names = Object.keys(rules).filter(name=>{
+        const bg = rules[name] || {};
+        if(filter === 'language' && !(bg.languages || []).length) return false;
+        if(filter === 'tool' && !(bg.tools || []).length) return false;
+        if(filter === 'equipment' && !(bg.equipment || []).length) return false;
+        return !q || menuBackgroundInfoBlob(name, bg).includes(q);
+      }).sort((a,b)=>a.localeCompare(b,'pt-BR'));
+
+      body.innerHTML = names.length ? names.map(name=>{
+        const bg = rules[name] || {};
+        const toolsLang = [
+          (bg.tools || []).length ? 'Ferramentas: ' + bg.tools.join(', ') : '',
+          (bg.languages || []).length ? 'Idiomas: ' + bg.languages.join(', ') : ''
+        ].filter(Boolean).join(' • ') || '-';
+        return `
+          <tr>
+            <td><b>${escapeHtml(name)}</b></td>
+            <td>${escapeHtml(bgSkillLabels(bg))}</td>
+            <td>${escapeHtml(toolsLang)}</td>
+            <td>${escapeHtml((bg.equipment || []).join(', ') || '-')}</td>
+            <td>${escapeHtml(menuBackgroundBenefit(bg))}<small>Não escala por nível; entra na criação do personagem.</small></td>
+          </tr>
+        `;
+      }).join('') : '<tr><td colspan="5">Nenhum antecedente encontrado.</td></tr>';
+    }
+
+    function renderMenuCreationGuides(){
+      renderMenuRaceGuide();
+      renderMenuBackgroundGuide();
+    }
+
     function renderRaceGuide(){
       const body = $('#raceGuideTableBody');
       if(!body) return;
@@ -10100,6 +10297,18 @@
       const raceGuideFilter = $('#raceGuideFilter'); if(raceGuideFilter) raceGuideFilter.addEventListener('change', renderRaceGuide);
             const inventorySearchInput = $('#inventorySearchInput'); if(inventorySearchInput) inventorySearchInput.addEventListener('input', renderInventory);
       const inventoryCategoryFilter = $('#inventoryCategoryFilter'); if(inventoryCategoryFilter) inventoryCategoryFilter.addEventListener('change', renderInventory);
+      const menuRaceSearch = $('#menuRaceSearch'); if(menuRaceSearch) menuRaceSearch.addEventListener('input', renderMenuRaceGuide);
+      const menuRaceFilter = $('#menuRaceFilter'); if(menuRaceFilter) menuRaceFilter.addEventListener('change', renderMenuRaceGuide);
+      const menuBackgroundSearch = $('#menuBackgroundSearch'); if(menuBackgroundSearch) menuBackgroundSearch.addEventListener('input', renderMenuBackgroundGuide);
+      const menuBackgroundFilter = $('#menuBackgroundFilter'); if(menuBackgroundFilter) menuBackgroundFilter.addEventListener('change', renderMenuBackgroundGuide);
+      $all('[data-menu-create-tab]').forEach(btn=>btn.addEventListener('click', ()=>{
+        $all('[data-menu-create-tab]').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        $all('.menu-create-view').forEach(v=>v.classList.remove('active'));
+        const target = $('#'+btn.dataset.menuCreateTab);
+        if(target) target.classList.add('active');
+        renderMenuCreationGuides();
+      }));
       const spellBankSearchBtn = $('#spellBankSearchBtn'); if(spellBankSearchBtn) spellBankSearchBtn.onclick=searchSpellBank;
       const toggleSpellBankBtn = $('#toggleSpellBankBtn'); if(toggleSpellBankBtn) toggleSpellBankBtn.onclick=toggleSpellBank;
       const spellClassFilter = $('#spellClassFilter'); if(spellClassFilter) spellClassFilter.addEventListener('change', ()=>{ spellClassFilter.dataset.manualClassFilter = '1'; });
