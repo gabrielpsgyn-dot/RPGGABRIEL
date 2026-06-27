@@ -3421,3 +3421,80 @@ select{
     padding-left:38px !important;
   }
 }
+
+
+/* ===== AJUSTE VIGENTE — BOTÕES POR PERSONAGEM ===== */
+
+.menu-grid-single{
+  grid-template-columns:1fr !important;
+}
+
+.menu-panel-characters{
+  max-width:960px !important;
+  width:100% !important;
+  justify-self:center !important;
+}
+
+.menu-footer-actions{
+  display:grid !important;
+  max-width:960px !important;
+  width:100% !important;
+  justify-self:center !important;
+  margin-top:2px !important;
+}
+
+.menu-footer-actions .master-link{
+  min-height:44px !important;
+  width:100% !important;
+}
+
+.menu-screen .char-card,
+.menu-screen .char-card-vigente{
+  cursor:default !important;
+}
+
+.menu-screen .char-card-actions{
+  display:grid !important;
+  grid-template-columns:1fr auto !important;
+  gap:8px !important;
+  margin-top:8px !important;
+  padding-left:42px !important;
+}
+
+.menu-screen .char-card-actions .btn{
+  min-height:36px !important;
+  font-size:12px !important;
+  padding:7px 10px !important;
+}
+
+.menu-screen .char-card-actions .btn.danger{
+  min-width:92px !important;
+}
+
+.menu-actions-row{
+  grid-template-columns:1fr 1fr 1fr !important;
+}
+
+#deleteModal .modal-card{
+  border-color:rgba(143,75,77,.75) !important;
+}
+
+#deleteConfirmInput{
+  margin-top:8px !important;
+  text-transform:uppercase !important;
+}
+
+@media(max-width:640px){
+  .menu-actions-row{
+    grid-template-columns:1fr !important;
+  }
+
+  .menu-screen .char-card-actions{
+    grid-template-columns:1fr !important;
+    padding-left:0 !important;
+  }
+
+  .menu-screen .char-card-actions .btn.danger{
+    min-width:0 !important;
+  }
+}

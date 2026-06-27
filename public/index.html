@@ -21,12 +21,12 @@
         </div>
       </div>
 
-      <div class="menu-grid menu-grid-main">
+      <div class="menu-grid menu-grid-main menu-grid-single">
         <div class="menu-panel menu-panel-characters">
           <div class="menu-panel-head">
             <div>
               <h2>Personagens</h2>
-              <p>Toque em uma ficha para selecionar e entrar.</p>
+              <p>Cada personagem tem seus próprios botões para abrir ou excluir.</p>
             </div>
           </div>
           <input class="menu-search" id="menuSearchInput" placeholder="Buscar por nome, classe, raça ou jogador">
@@ -34,30 +34,14 @@
           <div class="menu-actions menu-actions-row">
             <button class="btn green" id="newCharacterBtn">+ Criar personagem</button>
             <button class="btn secondary" id="refreshOnlineBtn">Atualizar lista</button>
+            <button class="btn secondary" id="importJsonBtn">Importar ficha JSON</button>
           </div>
-        </div>
-
-        <div class="menu-panel menu-panel-entry">
-          <h2>Entrar na ficha</h2>
-          <div class="selected-summary" id="selectedCharacterSummary">
-            <div class="empty-selection">Selecione um personagem da lista.</div>
-          </div>
-
-          <div class="menu-actions">
-            <button class="btn primary" id="enterSelectedBtn">Entrar no personagem selecionado</button>
-            <a class="btn secondary master-link" href="/mestre.html?v=vigente">Página do Mestre</a>
-          </div>
-
-          <details class="menu-advanced">
-            <summary>Ferramentas avançadas</summary>
-            <div class="menu-actions">
-              <button class="btn secondary" id="importJsonBtn">Importar ficha JSON</button>
-              <button class="btn danger" id="deleteCharacterBtn">Excluir personagem local</button>
-            </div>
-          </details>
-
           <div class="status-line" id="onlineBadge">Pronto.</div>
         </div>
+      </div>
+
+      <div class="menu-footer-actions">
+        <a class="btn secondary master-link" href="/mestre.html?v=vigente">Página do Mestre</a>
       </div>
     </div>
   </section>
@@ -612,6 +596,20 @@
       <div class="modal-actions">
         <button class="btn secondary" id="cancelPasswordBtn">Cancelar</button>
         <button class="btn" id="confirmPasswordBtn">Entrar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal hidden" id="deleteModal">
+    <div class="modal-card">
+      <h2>Confirmar exclusão</h2>
+      <p>Personagem: <b id="deleteTarget">Personagem</b></p>
+      <p class="note">Essa ação remove a ficha local deste navegador. Para confirmar, digite a senha da mesa e escreva <b>EXCLUIR</b>.</p>
+      <input id="deletePasswordInput" type="password" autocomplete="current-password" placeholder="Senha da mesa">
+      <input id="deleteConfirmInput" placeholder="Digite EXCLUIR">
+      <div class="modal-actions">
+        <button class="btn secondary" id="cancelDeleteBtn">Cancelar</button>
+        <button class="btn danger" id="confirmDeleteBtn">Excluir personagem</button>
       </div>
     </div>
   </div>
@@ -4509,7 +4507,7 @@
       ['sobrevivencia','Sobrevivência','sabedoria','Sab']
     ];
 
-    const state = { characters: [], activeId: null, pendingPasswordId: null, imagePath: null, saveTimer: null };
+    const state = { characters: [], activeId: null, pendingPasswordId: null, pendingDeleteId: null, imagePath: null, saveTimer: null };
 
     function $(s,r=document){ return r.querySelector(s); }
     function $all(s,r=document){ return Array.from(r.querySelectorAll(s)); }
@@ -5695,27 +5693,7 @@
       if(countBadge) countBadge.textContent = `${state.characters.length} personagem(ns)`;
 
       const selectedBadge = $('#selectedCharacterBadge');
-      if(selectedBadge) selectedBadge.textContent = selected ? `selecionado: ${selected.meta.nomePersonagem || 'Sem nome'}` : 'nenhum selecionado';
-
-      const summary = $('#selectedCharacterSummary');
-      if(summary){
-        if(selected){
-          const meta = selected.meta || {};
-          const camp = selected.campanha || {};
-          summary.innerHTML = `
-            <div class="selected-summary-name">${escapeHtml(meta.nomePersonagem || 'Sem nome')}</div>
-            <div class="selected-summary-sub">${escapeHtml(subtitle(selected) || 'Ficha sem classe definida')}</div>
-            <div class="selected-summary-grid">
-              <span>PV <b>${escapeHtml(menuHpLabel(selected))}</b></span>
-              <span>Nível <b>${escapeHtml(meta.nivel || 1)}</b></span>
-              <span>Corrupção <b>${escapeHtml(camp.corrupcao || 0)}/10</b></span>
-              <span>Atualizado <b>${escapeHtml(menuUpdatedLabel(selected))}</b></span>
-            </div>
-          `;
-        }else{
-          summary.innerHTML = '<div class="empty-selection">Selecione um personagem da lista.</div>';
-        }
-      }
+      if(selectedBadge) selectedBadge.textContent = selected ? `${state.characters.length} personagem(ns)` : 'nenhum personagem';
 
       if(!state.characters.length){
         list.innerHTML = '<div class="menu-empty-card"><b>Nenhum personagem ainda.</b><span>Crie uma ficha nova ou importe um JSON.</span></div>';
@@ -5732,7 +5710,7 @@
         const camp = c.campanha || {};
         const img = c.descricao && c.descricao.aparenciaImagem ? c.descricao.aparenciaImagem : '';
         return `
-          <button class="char-card char-card-vigente ${c.id===state.activeId?'active':''}" data-menu-id="${escapeHtml(c.id)}">
+          <article class="char-card char-card-vigente ${c.id===state.activeId?'active':''}" data-menu-id="${escapeHtml(c.id)}">
             <div class="char-card-top">
               <div class="char-avatar">${img ? `<img class="char-avatar-img" src="${escapeHtml(img)}" width="34" height="34" alt="">` : '<span>•</span>'}</div>
               <div class="char-main">
@@ -5747,7 +5725,11 @@
               <span class="pill">${escapeHtml(meta.raca || 'sem raça')}</span>
               <span class="pill">corrupção ${escapeHtml(camp.corrupcao || 0)}/10</span>
             </div>
-          </button>
+            <div class="char-card-actions">
+              <button type="button" class="btn primary small" data-open-character="${escapeHtml(c.id)}">Abrir ficha</button>
+              <button type="button" class="btn danger small" data-delete-character="${escapeHtml(c.id)}">Excluir</button>
+            </div>
+          </article>
         `;
       }).join('');
     }
@@ -7878,6 +7860,54 @@
       setTimeout(()=>$('#passwordInput').focus(),50);
     }
 
+
+    function openDeleteConfirm(id){
+      const c = state.characters.find(x=>x.id===id);
+      if(!c){ toast('Personagem não encontrado.'); return; }
+      state.pendingDeleteId = id;
+      $('#deleteTarget').textContent = c.meta && c.meta.nomePersonagem ? c.meta.nomePersonagem : 'Personagem';
+      $('#deletePasswordInput').value = '';
+      $('#deleteConfirmInput').value = '';
+      $('#deleteModal').classList.remove('hidden');
+      setTimeout(()=>$('#deletePasswordInput').focus(),50);
+    }
+
+    async function confirmDeleteCharacter(){
+      const id = state.pendingDeleteId;
+      const c = state.characters.find(x=>x.id===id);
+      if(!c){ toast('Personagem não encontrado.'); return; }
+
+      const pwd = ($('#deletePasswordInput').value || '').trim();
+      const typed = ($('#deleteConfirmInput').value || '').trim().toUpperCase();
+
+      if(!pwd){ toast('Digite a senha da mesa.'); return; }
+      if(typed !== 'EXCLUIR'){ toast('Digite EXCLUIR para confirmar.'); return; }
+
+      sessionStorage.setItem(PASSWORD_KEY, pwd);
+
+      try{
+        await apiFetch('/api/characters?campaignId='+encodeURIComponent(CAMPAIGN_ID), {method:'GET'}, true);
+      }catch(e){
+        toast('Senha inválida ou falha ao validar.');
+        return;
+      }
+
+      state.characters = state.characters.filter(x=>x.id !== id);
+      if(state.activeId === id) state.activeId = state.characters[0] ? state.characters[0].id : null;
+
+      if(!state.characters.length){
+        const fresh = makeCharacter();
+        state.characters.push(fresh);
+        state.activeId = fresh.id;
+      }
+
+      $('#deleteModal').classList.add('hidden');
+      state.pendingDeleteId = null;
+      saveLocal(true);
+      renderMenu();
+      toast('Personagem excluído localmente.');
+    }
+
     async function confirmPassword(){
       const pwd=$('#passwordInput').value.trim();
       const id=state.pendingPasswordId || state.activeId;
@@ -8182,8 +8212,14 @@
         const remItem = e.target.closest('[data-remove-item]');
         if(remItem){ removeInventoryItem(remItem.dataset.removeItem); return; }
 
+        const openCharacterBtn=e.target.closest('[data-open-character]');
+        if(openCharacterBtn){ setActive(openCharacterBtn.dataset.openCharacter); openPassword(openCharacterBtn.dataset.openCharacter); return; }
+
+        const deleteCharacterCardBtn=e.target.closest('[data-delete-character]');
+        if(deleteCharacterCardBtn){ openDeleteConfirm(deleteCharacterCardBtn.dataset.deleteCharacter); return; }
+
         const menuCard=e.target.closest('[data-menu-id]');
-        if(menuCard){ setActive(menuCard.dataset.menuId); openPassword(menuCard.dataset.menuId); return; }
+        if(menuCard){ state.activeId = menuCard.dataset.menuId; saveLocal(false); renderMenu(); return; }
         const attr=e.target.closest('[data-attr-step]');
         if(attr){
           const c=activeChar(); const k=attr.dataset.attrStep; const delta=num(attr.dataset.delta);
@@ -8254,8 +8290,6 @@
       });
       const menuSearchInput = $('#menuSearchInput'); if(menuSearchInput) menuSearchInput.oninput=renderMenu;
       const newCharacterBtn = $('#newCharacterBtn'); if(newCharacterBtn) newCharacterBtn.onclick=()=>{ const c=makeCharacter(); state.characters.push(c); state.activeId=c.id; saveLocal(true); renderMenu(); openPassword(c.id); };
-      const deleteCharacterBtn = $('#deleteCharacterBtn'); if(deleteCharacterBtn) deleteCharacterBtn.onclick=()=>{ if(state.characters.length<=1){toast('Mantenha pelo menos um personagem.');return;} state.characters=state.characters.filter(c=>c.id!==state.activeId); state.activeId=state.characters[0].id; saveLocal(true); renderMenu(); };
-      const enterSelectedBtn = $('#enterSelectedBtn'); if(enterSelectedBtn) enterSelectedBtn.onclick=()=> state.activeId ? openPassword(state.activeId) : toast('Selecione um personagem.');
       const refreshOnlineBtn = $('#refreshOnlineBtn'); if(refreshOnlineBtn) refreshOnlineBtn.onclick=refreshOnline;
       const backToMenuBtn = $('#backToMenuBtn'); if(backToMenuBtn) backToMenuBtn.onclick=()=>{ document.body.classList.add('menu-open'); renderMenu(); };
       const printBtn = $('#printBtn'); if(printBtn) printBtn.onclick=()=>window.print();
@@ -8263,6 +8297,9 @@
       const cancelPasswordBtn = $('#cancelPasswordBtn'); if(cancelPasswordBtn) cancelPasswordBtn.onclick=()=>$('#passwordModal').classList.add('hidden');
       const confirmPasswordBtn = $('#confirmPasswordBtn'); if(confirmPasswordBtn) confirmPasswordBtn.onclick=confirmPassword;
       const passwordInput = $('#passwordInput'); if(passwordInput) passwordInput.addEventListener('keydown',e=>{ if(e.key==='Enter') confirmPassword(); });
+      const cancelDeleteBtn = $('#cancelDeleteBtn'); if(cancelDeleteBtn) cancelDeleteBtn.onclick=()=>$('#deleteModal').classList.add('hidden');
+      const confirmDeleteBtn = $('#confirmDeleteBtn'); if(confirmDeleteBtn) confirmDeleteBtn.onclick=confirmDeleteCharacter;
+      const deleteConfirmInput = $('#deleteConfirmInput'); if(deleteConfirmInput) deleteConfirmInput.addEventListener('keydown',e=>{ if(e.key==='Enter') confirmDeleteCharacter(); });
       const imageInput = $('#imageInput'); if(imageInput) imageInput.onchange=e=>{
         const file=e.target.files && e.target.files[0]; if(!file) return;
         resizeImage(file, data=>{
