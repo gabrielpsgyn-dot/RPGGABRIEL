@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RPG Gabriel - Ficha Online Versão Vigente</title>
-  <link rel="stylesheet" href="./css/app-vigente.css?v=topodados4">
+  <link rel="stylesheet" href="./css/app-vigente.css?v=inventariomestre6">
 </head>
 <!-- RPGGABRIEL Versão Vigente LIVRO DO JOGADOR OFICIAL SEM ACHISMO -->
 <body class="menu-open tema-maritimo-sombrio">
@@ -41,7 +41,7 @@
       </div>
 
       <div class="menu-footer-actions">
-        <a class="btn secondary master-link" href="/mestre.html?v=vigente">Página do Mestre</a>
+        <a class="btn secondary master-link" href="/mestre.html?v=inventariomestre6">Página do Mestre</a>
       </div>
     </div>
   </section>
@@ -243,8 +243,8 @@
                 <div id="rulesAuditSummary" class="rules-audit-box"></div>
                 <div class="rules-audit-actions">
                   <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                  <a class="btn small secondary" href="criador.html?v=vigente" target="_blank">Criador livre</a>
-                  <a class="btn small primary" href="livro-regras.html?v=vigente" target="_blank">Livro de Regras</a>
+                  <a class="btn small secondary" href="criador.html?v=inventariomestre6" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=inventariomestre6" target="_blank">Livro de Regras</a>
                 </div>
               </details>
             </div>
@@ -418,65 +418,84 @@
         </div>
       </div>
 
-      <div class="page" id="storyPage">
-        <div class="header-grid">
-          <div class="name-box">
-            <label>Nome do personagem</label>
-            <input data-path="meta.nomePersonagem">
-          </div>
-          <div class="header-fields">
-            <div class="field"><label>Idade</label><input data-path="descricao.idade"></div>
-            <div class="field"><label>Altura</label><input data-path="descricao.altura"></div>
-            <div class="field"><label>Peso</label><input data-path="descricao.peso"></div>
-            <div class="field"><label>Cor dos olhos</label><input data-path="descricao.corOlhos"></div>
-            <div class="field"><label>Cor da pele</label><input data-path="descricao.corPele"></div>
-            <div class="field"><label>Cor do cabelo</label><input data-path="descricao.corCabelo"></div>
-          </div>
-        </div>
-        <div class="grid-2">
-          <div>
-            <div class="panel">
-              <h3>Aparência do personagem</h3>
-              <div class="image-box" id="portraitBox">Imagem do personagem</div>
-              <div class="image-tools">
+      <div class="page story-page" id="storyPage">
+        <div class="story-hero panel">
+          <div class="story-hero-main">
+            <div class="story-portrait-card">
+              <div class="image-box story-main-image" id="portraitBox">Imagem do personagem</div>
+              <div class="image-tools story-image-actions">
                 <button class="btn secondary small" data-img-action="upload" data-img-path="descricao.aparenciaImagem">Enviar imagem</button>
-                <button class="btn secondary small" data-img-action="download" data-img-path="descricao.aparenciaImagem">Baixar imagem</button>
+                <button class="btn secondary small" data-img-action="download" data-img-path="descricao.aparenciaImagem">Baixar</button>
                 <button class="btn danger small" data-img-action="remove" data-img-path="descricao.aparenciaImagem">Remover</button>
               </div>
-              <textarea data-path="descricao.aparenciaTexto" class="tall" placeholder="Descrição da aparência"></textarea>
               <input type="file" id="imageInput" accept="image/*" hidden>
             </div>
-            <div class="panel">
-              <h3>História</h3>
-              <textarea data-path="descricao.historia" class="huge"></textarea>
+
+            <div class="story-identity">
+              <div>
+                <h3>História e aparência</h3>
+                <p class="sheet-note">Página narrativa do personagem: aparência, passado, personalidade, aliados e símbolos.</p>
+              </div>
+              <div class="story-fields-grid">
+                <div class="field story-name-field"><label>Nome do personagem</label><input data-path="meta.nomePersonagem"></div>
+                <div class="field"><label>Idade</label><input data-path="descricao.idade"></div>
+                <div class="field"><label>Altura</label><input data-path="descricao.altura"></div>
+                <div class="field"><label>Peso</label><input data-path="descricao.peso"></div>
+                <div class="field"><label>Olhos</label><input data-path="descricao.corOlhos"></div>
+                <div class="field"><label>Pele</label><input data-path="descricao.corPele"></div>
+                <div class="field"><label>Cabelo</label><input data-path="descricao.corCabelo"></div>
+              </div>
             </div>
           </div>
-          <div>
-            <div class="panel">
+        </div>
+
+        <div class="story-layout-grid">
+          <div class="story-left">
+            <div class="panel story-panel story-panel-main">
+              <h3>História</h3>
+              <textarea data-path="descricao.historia" class="huge story-main-text" placeholder="Origem, objetivos, conflitos, segredos e vínculos com a campanha."></textarea>
+            </div>
+
+            <div class="panel story-panel">
+              <h3>Aparência em texto</h3>
+              <textarea data-path="descricao.aparenciaTexto" class="tall" placeholder="Roupas, marcas, postura, voz, hábitos e detalhes visuais."></textarea>
+            </div>
+
+            <div class="panel story-panel">
               <h3>Aliados e organizações</h3>
-              <textarea data-path="descricao.aliadosOrganizacoes" class="tall"></textarea>
+              <textarea data-path="descricao.aliadosOrganizacoes" class="tall" placeholder="Aliados, rivais, facções, contatos, família, patronos ou organizações."></textarea>
+            </div>
+          </div>
+
+          <div class="story-right">
+            <div class="panel story-panel">
+              <h3>Personalidade</h3>
+              <div class="personality-grid">
+                <div class="field"><label>Traços</label><textarea data-path="personalidade.tracos"></textarea></div>
+                <div class="field"><label>Ideais</label><textarea data-path="personalidade.ideais"></textarea></div>
+                <div class="field"><label>Vínculos</label><textarea data-path="personalidade.vinculos"></textarea></div>
+                <div class="field"><label>Fraquezas</label><textarea data-path="personalidade.fraquezas"></textarea></div>
+              </div>
+            </div>
+
+            <div class="panel story-panel">
+              <h3>Símbolo / brasão</h3>
               <div class="field"><label>Nome do símbolo</label><input data-path="descricao.simboloNome"></div>
-              <div class="image-box" id="symbolBox" style="min-height:130px">Imagem / brasão</div>
+              <div class="image-box story-symbol-box" id="symbolBox">Imagem / brasão</div>
               <div class="image-tools">
                 <button class="btn secondary small" data-img-action="upload" data-img-path="descricao.simboloImagem">Enviar símbolo</button>
                 <button class="btn danger small" data-img-action="remove" data-img-path="descricao.simboloImagem">Remover</button>
               </div>
             </div>
 
-            <div class="panel">
-              <h3>Personalidade</h3>
-              <div class="field"><label>Traços</label><textarea data-path="personalidade.tracos"></textarea></div>
-              <div class="field"><label>Ideais</label><textarea data-path="personalidade.ideais"></textarea></div>
-              <div class="field"><label>Vínculos</label><textarea data-path="personalidade.vinculos"></textarea></div>
-              <div class="field"><label>Fraquezas</label><textarea data-path="personalidade.fraquezas"></textarea></div>
-            </div>
-            <div class="panel">
+            <div class="panel story-panel">
               <h3>Características adicionais</h3>
-              <textarea data-path="descricao.caracteristicasAdicionais" class="tall"></textarea>
+              <textarea data-path="descricao.caracteristicasAdicionais" class="tall" placeholder="Marcas, sotaque, costumes, medos, objetivos e observações."></textarea>
             </div>
-            <div class="panel">
-              <h3>Tesouros</h3>
-              <p class="calc-note">Tesouros, ouro e itens ficam no Inventário por objetos da ficha inicial.</p>
+
+            <div class="panel story-panel">
+              <h3>Tesouros narrativos</h3>
+              <p class="calc-note">Tesouros mecânicos ficam no Inventário. Use este campo só para itens narrativos e legado textual.</p>
               <details class="clean-edit-details">
                 <summary>Legado: tesouros antigos em texto</summary>
                 <textarea data-path="descricao.tesouros" class="tall" placeholder="Texto antigo preservado apenas para migração."></textarea>
@@ -486,76 +505,105 @@
         </div>
       </div>
 
-      <div class="page" id="spellsPage">
-        <div class="spell-head">
-          <div class="field"><label>Classe conjuradora</label><input data-path="magia.classeConjuradora"></div>
-          <div class="field"><label>Atributo de conjuração</label><select data-path="magia.atributoConjuracao" id="spellAbility"></select></div>
-          <div class="field">
-            <label>CD das magias</label>
-            <strong class="auto-rule-value" id="spellDcAuto">-</strong>
-            <small class="auto-rule-note">8 + proficiência + atributo.</small>
+      <div class="page spells-page" id="spellsPage">
+        <div class="spell-dashboard panel">
+          <div class="spell-dashboard-title">
+            <h3>Magias</h3>
+            <p class="sheet-note">Truques, magias escolhidas, busca no banco e controle de espaços em uma tela só.</p>
           </div>
-          <div class="field">
-            <label>Ataque mágico</label>
-            <strong class="auto-rule-value" id="spellAttackAuto">-</strong>
-            <small class="auto-rule-note">Proficiência + atributo.</small>
-          </div>
-        </div>
 
-        <div class="panel spellbook-panel spellbank-panel spellbank-collapsed" id="spellBankPanel">
-          <div class="spellbook-panel-title">
-            <div>
-              <h3>Grimório do personagem</h3>
-              <p class="sheet-note">Abra a busca só quando for adicionar uma magia nova.</p>
+          <div class="spell-dashboard-grid">
+            <div class="field"><label>Classe conjuradora</label><input data-path="magia.classeConjuradora"></div>
+            <div class="field"><label>Atributo de conjuração</label><select data-path="magia.atributoConjuracao" id="spellAbility"></select></div>
+            <div class="spell-stat-card">
+              <span>CD das magias</span>
+              <strong class="auto-rule-value" id="spellDcAuto">-</strong>
+              <small>8 + proficiência + atributo</small>
             </div>
-            <button class="btn secondary small" id="toggleSpellBankBtn" type="button">Abrir busca</button>
-          </div>
-
-          <div class="spellbank-collapsible" id="spellBankCollapsible">
-            <div class="spellbook-tools">
-              <div class="field"><label>Buscar no banco</label><input id="spellSearchInput" placeholder="Ex.: Bola de Fogo"></div>
-              <div class="field"><label>Nível</label>
-                <select id="spellLevelFilter">
-                  <option value="">Todos</option>
-                  <option value="0">Truque</option>
-                  <option value="1">1º</option>
-                  <option value="2">2º</option>
-                  <option value="3">3º</option>
-                  <option value="4">4º</option>
-                  <option value="5">5º</option>
-                  <option value="6">6º</option>
-                  <option value="7">7º</option>
-                  <option value="8">8º</option>
-                  <option value="9">9º</option>
-                </select>
-              </div>
-              <div class="field"><label>Classe</label>
-                <select id="spellClassFilter">
-                  <option value="">Todas</option>
-                  <option>Bardo</option>
-                  <option>Bruxo</option>
-                  <option>Clérigo</option>
-                  <option>Druida</option>
-                  <option>Feiticeiro</option>
-                  <option>Mago</option>
-                  <option>Paladino</option>
-                  <option>Patrulheiro</option>
-                </select>
-              </div>
-              <button class="btn secondary" id="spellBankSearchBtn">Buscar magias</button>
+            <div class="spell-stat-card">
+              <span>Ataque mágico</span>
+              <strong class="auto-rule-value" id="spellAttackAuto">-</strong>
+              <small>Proficiência + atributo</small>
             </div>
-            <div class="spellbook-status" id="spellBankStatus">Use a busca para adicionar magias ao personagem.</div>
-            <div class="spellbank-results" id="spellBankResults"></div>
           </div>
         </div>
 
-        <div class="panel spellbook-panel">
-          <h3>Magias escolhidas</h3>
-          <p class="sheet-note">Aqui aparecem as magias escolhidas e os dados mudam conforme o espaço selecionado.</p>
-          <div id="mySpellbookList" class="my-spellbook-list"></div>
-        </div>
+        <div class="spell-layout-grid">
+          <div class="spell-left-column">
+            <div class="panel cantrip-panel">
+              <div class="spellbook-panel-title">
+                <div>
+                  <h3>Truques conhecidos</h3>
+                  <p class="sheet-note">Truque não consome espaço de magia. Preencha manualmente ou adicione pelo banco como magia de nível 0.</p>
+                </div>
+              </div>
+              <div class="cantrip-list" id="cantripList"></div>
+            </div>
 
-        <div class="spell-grid" id="spellGrid"></div>
+            <div class="panel spellbook-panel spellbank-panel spellbank-collapsed" id="spellBankPanel">
+              <div class="spellbook-panel-title">
+                <div>
+                  <h3>Banco de magias</h3>
+                  <p class="sheet-note">Abra a busca apenas quando quiser adicionar magia ao personagem.</p>
+                </div>
+                <button class="btn secondary small" id="toggleSpellBankBtn" type="button">Abrir busca</button>
+              </div>
+
+              <div class="spellbank-collapsible" id="spellBankCollapsible">
+                <div class="spellbook-tools">
+                  <div class="field"><label>Buscar no banco</label><input id="spellSearchInput" placeholder="Ex.: Bola de Fogo"></div>
+                  <div class="field"><label>Nível</label>
+                    <select id="spellLevelFilter">
+                      <option value="">Todos</option>
+                      <option value="0">Truque</option>
+                      <option value="1">1º</option>
+                      <option value="2">2º</option>
+                      <option value="3">3º</option>
+                      <option value="4">4º</option>
+                      <option value="5">5º</option>
+                      <option value="6">6º</option>
+                      <option value="7">7º</option>
+                      <option value="8">8º</option>
+                      <option value="9">9º</option>
+                    </select>
+                  </div>
+                  <div class="field"><label>Classe</label>
+                    <select id="spellClassFilter">
+                      <option value="">Todas</option>
+                      <option>Bardo</option>
+                      <option>Bruxo</option>
+                      <option>Clérigo</option>
+                      <option>Druida</option>
+                      <option>Feiticeiro</option>
+                      <option>Mago</option>
+                      <option>Paladino</option>
+                      <option>Patrulheiro</option>
+                    </select>
+                  </div>
+                  <button class="btn secondary" id="spellBankSearchBtn">Buscar magias</button>
+                </div>
+                <div class="spellbook-status" id="spellBankStatus">Use a busca para adicionar magias ao personagem.</div>
+                <div class="spellbank-results" id="spellBankResults"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="spell-right-column">
+            <div class="panel spellbook-panel chosen-spells-panel">
+              <div class="spellbook-panel-title">
+                <div>
+                  <h3>Magias escolhidas</h3>
+                  <p class="sheet-note">Use a magia e escolha o espaço. Truques adicionados pelo banco aparecem aqui como nível 0.</p>
+                </div>
+              </div>
+              <div id="mySpellbookList" class="my-spellbook-list"></div>
+            </div>
+
+            <div class="panel spell-slots-panel">
+              <div id="spellGrid"></div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="page" id="campaignPage">
@@ -5629,6 +5677,24 @@
 
       $('#spellAbility').innerHTML = '<option value="">Selecione</option>' + abilities.map(([k,label])=>`<option value="${k}">${label}</option>`).join('');
 
+      const cantripList = $('#cantripList');
+      if(cantripList){
+        cantripList.innerHTML = Array.from({length:8},(_,i)=>`
+          <div class="cantrip-card">
+            <div class="cantrip-number">${i+1}</div>
+            <div class="field">
+              <label>Truque</label>
+              <input data-path="magia.truques.${i}.nome" placeholder="Nome do truque">
+            </div>
+            <div class="cantrip-actions">
+              <button type="button" class="btn green small" data-use-cantrip="${i}">Usar</button>
+              <button type="button" class="btn secondary small" data-clear-cantrip="${i}">Limpar</button>
+            </div>
+            <div class="cantrip-result" data-cantrip-result="${i}">Não consome espaço.</div>
+          </div>
+        `).join('');
+      }
+
       const levels = Array.from({length:9},(_,idx)=>{
         const level=idx+1;
         return `
@@ -5977,6 +6043,41 @@
       saveLocal(false);
       await saveOnline();
       toast(`Espaço de ${level}º círculo recuperado.`);
+    }
+
+
+    function ensureCantrips(c){
+      if(!c) return [];
+      c.magia = c.magia || {};
+      if(!Array.isArray(c.magia.truques)) c.magia.truques = [];
+      for(let i=0;i<8;i++){
+        c.magia.truques[i] = c.magia.truques[i] || {nome:''};
+      }
+      return c.magia.truques;
+    }
+
+    function useCantrip(index){
+      const c = activeChar(); if(!c) return;
+      const list = ensureCantrips(c);
+      const item = list[num(index)] || {};
+      const name = String(item.nome || '').trim();
+      const result = document.querySelector(`[data-cantrip-result="${index}"]`);
+      if(!name){
+        if(result) result.textContent = 'Escolha um truque primeiro.';
+        toast('Escolha um truque primeiro.');
+        return;
+      }
+      if(result) result.textContent = 'Usado agora • não consome espaço.';
+      toast('Truque usado: ' + name);
+    }
+
+    function clearCantrip(index){
+      const c = activeChar(); if(!c) return;
+      const list = ensureCantrips(c);
+      list[num(index)] = {nome:''};
+      saveLocal(false);
+      renderForm();
+      toast('Truque limpo.');
     }
 
     function renderSpellbookUI(){
@@ -7700,6 +7801,7 @@
       if(!c) return;
       safeCall('ensureClassLevelData', ()=>ensureClassLevelData(c));
       safeCall('applyRuleEngine', ()=>applyRuleEngine(c));
+      safeCall('ensureCantrips', ()=>ensureCantrips(c));
       safeCall('bindDataPaths', ()=>$all('[data-path]').forEach(el=>{
         const path=el.dataset.path;
         const val=getByPath(c,path);
@@ -8290,6 +8392,12 @@
           renderDashboard(); renderCalcs(); saveLocal(false); renderForm();
           return;
         }
+
+        const useCantripBtn=e.target.closest('[data-use-cantrip]');
+        if(useCantripBtn){ useCantrip(useCantripBtn.dataset.useCantrip); return; }
+
+        const clearCantripBtn=e.target.closest('[data-clear-cantrip]');
+        if(clearCantripBtn){ clearCantrip(clearCantripBtn.dataset.clearCantrip); return; }
 
         const recover=e.target.closest('[data-recover-slot]');
         if(recover){ recoverSpellSlot(num(recover.dataset.recoverSlot)); return; }
