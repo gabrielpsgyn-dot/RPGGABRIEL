@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RPG Gabriel - Ficha Online Versão Vigente</title>
-  <link rel="stylesheet" href="./css/app-vigente.css?v=subclasse21">
+  <link rel="stylesheet" href="./css/app-vigente.css?v=classtable22">
 </head>
 <!-- RPGGABRIEL Versão Vigente LIVRO DO JOGADOR OFICIAL SEM ACHISMO -->
 <body class="menu-open tema-maritimo-sombrio">
@@ -53,7 +53,7 @@
             <div class="menu-panel-head">
               <div>
                 <h2>Classes por nível</h2>
-                <p>Esta é a tabela que mostra o que o personagem libera ao subir de nível. Ex.: Mago nível 3 mantém 3 truques (0º=3) e passa a ter espaços: 1º=4, 2º=2.</p>
+                <p>Tabela de progressão por classe no estilo do livro: cada classe mostra suas próprias colunas, recursos e benefícios por nível.</p>
               </div>
             </div>
             <div class="menu-guide-tools menu-class-tools">
@@ -61,7 +61,7 @@
               <input class="menu-search" id="menuClassSearch" placeholder="Buscar nível, habilidade, magia, escolha...">
             </div>
             <div class="menu-guide-note menu-class-note">
-              Aqui é onde fica a progressão por nível: habilidades, escolhas, truques, magias conhecidas/preparadas e espaços de magia.
+              Aqui fica a tabela de classe como consulta do jogador: nível, bônus de proficiência, características e recursos específicos da classe.
             </div>
             <div class="menu-class-summary" id="menuClassSummary"></div>
 
@@ -90,16 +90,7 @@
 
             <div class="menu-guide-table-wrap">
               <table class="menu-guide-table menu-class-level-table">
-                <thead>
-                  <tr>
-                    <th>Nível</th>
-                    <th>Bônus de proficiência</th>
-                    <th>O que ganha/libera</th>
-                    <th>Escolhas do jogador</th>
-                    <th>Truques / magias conhecidas</th>
-                    <th>Tabela de espaços de magia</th>
-                  </tr>
-                </thead>
+                <thead id="menuClassLevelTableHead"></thead>
                 <tbody id="menuClassLevelTableBody"></tbody>
               </table>
             </div>
@@ -181,7 +172,7 @@
       </div>
 
       <div class="menu-footer-actions">
-        <a class="btn secondary master-link" href="/mestre.html?v=subclasse21">Página do Mestre</a>
+        <a class="btn secondary master-link" href="/mestre.html?v=classtable22">Página do Mestre</a>
       </div>
     </div>
   </section>
@@ -424,8 +415,8 @@
                 <div id="rulesAuditSummary" class="rules-audit-box"></div>
                 <div class="rules-audit-actions">
                   <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                  <a class="btn small secondary" href="criador.html?v=subclasse21" target="_blank">Criador livre</a>
-                  <a class="btn small primary" href="livro-regras.html?v=subclasse21" target="_blank">Livro de Regras</a>
+                  <a class="btn small secondary" href="criador.html?v=classtable22" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=classtable22" target="_blank">Livro de Regras</a>
                 </div>
               </details>
             </div>
@@ -9776,6 +9767,119 @@
       select.value = names.includes(current) ? current : (names.includes('Mago') ? 'Mago' : names[0] || '');
     }
 
+
+    const CLASS_LEVEL_RESOURCE_TABLES = {
+      "Bárbaro": {
+        className:"barbarian-table",
+        columns:["Nível","Bônus de Proficiência","Características","Fúrias","Dano de Fúria"],
+        row(level, ctx){
+          const rages = level >= 20 ? "Ilimitado" : (level>=17?6:level>=12?5:level>=6?4:level>=3?3:2);
+          const dmg = level>=16 ? "+4" : level>=9 ? "+3" : "+2";
+          return [`${level}º`, `+${levelProfBonus(level)}`, ctx.features, rages, dmg];
+        }
+      },
+      "Bardo": {
+        className:"caster-table",
+        columns:["Nível","Bônus de Proficiência","Características","Truques","Magias Conhecidas","Espaços de Magia"],
+        row(level, ctx){
+          return [`${level}º`, `+${levelProfBonus(level)}`, ctx.features, String(valueAtProgress(CLASS_SPELL_KNOWN_PROGRESS["Bardo"].cantrips, level)||"-"), String(valueAtProgress(CLASS_SPELL_KNOWN_PROGRESS["Bardo"].known, level)||"-"), spellSlotLevelTableHtml("Bardo", level)];
+        }
+      },
+      "Bruxo": {
+        className:"warlock-table",
+        columns:["Nível","Bônus de Proficiência","Características","Truques","Magias Conhecidas","Espaços","Nível do Espaço","Invocações"],
+        row(level, ctx){
+          const pact = PACT_SLOTS[level] || PACT_CASTER_SLOTS[level] || {};
+          const inv = level<2 ? "-" : (level>=18?8:level>=15?7:level>=12?6:level>=9?5:level>=7?4:level>=5?3:2);
+          return [`${level}º`, `+${levelProfBonus(level)}`, ctx.features, String(valueAtProgress(CLASS_SPELL_KNOWN_PROGRESS["Bruxo"].cantrips, level)||"-"), String(valueAtProgress(CLASS_SPELL_KNOWN_PROGRESS["Bruxo"].known, level)||"-"), String(pact.total || "-"), pact.slotLevel ? `${pact.slotLevel}º` : "-", String(inv)];
+        }
+      },
+      "Clérigo": {
+        className:"caster-table",
+        columns:["Nível","Bônus de Proficiência","Características","Truques","Espaços de Magia"],
+        row(level, ctx){
+          return [`${level}º`, `+${levelProfBonus(level)}`, ctx.features, String(valueAtProgress(CLASS_SPELL_KNOWN_PROGRESS["Clérigo"].cantrips, level)||"-"), spellSlotLevelTableHtml("Clérigo", level)];
+        }
+      },
+      "Druida": {
+        className:"caster-table",
+        columns:["Nível","Bônus de Proficiência","Características","Truques","Espaços de Magia"],
+        row(level, ctx){
+          return [`${level}º`, `+${levelProfBonus(level)}`, ctx.features, String(valueAtProgress(CLASS_SPELL_KNOWN_PROGRESS["Druida"].cantrips, level)||"-"), spellSlotLevelTableHtml("Druida", level)];
+        }
+      },
+      "Feiticeiro": {
+        className:"caster-table",
+        columns:["Nível","Bônus de Proficiência","Características","Pontos de Feitiçaria","Truques","Magias Conhecidas","Espaços de Magia"],
+        row(level, ctx){
+          const sp = level<2 ? "-" : String(level);
+          return [`${level}º`, `+${levelProfBonus(level)}`, ctx.features, sp, String(valueAtProgress(CLASS_SPELL_KNOWN_PROGRESS["Feiticeiro"].cantrips, level)||"-"), String(valueAtProgress(CLASS_SPELL_KNOWN_PROGRESS["Feiticeiro"].known, level)||"-"), spellSlotLevelTableHtml("Feiticeiro", level)];
+        }
+      },
+      "Guerreiro": {
+        className:"fighter-table",
+        columns:["Nível","Bônus de Proficiência","Características"],
+        row(level, ctx){
+          return [`${level}º`, `+${levelProfBonus(level)}`, ctx.features];
+        }
+      },
+      "Ladino": {
+        className:"rogue-table",
+        columns:["Nível","Bônus de Proficiência","Ataque Furtivo","Características"],
+        row(level, ctx){
+          const dice = level>=19?10:level>=17?9:level>=15?8:level>=13?7:level>=11?6:level>=9?5:level>=7?4:level>=5?3:level>=3?2:1;
+          return [`${level}º`, `+${levelProfBonus(level)}`, `${dice}d6`, ctx.features];
+        }
+      },
+      "Mago": {
+        className:"wizard-table",
+        columns:["Nível","Bônus de Proficiência","Características","Truques","Espaços de Magia"],
+        row(level, ctx){
+          return [`${level}º`, `+${levelProfBonus(level)}`, ctx.features, String(valueAtProgress(CLASS_SPELL_KNOWN_PROGRESS["Mago"].cantrips, level)||"-"), spellSlotLevelTableHtml("Mago", level)];
+        }
+      },
+      "Monge": {
+        className:"monk-table",
+        columns:["Nível","Bônus de Proficiência","Artes Marciais","Pontos de Ki","Movimento sem Armadura","Características"],
+        row(level, ctx){
+          const martial = level>=17?"1d10":level>=11?"1d8":level>=5?"1d6":"1d4";
+          const ki = level>=2 ? String(level) : "-";
+          const move = level<2 ? "-" : (level>=18?"+9m":level>=14?"+7,5m":level>=10?"+6m":level>=6?"+4,5m":"+3m");
+          return [`${level}º`, `+${levelProfBonus(level)}`, martial, ki, move, ctx.features];
+        }
+      },
+      "Paladino": {
+        className:"half-caster-table",
+        columns:["Nível","Bônus de Proficiência","Características","Espaços de Magia"],
+        row(level, ctx){
+          return [`${level}º`, `+${levelProfBonus(level)}`, ctx.features, spellSlotLevelTableHtml("Paladino", level)];
+        }
+      },
+      "Patrulheiro": {
+        className:"half-caster-table",
+        columns:["Nível","Bônus de Proficiência","Características","Magias Conhecidas","Espaços de Magia"],
+        row(level, ctx){
+          return [`${level}º`, `+${levelProfBonus(level)}`, ctx.features, String(valueAtProgress(CLASS_SPELL_KNOWN_PROGRESS["Patrulheiro"].known, level)||"-"), spellSlotLevelTableHtml("Patrulheiro", level)];
+        }
+      }
+    };
+
+    function classTableSpec(cls){
+      return CLASS_LEVEL_RESOURCE_TABLES[cls] || {
+        className:"default-class-table",
+        columns:["Nível","Bônus de Proficiência","Características","Truques / Magias","Espaços de Magia"],
+        row(level, ctx){
+          return [`${level}º`, `+${levelProfBonus(level)}`, ctx.features, spellLearningSummaryForClassLevel(cls, level), spellSlotLevelTableHtml(cls, level)];
+        }
+      };
+    }
+
+    function renderClassFeatureText(features, cls, level){
+      const unlock = spellUnlockDelta(cls, level);
+      const base = features.length ? escapeHtml(features.join(" • ")) : "—";
+      return `${base}${unlock ? `<small>${escapeHtml(unlock)}</small>` : ""}`;
+    }
+
     function renderMenuClassGuide(){
       const body = $('#menuClassLevelTableBody');
       if(!body) return;
@@ -9799,24 +9903,33 @@
         `;
       }
 
+      const head = $('#menuClassLevelTableHead');
+      const table = document.querySelector('.menu-class-level-table');
+      const spec = classTableSpec(cls);
+      if(table){
+        table.className = `menu-guide-table menu-class-level-table ${spec.className || ''}`;
+      }
+      if(head){
+        head.innerHTML = `<tr>${spec.columns.map(col=>`<th>${escapeHtml(col)}</th>`).join('')}</tr>`;
+      }
+
       const rows = [];
       for(let level=1; level<=20; level++){
         if(q && !classLevelSearchBlob(cls, level).includes(q)) continue;
         const features = classFeatureNamesForLevel(rule, level);
         const choices = classChoicesForExactLevel(cls, level);
-        const slots = spellSlotSummaryForClassLevel(cls, level);
+        const ctx = {
+          features: renderClassFeatureText(features, cls, level),
+          choices: choices.length ? escapeHtml(choices.join(' • ')) : '-'
+        };
+        const cells = spec.row(level, ctx);
         rows.push(`
-          <tr class="${level === 3 && cls === 'Mago' ? 'example-level-row' : ''}">
-            <td><b>Nível ${level}</b></td>
-            <td>+${levelProfBonus(level)}</td>
-            <td>${features.length ? escapeHtml(features.join(' • ')) : 'Sem habilidade nova cadastrada.'}${spellUnlockDelta(cls, level) ? `<small>${escapeHtml(spellUnlockDelta(cls, level))}</small>` : ''}</td>
-            <td>${choices.length ? escapeHtml(choices.join(' • ')) : '-'}</td>
-            <td>${escapeHtml(spellLearningSummaryForClassLevel(cls, level))}</td>
-            <td>${spellSlotLevelTableHtml(cls, level)}</td>
+          <tr class="${level === 1 ? 'first-level-row' : ''}">
+            ${cells.map((cell,idx)=>`<td>${idx===0 ? `<b>${cell}</b>` : cell}</td>`).join('')}
           </tr>
         `);
       }
-      body.innerHTML = rows.length ? rows.join('') : '<tr><td colspan="6">Nenhum nível encontrado.</td></tr>';
+      body.innerHTML = rows.length ? rows.join('') : `<tr><td colspan="${spec.columns.length}">Nenhum nível encontrado.</td></tr>`;
     }
 
     function renderMenuRaceGuide(){

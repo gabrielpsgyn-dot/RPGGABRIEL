@@ -3445,3 +3445,109 @@ body:not(.menu-open) section.character-menu{
     grid-template-columns:1fr !important;
   }
 }
+
+
+/* AJUSTE VIGENTE — TABELA DE CLASSE NO ESTILO DO LIVRO */
+.menu-class-level-table{
+  border-spacing:0 !important;
+  min-width:920px !important;
+}
+
+.menu-class-level-table th{
+  background:#061b24 !important;
+  color:var(--gold-2) !important;
+  border-bottom:2px solid rgba(216,173,98,.65) !important;
+}
+
+.menu-class-level-table td{
+  background:#f8fbf3 !important;
+  color:#06131a !important;
+  border-bottom:0 !important;
+  padding:7px 10px !important;
+  font-weight:650 !important;
+}
+
+.menu-class-level-table tr:nth-child(odd) td{
+  background:#dfeeda !important;
+}
+
+.menu-class-level-table td b{
+  color:#06131a !important;
+  font-weight:950 !important;
+}
+
+.menu-class-level-table td small{
+  display:block !important;
+  color:#153741 !important;
+  font-size:11px !important;
+  line-height:1.25 !important;
+  margin-top:4px !important;
+  font-weight:850 !important;
+}
+
+.menu-class-level-table .slot-mini-table{
+  max-width:360px !important;
+}
+
+.menu-class-level-table .slot-mini-cell{
+  background:#ffffff !important;
+  color:#06131a !important;
+  border-color:rgba(6,19,26,.18) !important;
+}
+
+.menu-class-level-table .slot-mini-cell b,
+.menu-class-level-table .slot-mini-cell em{
+  color:#06131a !important;
+}
+
+.menu-class-level-table .slot-mini-cell.on{
+  background:#dfeeda !important;
+  border-color:rgba(6,19,26,.35) !important;
+}
+
+.menu-class-level-table .slot-mini-cantrip{
+  background:#cae8dc !important;
+}
+
+.menu-class-level-table .slot-mini-empty{
+  background:#ffffff !important;
+  color:#153741 !important;
+  border-color:rgba(6,19,26,.20) !important;
+}
+
+.menu-class-level-table.barbarian-table td:nth-child(1),
+.menu-class-level-table.barbarian-table td:nth-child(2),
+.menu-class-level-table.barbarian-table td:nth-child(4),
+.menu-class-level-table.barbarian-table td:nth-child(5),
+.menu-class-level-table.rogue-table td:nth-child(1),
+.menu-class-level-table.rogue-table td:nth-child(2),
+.menu-class-level-table.rogue-table td:nth-child(3),
+.menu-class-level-table.monk-table td:nth-child(1),
+.menu-class-level-table.monk-table td:nth-child(2),
+.menu-class-level-table.monk-table td:nth-child(3),
+.menu-class-level-table.monk-table td:nth-child(4),
+.menu-class-level-table.monk-table td:nth-child(5){
+  text-align:center !important;
+  white-space:nowrap !important;
+}
+
+.menu-class-level-table.fighter-table,
+.menu-class-level-table.barbarian-table,
+.menu-class-level-table.rogue-table,
+.menu-class-level-table.monk-table{
+  min-width:760px !important;
+}
+
+.menu-class-level-table.warlock-table{
+  min-width:1180px !important;
+}
+
+.menu-class-level-table.caster-table,
+.menu-class-level-table.wizard-table,
+.menu-class-level-table.half-caster-table{
+  min-width:980px !important;
+}
+
+.menu-class-level-table tr.first-level-row td{
+  border-top:2px solid rgba(216,173,98,.50) !important;
+}
