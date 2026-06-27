@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RPG Gabriel - Ficha Online Versão Vigente</title>
-  <link rel="stylesheet" href="./css/app-vigente.css?v=truquesnivel18">
+  <link rel="stylesheet" href="./css/app-vigente.css?v=slotstable19">
 </head>
 <!-- RPGGABRIEL Versão Vigente LIVRO DO JOGADOR OFICIAL SEM ACHISMO -->
 <body class="menu-open tema-maritimo-sombrio">
@@ -53,7 +53,7 @@
             <div class="menu-panel-head">
               <div>
                 <h2>Classes por nível</h2>
-                <p>Esta é a tabela que mostra o que o personagem libera ao subir de nível. Ex.: Mago nível 3 libera espaços de magia de 2º círculo e mantém 3 truques conhecidos.</p>
+                <p>Esta é a tabela que mostra o que o personagem libera ao subir de nível. Ex.: Mago nível 3 mantém 3 truques e passa a ter espaços: 1º=4, 2º=2.</p>
               </div>
             </div>
             <div class="menu-guide-tools menu-class-tools">
@@ -73,7 +73,7 @@
                     <th>O que ganha/libera</th>
                     <th>Escolhas do jogador</th>
                     <th>Truques / magias conhecidas</th>
-                    <th>Espaços de magia</th>
+                    <th>Tabela de espaços de magia</th>
                   </tr>
                 </thead>
                 <tbody id="menuClassLevelTableBody"></tbody>
@@ -157,7 +157,7 @@
       </div>
 
       <div class="menu-footer-actions">
-        <a class="btn secondary master-link" href="/mestre.html?v=truquesnivel18">Página do Mestre</a>
+        <a class="btn secondary master-link" href="/mestre.html?v=slotstable19">Página do Mestre</a>
       </div>
     </div>
   </section>
@@ -400,8 +400,8 @@
                 <div id="rulesAuditSummary" class="rules-audit-box"></div>
                 <div class="rules-audit-actions">
                   <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                  <a class="btn small secondary" href="criador.html?v=truquesnivel18" target="_blank">Criador livre</a>
-                  <a class="btn small primary" href="livro-regras.html?v=truquesnivel18" target="_blank">Livro de Regras</a>
+                  <a class="btn small secondary" href="criador.html?v=slotstable19" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=slotstable19" target="_blank">Livro de Regras</a>
                 </div>
               </details>
             </div>
@@ -9505,6 +9505,32 @@
       return prog.label || '-';
     }
 
+
+    function spellSlotLevelTableHtml(cls, level){
+      const rule = getAllClassRules()[cls] || {};
+      if(!rule || rule.casting === 'none'){
+        return `<div class="slot-mini-empty">Não conjura pela classe base</div>`;
+      }
+
+      if(rule.casting === 'pact'){
+        const pact = PACT_SLOTS[level] || {};
+        if(!pact.total) return `<div class="slot-mini-empty">Sem espaços de pacto</div>`;
+        return `<div class="slot-pact-box">
+          <span>Pacto</span>
+          <b>${num(pact.total)} espaço(s)</b>
+          <small>nível do espaço: ${num(pact.slotLevel)}º</small>
+        </div>`;
+      }
+
+      const slots = getClassSpellSlots(cls, level) || [];
+      const cells = [];
+      for(let i=0;i<9;i++){
+        const qty = num(slots[i]);
+        cells.push(`<span class="slot-mini-cell ${qty ? 'on' : 'off'}"><b>${i+1}º</b><em>${qty || '-'}</em></span>`);
+      }
+      return `<div class="slot-mini-table" aria-label="Espaços de magia por círculo">${cells.join('')}</div>`;
+    }
+
     function spellLearningSummaryForClassLevel(cls, level){
       const rule = getAllClassRules()[cls] || {};
       if(!rule || rule.casting === 'none') return 'Não ganha truques ou magias pela classe base.';
@@ -9623,7 +9649,7 @@
             <td>${features.length ? escapeHtml(features.join(' • ')) : 'Sem habilidade nova cadastrada.'}${spellUnlockDelta(cls, level) ? `<small>${escapeHtml(spellUnlockDelta(cls, level))}</small>` : ''}</td>
             <td>${choices.length ? escapeHtml(choices.join(' • ')) : '-'}</td>
             <td>${escapeHtml(spellLearningSummaryForClassLevel(cls, level))}</td>
-            <td>${escapeHtml(slots)}</td>
+            <td>${spellSlotLevelTableHtml(cls, level)}</td>
           </tr>
         `);
       }
