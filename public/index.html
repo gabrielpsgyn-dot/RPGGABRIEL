@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RPG Gabriel - Ficha Online Versão Vigente</title>
-  <link rel="stylesheet" href="./css/app-vigente.css?v=classcolor23">
+  <link rel="stylesheet" href="./css/app-vigente.css?v=beneficios24">
 </head>
 <!-- RPGGABRIEL Versão Vigente LIVRO DO JOGADOR OFICIAL SEM ACHISMO -->
 <body class="menu-open tema-maritimo-sombrio">
@@ -79,8 +79,8 @@
                     <tr>
                       <th>Nível</th>
                       <th>Escolha</th>
-                      <th>O que ganha</th>
-                      <th>Observação</th>
+                      <th>O que ganha / como funciona</th>
+                      <th>Resumo da regra</th>
                     </tr>
                   </thead>
                   <tbody id="menuSubclassTableBody"></tbody>
@@ -102,7 +102,7 @@
             <div class="menu-panel-head">
               <div>
                 <h2>Raças, atributos e benefícios</h2>
-                <p>Tabela de consulta antes de criar/abrir personagem. Raças não têm progressão universal por nível; esta coluna mostra apenas exceções raciais que escalam ou aparecem em níveis específicos.</p>
+                <p>Tabela de consulta antes de criar/abrir personagem. Mostra bônus de atributo, benefícios raciais, proficiências e efeitos que escalam por nível quando existirem.</p>
               </div>
             </div>
             <div class="menu-guide-tools">
@@ -117,7 +117,7 @@
               </select>
             </div>
             <div class="menu-guide-note">
-              No Livro do Jogador não existe uma tabela universal de nível por raça como existe para classes. Aqui aparecem somente os benefícios raciais que surgem ou escalam por nível, como Draconato, Drow e Tiefling.
+              A coluna de nível só aparece preenchida quando a raça realmente ganha ou escala algo por nível. Quando não existir, fica apenas “—”.
             </div>
             <div class="menu-guide-table-wrap">
               <table class="menu-guide-table">
@@ -172,7 +172,7 @@
       </div>
 
       <div class="menu-footer-actions">
-        <a class="btn secondary master-link" href="/mestre.html?v=classcolor23">Página do Mestre</a>
+        <a class="btn secondary master-link" href="/mestre.html?v=beneficios24">Página do Mestre</a>
       </div>
     </div>
   </section>
@@ -415,8 +415,8 @@
                 <div id="rulesAuditSummary" class="rules-audit-box"></div>
                 <div class="rules-audit-actions">
                   <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                  <a class="btn small secondary" href="criador.html?v=classcolor23" target="_blank">Criador livre</a>
-                  <a class="btn small primary" href="livro-regras.html?v=classcolor23" target="_blank">Livro de Regras</a>
+                  <a class="btn small secondary" href="criador.html?v=beneficios24" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=beneficios24" target="_blank">Livro de Regras</a>
                 </div>
               </details>
             </div>
@@ -9422,23 +9422,36 @@
     }
 
 
-    function menuRaceLevelBenefit(rule){
+    const RACE_LEVEL_EFFECTS_PHB = {
+      "Anão da Colina":["Resiliência Anã: +1 PV máximo por nível"],
+      "Draconato":["Arma de Sopro: 2d6 no nível 1; 3d6 no nível 6; 4d6 no nível 11; 5d6 no nível 16"],
+      "Elfo Negro":["Magia Drow: Truque no nível 1; Fogo das Fadas no nível 3; Escuridão no nível 5"],
+      "Tiefling":["Legado Infernal: Taumaturgia no nível 1; Repreensão Infernal no nível 3; Escuridão no nível 5"]
+    };
+
+    function menuRaceLevelBenefit(rule, raceName=''){
       const effects = Array.isArray(rule && rule.levelEffects) ? rule.levelEffects : [];
-      if(!effects.length) return 'Não possui benefício racial por nível.';
-      return effects.map(e=>`Nv. ${num(e.level)||'?'}: ${e.name || e.nome || ''}${(e.effect || e.efeito) ? ' — ' + (e.effect || e.efeito) : ''}`).join(' | ');
+      const explicit = effects.map(e=>`Nv. ${num(e.level)||'?'}: ${e.name || e.nome || ''}${(e.effect || e.efeito) ? ' — ' + (e.effect || e.efeito) : ''}`);
+      const mapped = RACE_LEVEL_EFFECTS_PHB[raceName] || [];
+      const out = [...explicit, ...mapped].filter(Boolean);
+      return out.length ? out.join(' | ') : '—';
     }
 
     function menuRaceBenefits(rule){
-      const traits = (rule.traits || []).map(raceBenefitName).filter(Boolean);
+      const traits = (rule.traits || []).map(t=>{
+        const name = raceBenefitName(t);
+        const text = raceBenefitText(t);
+        return name && text ? `${name}: ${text}` : name;
+      }).filter(Boolean);
       const prof = (rule.proficiencies || []).length ? ['Proficiências: ' + rule.proficiencies.join(', ')] : [];
       const skillsRace = (rule.skills || []).length ? ['Perícias: ' + rule.skills.map(raceSkillLabel).join(', ')] : [];
       const choices = (rule.choices || []).length ? ['Escolhas: ' + rule.choices.map(x=>x.nome || x.name || 'Escolha racial').join(', ')] : [];
-      return [...skillsRace, ...prof, ...traits, ...choices].filter(Boolean).slice(0,6).join(' • ') || '-';
+      return [...skillsRace, ...prof, ...traits, ...choices].filter(Boolean).slice(0,7).join(' • ') || '-';
     }
 
     function menuRaceInfoBlob(name, rule){
       return [
-        name, rule.parent, raceAbilityIncreaseLabel(rule), menuRaceLevelBenefit(rule), menuRaceBenefits(rule),
+        name, rule.parent, raceAbilityIncreaseLabel(rule), menuRaceLevelBenefit(rule, name), menuRaceBenefits(rule),
         rule.size, rule.speed, rule.darkvision,
         (rule.languages || []).join(' '),
         (rule.resistances || []).join(' ')
@@ -9697,7 +9710,7 @@
         <tr>
           <td><b>Nível ${num(row.level) || '-'}</b></td>
           <td>${escapeHtml(selectedPath)}</td>
-          <td>${escapeHtml(row.gain || '-')}</td>
+          <td class="benefit-explain-cell"><b>${escapeHtml(row.gain || '-')}</b>${row.note ? `<small>${escapeHtml(row.note)}</small>` : ''}</td>
           <td>${escapeHtml(row.note || '-')}</td>
         </tr>
       `).join('');
@@ -9942,7 +9955,7 @@
         const rule = rules[name] || {};
         if(filter === 'base' && rule.parent) return false;
         if(filter === 'sub' && !rule.parent) return false;
-        if(filter === 'level' && !(rule.levelEffects || []).length) return false;
+        if(filter === 'level' && menuRaceLevelBenefit(rule, name) === '—') return false;
         if(filter === 'resistance' && !(rule.resistances || []).length) return false;
         if(filter === 'choice' && !(rule.choices || []).length && !(rule.abilityIncrease && rule.abilityIncrease.doisValoresAEscolha)) return false;
         return !q || menuRaceInfoBlob(name, rule).includes(q);
@@ -9965,7 +9978,7 @@
           <tr>
             <td><b>${escapeHtml(name)}</b>${rule.parent ? `<small>${escapeHtml(rule.parent)}</small>` : ''}</td>
             <td>${escapeHtml(raceAbilityIncreaseLabel(rule))}</td>
-            <td>${escapeHtml(menuRaceLevelBenefit(rule))}</td>
+            <td>${escapeHtml(menuRaceLevelBenefit(rule, name))}</td>
             <td>${escapeHtml(menuRaceBenefits(rule))}</td>
             <td>${escapeHtml(langVisionRes)}</td>
           </tr>
