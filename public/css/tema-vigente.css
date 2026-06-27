@@ -735,3 +735,92 @@ td,
     grid-template-columns:1fr !important;
   }
 }
+
+
+/* =========================================================
+   AJUSTE VIGENTE — FOTO PEQUENA NO CARD DO PERSONAGEM
+   A foto fica apenas como miniatura à esquerda do nome.
+   ========================================================= */
+.char-card-vigente{
+  padding:9px 10px !important;
+}
+
+.char-card-top{
+  grid-template-columns:38px minmax(0,1fr) !important;
+  gap:9px !important;
+  align-items:center !important;
+}
+
+.char-thumb,
+.char-thumb-small{
+  width:38px !important;
+  height:38px !important;
+  min-width:38px !important;
+  max-width:38px !important;
+  border-radius:11px !important;
+  overflow:hidden !important;
+  align-self:center !important;
+}
+
+.char-thumb img,
+.char-thumb-small img{
+  width:38px !important;
+  height:38px !important;
+  min-width:38px !important;
+  max-width:38px !important;
+  object-fit:cover !important;
+  display:block !important;
+}
+
+.char-thumb span,
+.char-thumb-small span{
+  font-size:16px !important;
+  line-height:1 !important;
+}
+
+.char-main b{
+  font-size:17px !important;
+  line-height:1.08 !important;
+}
+
+.char-main span{
+  font-size:12px !important;
+  line-height:1.15 !important;
+}
+
+.char-main small{
+  font-size:11px !important;
+}
+
+.char-card-vigente .pill-row{
+  margin-top:2px !important;
+  padding-left:47px !important;
+  gap:5px !important;
+}
+
+.char-card-vigente .pill{
+  font-size:10px !important;
+  padding:3px 7px !important;
+}
+
+@media(max-width:520px){
+  .char-card-top{
+    grid-template-columns:34px minmax(0,1fr) !important;
+    gap:8px !important;
+  }
+
+  .char-thumb,
+  .char-thumb-small,
+  .char-thumb img,
+  .char-thumb-small img{
+    width:34px !important;
+    height:34px !important;
+    min-width:34px !important;
+    max-width:34px !important;
+    border-radius:10px !important;
+  }
+
+  .char-card-vigente .pill-row{
+    padding-left:42px !important;
+  }
+}

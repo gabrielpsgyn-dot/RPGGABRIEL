@@ -7537,7 +7537,7 @@ textarea.huge{min-height:200px}
         return `
           <button class="char-card char-card-vigente ${c.id===state.activeId?'active':''}" data-menu-id="${escapeHtml(c.id)}">
             <div class="char-card-top">
-              <div class="char-thumb">${img ? `<img src="${escapeHtml(img)}" alt="">` : '<span>Ficha</span>'}</div>
+              <div class="char-thumb char-thumb-small">${img ? `<img src="${escapeHtml(img)}" alt="">` : '<span>•</span>'}</div>
               <div class="char-main">
                 <b>${escapeHtml(meta.nomePersonagem || 'Sem nome')}</b>
                 <span>${escapeHtml(subtitle(c) || 'Classe não definida')}</span>
