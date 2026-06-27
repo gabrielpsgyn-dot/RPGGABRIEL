@@ -153,6 +153,7 @@ function safePublicCharacter(row) {
     mareAtual: (c.campanha && c.campanha.mareAtual) || "",
     marcaCampanha: (c.campanha && c.campanha.marcaCampanha) || "",
     corrupcao: (c.campanha && c.campanha.corrupcao) || 0,
+    avatarImage: (c.descricao && c.descricao.aparenciaImagem) || "",
     updatedAt: c.updatedAt || row.updated_at
   };
 }

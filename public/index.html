@@ -5671,6 +5671,12 @@
       return `${atual}/${max}`;
     }
 
+
+    function menuInitial(c){
+      const name = c && c.meta && c.meta.nomePersonagem ? c.meta.nomePersonagem : 'P';
+      return String(name || 'P').trim().charAt(0).toUpperCase() || 'P';
+    }
+
     function menuUpdatedLabel(c){
       const raw = c && (c.updatedAt || c.updated_at);
       if(!raw) return 'sem data';
@@ -5708,25 +5714,25 @@
       list.innerHTML = visible.map(c=>{
         const meta = c.meta || {};
         const camp = c.campanha || {};
-        const img = c.descricao && c.descricao.aparenciaImagem ? c.descricao.aparenciaImagem : '';
+        const img = (c.descricao && c.descricao.aparenciaImagem) || c.avatarImage || c.aparenciaImagem || c.image || '';
         return `
-          <article class="char-card char-card-vigente ${c.id===state.activeId?'active':''}" data-menu-id="${escapeHtml(c.id)}">
-            <div class="char-card-top">
-              <div class="char-avatar">${img ? `<img class="char-avatar-img" src="${escapeHtml(img)}" width="34" height="34" alt="">` : '<span>•</span>'}</div>
-              <div class="char-main">
+          <article class="menu-character-card ${c.id===state.activeId?'active':''}" data-menu-id="${escapeHtml(c.id)}">
+            <div class="menu-character-head">
+              <div class="menu-character-avatar">${img ? `<img class="menu-character-avatar-img" src="${escapeHtml(img)}" width="56" height="56" alt="Imagem de perfil">` : `<span>${escapeHtml(menuInitial(c))}</span>`}</div>
+              <div class="menu-character-info">
                 <b>${escapeHtml(meta.nomePersonagem || 'Sem nome')}</b>
                 <span>${escapeHtml(subtitle(c) || 'Classe não definida')}</span>
                 <small>${escapeHtml(meta.nomeJogador || 'Jogador não informado')}</small>
               </div>
             </div>
-            <div class="pill-row">
+            <div class="menu-character-pills">
               <span class="pill">PV ${escapeHtml(menuHpLabel(c))}</span>
               <span class="pill">Nv. ${escapeHtml(meta.nivel || 1)}</span>
               <span class="pill">${escapeHtml(meta.raca || 'sem raça')}</span>
               <span class="pill">corrupção ${escapeHtml(camp.corrupcao || 0)}/10</span>
             </div>
-            <div class="char-card-actions">
-              <button type="button" class="btn primary small" data-open-character="${escapeHtml(c.id)}">Abrir ficha</button>
+            <div class="menu-character-actions">
+              <button type="button" class="btn primary small" data-open-character="${escapeHtml(c.id)}">Abrir</button>
               <button type="button" class="btn danger small" data-delete-character="${escapeHtml(c.id)}">Excluir</button>
             </div>
           </article>
@@ -7724,7 +7730,7 @@
       $('#levelValue').textContent = 'Nv. ' + level;
       $('#corruptionValue').textContent = corr + '/10';
       const img=c.descricao.aparenciaImagem;
-      $('#dashAvatar').innerHTML = img ? `<img src="${img}" alt="Imagem do personagem">` : 'Imagem';
+      $('#dashAvatar').innerHTML = img ? `<img class="sheet-avatar-img" src="${img}" alt="Imagem do personagem">` : '<span>Sem imagem</span>';
     }
 
 
@@ -7784,8 +7790,8 @@
 
     function renderImages(){
       const c=activeChar(); if(!c) return;
-      $('#portraitBox').innerHTML = c.descricao.aparenciaImagem ? `<img src="${c.descricao.aparenciaImagem}" alt="Imagem do personagem">` : 'Imagem do personagem';
-      $('#symbolBox').innerHTML = c.descricao.simboloImagem ? `<img src="${c.descricao.simboloImagem}" alt="Símbolo">` : 'Imagem / brasão';
+      $('#portraitBox').innerHTML = c.descricao.aparenciaImagem ? `<img class="story-portrait-img" src="${c.descricao.aparenciaImagem}" alt="Imagem do personagem">` : 'Imagem do personagem';
+      $('#symbolBox').innerHTML = c.descricao.simboloImagem ? `<img class="story-symbol-img" src="${c.descricao.simboloImagem}" alt="Símbolo">` : 'Imagem / brasão';
     }
 
     function saveLocal(show=false){
@@ -7842,6 +7848,7 @@
             id:card.id,
             campaignId:CAMPAIGN_ID,
             meta:{nomePersonagem:card.name||'Personagem',classe:normalizeClassName(card.classe||card.classeNivel||''),nivel:card.nivel||'',classeNivel:card.classeNivel||'',raca:card.raca||''},
+            descricao:{aparenciaImagem:card.avatarImage||card.aparenciaImagem||card.image||''},
             campanha:{mareAtual:card.mareAtual||'',faccao:card.faccao||'',marcaCampanha:card.marcaCampanha||'',corrupcao:card.corrupcao||0}
           }));
         });
