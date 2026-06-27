@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RPG Gabriel - Ficha Online Versão Vigente</title>
-  <link rel="stylesheet" href="./css/app-vigente.css?v=beneficios24">
+  <link rel="stylesheet" href="./css/app-vigente.css?v=comousar25">
 </head>
 <!-- RPGGABRIEL Versão Vigente LIVRO DO JOGADOR OFICIAL SEM ACHISMO -->
 <body class="menu-open tema-maritimo-sombrio">
@@ -69,7 +69,7 @@
               <div class="menu-subclass-head">
                 <div>
                   <h3 id="menuSubclassTitle">Subclasse / caminho</h3>
-                  <p class="sheet-note">Quando a classe manda escolher tradição, domínio, juramento, arquétipo ou caminho, esta tabela mostra o que aquela escolha entrega nos níveis seguintes.</p>
+                  <p class="sheet-note">Quando a classe manda escolher tradição, domínio, juramento, arquétipo ou caminho, esta tabela mostra o que ganha e como usar em jogo.</p>
                 </div>
                 <select id="menuSubclassSelect"></select>
               </div>
@@ -79,8 +79,8 @@
                     <tr>
                       <th>Nível</th>
                       <th>Escolha</th>
-                      <th>O que ganha / como funciona</th>
-                      <th>Resumo da regra</th>
+                      <th>O que ganha</th>
+                      <th>Como o jogador usa</th>
                     </tr>
                   </thead>
                   <tbody id="menuSubclassTableBody"></tbody>
@@ -172,7 +172,7 @@
       </div>
 
       <div class="menu-footer-actions">
-        <a class="btn secondary master-link" href="/mestre.html?v=beneficios24">Página do Mestre</a>
+        <a class="btn secondary master-link" href="/mestre.html?v=comousar25">Página do Mestre</a>
       </div>
     </div>
   </section>
@@ -415,8 +415,8 @@
                 <div id="rulesAuditSummary" class="rules-audit-box"></div>
                 <div class="rules-audit-actions">
                   <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                  <a class="btn small secondary" href="criador.html?v=beneficios24" target="_blank">Criador livre</a>
-                  <a class="btn small primary" href="livro-regras.html?v=beneficios24" target="_blank">Livro de Regras</a>
+                  <a class="btn small secondary" href="criador.html?v=comousar25" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=comousar25" target="_blank">Livro de Regras</a>
                 </div>
               </details>
             </div>
@@ -9688,6 +9688,55 @@
       return {label, level, paths};
     }
 
+
+    function subclassUseHint(cls, path, row){
+      const gain = String(row && row.gain || '');
+      const key = `${cls}|${path}|${gain}`.toLowerCase();
+
+      if(cls === 'Mago'){
+        if(/sábio|erudição/i.test(gain)) return {kind:'Passivo', use:'Use quando copiar magia dessa escola no grimório: reduz tempo/custo conforme a tradição.', sheet:'Anotar no grimório / copiar magia.'};
+        if(/proteção arcana/i.test(gain)) return {kind:'Automático ao conjurar', use:'Quando conjurar magia de Abjuração de 1º círculo ou maior, cria/recupera Proteção Arcana. Use essa proteção para absorver dano antes do PV.', sheet:'Criar campo: Proteção Arcana atual/máxima.'};
+        if(/proteção projetada/i.test(gain)) return {kind:'Reação', use:'Quando aliado próximo sofrer dano, use sua reação para a Proteção Arcana absorver o dano dele.', sheet:'Botão reação: usar Proteção Projetada.'};
+        if(/abjuração aprimorada/i.test(gain)) return {kind:'Bônus em teste', use:'Quando uma magia de Abjuração exigir teste de habilidade, some o bônus de proficiência.', sheet:'Mostrar lembrete em magias de Abjuração.'};
+        if(/resistência à magia/i.test(gain)) return {kind:'Defesa passiva', use:'Contra magias, aplica vantagem em testes de resistência e resistência ao dano de magias conforme regra.', sheet:'Mostrar alerta defensivo contra magia.'};
+        if(/conjuração menor/i.test(gain)) return {kind:'Ação', use:'Use uma ação para criar objeto inanimado pequeno conforme limite da regra.', sheet:'Ação especial: Conjuração Menor.'};
+        if(/transposição benigna/i.test(gain)) return {kind:'Ação', use:'Use uma ação para teleportar ou trocar de lugar com aliado conforme alcance da regra.', sheet:'Botão: usar Transposição Benigna.'};
+        if(/conjuração focada/i.test(gain)) return {kind:'Concentração', use:'Enquanto concentrado em magia de Conjuração, dano não quebra concentração conforme regra.', sheet:'Lembrete em concentração.'};
+        if(/invocações duráveis/i.test(gain)) return {kind:'Passivo', use:'Criaturas invocadas/conjuradas recebem PV temporários/maior resistência conforme regra.', sheet:'Aplicar em invocações.'};
+        if(/presságio maior|pressagio maior/i.test(gain)) return {kind:'Ao descanso longo', use:'Rola mais dados de Presságio e guarda para substituir rolagens depois.', sheet:'Criar campos de dados de Presságio.'};
+        if(/presságio|pressagio/i.test(gain)) return {kind:'Ao descanso longo', use:'Role os dados de Presságio após descanso longo; depois substitua uma rolagem sua ou de criatura que você vê.', sheet:'Campos: Presságio 1 / Presságio 2.'};
+        if(/terceiro olho/i.test(gain)) return {kind:'Escolha/ação', use:'Escolha uma percepção especial conforme regra até descansar ou trocar.', sheet:'Seletor: visão/benefício ativo.'};
+        if(/olhar hipnótico/i.test(gain)) return {kind:'Ação', use:'Use ação contra uma criatura próxima para encantar/incapacitar conforme teste da regra.', sheet:'Ação especial: Olhar Hipnótico.'};
+        if(/encanto instintivo/i.test(gain)) return {kind:'Reação', use:'Quando criatura atacar você, use reação para tentar redirecionar o ataque.', sheet:'Botão reação: Encanto Instintivo.'};
+        if(/encantamento dividido/i.test(gain)) return {kind:'Ao conjurar', use:'Quando conjurar encantamento de alvo único, pode afetar segundo alvo conforme regra.', sheet:'Lembrete em magias de Encantamento.'};
+        if(/alterar memórias/i.test(gain)) return {kind:'Após encantar', use:'Depois de encantar criatura, pode alterar memória conforme regra.', sheet:'Ação pós-encantamento.'};
+        if(/moldar magias/i.test(gain)) return {kind:'Ao conjurar', use:'Ao conjurar Evocação em área, escolha aliados protegidos para não sofrerem o efeito.', sheet:'Lembrete em magias de área.'};
+        if(/truque potente/i.test(gain)) return {kind:'Ao usar truque', use:'Truques de dano causam efeito parcial mesmo se o alvo passar no teste, conforme regra.', sheet:'Lembrete nos truques de dano.'};
+        if(/evocação potencializada/i.test(gain)) return {kind:'Ao causar dano', use:'Some Inteligência ao dano de magias de Evocação conforme regra.', sheet:'Aplicar bônus em dano de Evocação.'};
+        if(/sobrecanalização/i.test(gain)) return {kind:'Ao conjurar', use:'Maximiza dano de magia permitida; usos repetidos causam risco/dano conforme regra.', sheet:'Botão: Sobrecanalizar.'};
+        if(/ilusão menor aprimorada/i.test(gain)) return {kind:'Truque melhorado', use:'Ilusão Menor fica melhor conforme a tradição.', sheet:'Atualizar descrição do truque.'};
+        if(/ilusões maleáveis/i.test(gain)) return {kind:'Ação', use:'Altere uma ilusão ativa conforme a regra.', sheet:'Ação: alterar ilusão.'};
+        if(/eu ilusório/i.test(gain)) return {kind:'Reação', use:'Quando for atacado, cria duplicata ilusória para fazer o ataque errar conforme regra.', sheet:'Botão reação: Eu Ilusório.'};
+        if(/realidade ilusória/i.test(gain)) return {kind:'Ao conjurar ilusão', use:'Torna parte da ilusão real temporariamente conforme regra.', sheet:'Lembrete em magias de Ilusão.'};
+        if(/colheita sombria/i.test(gain)) return {kind:'Ao matar com magia', use:'Quando matar criatura com magia, recupera PV conforme círculo da magia.', sheet:'Botão: aplicar Colheita Sombria.'};
+        if(/servos mortos-vivos/i.test(gain)) return {kind:'Ao criar morto-vivo', use:'Mortos-vivos criados ficam melhores conforme regra.', sheet:'Aplicar bônus nos servos.'};
+        if(/acostumado/i.test(gain)) return {kind:'Passivo', use:'Ganha defesa contra dano necrótico/redução de máximo de PV conforme regra.', sheet:'Mostrar defesa passiva.'};
+        if(/comandar mortos-vivos/i.test(gain)) return {kind:'Ação', use:'Tenta controlar morto-vivo conforme teste da regra.', sheet:'Ação: Comandar Morto-Vivo.'};
+        if(/alquimia menor/i.test(gain)) return {kind:'Ação/processo', use:'Transforma material temporariamente conforme regra.', sheet:'Ação utilitária: Alquimia Menor.'};
+        if(/pedra do transmutador/i.test(gain)) return {kind:'Após preparo', use:'Cria pedra e escolhe benefício ativo.', sheet:'Seletor: benefício da Pedra.'};
+        if(/metamorfo/i.test(gain)) return {kind:'Magia/uso', use:'Ganha transformação conforme regra.', sheet:'Ação especial: Metamorfo.'};
+        if(/mestre transmutador/i.test(gain)) return {kind:'Usar pedra', use:'Consome/usa a Pedra do Transmutador para efeito maior conforme regra.', sheet:'Botão: usar Pedra.'};
+      }
+
+      if(/magias de juramento|canalizar divindade/i.test(gain)) return {kind:'Recurso de classe', use:'Adiciona magias fixas e opções de Canalizar Divindade. Use conforme descanso/recurso da classe.', sheet:'Mostrar magias e canalizar.'};
+      if(/magias|conjuração/i.test(gain)) return {kind:'Magia', use:'Adiciona conjuração ou magias específicas da subclasse. Mostrar na ficha de magia.', sheet:'Atualizar magias/recurso.'};
+      if(/ataque|crítico|golpe|dano/i.test(gain)) return {kind:'Combate', use:'Use durante ataque/dano conforme condição descrita.', sheet:'Mostrar no bloco de ataques.'};
+      if(/reação|retaliação/i.test(gain)) return {kind:'Reação', use:'Use fora do seu turno quando o gatilho acontecer.', sheet:'Botão reação.'};
+      if(/aura/i.test(gain)) return {kind:'Aura/passivo', use:'Benefício passivo enquanto estiver consciente e dentro do alcance da aura.', sheet:'Mostrar aura ativa.'};
+      if(/proficiências|especialização|perícia/i.test(gain)) return {kind:'Passivo', use:'Atualiza perícias/proficiências do personagem.', sheet:'Aplicar em proficiências.'};
+      return {kind:'Consultar regra', use: row && row.note ? row.note : 'Benefício da escolha. Usar conforme gatilho descrito no livro.', sheet:'Mostrar como lembrete da subclasse.'};
+    }
+
     function renderMenuSubclassGuide(cls){
       const guide = $('#menuSubclassGuide');
       const select = $('#menuSubclassSelect');
@@ -9706,14 +9755,21 @@
       select.innerHTML = names.map(n=>`<option value="${escapeHtml(n)}">${escapeHtml(n)}</option>`).join('');
       select.value = names.includes(current) ? current : names[0];
       const selectedPath = select.value;
-      const rows = (data.paths[selectedPath] || []).map(row=>`
-        <tr>
-          <td><b>Nível ${num(row.level) || '-'}</b></td>
-          <td>${escapeHtml(selectedPath)}</td>
-          <td class="benefit-explain-cell"><b>${escapeHtml(row.gain || '-')}</b>${row.note ? `<small>${escapeHtml(row.note)}</small>` : ''}</td>
-          <td>${escapeHtml(row.note || '-')}</td>
-        </tr>
-      `).join('');
+      const rows = (data.paths[selectedPath] || []).map(row=>{
+        const hint = subclassUseHint(cls, selectedPath, row);
+        return `
+          <tr>
+            <td><b>Nível ${num(row.level) || '-'}</b></td>
+            <td>${escapeHtml(selectedPath)}</td>
+            <td class="benefit-explain-cell"><b>${escapeHtml(row.gain || '-')}</b>${row.note ? `<small>${escapeHtml(row.note)}</small>` : ''}</td>
+            <td class="how-use-cell">
+              <span class="how-use-kind">${escapeHtml(hint.kind)}</span>
+              <b>${escapeHtml(hint.use)}</b>
+              <small>${escapeHtml(hint.sheet)}</small>
+            </td>
+          </tr>
+        `;
+      }).join('');
       body.innerHTML = rows || '<tr><td colspan="4">Sem benefícios cadastrados para esta escolha.</td></tr>';
     }
 

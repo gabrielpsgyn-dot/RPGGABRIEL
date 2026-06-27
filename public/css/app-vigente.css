@@ -3670,3 +3670,46 @@ body:not(.menu-open) section.character-menu{
 .menu-guide-table td:has(> .benefit-explain-cell){
   min-width:260px !important;
 }
+
+
+/* =========================================================
+   AJUSTE VIGENTE — COMO USAR BENEFÍCIO DE SUBCLASSE
+   ========================================================= */
+
+.how-use-cell{
+  min-width:340px !important;
+}
+
+.how-use-kind{
+  display:inline-flex !important;
+  width:max-content !important;
+  border-radius:999px !important;
+  background:#061b24 !important;
+  border:1px solid rgba(216,173,98,.45) !important;
+  color:var(--gold-2) !important;
+  padding:4px 8px !important;
+  font-size:11px !important;
+  font-weight:950 !important;
+  margin-bottom:6px !important;
+}
+
+.how-use-cell b{
+  display:block !important;
+  color:#f3e9d2 !important;
+  font-size:13px !important;
+  line-height:1.32 !important;
+  margin-bottom:5px !important;
+}
+
+.how-use-cell small{
+  display:block !important;
+  color:#d6c9af !important;
+  font-size:11px !important;
+  line-height:1.3 !important;
+  font-weight:850 !important;
+}
+
+.menu-subclass-table th:nth-child(4),
+.menu-subclass-table td:nth-child(4){
+  min-width:360px !important;
+}
