@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mesa do Mestre - Versão Vigente</title>
-  <link rel="stylesheet" href="./css/app-vigente.css?v=racnivel16">
+  <link rel="stylesheet" href="./css/app-vigente.css?v=classesnivel17">
 </head>
 <body class="tema-maritimo-sombrio">
   <main class="app">
@@ -14,111 +14,7 @@
           <h1>Mesa do Mestre</h1>
           <small>Versão Vigente · regras do Guia do Mestre indexadas · tela de comando para sessão, turno, PV e condições</small>
         </div>
-        <button class="btn ghost small" onclick="location.href='./?v=racnivel16":'&#39;'}[ch]))}
-function num(v){const n=Number(v);return Number.isFinite(n)?n:0}
-function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
-function uid(p){return p+'_'+Math.random().toString(36).slice(2,9)}
-function loadLocal(k,f){try{return JSON.parse(localStorage.getItem(k)||JSON.stringify(f))}catch{return f}}
-function saveLocal(k,v){localStorage.setItem(k,JSON.stringify(v))}
-function toast(msg){const el=$('#toast');el.textContent=msg;el.style.opacity='1';clearTimeout(window.__toast);window.__toast=setTimeout(()=>el.style.opacity='0',2400)}
-function setAutoSaveStatus(msg,state='ok'){
-  const el=$('#masterAutoSaveStatus');
-  if(!el)return;
-  el.textContent=msg;
-  el.classList.remove('saving','ok','error');
-  el.classList.add(state);
-}
-async function autoSaveEntity(type,e,msg){
-  setAutoSaveStatus('Salvando automaticamente...', 'saving');
-  try{
-    if(type==='player') await savePlayer(e,msg||'Alteração salva automaticamente.');
-    else await saveEntity(type,e,msg||'Alteração salva automaticamente.');
-    setAutoSaveStatus('Auto-save concluído.', 'ok');
-  }catch(err){
-    setAutoSaveStatus('Falha no auto-save: '+err.message, 'error');
-    toast('Falha no auto-save: '+err.message);
-  }
-}
-
-function password(){return $('#masterPassword').value.trim() || localStorage.getItem(PASS_KEY) || ''}
-function savePassword(){if($('#masterPassword').value.trim())localStorage.setItem(PASS_KEY,$('#masterPassword').value.trim())}
-function deepMerge(a,b){if(Array.isArray(a))return Array.isArray(b)?b:a;if(a&&typeof a==='object'){const o={...a};if(b&&typeof b==='object')Object.keys(b).forEach(k=>o[k]=deepMerge(a[k],b[k]));return o}return b!==undefined?b:a}
-function blankPlayer(){return {id:'',meta:{nomePersonagem:'',classe:'',classeNivel:'',nivel:1,raca:'',nomeJogador:''},vida:{atuais:0,maximos:0,temporarios:0},combate:{classeArmadura:'',iniciativa:'',deslocamento:''},atributos:{},pericias:{},proficiencia:{bonus:2},bonusProficiencia:2,campanha:{corrupcao:0,faccao:'',pistasDecifradas:'',pressagioCurto:''},magia:{truques:[],niveis:{},grimorio:[]},descricao:{aparenciaImagem:'',historia:''},condicoes:[]}}
-function normalizePlayer(c){const p=deepMerge(blankPlayer(),c||{});p.id=(c&&c.id)||p.id;if(!p.meta.classe&&p.meta.classeNivel)p.meta.classe=String(p.meta.classeNivel).replace(/\bn[ií]vel\b.*$/i,'').replace(/\d+/g,'').replace(/[—-]/g,'').trim();if(!p.meta.nivel){const m=String(p.meta.classeNivel||'').match(/\b(1[0-9]|20|[1-9])\b/);p.meta.nivel=m?num(m[1]):1}p.condicoes=Array.isArray(p.condicoes)?p.condicoes:[];p.magia.grimorio=Array.isArray(p.magia.grimorio)?p.magia.grimorio:[];p.magia.truques=Array.isArray(p.magia.truques)?p.magia.truques:[];p.magia.niveis=p.magia.niveis||{};return p}
-function baseLocal(type){return {id:uid(type),name:type==='enemy'?'Novo inimigo':'Novo NPC',role:'',hp:10,hpMax:10,ac:10,initiative:0,conditions:[],notes:'',image:'',spells:[]}}
-
-function all(){return [...state.players.map(data=>({type:'player',data})),...state.enemies.map(data=>({type:'enemy',data})),...state.npcs.map(data=>({type:'npc',data}))]}
-function arr(type){return type==='player'?state.players:(type==='enemy'?state.enemies:state.npcs)}
-function find(type,id){return arr(type).find(x=>String(x.id)===String(id))||null}
-function selected(){return find(state.selectedType,state.selectedId)}
-function nameOf(type,e){return type==='player'?(e.meta.nomePersonagem||'Sem nome'):(e.name||'Sem nome')}
-function subOf(type,e){return type==='player'?([e.meta.classe||e.meta.classeNivel,'Nv. '+levelOf(e),e.meta.raca].filter(Boolean).join(' • ')):[type==='enemy'?'Inimigo':'NPC',e.role].filter(Boolean).join(' • ')}
-function levelOf(p){const d=num(p.meta.nivel);if(d>0)return d;const m=String(p.meta.classeNivel||'').match(/\d+/);return m?num(m[0]):1}
-function hpOf(type,e){return type==='player'?{now:num(e.vida.atuais),max:num(e.vida.maximos),temp:num(e.vida.temporarios)}:{now:num(e.hp),max:num(e.hpMax),temp:0}}
-function acOf(type,e){return type==='player'?(e.combate.classeArmadura||'-'):(e.ac||'-')}
-function iniOf(type,e){return type==='player'?num(e.combate.iniciativa):num(e.initiative)}
-function condOf(type,e){return type==='player'?(Array.isArray(e.condicoes)?e.condicoes:[]):(Array.isArray(e.conditions)?e.conditions:[])}
-function setCond(type,e,cond,on){const key=type==='player'?'condicoes':'conditions';e[key]=Array.isArray(e[key])?e[key]:[];if(on&&!e[key].includes(cond))e[key].push(cond);if(!on)e[key]=e[key].filter(x=>x!==cond)}
-function hpState(type,e){const h=hpOf(type,e);if(h.now<=0)return'dead';if(h.max&&h.now/h.max<=.35)return'low';return'ok'}
-function spellsOf(p){const out=[];(p.magia.grimorio||[]).forEach(s=>{const n=s.nome_pt||s.nome||s.name;if(n)out.push({name:n,level:s.nivel===0?'Truque':(s.nivel||'?')+'º'})});(p.magia.truques||[]).forEach(s=>{if(s&&s.nome)out.push({name:s.nome,level:'Truque'})});for(let i=1;i<=9;i++){const sec=p.magia.niveis&&p.magia.niveis[i];const list=sec&&Array.isArray(sec.magias)?sec.magias:[];list.forEach(s=>{if(s&&s.nome)out.push({name:s.nome,level:i+'º'})})}return out}
-function attrMod(score){const v=Number(score);return Math.floor(((Number.isFinite(v)?v:10)-10)/2)}
-function passive(p){const wis=num(p.atributos?.sabedoria?.valor||10);const prof=num(p.proficiencia?.bonus||p.bonusProficiencia||0);return 10+attrMod(wis)+(p.pericias?.percepcao?.proficiente?prof:0)}
-
-async function apiFetch(path,options={}){
-  const pwd=password();if(!pwd)throw new Error('Digite a senha da mesa.');
-  localStorage.setItem(PASS_KEY,pwd);
-  const headers={'Content-Type':'application/json','x-rpg-password':pwd,'x-campaign-id':CAMPAIGN_ID,'x-player-id':'mestre'};
-  const res=await fetch(API_BASE+path,{...options,headers:{...headers,...(options.headers||{})}});
-  const txt=await res.text();let data={};try{data=txt?JSON.parse(txt):{}}catch{data={ok:false,error:txt}}
-  if(!res.ok||data.ok===false)throw new Error(data.error||('Erro HTTP '+res.status));
-  return data;
-}
-async function loadPlayers(){
-  try{
-    $('#loadBtn').disabled=true;savePassword();
-    const listData=await apiFetch('/api/characters?campaignId='+encodeURIComponent(CAMPAIGN_ID),{method:'GET'});
-    const list=Array.isArray(listData.characters)?listData.characters:[];
-    const full=[];
-    for(const item of list){
-      const id=item.id||item.characterId;if(!id)continue;
-      try{const detail=await apiFetch('/api/characters/'+encodeURIComponent(id)+'?campaignId='+encodeURIComponent(CAMPAIGN_ID),{method:'GET'});full.push(normalizePlayer(detail.character||item))}
-      catch{full.push(normalizePlayer(item))}
-    }
-    state.players=full.sort((a,b)=>nameOf('player',a).localeCompare(nameOf('player',b),'pt-BR'));
-    ensureSelection();renderAll();toast('Mesa carregada.');
-  }catch(e){toast(e.message)}
-  finally{$('#loadBtn').disabled=false}
-}
-async function savePlayer(p,msg){
-  p.updatedAt=new Date().toISOString();
-  await apiFetch('/api/characters/'+encodeURIComponent(p.id),{method:'PUT',body:JSON.stringify({character:p,campaignId:CAMPAIGN_ID})});
-  renderAll();toast(msg||'Personagem salvo.');
-}
-function saveBoards(){saveLocal(ENEMY_KEY,state.enemies);saveLocal(NPC_KEY,state.npcs)}
-async function saveEntity(type,e,msg){if(type==='player')return savePlayer(e,msg);saveBoards();renderAll();toast(msg||'Salvo localmente.');return Promise.resolve({ok:true})}
-
-function order(){return all().sort((a,b)=>iniOf(b.type,b.data)-iniOf(a.type,a.data)||nameOf(a.type,a.data).localeCompare(nameOf(b.type,b.data),'pt-BR'))}
-function activeTurn(){const o=order();if(!o.length)return null;state.turnIndex=clamp(state.turnIndex,0,o.length-1);return o[state.turnIndex]}
-function persistTurn(){saveLocal(TURN_KEY,{round:state.round,turnIndex:state.turnIndex})}
-function restoreTurn(){const t=loadLocal(TURN_KEY,{round:1,turnIndex:0});state.round=t.round||1;state.turnIndex=t.turnIndex||0}
-function nextTurn(){const o=order();if(!o.length)return;state.turnIndex++;if(state.turnIndex>=o.length){state.turnIndex=0;state.round++}const a=activeTurn();if(a)select(a.type,a.data.id);persistTurn();renderAll()}
-function prevTurn(){const o=order();if(!o.length)return;state.turnIndex--;if(state.turnIndex<0){state.turnIndex=Math.max(0,o.length-1);state.round=Math.max(1,state.round-1)}const a=activeTurn();if(a)select(a.type,a.data.id);persistTurn();renderAll()}
-function resetRound(){state.round++;state.turnIndex=0;persistTurn();renderAll()}
-function select(type,id){state.selectedType=type;state.selectedId=id;renderAll()}
-function ensureSelection(){if(selected())return;const a=activeTurn();if(a){state.selectedType=a.type;state.selectedId=a.data.id;return}const f=all()[0];if(f){state.selectedType=f.type;state.selectedId=f.data.id}}
-
-function visible(){
-  const q=String($('#searchInput')?.value||'').toLowerCase().trim();
-  const tf=$('#typeFilter')?.value||'';const hf=$('#hpFilter')?.value||'';
-  return all().filter(it=>{
-    if(tf&&it.type!==tf)return false;
-    const e=it.data;const hps=hpState(it.type,e);
-    if(hf&&hps!==hf)return false;
-    const text=[nameOf(it.type,e),subOf(it.type,e),it.type==='player'?e.meta.nomeJogador:'',it.type==='player'?e.campanha.faccao:e.role].join(' ').toLowerCase();
-    return !q||text.includes(q);
-  });
-}
-function hpBar(type,e){const h=hpOf(type,e);const pct=h.max?clamp(h.now/h.max*100,0,100):0;const st=hpState(type,e);return `<div class="hpbar"><span>PV</span><div class="track"><div class="fill ${st==='dead'?'dead':st==='low'?'low':''}" style="width:${pct}%"></div></div><b>${h.now}/${h.max||0}</b></div>`}
+        <button class="btn ghost small" onclick="location.href='./?v=classesnivel17"hpbar"><span>PV</span><div class="track"><div class="fill ${st==='dead'?'dead':st==='low'?'low':''}" style="width:${pct}%"></div></div><b>${h.now}/${h.max||0}</b></div>`}
 function entityCard(type,e){
   const active=state.selectedType===type&&String(state.selectedId)===String(e.id);
   const st=hpState(type,e);const img=type==='player'?e.descricao?.aparenciaImagem:e.image;

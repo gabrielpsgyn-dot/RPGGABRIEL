@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RPG Gabriel - Ficha Online Versão Vigente</title>
-  <link rel="stylesheet" href="./css/app-vigente.css?v=racnivel16">
+  <link rel="stylesheet" href="./css/app-vigente.css?v=classesnivel17">
 </head>
 <!-- RPGGABRIEL Versão Vigente LIVRO DO JOGADOR OFICIAL SEM ACHISMO -->
 <body class="menu-open tema-maritimo-sombrio">
@@ -23,6 +23,7 @@
 
       <div class="menu-creation-tabs">
         <button class="menu-create-tab active" data-menu-create-tab="menuCharactersView">Personagens</button>
+        <button class="menu-create-tab" data-menu-create-tab="menuClassesView">Classes por nível</button>
         <button class="menu-create-tab" data-menu-create-tab="menuRacesView">Raças e bônus</button>
         <button class="menu-create-tab" data-menu-create-tab="menuBackgroundsView">Antecedentes</button>
       </div>
@@ -44,6 +45,39 @@
               <button class="btn secondary" id="importJsonBtn">Importar ficha JSON</button>
             </div>
             <div class="status-line" id="onlineBadge">Pronto.</div>
+          </div>
+        </div>
+
+        <div class="menu-create-view" id="menuClassesView">
+          <div class="menu-panel menu-guide-panel">
+            <div class="menu-panel-head">
+              <div>
+                <h2>Classes por nível</h2>
+                <p>Esta é a tabela que mostra o que o personagem libera ao subir de nível. Ex.: Mago nível 3 libera espaços de magia de 2º círculo.</p>
+              </div>
+            </div>
+            <div class="menu-guide-tools menu-class-tools">
+              <select id="menuClassSelect"></select>
+              <input class="menu-search" id="menuClassSearch" placeholder="Buscar nível, habilidade, magia, escolha...">
+            </div>
+            <div class="menu-guide-note menu-class-note">
+              Aqui é onde fica a progressão por nível. Raça e antecedente entram na criação; classe é o que mais muda quando o personagem sobe de nível.
+            </div>
+            <div class="menu-class-summary" id="menuClassSummary"></div>
+            <div class="menu-guide-table-wrap">
+              <table class="menu-guide-table menu-class-level-table">
+                <thead>
+                  <tr>
+                    <th>Nível</th>
+                    <th>Bônus de proficiência</th>
+                    <th>O que ganha/libera</th>
+                    <th>Escolhas do jogador</th>
+                    <th>Magias / espaços</th>
+                  </tr>
+                </thead>
+                <tbody id="menuClassLevelTableBody"></tbody>
+              </table>
+            </div>
           </div>
         </div>
 
@@ -122,7 +156,7 @@
       </div>
 
       <div class="menu-footer-actions">
-        <a class="btn secondary master-link" href="/mestre.html?v=racnivel16">Página do Mestre</a>
+        <a class="btn secondary master-link" href="/mestre.html?v=classesnivel17">Página do Mestre</a>
       </div>
     </div>
   </section>
@@ -365,8 +399,8 @@
                 <div id="rulesAuditSummary" class="rules-audit-box"></div>
                 <div class="rules-audit-actions">
                   <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                  <a class="btn small secondary" href="criador.html?v=racnivel16" target="_blank">Criador livre</a>
-                  <a class="btn small primary" href="livro-regras.html?v=racnivel16" target="_blank">Livro de Regras</a>
+                  <a class="btn small secondary" href="criador.html?v=classesnivel17" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=classesnivel17" target="_blank">Livro de Regras</a>
                 </div>
               </details>
             </div>
@@ -9395,6 +9429,109 @@
       ].join(' ').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
     }
 
+
+    function classFeatureNamesForLevel(rule, level){
+      const list = (rule.features && rule.features[level]) || [];
+      return Array.isArray(list) ? list : [];
+    }
+
+    function classChoicesForExactLevel(cls, level){
+      const detail = classBookDetails(cls);
+      const out = [];
+      const direct = detail.choicesByLevel && detail.choicesByLevel[String(level)];
+      if(Array.isArray(direct)) direct.forEach(x=>out.push(x));
+      if(getAsiLevelsForClass(cls).includes(level)) out.push('Melhoria de atributo ou talento se permitido');
+      return Array.from(new Set(out));
+    }
+
+    function spellSlotSummaryForClassLevel(cls, level){
+      const rule = getAllClassRules()[cls] || {};
+      if(!rule || rule.casting === 'none') return 'Sem conjuração neste nível.';
+      const slots = getClassSpellSlots(cls, level) || [];
+      const slotText = slots.map((q,i)=>q ? `${q} espaço(s) de ${i+1}º` : '').filter(Boolean).join(', ');
+      if(rule.casting === 'pact'){
+        const pact = PACT_SLOTS[level] || {};
+        return pact.total ? `Magia de Pacto: ${pact.total} espaço(s), nível do espaço ${pact.slotLevel}º.` : (slotText || 'Sem espaço de pacto.');
+      }
+      return slotText || 'Sem espaços de magia.';
+    }
+
+    function classUnlockSummary(cls, level){
+      const rule = getAllClassRules()[cls] || {};
+      const features = classFeatureNamesForLevel(rule, level);
+      const slots = spellSlotSummaryForClassLevel(cls, level);
+      const unlocks = [];
+      if(features.length) unlocks.push(...features);
+      if(rule.casting !== 'none' && slots && !/^Sem/.test(slots)) unlocks.push(slots);
+      return unlocks.join(' • ') || 'Sem habilidade nova cadastrada; mantém progressão do personagem.';
+    }
+
+    function classLevelSearchBlob(cls, level){
+      const rule = getAllClassRules()[cls] || {};
+      return [
+        cls,
+        'nível ' + level,
+        'nivel ' + level,
+        'proficiência ' + levelProfBonus(level),
+        classUnlockSummary(cls, level),
+        classChoicesForExactLevel(cls, level).join(' '),
+        spellSlotSummaryForClassLevel(cls, level),
+        rule.hitDie,
+        rule.casting,
+        rule.spellAbility
+      ].join(' ').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+    }
+
+    function renderMenuClassOptions(){
+      const select = $('#menuClassSelect');
+      if(!select) return;
+      const current = select.value || (activeChar() && activeChar().meta && activeChar().meta.classe) || 'Mago';
+      const names = getAllClassNames();
+      select.innerHTML = names.map(name=>`<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`).join('');
+      select.value = names.includes(current) ? current : (names.includes('Mago') ? 'Mago' : names[0] || '');
+    }
+
+    function renderMenuClassGuide(){
+      const body = $('#menuClassLevelTableBody');
+      if(!body) return;
+      renderMenuClassOptions();
+      const select = $('#menuClassSelect');
+      const cls = select && select.value ? select.value : 'Mago';
+      const rule = getAllClassRules()[cls] || {};
+      const detail = classBookDetails(cls);
+      const q = String($('#menuClassSearch') ? $('#menuClassSearch').value : '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
+      const summary = $('#menuClassSummary');
+
+      if(summary){
+        const spellAbility = rule.spellAbility ? attributeLabelByKey(rule.spellAbility) : 'Não conjura';
+        const castingLabel = rule.casting === 'full' ? 'Conjurador completo' : rule.casting === 'half' ? 'Meio conjurador' : rule.casting === 'pact' ? 'Magia de pacto' : 'Sem conjuração';
+        summary.innerHTML = `
+          <div class="menu-class-card"><span>Classe</span><b>${escapeHtml(cls)}</b><small>${escapeHtml(detail.source || 'Livro do Jogador')}</small></div>
+          <div class="menu-class-card"><span>Dado de vida</span><b>${escapeHtml(rule.hitDie || '-')}</b><small>usado para PV ao subir de nível</small></div>
+          <div class="menu-class-card"><span>Conjuração</span><b>${escapeHtml(castingLabel)}</b><small>${escapeHtml(spellAbility)}</small></div>
+          <div class="menu-class-card"><span>Subclasse</span><b>${escapeHtml(detail.subclassLabel || detail.pathLabel || 'Caminho')}</b><small>${detail.subclassLevel || detail.pathLevel ? 'nível ' + (detail.subclassLevel || detail.pathLevel) : '-'}</small></div>
+        `;
+      }
+
+      const rows = [];
+      for(let level=1; level<=20; level++){
+        if(q && !classLevelSearchBlob(cls, level).includes(q)) continue;
+        const features = classFeatureNamesForLevel(rule, level);
+        const choices = classChoicesForExactLevel(cls, level);
+        const slots = spellSlotSummaryForClassLevel(cls, level);
+        rows.push(`
+          <tr class="${level === 3 && cls === 'Mago' ? 'example-level-row' : ''}">
+            <td><b>Nível ${level}</b></td>
+            <td>+${levelProfBonus(level)}</td>
+            <td>${features.length ? escapeHtml(features.join(' • ')) : 'Sem habilidade nova cadastrada.'}</td>
+            <td>${choices.length ? escapeHtml(choices.join(' • ')) : '-'}</td>
+            <td>${escapeHtml(slots)}</td>
+          </tr>
+        `);
+      }
+      body.innerHTML = rows.length ? rows.join('') : '<tr><td colspan="5">Nenhum nível encontrado.</td></tr>';
+    }
+
     function renderMenuRaceGuide(){
       const body = $('#menuRaceTableBody');
       if(!body) return;
@@ -9487,6 +9624,7 @@
     }
 
     function renderMenuCreationGuides(){
+      renderMenuClassGuide();
       renderMenuRaceGuide();
       renderMenuBackgroundGuide();
     }
@@ -10300,7 +10438,9 @@
       const raceGuideFilter = $('#raceGuideFilter'); if(raceGuideFilter) raceGuideFilter.addEventListener('change', renderRaceGuide);
             const inventorySearchInput = $('#inventorySearchInput'); if(inventorySearchInput) inventorySearchInput.addEventListener('input', renderInventory);
       const inventoryCategoryFilter = $('#inventoryCategoryFilter'); if(inventoryCategoryFilter) inventoryCategoryFilter.addEventListener('change', renderInventory);
-      const menuRaceSearch = $('#menuRaceSearch'); if(menuRaceSearch) menuRaceSearch.addEventListener('input', renderMenuRaceGuide);
+      const menuClassSelect = $('#menuClassSelect'); if(menuClassSelect) menuClassSelect.addEventListener('change', renderMenuClassGuide);
+      const menuClassSearch = $('#menuClassSearch'); if(menuClassSearch) menuClassSearch.addEventListener('input', renderMenuClassGuide);
+            const menuRaceSearch = $('#menuRaceSearch'); if(menuRaceSearch) menuRaceSearch.addEventListener('input', renderMenuRaceGuide);
       const menuRaceFilter = $('#menuRaceFilter'); if(menuRaceFilter) menuRaceFilter.addEventListener('change', renderMenuRaceGuide);
       const menuBackgroundSearch = $('#menuBackgroundSearch'); if(menuBackgroundSearch) menuBackgroundSearch.addEventListener('input', renderMenuBackgroundGuide);
       const menuBackgroundFilter = $('#menuBackgroundFilter'); if(menuBackgroundFilter) menuBackgroundFilter.addEventListener('change', renderMenuBackgroundGuide);

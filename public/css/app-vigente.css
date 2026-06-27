@@ -3169,3 +3169,68 @@ body:not(.menu-open) section.character-menu{
 .menu-guide-note b{
   color:var(--gold-2) !important;
 }
+
+
+/* =========================================================
+   AJUSTE VIGENTE — TABELA DE CLASSES POR NÍVEL
+   ========================================================= */
+
+.menu-class-tools{
+  grid-template-columns:260px minmax(0,1fr) !important;
+}
+
+.menu-class-summary{
+  display:grid !important;
+  grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+  gap:10px !important;
+  margin:10px 0 12px !important;
+}
+
+.menu-class-card{
+  background:#061b24 !important;
+  border:1px solid rgba(120,205,208,.28) !important;
+  border-radius:14px !important;
+  padding:10px !important;
+  display:grid !important;
+  gap:3px !important;
+}
+
+.menu-class-card span{
+  color:var(--muted) !important;
+  font-size:10.5px !important;
+  text-transform:uppercase !important;
+  letter-spacing:.04em !important;
+  font-weight:950 !important;
+}
+
+.menu-class-card b{
+  color:var(--gold-2) !important;
+  font-size:16px !important;
+  line-height:1.15 !important;
+}
+
+.menu-class-card small{
+  color:#d6c9af !important;
+  line-height:1.25 !important;
+}
+
+.menu-class-level-table td:nth-child(1){
+  white-space:nowrap !important;
+}
+
+.menu-class-level-table td:nth-child(5){
+  min-width:220px !important;
+}
+
+.menu-guide-table tr.example-level-row td{
+  border-top:2px solid rgba(216,173,98,.75) !important;
+  border-bottom:2px solid rgba(216,173,98,.55) !important;
+  background:#103743 !important;
+}
+
+@media(max-width:900px){
+  .menu-class-tools,
+  .menu-class-summary{
+    grid-template-columns:1fr !important;
+  }
+}
