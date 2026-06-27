@@ -726,3 +726,275 @@ td{color:var(--text)}
     grid-template-columns:1fr !important;
   }
 }
+
+
+/* Ajuste de distribuição — título com nome do personagem */
+.dash-title{margin-bottom:4px !important;}
+.dash-subtitle{
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+  margin: 0 0 14px;
+}
+.compact-identity-grid{
+  display:block !important;
+}
+.header-fields-full{
+  display:grid !important;
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  gap:14px !important;
+}
+.field-span-2{grid-column:1 / -1 !important;}
+.identity-name-field input{
+  font-size:20px !important;
+  font-weight:900 !important;
+  letter-spacing:.01em;
+}
+@media(max-width:900px){
+  .header-fields-full{grid-template-columns:1fr !important;}
+  .field-span-2{grid-column:auto !important;}
+}
+
+
+/* =========================================================
+   AJUSTE VIGENTE — TOPO REDUZIDO + DADOS ORGANIZADOS
+   1) Status superior mais baixo.
+   2) Dados principais em distribuição limpa.
+   ========================================================= */
+
+/* TOPO / STATUS */
+.dash{
+  padding:14px 16px !important;
+  margin-bottom:14px !important;
+}
+
+.dash-title{
+  font-size:24px !important;
+  line-height:1.05 !important;
+  margin-bottom:2px !important;
+}
+
+.dash-subtitle{
+  margin:0 0 10px !important;
+  font-size:13px !important;
+  line-height:1.2 !important;
+  color:var(--muted) !important;
+}
+
+.dash-grid{
+  grid-template-columns:78px minmax(0,1fr) !important;
+  gap:14px !important;
+  align-items:center !important;
+}
+
+.app .avatar,
+#dashAvatar{
+  width:78px !important;
+  height:92px !important;
+  border-radius:14px !important;
+}
+
+.bars{
+  gap:7px !important;
+  margin-bottom:10px !important;
+}
+
+.bar-row{
+  grid-template-columns:86px minmax(0,1fr) 58px !important;
+  gap:8px !important;
+}
+
+.bar-label{
+  font-size:11px !important;
+}
+
+.bar{
+  height:13px !important;
+}
+
+.bar-value{
+  font-size:14px !important;
+}
+
+.dash-inputs{
+  grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+  gap:8px !important;
+}
+
+.dash-inputs .field{
+  padding:7px !important;
+  border-radius:12px !important;
+}
+
+.dash-inputs label{
+  font-size:11px !important;
+  margin-bottom:5px !important;
+}
+
+.hp-stepper,
+.stat-stepper{
+  grid-template-columns:34px minmax(0,1fr) 34px !important;
+  gap:5px !important;
+}
+
+.hp-step-btn,
+.stat-step-btn{
+  min-height:34px !important;
+}
+
+.hp-stepper input,
+.stat-stepper input,
+.dash-inputs input{
+  min-height:34px !important;
+  padding:6px 9px !important;
+}
+
+/* IDENTIDADE / DADOS PRINCIPAIS */
+.compact-identity-grid{
+  margin-bottom:14px !important;
+}
+
+.header-fields-full{
+  grid-template-columns:1.4fr .45fr 1fr 1fr !important;
+  gap:10px !important;
+  align-items:end !important;
+}
+
+.field-span-4{
+  grid-column:1 / -1 !important;
+}
+
+.field-span-2{
+  grid-column:span 2 !important;
+}
+
+.identity-name-field{
+  padding:10px !important;
+  background:linear-gradient(180deg,#0f3440,#08232d) !important;
+  border:1px solid rgba(198,154,77,.45) !important;
+  border-radius:14px !important;
+}
+
+.identity-name-field input{
+  min-height:44px !important;
+  font-size:22px !important;
+  font-weight:950 !important;
+  letter-spacing:.02em !important;
+}
+
+.identity-classe-field{
+  grid-column:span 2 !important;
+}
+
+.identity-nivel-field{
+  grid-column:span 1 !important;
+}
+
+.identity-antecedente-field{
+  grid-column:span 1 !important;
+}
+
+.identity-raca-field,
+.identity-jogador-field{
+  grid-column:span 2 !important;
+}
+
+.identity-alinhamento-field,
+.identity-xp-field{
+  grid-column:span 2 !important;
+}
+
+.header-fields-full .field{
+  min-height:0 !important;
+}
+
+.header-fields-full label{
+  font-size:11px !important;
+  margin-bottom:5px !important;
+}
+
+.header-fields-full input,
+.header-fields-full select{
+  min-height:42px !important;
+  padding:7px 10px !important;
+}
+
+.contextual-choice-field{
+  align-self:end !important;
+}
+
+.contextual-choice-field .context-hint{
+  display:block !important;
+  margin-top:5px !important;
+  color:var(--muted) !important;
+  font-size:12px !important;
+  line-height:1.25 !important;
+}
+
+/* Remove sensação de caixas enormes vazias nos dados superiores. */
+.name-box{
+  display:none !important;
+}
+
+/* Responsivo */
+@media(max-width:1050px){
+  .header-fields-full{
+    grid-template-columns:1fr 1fr !important;
+  }
+
+  .field-span-4,
+  .field-span-2,
+  .identity-classe-field,
+  .identity-raca-field,
+  .identity-jogador-field,
+  .identity-alinhamento-field,
+  .identity-xp-field{
+    grid-column:span 2 !important;
+  }
+}
+
+@media(max-width:760px){
+  .dash-grid{
+    grid-template-columns:70px minmax(0,1fr) !important;
+    gap:10px !important;
+  }
+
+  .app .avatar,
+  #dashAvatar{
+    width:70px !important;
+    height:84px !important;
+  }
+
+  .bar-row{
+    grid-template-columns:1fr !important;
+    gap:4px !important;
+  }
+
+  .bar-value{
+    text-align:left !important;
+  }
+
+  .dash-inputs{
+    grid-template-columns:1fr 1fr !important;
+  }
+}
+
+@media(max-width:560px){
+  .header-fields-full{
+    grid-template-columns:1fr !important;
+  }
+
+  .field-span-4,
+  .field-span-2,
+  .identity-classe-field,
+  .identity-raca-field,
+  .identity-jogador-field,
+  .identity-alinhamento-field,
+  .identity-xp-field{
+    grid-column:auto !important;
+  }
+
+  .dash-inputs{
+    grid-template-columns:1fr !important;
+  }
+}

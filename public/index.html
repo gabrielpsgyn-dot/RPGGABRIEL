@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RPG Gabriel - Ficha Online Versão Vigente</title>
-  <link rel="stylesheet" href="./css/app-vigente.css?v=layoutpolido3">
+  <link rel="stylesheet" href="./css/app-vigente.css?v=topodados4">
 </head>
 <!-- RPGGABRIEL Versão Vigente LIVRO DO JOGADOR OFICIAL SEM ACHISMO -->
 <body class="menu-open tema-maritimo-sombrio">
@@ -67,7 +67,8 @@
       <div class="page active" id="sheetPage">
 
         <div class="dash">
-          <div class="dash-title">Status do personagem</div>
+          <div class="dash-title" id="dashCharacterTitle">Personagem</div>
+          <div class="dash-subtitle" id="dashCharacterMeta">Resumo rápido do personagem</div>
           <div class="dash-grid">
             <div class="avatar" id="dashAvatar">Imagem</div>
             <div>
@@ -118,13 +119,13 @@
             </div>
           </div>
         </div>
-        <div class="header-grid">
-          <div class="name-box">
-            <label>Nome do personagem</label>
-            <input data-path="meta.nomePersonagem" placeholder="Nome do personagem">
-          </div>
-          <div class="header-fields">
-            <div class="field">
+        <div class="header-grid compact-identity-grid">
+          <div class="header-fields header-fields-full">
+            <div class="field field-span-4 identity-name-field">
+              <label>Nome do personagem</label>
+              <input data-path="meta.nomePersonagem" placeholder="Nome do personagem">
+            </div>
+            <div class="field identity-classe-field">
               <label>Classe</label>
               <select data-path="meta.classe" id="characterClassSelect">
                 <option value="">Escolher classe</option>
@@ -142,11 +143,11 @@
                 <option>Patrulheiro</option>
               </select>
             </div>
-            <div class="field"><label>Nível</label><input data-path="meta.nivel" type="number" min="1" max="20"></div>
-            <div class="field contextual-choice-field hidden" id="classPathField"><label id="classPathLabel">Caminho / Subclasse</label><select data-path="classeInfo.subclasse" id="classPathSelect"><option value="">Escolher quando liberar</option></select><small class="context-hint" id="classPathHint"></small></div>
-            <div class="field"><label>Antecedente</label><input data-path="meta.antecedente" list="backgroundOptions" placeholder="Escolher ou digitar"><datalist id="backgroundOptions"><option value="Acólito"></option><option value="Artesão de Guilda"></option><option value="Artista"></option><option value="Charlatão"></option><option value="Criminoso"></option><option value="Eremita"></option><option value="Forasteiro"></option><option value="Herói do Povo"></option><option value="Marinheiro"></option><option value="Nobre"></option><option value="Órfão"></option><option value="Sábio"></option><option value="Soldado"></option></datalist></div>
-            <div class="field"><label>Nome do jogador</label><input data-path="meta.nomeJogador"></div>
-            <div class="field">
+            <div class="field identity-nivel-field"><label>Nível</label><input data-path="meta.nivel" type="number" min="1" max="20"></div>
+            <div class="field contextual-choice-field field-span-2 hidden" id="classPathField"><label id="classPathLabel">Caminho / Subclasse</label><select data-path="classeInfo.subclasse" id="classPathSelect"><option value="">Escolher quando liberar</option></select><small class="context-hint" id="classPathHint"></small></div>
+            <div class="field identity-antecedente-field"><label>Antecedente</label><input data-path="meta.antecedente" list="backgroundOptions" placeholder="Escolher ou digitar"><datalist id="backgroundOptions"><option value="Acólito"></option><option value="Artesão de Guilda"></option><option value="Artista"></option><option value="Charlatão"></option><option value="Criminoso"></option><option value="Eremita"></option><option value="Forasteiro"></option><option value="Herói do Povo"></option><option value="Marinheiro"></option><option value="Nobre"></option><option value="Órfão"></option><option value="Sábio"></option><option value="Soldado"></option></datalist></div>
+            <div class="field identity-jogador-field"><label>Nome do jogador</label><input data-path="meta.nomeJogador"></div>
+            <div class="field identity-raca-field">
               <label>Raça / Linhagem</label>
               <input data-path="meta.raca" list="raceOptions" placeholder="Escolher ou digitar">
               <datalist id="raceOptions">
@@ -171,8 +172,8 @@
                 <option value="Tiefling"></option>
               </datalist>
             </div>
-            <div class="field"><label>Alinhamento</label><input data-path="meta.alinhamento"></div>
-            <div class="field"><label>Pontos de experiência</label><input data-path="meta.experiencia" type="number"></div>
+            <div class="field identity-alinhamento-field"><label>Alinhamento</label><input data-path="meta.alinhamento"></div>
+            <div class="field identity-xp-field"><label>Pontos de experiência</label><input data-path="meta.experiencia" type="number"></div>
           </div>
         </div>
 
@@ -7737,6 +7738,16 @@
       $('#hpValue').textContent = hpMax ? hpNow + '/' + hpMax : '0/0';
       $('#levelValue').textContent = 'Nv. ' + level;
       $('#corruptionValue').textContent = corr + '/10';
+      const charName = String((c.meta && c.meta.nomePersonagem) || '').trim() || 'Personagem';
+      const titleEl = $('#dashCharacterTitle'); if(titleEl) titleEl.textContent = charName;
+      const metaEl = $('#dashCharacterMeta');
+      if(metaEl){
+        const metaParts = [];
+        if(c.meta?.classe) metaParts.push(c.meta.classe);
+        metaParts.push('nível ' + level);
+        if(c.meta?.raca) metaParts.push(c.meta.raca);
+        metaEl.textContent = metaParts.join(' • ');
+      }
       const img=c.descricao.aparenciaImagem;
       $('#dashAvatar').innerHTML = img ? `<img class="sheet-avatar-img" src="${img}" alt="Imagem do personagem">` : '<span>Sem imagem</span>';
     }
