@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RPG Gabriel - Ficha Online Versão Vigente</title>
-  <link rel="stylesheet" href="./css/app-vigente.css?v=comousar25">
+  <link rel="stylesheet" href="./css/app-vigente.css?v=semconsultar26">
 </head>
 <!-- RPGGABRIEL Versão Vigente LIVRO DO JOGADOR OFICIAL SEM ACHISMO -->
 <body class="menu-open tema-maritimo-sombrio">
@@ -80,7 +80,7 @@
                       <th>Nível</th>
                       <th>Escolha</th>
                       <th>O que ganha</th>
-                      <th>Como o jogador usa</th>
+                      <th>Como usar em jogo</th>
                     </tr>
                   </thead>
                   <tbody id="menuSubclassTableBody"></tbody>
@@ -172,7 +172,7 @@
       </div>
 
       <div class="menu-footer-actions">
-        <a class="btn secondary master-link" href="/mestre.html?v=comousar25">Página do Mestre</a>
+        <a class="btn secondary master-link" href="/mestre.html?v=semconsultar26">Página do Mestre</a>
       </div>
     </div>
   </section>
@@ -415,8 +415,8 @@
                 <div id="rulesAuditSummary" class="rules-audit-box"></div>
                 <div class="rules-audit-actions">
                   <button class="btn small secondary" id="reapplyAllRulesBtn" type="button">Reaplicar classe, raça e antecedente</button>
-                  <a class="btn small secondary" href="criador.html?v=comousar25" target="_blank">Criador livre</a>
-                  <a class="btn small primary" href="livro-regras.html?v=comousar25" target="_blank">Livro de Regras</a>
+                  <a class="btn small secondary" href="criador.html?v=semconsultar26" target="_blank">Criador livre</a>
+                  <a class="btn small primary" href="livro-regras.html?v=semconsultar26" target="_blank">Livro de Regras</a>
                 </div>
               </details>
             </div>
@@ -9638,7 +9638,7 @@
       },
       "Bárbaro": {label:"Caminho Primitivo", level:3, paths:{
         "Caminho do Furioso":[{level:3,gain:"Frenesi",note:"Fúria agressiva do caminho."},{level:6,gain:"Fúria Inconsciente",note:"Defesa contra medo/encantamento conforme regra."},{level:10,gain:"Presença Intimidante",note:"Amedronta criatura."},{level:14,gain:"Retaliação",note:"Reage contra quem causa dano."}],
-        "Caminho do Guerreiro Totêmico":[{level:3,gain:"Buscador Espiritual; Espírito Totêmico",note:"Escolhe totem e ganha benefício inicial."},{level:6,gain:"Aspecto da Besta",note:"Novo benefício do totem."},{level:10,gain:"Andarilho Espiritual",note:"Comunicação/ritual espiritual conforme regra."},{level:14,gain:"Sintonia Totêmica",note:"Benefício final do totem escolhido."}]
+        "Caminho do Guerreiro Totêmico":[{level:3,gain:"Buscador Espiritual; Espírito Totêmico",note:"Escolha Urso, Águia ou Lobo. Urso: durante a fúria, resistência a quase todo dano exceto psíquico. Águia: durante a fúria, dificulta ataques de oportunidade contra você. Lobo: durante a fúria, aliados têm vantagem contra inimigos próximos a você."},{level:6,gain:"Aspecto da Besta",note:"Escolha um aspecto. Urso: capacidade de carga/força para empurrar, puxar e erguer aumenta. Águia: visão muito ampliada e melhor em detalhes distantes. Lobo: rastrear em ritmo rápido e furtividade/movimento de viagem conforme regra."},{level:10,gain:"Andarilho Espiritual",note:"Você pode conjurar Comunhão com a Natureza como ritual para receber orientação espiritual sobre o ambiente."},{level:14,gain:"Sintonia Totêmica",note:"Escolha sintonia final. Urso: inimigos próximos têm desvantagem contra seus aliados. Águia: ganha voo curto durante a fúria no seu turno. Lobo: pode derrubar criatura Grande ou menor quando acerta ataque corpo a corpo durante a fúria."}]
       }},
       "Bardo": {label:"Colégio de Bardo", level:3, paths:{
         "Colégio do Conhecimento":[{level:3,gain:"Proficiências Bônus; Palavras de Interrupção",note:"Mais perícias e uso defensivo/ofensivo da inspiração."},{level:6,gain:"Segredos Mágicos Adicionais",note:"Aprende magias de outras listas."},{level:14,gain:"Perícia Inigualável",note:"Usa inspiração em testes próprios."}],
@@ -9693,6 +9693,13 @@
       const gain = String(row && row.gain || '');
       const key = `${cls}|${path}|${gain}`.toLowerCase();
 
+      if(cls === 'Bárbaro' && /Guerreiro Totêmico/i.test(path)){
+        if(/Espírito Totêmico/i.test(gain)) return {kind:'Escolha no nível 3', use:'Escolha Urso, Águia ou Lobo. Use o benefício durante a Fúria conforme o totem escolhido.', sheet:'Campo na ficha: Totem escolhido + lembrete dentro de Fúria.'};
+        if(/Aspecto da Besta/i.test(gain)) return {kind:'Benefício passivo', use:'Escolha o aspecto e aplique como benefício constante de exploração/movimento/capacidade física.', sheet:'Campo na ficha: Aspecto da Besta ativo.'};
+        if(/Andarilho Espiritual/i.test(gain)) return {kind:'Ritual', use:'Use Comunhão com a Natureza como ritual para obter informação do ambiente.', sheet:'Ação utilitária: Comunhão com a Natureza.'};
+        if(/Sintonia Totêmica/i.test(gain)) return {kind:'Durante Fúria', use:'Escolha a sintonia final e aplique em combate durante a Fúria conforme Urso, Águia ou Lobo.', sheet:'Lembrete no bloco de Fúria / combate.'};
+      }
+
       if(cls === 'Mago'){
         if(/sábio|erudição/i.test(gain)) return {kind:'Passivo', use:'Use quando copiar magia dessa escola no grimório: reduz tempo/custo conforme a tradição.', sheet:'Anotar no grimório / copiar magia.'};
         if(/proteção arcana/i.test(gain)) return {kind:'Automático ao conjurar', use:'Quando conjurar magia de Abjuração de 1º círculo ou maior, cria/recupera Proteção Arcana. Use essa proteção para absorver dano antes do PV.', sheet:'Criar campo: Proteção Arcana atual/máxima.'};
@@ -9734,7 +9741,7 @@
       if(/reação|retaliação/i.test(gain)) return {kind:'Reação', use:'Use fora do seu turno quando o gatilho acontecer.', sheet:'Botão reação.'};
       if(/aura/i.test(gain)) return {kind:'Aura/passivo', use:'Benefício passivo enquanto estiver consciente e dentro do alcance da aura.', sheet:'Mostrar aura ativa.'};
       if(/proficiências|especialização|perícia/i.test(gain)) return {kind:'Passivo', use:'Atualiza perícias/proficiências do personagem.', sheet:'Aplicar em proficiências.'};
-      return {kind:'Consultar regra', use: row && row.note ? row.note : 'Benefício da escolha. Usar conforme gatilho descrito no livro.', sheet:'Mostrar como lembrete da subclasse.'};
+      return {kind:'Benefício de subclasse', use: row && row.note ? row.note : 'Use quando o gatilho do benefício acontecer.', sheet:'Mostrar o benefício e o gatilho na ficha.'};
     }
 
     function renderMenuSubclassGuide(cls){
